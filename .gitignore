@@ -1,1 +1,6 @@
-/.idea
+.idea
+node_modules
+dist/
+src/build/
+
+/package-lock.json
