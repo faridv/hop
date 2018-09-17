@@ -1,7 +1,69 @@
 {
 	"version": "0.0.1",
 	"title": "HOP: HbbTV Open Platform",
-	"apps": [],
-	"theme": "default",
-	"layout": "720p"
+    "container": "#app",
+    "locale": "fa",
+    "timeout": 500,
+    "transitionSpeed": 450,
+    "clockUpdateInterval": 600000,
+    "theme": "default",
+    "hd": true,
+    "resolution": "720",
+	"applications": [
+        {
+            "button": {
+                "key": "space",
+                "image": "assets/img/redbutton.png",
+                "position": "bottom: 0; right: 0;"
+            },
+            "clock": true,
+            "connectionStatus": true,
+            "theme": "default",
+            "layout": "carousel",
+            "modules": [
+                {
+                    "title": "اوقات شرعی",
+                    "type": "prayers",
+                    "image": "assets/modules/games/icon.png",
+                    "icon": "sunrise"
+                },
+                {
+                    "title": "بازی‌ها",
+                    "type": "games",
+                    "image": "assets/modules/games/icon.png",
+                    "icon": "gamepad"
+                },
+                {
+                    "title": "آب و هوا",
+                    "type": "weather",
+                    "image": "assets/modules/games/icon.png",
+                    "icon": "sun"
+                },
+                {
+                    "title": "جدول پخش",
+                    "type": "schedule",
+                    "image": "assets/modules/games/icon.png",
+                    "icon": "view_day"
+                },
+                {
+                    "title": "اخبار",
+                    "type": "news",
+                    "image": "assets/modules/games/icon.png",
+                    "icon": "newspaper"
+                },
+                {
+                    "title": "بازار",
+                    "type": "market",
+                    "image": "assets/modules/games/icon.png",
+                    "icon": "square"
+                },
+                {
+                    "title": "ویدیوها",
+                    "type": "videos",
+                    "image": "assets/modules/games/icon.png",
+                    "icon": "movie"
+                }
+            ]
+        }
+	]
 }
