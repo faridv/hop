@@ -1,0 +1,20 @@
+<div id="header">
+    <div id="time">
+        <i class="icon-clock"></i>
+        <span></span>
+    </div>
+    <div id="connection-status"></div>
+</div>
+<div id="menu">
+    <ul>
+        {{#each []}}
+        <li>
+            <span class="glyphicon">
+                <i class="icon-{{this.icon}}"></i>
+            </span>
+            <h3>{{this.title}}</h3>
+        </li>
+        {{/each}}
+    </ul>
+</div>
+<div id="footer"></div>
