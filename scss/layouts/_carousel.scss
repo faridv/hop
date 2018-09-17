@@ -1,0 +1,22 @@
+.layout-carousel #menu {
+    //box-shadow: inset 0px -200px 200px -170px rgba(0,0,0,0.75);
+    position: absolute; bottom: 50px; width: 100%;
+    ul {
+        margin: 0; padding: 0; list-style: none;
+        li {
+            width: 200px; height: 200px; background: #303F9F; text-align: center;
+            padding: 30px 15px; margin: 0 10px; color: #fff;
+            box-shadow: 0 0 5px #777; transition: $transition-default;
+            .glyphicon { font-size: 56px; }
+        }
+    }
+    .slick-slide {
+        > div { padding: 10px; }
+    }
+    .slick-current {
+        &.slick-active {
+            li { background: #9C27B0; transform: scale(1.1); }
+        }
+    }
+    .slick-arrow { display: none !important; }
+}

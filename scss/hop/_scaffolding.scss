@@ -1,0 +1,10 @@
+html { overflow: hidden; }
+body {
+	overflow: hidden; transition: $transition-default;
+	&.rtl {
+		direction: rtl; text-align: right;
+	}
+	&.active {
+
+    }
+}
