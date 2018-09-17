@@ -1,12 +1,21 @@
 <!DOCTYPE html PUBLIC "-//HbbTV//1.2.1//EN" "http://www.hbbtv.org/dtd/HbbTV-1.2.1.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="cs" lang="cs">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= htmlWebpackPlugin.options.languageCode %>"
+      lang="<%= htmlWebpackPlugin.options.languageCode %>" dir="<%= htmlWebpackPlugin.options.direction %>">
 <head>
     <title><%= htmlWebpackPlugin.options.title %></title>
     <meta http-equiv="content-type" content="Content-Type: application/vnd.hbbtv.xhtml+xml; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="description" content="<%= htmlWebpackPlugin.options.description %>">
+    <link rel="stylesheet" href="assets/css/style.css" />
 </head>
-<body>
-
+<body class="<%= htmlWebpackPlugin.options.direction %>" dir="<%= htmlWebpackPlugin.options.direction %>">
+<object id="appmgr" type="application/oipfApplicationManager"
+        style="position: absolute; left: 0px; top: 0px; width: 0px; height: 0px;"></object>
+<object id="oipfcfg" type="application/oipfConfiguration"
+        style="position: absolute; left: 0px; top: 0px; width: 0px; height: 0px;"></object>
+<div id="broadcast">
+    <object id="broadcastvideo" type="video/broadcast"></object>
+</div>
+<div id="app"></div>
 </body>
 </html>
