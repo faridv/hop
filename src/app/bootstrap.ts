@@ -1,9 +1,5 @@
 import Store from "../_utilities/storage.utility";
-import * as Modules from '../modules/index';
-import * as Handlebars from 'handlebars';
 import * as $ from 'jquery';
-import Template from "../_helpers/template.helper";
-import Inputs from "./inputs";
 import {DeviceConfig} from "../_models/device-config.model";
 import Application from "./app-manager";
 
@@ -59,7 +55,7 @@ export default class Bootstrap {
         });
     }
 
-    preFlight(callback) {
+    preFlight(callback): void {
         const self = this;
         window.onload = function () {
             self.broadcastVideo = document.getElementById("broadcastvideo");

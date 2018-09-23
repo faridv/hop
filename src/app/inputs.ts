@@ -123,7 +123,7 @@ export default class Inputs {
         // hotkeys(this.resolveKey(key), (e) => {
         hotkeys(key, (e) => {
             if (typeof handler !== 'undefined')
-                handler();
+                handler(e);
             if (reset) {
                 // self.off(this.resolveKey(key), scope)
                 self.off(key, eventData);

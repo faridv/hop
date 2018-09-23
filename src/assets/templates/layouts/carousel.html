@@ -8,13 +8,16 @@
 <div id="menu">
     <ul>
         {{#each []}}
-        <li>
-            <span class="glyphicon">
-                <i class="icon-{{this.icon}}"></i>
-            </span>
-            <h3>{{this.title}}</h3>
+        <li data-type="{{type}}">
+            <a>
+                <span class="glyphicon">
+                    <i class="icon-{{this.icon}}"></i>
+                </span>
+                <h3>{{this.title}}</h3>
+            </a>
         </li>
         {{/each}}
     </ul>
 </div>
+<div id="content"></div>
 <div id="footer"></div>

@@ -46,18 +46,18 @@ export default class AppManager {
         const self = this;
         const layout = appData.layout;
         const templatePromise = this.template.load('layouts', layout);
-        // TODO: load module data
         const modules = appData.modules;
+
         this.template.render(templatePromise, modules, this.$el, 'html', function() {
             self.template.addClass('active');
             self.template.addClass('layout-' + layout, self.config.container);
-            // const layoutInstance = new Layouts(layout);
-            new Layouts(layout, self.config, appData);
 
             const inputParams = {key: 'app.close', title: 'خروج', button: true};
             self.input.addEvent(appData.button.key, true, inputParams, function() {
                 self._bootstrapInstance.destroy()
             });
+
+            new Layouts(layout, self.config, appData);
         });
     }
 }

@@ -12,12 +12,13 @@ export default class Layouts {
     private input;
 
     constructor(mode: string = 'carousel', Config, appData) {
+
+        this.buttonsChangeListener();
+
         this.config = Config;
         this.appData = appData;
         this.input = Inputs.Instance;
         this.template = TemplateHelper.Instance;
-
-        this.buttonsChangeListener();
 
         try {
             this[mode]();
@@ -25,36 +26,40 @@ export default class Layouts {
         } catch (e) {
             throw e;
         }
-
     }
 
-    buttonsChangeListener() {
+    private buttonsChangeListener(): void {
         const self = this;
         $('body').on('event-change', (e) => {
             self.updateFooter();
         });
     }
 
-    carousel(): void {
-        CarouselLayout.init(this.config, this.appData);
+    private carousel(): void {
+        CarouselLayout.init(this.config, this.appData, this);
     }
 
-    grid() {
+    private grid(): void {
         GridLayout.init(this.config, this.appData);
     }
 
-    getFooterItems() {
+    private getFooterItems() {
         return this.input.getEventList(true);
     }
 
-    renderFooter() {
-        const items = this.getFooterItems();
+    private renderFooter(): void {
+        let items = this.getFooterItems();
         const templatePromise = this.template.load('controls', 'footer');
         const $footer = $('#footer');
         this.template.render(templatePromise, items, $footer, 'html');
     }
 
-    updateFooter() {
+    private updateFooter(): void {
         this.renderFooter();
     }
+
+    public loadModule() {
+        console.log('loading module requested');
+    }
+
 }
