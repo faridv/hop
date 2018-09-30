@@ -89,13 +89,13 @@ export default class TemplateHelper {
             let $el = $('<select />').html(options.fn(this));
             if (typeof value === "undefined" || !value || value === "")
                 return $el.html();
-            if (typeof value === "string" && value.indexOf(',') !== -1) {
-                let values = value.split(',');
-                $.each(values, function () {
-                    $el.find('[value=' + this + ']').attr({'selected': 'selected'});
-                });
-            } else
-                $el.find('[value=' + value + ']').attr({'selected': 'selected'});
+            // if (typeof value === "string" && value.indexOf(',') !== -1) {
+            //     let values = value.split(',');
+            //     $.each(values, function () {
+            //         $el.find('[value=' + this + ']').attr({'selected': 'selected'});
+            //     });
+            // } else
+                $el.find('[value="' + value + '"]').attr({'selected': 'selected'});
             return $el.html();
         });
         Handlebars.registerHelper('replace', function (haystack, needle, replace, options) {
