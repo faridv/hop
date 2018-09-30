@@ -1,0 +1,95 @@
+<section class="module prayer-times">
+    <header><h2>اوقات شرعی</h2></header>
+    <div>
+        <div class="form-group">
+            <label for="location-select" class="col-xs-4 control-label">استان:</label>
+            <div class="col-xs-8">
+                <select id="location-select" class="form-control form-control-lg" tabindex="-1">
+                    {{#select location}}
+                    <option value="38.0524,46.2849">آذربایجان شرقی</option>
+                    <option value="37.5296,45.0465">آذربایجان غربی</option>
+                    <option value="38.2464,48.2950">اردبیل</option>
+                    <option value="32.6513,51.6791">اصفهان</option>
+                    <option value="35.4917,50.5744">البرز</option>
+                    <option value="33.6385,46.4226">ایلام</option>
+                    <option value="28.9220,50.8330">بوشهر</option>
+                    <option value="35.6961,51.4231">تهران</option>
+                    <option value="32.3555,50.8274">چهارمحال و بختیاری</option>
+                    <option value="32.8462,59.2911">خراسان جنوبی</option>
+                    <option value="36.1716,59.3656">خراسان رضوی</option>
+                    <option value="37.4524,57.3235">خراسان شمالی</option>
+                    <option value="31.5317,49.8803">خوزستان</option>
+                    <option value="36.6709,48.4851">زنجان</option>
+                    <option value="35.5722,53.3960">سمنان</option>
+                    <option value="29.4545,60.8536">سیستان و بلوچستان</option>
+                    <option value="29.3720,52.3236">فارس</option>
+                    <option value="36.2668,50.0038">قزوین</option>
+                    <option value="34.6437,50.8906">قم</option>
+                    <option value="35.3029,47.0026">کردستان</option>
+                    <option value="30.2802,57.0670">کرمان</option>
+                    <option value="34.3464,46.4205">کرمانشاه</option>
+                    <option value="30.3925,51.3610">کهگیلویه و بویراحمد</option>
+                    <option value="36.8633,54.4485">گلستان</option>
+                    <option value="37.2234,49.6355">گیلان</option>
+                    <option value="33.4666,48.35">لرستان</option>
+                    <option value="36.5658,53.0597">مازندران</option>
+                    <option value="34.0800,49.6772">مرکزی</option>
+                    <option value="27.1833,56.2666">هرمزگان</option>
+                    <option value="34.1833,48.3053">همدان</option>
+                    <option value="31.5337,54.2211">یزد</option>
+                    {{/select}}
+                </select>
+            </div>
+        </div>
+        <ul class="prayers">
+            <li data-type="fajr">
+                <div class="inner">
+                    <span class="title">
+                        <i class="icon-brightness_high"></i>اذان صبح
+                    </span>
+                    <span class="time">{{prayers.fajr}}</span>
+                </div>
+            </li>
+            <li data-type="sunrise">
+                <div class="inner">
+                    <span class="title">
+                        <i class="icon-sunrise"></i>طلوع آفتاب
+                    </span>
+                    <span class="time">{{prayers.sunrise}}</span>
+                </div>
+            </li>
+            <li data-type="dhuhr">
+                <div class="inner">
+                    <span class="title">
+                        <i class="icon-sun"></i>اذان ظهر
+                    </span>
+                    <span class="time">{{prayers.dhuhr}}</span>
+                </div>
+            </li>
+            <li data-type="sunset">
+                <div class="inner">
+                    <span class="title">
+                        <i class="icon-sunset"></i>غروب خورشید
+                    </span>
+                    <span class="time">{{prayers.sunset}}</span>
+                </div>
+            </li>
+            <li data-type="maghrib">
+                <div class="inner">
+                    <span class="title">
+                        <i class="icon-brightness_medium"></i>                                        اذان مغرب
+                    </span>
+                    <span class="time">{{prayers.maghrib}}</span>
+                </div>
+            </li>
+            <li data-type="midnight">
+                <div class="inner">
+                    <span class="title">
+                        <i class="icon-brightness_2"></i>                                        نیمه‌شب شرعی
+                    </span>
+                    <span class="time">{{prayers.midnight}}</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+</section>

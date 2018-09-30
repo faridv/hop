@@ -1,11 +1,15 @@
 import * as $ from 'jquery';
+import * as toastr from 'toastr';
 import CarouselLayout from "./layouts/carousel.layout";
 import Inputs from "./inputs";
 import TemplateHelper from "../_helpers/template.helper";
 import GridLayout from "./layouts/grid.layout";
 
+import PrayerTimesModule from '../modules/prayer-times/prayer-times';
+
 export default class Layouts {
 
+    public mode;
     public config;
     public appData;
     private template;
@@ -15,6 +19,7 @@ export default class Layouts {
 
         this.buttonsChangeListener();
 
+        this.mode = mode;
         this.config = Config;
         this.appData = appData;
         this.input = Inputs.Instance;
@@ -58,8 +63,36 @@ export default class Layouts {
         this.renderFooter();
     }
 
-    public loadModule() {
-        console.log('loading module requested');
+    public loadModule(moduleTitle: string) {
+        let module: any = null;
+        switch (moduleTitle) {
+            case 'prayer-times':
+                module = PrayerTimesModule;
+        }
+        if (!module)
+            return;
+
+        const moduleInstance = new module();
+        this.prepareUnloadModule(moduleInstance);
+    }
+
+    private prepareUnloadModule(moduleInstance) {
+        const exitParams = {key: 'module.exit', title: 'بازگشت به منو', icon: 'refresh', button: true};
+        const self = this;
+        this.input.addEvent('z', true, exitParams, () => {
+            if (moduleInstance.destroy()) {
+                this.cleanUpPage(() => {
+                    self[this.mode]();
+                });
+            }
+        });
+    }
+
+    private cleanUpPage(callback?) {
+        $('#content').empty().promise().done(() => {
+            if (typeof callback !== 'undefined')
+                callback();
+        });
     }
 
 }

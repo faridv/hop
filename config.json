@@ -23,7 +23,7 @@
             "modules": [
                 {
                     "title": "اوقات شرعی",
-                    "type": "prayers",
+                    "type": "prayer-times",
                     "image": "assets/modules/games/icon.png",
                     "icon": "sunrise"
                 },
