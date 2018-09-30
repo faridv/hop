@@ -34,6 +34,8 @@ export default class CarouselLayout {
     public static initializeCarousel(config, $el, LayoutInstance: Layouts): void {
         CarouselLayout.handleCarouselEvents($el, config, LayoutInstance);
         let slidesToShow = 5;
+        if (!$el.is(':visible'))
+            $el.show(1);
         if ($el.find('> li').length <= slidesToShow) {
             CarouselLayout.duplicateItems($el, slidesToShow);
         }
@@ -66,10 +68,10 @@ export default class CarouselLayout {
     public static handleCarouselEvents($carousel, config, LayoutInstance: Layouts): void {
         const input = Inputs.Instance;
 
-        $carousel.on('init afterChange', (e) => {
-            const $currentSlide = $carousel.find('.slick-current').find('li:first a');
-            $currentSlide.trigger('focus');
-        });
+        // $carousel.on('init afterChange', (e) => {
+        //     const $currentSlide = $carousel.find('.slick-current').find('li:first a');
+        //     $currentSlide.trigger('focus');
+        // });
 
         $(document).on('click', "#menu ul li a", (e) => {
             CarouselLayout.loadModule($carousel, config, LayoutInstance);
@@ -80,11 +82,21 @@ export default class CarouselLayout {
         });
     }
 
-    public static loadModule($carousel, config, LayoutInstance) {
-        const $currentSlide = $carousel.find('.slick-current').find('li:first a');
+    public static destroyCarousel($carousel, config, callback) {
+        const self = this;
         $carousel.fadeOut(config.transitionSpeed, () => {
+            self.unsetCarouselKeys();
             $carousel.slick('destroy');
-            LayoutInstance.loadModule($currentSlide.parents('li:first'));
+            if (typeof callback === 'function') {
+                callback();
+            }
+        });
+    }
+
+    public static loadModule($carousel, config, LayoutInstance) {
+        const $currentSlide = $carousel.find('.slick-current').find('li:first');
+        CarouselLayout.destroyCarousel($carousel, config, () => {
+            LayoutInstance.loadModule($currentSlide.data('type'));
         });
     }
 
@@ -98,6 +110,14 @@ export default class CarouselLayout {
         input.addEvent('right', false, rightParams, () => {
             $carousel.slick('slickPrev');
         });
+    }
+
+    public static unsetCarouselKeys(): void {
+        const input = Inputs.Instance;
+        input.removeEvent('left', {key: 'carousel.left'});
+        input.removeEvent('right', {key: 'carousel.right'});
+        input.removeEvent('enter', {key: 'carousel.select'});
+        $(document).off('click', "#menu ul li a");
     }
 
 }
