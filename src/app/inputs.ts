@@ -131,7 +131,11 @@ export default class Inputs {
         });
     }
 
-    private off(key, eventData): void {
+    public removeEvent(key, eventData = {}): void {
+        this.off(key, eventData);
+    }
+
+    private off(key, eventData = {}): void {
         hotkeys.unbind(key);
         this.purgeEvent(key, eventData);
     }
@@ -159,13 +163,14 @@ export default class Inputs {
     }
 
     private purgeEvent(key, eventData): void {
-        const eventsList = this.events;
-        for (let i: number = 0; i < eventsList.length; i++) {
-            if (eventsList[i]['key'] === key) {
-                delete eventsList[i];
-                $('body').trigger('event-change', eventData);
+        for (let i: number = 0; i < this.events.length; i++) {
+            if (this.events[i]['eventKey'] === key) {
+                delete this.events[i];
             }
         }
+        // Clean up empty slots of events list
+        this.events = this.events.filter(Boolean);
+        $('body').trigger('event-change', eventData);
     }
 
     public static get Instance() {
