@@ -12,7 +12,7 @@
 	"applications": [
         {
             "button": {
-                "key": "space",
+                "key": "red",
                 "image": "assets/img/redbutton.png",
                 "position": "bottom: 0; right: 0;"
             },

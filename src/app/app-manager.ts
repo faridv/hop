@@ -37,7 +37,8 @@ export default class AppManager {
             });
 
             setTimeout(() => {
-                $(element).find('[class*="button-"]').addClass('show');
+                $(element).find('[class*="button-"]');
+                // $(element).find('[class*="button-"]').addClass('show');
             }, self.config.timeout);
         });
     }
