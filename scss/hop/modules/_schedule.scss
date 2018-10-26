@@ -1,0 +1,40 @@
+.module.schedule {
+    max-height: 100%; overflow: hidden; display: flex;
+    //> * {
+    //    display: flex; flex: 1 1 auto; height: 0;
+    //    position: relative; flex-direction: column;
+    //    -webkit-box-orient: vertical; -webkit-box-direction: normal; -webkit-box-flex: 1;
+    //}
+    ul {
+        list-style: none; padding: 0; height: 100%; overflow: hidden; overflow-y: auto;
+        li {
+            @include clearfix;
+            min-height: 120px;
+            margin-bottom: $grid-gutter-width / 2;
+            background: #fff; border: 1px solid $gray-200;
+            figure {
+                float: right; width: 160px; margin-bottom: 0; transition: $transition-default;
+                img { display: block; width: 100%; height: auto; }
+            }
+            .desc {
+                margin-right: 160px; padding: $grid-gutter-width / 2; transition: $transition-default;
+                h3 { font-size: 1.25rem; }
+                .time { display: inline-block; float: left; }
+                .episode { font-size: 60%; color: #666; }
+                p {
+                    font-size: 0.8rem;
+                    &.summary { overflow: hidden; max-height: 2.4rem; }
+                    &.description { display: none; margin-bottom: 0; }
+                }
+            }
+            &.current { background: $gray-100; }
+            &.current, &.active {
+                figure { width: 200px; }
+                .desc {
+                    margin-right: 200px;
+                    p.description { display: block; }
+                }
+            }
+        }
+    }
+}

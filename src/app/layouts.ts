@@ -6,6 +6,7 @@ import TemplateHelper from "../_helpers/template.helper";
 import GridLayout from "./layouts/grid.layout";
 
 import PrayerTimesModule from '../modules/prayer-times/prayer-times';
+import ScheduleModule from "../modules/schedule/schedule";
 
 export default class Layouts {
 
@@ -68,6 +69,10 @@ export default class Layouts {
         switch (moduleTitle) {
             case 'prayer-times':
                 module = PrayerTimesModule;
+                break;
+            case 'schedule':
+                module = ScheduleModule;
+                break;
         }
         if (!module)
             return;
@@ -79,7 +84,7 @@ export default class Layouts {
     private prepareUnloadModule(moduleInstance) {
         const exitParams = {key: 'module.exit', title: 'بازگشت به منو', icon: 'refresh', button: true};
         const self = this;
-        this.input.addEvent('z', true, exitParams, () => {
+        this.input.addEvent('backspace', true, exitParams, () => {
             if (moduleInstance.destroy()) {
                 this.cleanUpPage(() => {
                     self[this.mode]();
