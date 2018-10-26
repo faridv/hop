@@ -24,10 +24,15 @@ export default class Bootstrap {
 
         const self = this;
         this.handleBody();
+        this.cacheConfig(config);
         this.preFlight(function () {
             self.prepareApps();
             // this.initialize()
         });
+    }
+
+    cacheConfig(config) {
+        Store.set('config', this.config);
     }
 
     prepareApps(): void {
@@ -106,7 +111,6 @@ export default class Bootstrap {
     }
 
     destroy(): void {
-        console.log('destruction called!');
         this.hbbApp.destroyApplication();
     }
 }
