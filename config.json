@@ -9,6 +9,12 @@
     "theme": "default",
     "hd": true,
     "resolution": "720",
+    "api": {
+        "url": "http://77.36.163.194/proxy.php?csurl=",
+        "services": {
+            "schedule": "http://pooyatv.ir/ipg"
+        }
+    },
 	"applications": [
         {
             "button": {
@@ -28,6 +34,12 @@
                     "icon": "sunrise"
                 },
                 {
+                    "title": "جدول پخش",
+                    "type": "schedule",
+                    "image": "assets/modules/games/icon.png",
+                    "icon": "view_day"
+                },
+                {
                     "title": "بازی‌ها",
                     "type": "games",
                     "image": "assets/modules/games/icon.png",
@@ -38,12 +50,6 @@
                     "type": "weather",
                     "image": "assets/modules/games/icon.png",
                     "icon": "sun"
-                },
-                {
-                    "title": "جدول پخش",
-                    "type": "schedule",
-                    "image": "assets/modules/games/icon.png",
-                    "icon": "view_day"
                 },
                 {
                     "title": "اخبار",
