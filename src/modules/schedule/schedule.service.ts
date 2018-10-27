@@ -1,5 +1,5 @@
-import httpHelper from "../_helpers/http.helper";
-import {ApiHelper} from "../_helpers/api.helper";
+import httpHelper from "../../_helpers/http.helper";
+import {ApiHelper} from "../../_helpers/api.helper";
 
 export class ScheduleService {
 
