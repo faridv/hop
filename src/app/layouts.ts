@@ -7,6 +7,7 @@ import GridLayout from "./layouts/grid.layout";
 
 import PrayerTimesModule from '../modules/prayer-times/prayer-times';
 import ScheduleModule from "../modules/schedule/schedule";
+import GamesModule from "../modules/games/games";
 
 export default class Layouts {
 
@@ -36,9 +37,12 @@ export default class Layouts {
 
     private buttonsChangeListener(): void {
         const self = this;
-        $('body').on('event-change', (e) => {
+        // $('body').on('event-change', (e) => {
+        //     self.updateFooter();
+        // });
+        setInterval(() => {
             self.updateFooter();
-        });
+        }, 500);
     }
 
     private carousel(): void {
@@ -72,6 +76,9 @@ export default class Layouts {
                 break;
             case 'schedule':
                 module = ScheduleModule;
+                break;
+            case 'games':
+                module = GamesModule;
                 break;
         }
         if (!module)
