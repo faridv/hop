@@ -1,10 +1,10 @@
 @font-face {
-    font-family: 'hbbtv';
-    src: url('/assets/font/icons/hbbtv.eot?7bcfch');
-    src: url('/assets/font/icons/hbbtv.eot?7bcfch#iefix') format('embedded-opentype'),
-    url('/assets/font/icons/hbbtv.ttf?7bcfch') format('truetype'),
-    url('/assets/font/icons/hbbtv.woff?7bcfch') format('woff'),
-    url('/assets/font/icons/hbbtv.svg?7bcfch#hbbtv') format('svg');
+    font-family: $font-family-icons;
+    src: url('/assets/font/icons/hop-icons.eot?7bcfch');
+    src: url('/assets/font/icons/hop-icons.eot?7bcfch#iefix') format('embedded-opentype'),
+    url('/assets/font/icons/hop-icons.ttf?7bcfch') format('truetype'),
+    url('/assets/font/icons/hop-icons.woff?7bcfch') format('woff'),
+    url('/assets/font/icons/hop-icons.svg?7bcfch#hbbtv') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -27,271 +27,207 @@
 .icon-chat:before {
     content: "\e900";
 }
-
 .icon-envelope:before {
     content: "\e901";
 }
-
 .icon-modem:before {
     content: "\e902";
 }
-
 .icon-cord:before {
     content: "\e903";
 }
-
 .icon-camera:before {
     content: "\e904";
 }
-
 .icon-movie:before {
     content: "\e905";
 }
-
 .icon-tv:before {
     content: "\e906";
 }
-
 .icon-volume:before {
     content: "\e907";
 }
-
 .icon-music:before {
     content: "\e908";
 }
-
 .icon-radio:before {
     content: "\e909";
 }
-
 .icon-headphone:before {
     content: "\e90a";
 }
-
 .icon-broadcast:before {
     content: "\e90b";
 }
-
 .icon-gamepad:before {
     content: "\e90c";
 }
-
 .icon-newspaper:before {
     content: "\e90d";
 }
-
 .icon-gift:before {
     content: "\e90e";
 }
-
 .icon-star:before {
     content: "\e90f";
 }
-
 .icon-heart:before {
     content: "\e910";
 }
-
 .icon-badge:before {
     content: "\e911";
 }
-
 .icon-cup:before {
     content: "\e912";
 }
-
 .icon-snowflake:before {
     content: "\e913";
 }
-
 .icon-cloud:before {
     content: "\e914";
 }
-
 .icon-lightning:before {
     content: "\e915";
 }
-
 .icon-night:before {
     content: "\e916";
 }
-
 .icon-sunny:before {
     content: "\e917";
 }
-
 .icon-arrow-up:before {
     content: "\e918";
 }
-
 .icon-arrow-down:before {
     content: "\e919";
 }
-
 .icon-arrow-left:before {
     content: "\e91a";
 }
-
 .icon-arrow-right:before {
     content: "\e91b";
 }
-
 .icon-refresh:before {
     content: "\e91c";
 }
-
 .icon-calendar-alt:before {
     content: "\e91d";
 }
-
 .icon-cloudy:before {
     content: "\e91e";
 }
-
 .icon-brightness_1:before {
     content: "\e3a6";
 }
-
 .icon-brightness_2:before {
     content: "\e3a7";
 }
-
 .icon-brightness_3:before {
     content: "\e3a8";
 }
-
 .icon-brightness_4:before {
     content: "\e3a9";
 }
-
 .icon-brightness_low:before {
     content: "\e1ad";
 }
-
 .icon-brightness_medium:before {
     content: "\e1ae";
 }
-
 .icon-brightness_high:before {
     content: "\e1ac";
 }
-
 .icon-cast:before {
     content: "\e307";
 }
-
 .icon-cast_connected:before {
     content: "\e308";
 }
-
 .icon-hd:before {
     content: "\e052";
 }
-
 .icon-info_outline:before {
     content: "\e88f";
 }
-
 .icon-bottom:before {
     content: "\e313";
 }
-
 .icon-left:before {
     content: "\e314";
 }
-
 .icon-right:before {
     content: "\e315";
 }
-
 .icon-up:before {
     content: "\e316";
 }
-
 .icon-lightbulb_outline:before {
     content: "\e91f";
 }
-
 .icon-share:before {
     content: "\e80d";
 }
-
 .icon-signal_cellular_connected_no_internet_4_bar:before {
     content: "\e1cd";
 }
-
 .icon-texture:before {
     content: "\e421";
 }
-
 .icon-tune:before {
     content: "\e429";
 }
-
 .icon-tv1:before {
     content: "\e333";
 }
-
 .icon-view_array:before {
     content: "\e8ea";
 }
-
 .icon-view_carousel:before {
     content: "\e8eb";
 }
-
 .icon-view_day:before {
     content: "\e8ed";
 }
-
 .icon-wb_sunny:before {
     content: "\e430";
 }
-
 .icon-web:before {
     content: "\e051";
 }
-
 .icon-weekend:before {
     content: "\e16b";
 }
-
 .icon-sun:before {
     content: "\e920";
 }
-
 .icon-sunrise:before {
     content: "\e921";
 }
-
 .icon-sunset:before {
     content: "\e922";
 }
-
 .icon-wifi:before {
     content: "\e923";
 }
-
 .icon-wifi-off:before {
     content: "\e924";
 }
-
+.icon-enter:before {
+    content: "\e925";
+}
 .icon-square:before {
     content: "\f0c8";
 }
-
 .icon-newspaper-o:before {
     content: "\f1ea";
 }
-
 .icon-location:before {
     content: "\e948";
 }
-
 .icon-clock:before {
     content: "\e94e";
 }
-
 .icon-calendar:before {
     content: "\e953";
 }
