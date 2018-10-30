@@ -52,7 +52,7 @@ export default class ScheduleModule {
         });
     }
 
-    findCurrent(list: Schedules) {
+    findCurrent(list: Schedules): Schedules {
         const today = moment();
         if (this.currentDate === today.format('YYYY-MM-DD')) {
             let currentIndex: number = 9999;
@@ -73,7 +73,7 @@ export default class ScheduleModule {
         return list;
     }
 
-    render(data: Schedules, callback) {
+    render(data: Schedules, callback): void {
         const self = this;
         const templatePromise = this.template.load('modules', 'schedule');
         data = self.findCurrent(data);
@@ -92,7 +92,7 @@ export default class ScheduleModule {
         return true;
     }
 
-    setActive(which: string) {
+    setActive(which: string): void {
         const $current = $('.schedule-items li.active');
         if (which === 'next') {
             if ($current.next().length)
@@ -107,7 +107,13 @@ export default class ScheduleModule {
         }, 500);
     }
 
-    registerKeyboardInputs() {
+    openLink(): void {
+        const href = $('.schedule-items li.active').data('href');
+        const win = window.open(href, '_blank');
+        win.focus();
+    }
+
+    registerKeyboardInputs(): void {
         const self = this;
 
         const upParams = {key: 'schedule.prev', title: 'برنامه قبلی', icon: 'up', button: true};
@@ -134,6 +140,12 @@ export default class ScheduleModule {
             // Next Day
             self.currentDate = self.currentDate.subtract(1, 'd');
             self.load(self.currentDate);
+        });
+
+        const enterParams = {key: 'schedule.enter', title: 'اطلاعات برنامه', icon: 'enter', button: true};
+        this.input.addEvent('enter', false, enterParams, () => {
+            // Next Day
+            self.openLink();
         });
     }
 }
