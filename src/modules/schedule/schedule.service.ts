@@ -13,7 +13,7 @@ export class ScheduleService {
         return this.http.get(ApiHelper.get('schedule'), {date: date});
     }
 
-    public static get Instance() {
+    public static get instance() {
         return this._instance || (this._instance = new this());
     }
 }

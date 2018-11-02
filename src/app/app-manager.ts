@@ -15,8 +15,8 @@ export default class AppManager {
 
     constructor (appData, Config, BootstrapInstance: Bootstrap) {
         this.config = Config;
-        this.input = Inputs.Instance;
-        this.template = TemplateHelper.Instance;
+        this.input = Inputs.instance;
+        this.template = TemplateHelper.instance;
         this.container = Config.container;
         this._bootstrapInstance = BootstrapInstance;
         const self = this;

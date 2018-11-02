@@ -24,8 +24,8 @@ export default class Layouts {
         this.mode = mode;
         this.config = Config;
         this.appData = appData;
-        this.input = Inputs.Instance;
-        this.template = TemplateHelper.Instance;
+        this.input = Inputs.instance;
+        this.template = TemplateHelper.instance;
 
         try {
             this[mode]();

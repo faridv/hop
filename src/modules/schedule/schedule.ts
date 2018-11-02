@@ -13,9 +13,9 @@ export default class ScheduleModule {
     private currentDate = moment();
 
     constructor() {
-        this.template = TemplateHelper.Instance;
-        this.input = Inputs.Instance;
-        this.service = ScheduleService.Instance;
+        this.template = TemplateHelper.instance;
+        this.input = Inputs.instance;
+        this.service = ScheduleService.instance;
         const self = this;
 
         this.registerKeyboardInputs();

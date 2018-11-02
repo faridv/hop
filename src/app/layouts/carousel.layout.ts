@@ -66,7 +66,7 @@ export default class CarouselLayout {
     }
 
     public static handleCarouselEvents($carousel, config, LayoutInstance: Layouts): void {
-        const input = Inputs.Instance;
+        const input = Inputs.instance;
 
         // $carousel.on('init afterChange', (e) => {
         //     const $currentSlide = $carousel.find('.slick-current').find('li:first a');
@@ -101,7 +101,7 @@ export default class CarouselLayout {
     }
 
     public static handleCarouselKeys($carousel): void {
-        const input = Inputs.Instance;
+        const input = Inputs.instance;
         const leftParams = {key: 'carousel.left', title: 'چپ', icon: 'left', button: false};
         input.addEvent('left', false, leftParams, () => {
             $carousel.slick('slickNext');
@@ -113,7 +113,7 @@ export default class CarouselLayout {
     }
 
     public static unsetCarouselKeys(): void {
-        const input = Inputs.Instance;
+        const input = Inputs.instance;
         input.removeEvent('left', {key: 'carousel.left'});
         input.removeEvent('right', {key: 'carousel.right'});
         input.removeEvent('enter', {key: 'carousel.select'});
