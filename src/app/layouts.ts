@@ -8,14 +8,16 @@ import GridLayout from "./layouts/grid.layout";
 import PrayerTimesModule from '../modules/prayer-times/prayer-times';
 import ScheduleModule from "../modules/schedule/schedule";
 import GamesModule from "../modules/games/games";
+import WeatherModule from "../modules/weather/weather";
 
 export default class Layouts {
 
-    public mode;
+    public mode: string;
     public config;
     public appData;
     private template;
     private input;
+    private cachedFooterElements: string;
 
     constructor(mode: string = 'carousel', Config, appData) {
 
@@ -26,6 +28,7 @@ export default class Layouts {
         this.appData = appData;
         this.input = Inputs.instance;
         this.template = TemplateHelper.instance;
+
 
         try {
             this[mode]();
@@ -59,9 +62,12 @@ export default class Layouts {
 
     private renderFooter(): void {
         let items = this.getFooterItems();
-        const templatePromise = this.template.load('controls', 'footer');
-        const $footer = $('#footer');
-        this.template.render(templatePromise, items, $footer, 'html');
+        if (JSON.stringify(items) !== this.cachedFooterElements) {
+            const templatePromise = this.template.load('controls', 'footer');
+            const $footer = $('#footer');
+            this.template.render(templatePromise, items, $footer, 'html');
+            this.cachedFooterElements = JSON.stringify(items);
+        }
     }
 
     private updateFooter(): void {
@@ -73,6 +79,9 @@ export default class Layouts {
         switch (moduleTitle) {
             case 'prayer-times':
                 module = PrayerTimesModule;
+                break;
+            case 'weather':
+                module = WeatherModule;
                 break;
             case 'schedule':
                 module = ScheduleModule;
