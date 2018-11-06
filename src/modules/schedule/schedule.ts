@@ -38,11 +38,11 @@ export default class ScheduleModule {
             // End loading
             self.loading(false);
             self.render(data, (data: Schedules) => {
-                $('.schedule-items').animate({'scrollTop': 0}, 1);
+                $('.schedule-items').scrollTop(0);
                 if ($('.schedule-items li.current').length) {
                     setTimeout(() => {
                         $('.schedule-items').animate({
-                            scrollTop: $('.schedule-items li.current').offset().top
+                            scrollTop: $('.schedule-items li.current').offset().top - 100
                         }, 500);
                     }, 500);
                 } else {
@@ -54,7 +54,8 @@ export default class ScheduleModule {
 
     findCurrent(list: Schedules): Schedules {
         const today = moment();
-        if (this.currentDate === today.format('YYYY-MM-DD')) {
+        if (this.currentDate.format('YYYY-MM-DD') === today.format('YYYY-MM-DD')) {
+            console.log('current schedule is for today!', this.currentDate.format('YYYY-MM-DD'));
             let currentIndex: number = 9999;
             for (let index in list) {
                 let momentDate = moment(list[index].time, 'HH:mm:ss')
@@ -89,6 +90,7 @@ export default class ScheduleModule {
         self.input.removeEvent('down', {key: 'schedule.next'});
         self.input.removeEvent('left', {key: 'schedule.left'});
         self.input.removeEvent('right', {key: 'schedule.right'});
+        self.input.removeEvent('enter', {key: 'schedule.enter'});
         return true;
     }
 
