@@ -85,6 +85,18 @@ export class ScriptLoaderService {
         });
     }
 
+    unloadScript(tag: string, src: string) {
+        return new Promise((resolve, reject) => {
+            if (this._scripts[src]) {
+                $(tag).find('script[src="' + src + '"]');
+                delete this._scripts[src];
+                resolve({src: src, loaded: false});
+            } else {
+                reject({});
+            }
+        });
+    }
+
     public static get instance() {
         return this._instance || (this._instance = new this());
     }
