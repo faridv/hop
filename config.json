@@ -12,7 +12,8 @@
     "api": {
         "url": "http://77.36.163.194/proxy.php?csurl=",
         "services": {
-            "schedule": "http://pooyatv.ir/ipg"
+            "schedule": "http://pooyatv.ir/ipg",
+            "weather": "https://query.yahooapis.com/v1/public/yql"
         }
     },
 	"applications": [
@@ -27,6 +28,12 @@
             "theme": "default",
             "layout": "carousel",
             "modules": [
+                {
+                    "title": "آب و هوا",
+                    "type": "weather",
+                    "image": "assets/modules/games/icon.png",
+                    "icon": "sun"
+                },
                 {
                     "title": "اوقات شرعی",
                     "type": "prayer-times",
@@ -44,12 +51,6 @@
                     "type": "games",
                     "image": "assets/modules/games/icon.png",
                     "icon": "gamepad"
-                },
-                {
-                    "title": "آب و هوا",
-                    "type": "weather",
-                    "image": "assets/modules/games/icon.png",
-                    "icon": "sun"
                 },
                 {
                     "title": "اخبار",

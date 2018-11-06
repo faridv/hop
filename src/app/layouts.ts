@@ -100,7 +100,7 @@ export default class Layouts {
     private prepareUnloadModule(moduleInstance) {
         const exitParams = {key: 'module.exit', title: 'بازگشت به منو', icon: 'refresh', button: true};
         const self = this;
-        this.input.addEvent('backspace', true, exitParams, () => {
+        this.input.addEvent('back', true, exitParams, () => {
             if (moduleInstance.destroy()) {
                 this.cleanUpPage(() => {
                     self[this.mode]();

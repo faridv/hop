@@ -1,0 +1,87 @@
+<div class="current">
+    <div class="row row-eq-height">
+        <div class="col-6">
+            <div class="card status">
+                <div class="row row-eq-height">
+                    <div class="col-6">
+                        <div class="weather-icon">
+                            <i class="icon-{{icon}}"></i>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="align-self-center">
+                            <h1 style="direction: ltr;">
+                                {{item.condition.temp}}
+                                <small>&#8451</small>
+                            </h1>
+                            <h3>{{status}}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card details">
+                <div class="row">
+                    <div class="col-6">
+                        <h4><i class="icon-windy"></i> باد</h4>
+                        <h4 style="direction: ltr;">
+                            {{wind.speed}}
+                            <small>{{units.speed}}</small>
+                        </h4>
+                    </div>
+                    <div class="col-6">
+                        <h4><i class="icon-drop"></i> رطوبت</h4>
+                        <h4 style="direction: ltr;">
+                            {{atmosphere.humidity}}
+                            <small>%</small>
+                        </h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <h4><i class="icon-street-view"></i> دید</h4>
+                        <h4 style="direction: ltr;">
+                            {{atmosphere.visibility}}
+                            <small>{{units.distance}}</small>
+                        </h4>
+                    </div>
+                    <div class="col-6">
+                        <h4><i class="icon-thermometer"></i> فشار هوا</h4>
+                        <h4 style="direction: ltr;">
+                            {{atmosphere.pressure}}
+                            <small>{{units.pressure}}</small>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="forecast">
+    <div class="row">
+        {{#each item.forecast}}
+        <div class="col">
+            <div class="inner">
+                <div class="details">
+                <span class="icon">
+                    <i class="icon-{{icon}}"></i>
+                </span>
+                    <h4>{{status}}</h4>
+                </div>
+                <div class="temp">
+                    <div class="high" style="direction: ltr;">
+                        {{high}}
+                        <!--<small>&#8451</small>-->
+                    </div>
+                    <div class="low" style="direction: ltr;">
+                        {{low}}
+                        <!--<small>&#8451</small>-->
+                    </div>
+                </div>
+                <time>{{fdate}}</time>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
