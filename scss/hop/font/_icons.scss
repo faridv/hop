@@ -24,6 +24,114 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-day:before {
+    content: "\e927";
+}
+.icon-moon:before {
+    content: "\e928";
+}
+.icon-foggy:before {
+    content: "\e92a";
+}
+.icon-windy:before {
+    content: "\e92b";
+}
+.icon-cloudy-day:before {
+    content: "\e92d";
+}
+.icon-cloudy-night:before {
+    content: "\e92e";
+}
+.icon-dust:before {
+    content: "\e932";
+}
+.icon-cloudy-2:before {
+    content: "\e933";
+}
+.icon-drizzle:before {
+    content: "\e936";
+}
+.icon-showers:before {
+    content: "\e937";
+}
+.icon-tropical-storm:before {
+    content: "\e938";
+}
+.icon-windy-rainy:before {
+    content: "\e939";
+}
+.icon-flurries:before {
+    content: "\e93a";
+}
+.icon-snow-drizzle:before {
+    content: "\e93c";
+}
+.icon-hail:before {
+    content: "\e93d";
+}
+.icon-thunderstorms-2:before {
+    content: "\e93f";
+}
+.icon-thunderstorms:before {
+    content: "\e940";
+}
+.icon-sun-hot:before {
+    content: "\e941";
+}
+.icon-tornado:before {
+    content: "\e946";
+}
+.icon-freezing-rain:before {
+    content: "\e949";
+}
+.icon-sleet:before {
+    content: "\e94c";
+}
+.icon-mixed-rain-and-sleet:before {
+    content: "\e94d";
+}
+.icon-mixed-rain-and-snow:before {
+    content: "\e94f";
+}
+.icon-thermometer:before {
+    content: "\e952";
+}
+.icon-none:before {
+    content: "\e955";
+}
+.icon-drop:before {
+    content: "\e926";
+}
+.icon-location:before {
+    content: "\e948";
+}
+.icon-clock:before {
+    content: "\e94e";
+}
+.icon-calendar:before {
+    content: "\e953";
+}
+.icon-play:before {
+    content: "\ea1c";
+}
+.icon-pause:before {
+    content: "\ea1d";
+}
+.icon-stop:before {
+    content: "\ea1e";
+}
+.icon-backward:before {
+    content: "\ea1f";
+}
+.icon-forward:before {
+    content: "\ea20";
+}
+.icon-previous:before {
+    content: "\ea23";
+}
+.icon-next:before {
+    content: "\ea24";
+}
 .icon-chat:before {
     content: "\e900";
 }
@@ -222,12 +330,6 @@
 .icon-newspaper-o:before {
     content: "\f1ea";
 }
-.icon-location:before {
-    content: "\e948";
-}
-.icon-clock:before {
-    content: "\e94e";
-}
-.icon-calendar:before {
-    content: "\e953";
+.icon-street-view:before {
+    content: "\f21d";
 }
