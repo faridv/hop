@@ -1,29 +1,33 @@
 import * as $ from 'jquery';
 import * as toastr from 'toastr';
-import CarouselLayout from "./layouts/carousel.layout";
 import Inputs from "./inputs";
 import TemplateHelper from "../_helpers/template.helper";
+import CarouselLayout from "./layouts/carousel.layout";
 import GridLayout from "./layouts/grid.layout";
 
 import PrayerTimesModule from '../modules/prayer-times/prayer-times';
 import ScheduleModule from "../modules/schedule/schedule";
 import GamesModule from "../modules/games/games";
 import WeatherModule from "../modules/weather/weather";
+import ClockHelper from "../_helpers/clock.helper";
+import ConnectionHelper from "../_helpers/connection.helper";
+import ScreenLayout from "./layouts/screen.layout";
+import StreamModule from "../modules/stream/stream";
 
 export default class Layouts {
 
-    public mode: string;
+    public layout: string;
     public config;
     public appData;
     private template;
     private input;
     private cachedFooterElements: string;
 
-    constructor(mode: string = 'carousel', Config, appData) {
+    constructor(layout: string = 'carousel', Config, appData) {
 
         this.buttonsChangeListener();
 
-        this.mode = mode;
+        this.layout = layout;
         this.config = Config;
         this.appData = appData;
         this.input = Inputs.instance;
@@ -31,7 +35,7 @@ export default class Layouts {
 
 
         try {
-            this[mode]();
+            this[this.layout]();
             this.renderFooter();
         } catch (e) {
             throw e;
@@ -56,6 +60,10 @@ export default class Layouts {
         GridLayout.init(this.config, this.appData);
     }
 
+    private screen(): void {
+        ScreenLayout.init(this.config, this.appData, this);
+    }
+
     private getFooterItems() {
         return this.input.getEventList(true);
     }
@@ -74,7 +82,7 @@ export default class Layouts {
         this.renderFooter();
     }
 
-    public loadModule(moduleTitle: string) {
+    public loadModule(moduleTitle: string, config: object = {}, skipUnload: boolean = false) {
         let module: any = null;
         switch (moduleTitle) {
             case 'prayer-times':
@@ -89,12 +97,16 @@ export default class Layouts {
             case 'games':
                 module = GamesModule;
                 break;
+            case 'stream':
+                module = StreamModule;
+                break;
         }
         if (!module)
             return;
 
-        const moduleInstance = new module();
-        this.prepareUnloadModule(moduleInstance);
+        const moduleInstance = new module(config);
+        if (!skipUnload)
+            this.prepareUnloadModule(moduleInstance);
     }
 
     private prepareUnloadModule(moduleInstance) {
@@ -103,7 +115,7 @@ export default class Layouts {
         this.input.addEvent('back', true, exitParams, () => {
             if (moduleInstance.destroy()) {
                 this.cleanUpPage(() => {
-                    self[this.mode]();
+                    self[this.layout]();
                 });
             }
         });
@@ -114,6 +126,16 @@ export default class Layouts {
             if (typeof callback !== 'undefined')
                 callback();
         });
+    }
+
+    // Helpers
+
+    public renderClock(config, $el): void {
+        new ClockHelper(config, $el);
+    }
+
+    public renderConnectionStatus(): void {
+        new ConnectionHelper();
     }
 
 }
