@@ -16,7 +16,7 @@ export default class PrayerTimesModule {
     private input;
     private $el = $('#content');
 
-    constructor() {
+    constructor(config?) {
 
         this.store = Store;
         this.template = TemplateHelper.instance;
