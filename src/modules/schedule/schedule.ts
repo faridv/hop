@@ -12,7 +12,7 @@ export default class ScheduleModule {
     private $el = $('#content');
     private currentDate = moment();
 
-    constructor() {
+    constructor(Config?) {
         this.template = TemplateHelper.instance;
         this.input = Inputs.instance;
         this.service = ScheduleService.instance;
@@ -26,17 +26,12 @@ export default class ScheduleModule {
         return this;
     }
 
-    loading(start: boolean = true): void {
-        const method = start ? 'addClass' : 'removeClass';
-        $('#app')[method]('loading');
-    }
-
     load(date, callback?: any) {
         const self = this;
-        this.loading();
+        this.template.loading();
         this.service.getDate(date.format('YYYY-MM-DD')).done((data: Schedules) => {
             // End loading
-            self.loading(false);
+            self.template.loading(false);
             self.render(data, (data: Schedules) => {
                 $('.schedule-items').scrollTop(0);
                 if ($('.schedule-items li.current').length) {
