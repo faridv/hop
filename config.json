@@ -19,10 +19,24 @@
 	"applications": [
         {
             "button": {
+                "key": "green",
+                "image": "assets/img/bluescreen.png",
+                "position": "bottom: 20px; left: 20px;"
+            },
+            "hasHub": false,
+            "clock": false,
+            "connectionStatus": false,
+            "theme": "default",
+            "layout": "screen",
+            "stream": "http://localhost:8008/assets/data/sample.mp4"
+        },
+        {
+            "button": {
                 "key": "red",
                 "image": "assets/img/redbutton.png",
                 "position": "bottom: 0; right: 0;"
             },
+            "hasHub": true,
             "clock": true,
             "connectionStatus": true,
             "theme": "default",
@@ -51,24 +65,6 @@
                     "type": "games",
                     "image": "assets/modules/games/icon.png",
                     "icon": "gamepad"
-                },
-                {
-                    "title": "اخبار",
-                    "type": "news",
-                    "image": "assets/modules/games/icon.png",
-                    "icon": "newspaper"
-                },
-                {
-                    "title": "بازار",
-                    "type": "market",
-                    "image": "assets/modules/games/icon.png",
-                    "icon": "square"
-                },
-                {
-                    "title": "ویدیوها",
-                    "type": "videos",
-                    "image": "assets/modules/games/icon.png",
-                    "icon": "movie"
                 }
             ]
         }
