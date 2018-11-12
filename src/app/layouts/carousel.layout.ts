@@ -49,9 +49,9 @@ export default class CarouselLayout {
 
     public static duplicateItems($el, minCount: number): boolean {
         const currentItemsCount = $el.find('> li').length;
-        const cloneCount = Math.ceil(minCount / currentItemsCount);
-        for (let i:number = 1; i < cloneCount; i++) {
-            $el.find('> li').each(function() {
+        const cloneCount = Math.ceil((minCount + 1) / currentItemsCount);
+        for (let i: number = 1; i < cloneCount; i++) {
+            $el.find('> li').each(function () {
                 $el.append($(this).clone(true));
             });
         }
