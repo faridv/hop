@@ -62,7 +62,8 @@ export default class ScheduleModule {
                 if (momentDate < today)
                     currentIndex = ~~index;
             }
-            list[currentIndex]['current'] = true;
+            if (typeof list[currentIndex] !== 'undefined')
+                list[currentIndex]['current'] = true;
         } else {
             // list[0]['current'] = true;
         }
