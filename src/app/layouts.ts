@@ -13,6 +13,7 @@ import ClockHelper from "../_helpers/clock.helper";
 import ConnectionHelper from "../_helpers/connection.helper";
 import ScreenLayout from "./layouts/screen.layout";
 import StreamModule from "../modules/stream/stream.module";
+import InfoModule from "../modules/info/info.module";
 
 export default class Layouts {
 
@@ -99,6 +100,9 @@ export default class Layouts {
                 break;
             case 'stream':
                 module = StreamModule;
+                break;
+            case 'info':
+                module = InfoModule;
                 break;
         }
         if (!module)
