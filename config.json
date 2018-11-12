@@ -48,26 +48,27 @@
                 {
                     "title": "آب و هوا",
                     "type": "weather",
-                    "image": "assets/modules/games/icon.png",
                     "icon": "sun"
                 },
                 {
                     "title": "اوقات شرعی",
                     "type": "prayer-times",
-                    "image": "assets/modules/games/icon.png",
                     "icon": "sunrise"
                 },
                 {
                     "title": "جدول پخش",
                     "type": "schedule",
-                    "image": "assets/modules/games/icon.png",
                     "icon": "view_day"
                 },
                 {
                     "title": "بازی‌ها",
                     "type": "games",
-                    "image": "assets/modules/games/icon.png",
                     "icon": "gamepad"
+                },
+                {
+                    "title": "درباره برنامه",
+                    "type": "info",
+                    "icon": "info_outline"
                 }
             ]
         }
