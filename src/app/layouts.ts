@@ -1,5 +1,4 @@
 import * as $ from 'jquery';
-import * as toastr from 'toastr';
 import Inputs from "./inputs";
 import TemplateHelper from "../_helpers/template.helper";
 import CarouselLayout from "./layouts/carousel.layout";
