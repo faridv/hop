@@ -5,14 +5,14 @@ import TemplateHelper from "../_helpers/template.helper";
 import CarouselLayout from "./layouts/carousel.layout";
 import GridLayout from "./layouts/grid.layout";
 
-import PrayerTimesModule from '../modules/prayer-times/prayer-times';
-import ScheduleModule from "../modules/schedule/schedule";
-import GamesModule from "../modules/games/games";
-import WeatherModule from "../modules/weather/weather";
+import PrayerTimesModule from '../modules/prayer-times/prayer-times.module';
+import ScheduleModule from "../modules/schedule/schedule.module";
+import GamesModule from "../modules/games/games.module";
+import WeatherModule from "../modules/weather/weather.module";
 import ClockHelper from "../_helpers/clock.helper";
 import ConnectionHelper from "../_helpers/connection.helper";
 import ScreenLayout from "./layouts/screen.layout";
-import StreamModule from "../modules/stream/stream";
+import StreamModule from "../modules/stream/stream.module";
 
 export default class Layouts {
 

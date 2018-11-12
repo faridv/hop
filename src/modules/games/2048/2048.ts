@@ -1,6 +1,6 @@
 import {ScriptLoaderService} from "../../../_services/script-loader.service";
 import TemplateHelper from "../../../_helpers/template.helper";
-import GamesModule from "../games";
+import GamesModule from "../games.module";
 import Inputs from "../../../app/inputs";
 
 export default class Game2048 {
