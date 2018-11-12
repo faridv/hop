@@ -13,32 +13,13 @@ export class ScriptLoaderService {
     public _scripts: Script[] = [];
 
     /**
-     * @deprecated
-     * @param tag
-     * @param {string} scripts
-     * @returns {Promise<any[]>}
-     */
-    load(tag, ...scripts: string[]) {
-        scripts.forEach((src: string) => {
-            if (!this._scripts[src]) {
-                this._scripts[src] = {src: src, loaded: false};
-            }
-        });
-
-        let promises: any[] = [];
-        scripts.forEach((src) => promises.push(this.loadScript(tag, src)));
-
-        return Promise.all(promises);
-    }
-
-    /**
      * Lazy load list of scripts
      * @param tag
      * @param scripts
      * @param loadOnce
      * @returns {Promise<any[]>}
      */
-    loadScripts(tag, scripts, loadOnce?: boolean) {
+    loadScripts(tag, scripts, loadOnce?: boolean): Promise<any> {
         loadOnce = loadOnce || false;
 
         scripts.forEach((script: string) => {
@@ -61,7 +42,7 @@ export class ScriptLoaderService {
      * @param loadOnce
      * @returns {Promise<any>}
      */
-    loadScript(tag, src: string, loadOnce?: boolean) {
+    loadScript(tag, src: string, loadOnce?: boolean): Promise<any> {
         loadOnce = loadOnce || false;
 
         if (!this._scripts[src]) {
@@ -85,7 +66,7 @@ export class ScriptLoaderService {
         });
     }
 
-    unloadScript(tag: string, src: string) {
+    unloadScript(tag: string, src: string): Promise<any> {
         return new Promise((resolve, reject) => {
             if (this._scripts[src]) {
                 $(tag).find('script[src="' + src + '"]');
