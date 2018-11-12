@@ -11,16 +11,16 @@ export default class Game2048 {
     private input;
     private $el = $('#fullscreen');
     private scripts = [
-        "/assets/js/games/2048/bind_polyfill.js",
-        "/assets/js/games/2048/classlist_polyfill.js",
-        "/assets/js/games/2048/animframe_polyfill.js",
-        "/assets/js/games/2048/keyboard_input_manager.js",
-        "/assets/js/games/2048/html_actuator.js",
-        "/assets/js/games/2048/grid.js",
-        "/assets/js/games/2048/tile.js",
-        "/assets/js/games/2048/local_storage_manager.js",
-        "/assets/js/games/2048/game_manager.js",
-        "/assets/js/games/2048/application.js"
+        "assets/js/games/2048/bind_polyfill.js",
+        "assets/js/games/2048/classlist_polyfill.js",
+        "assets/js/games/2048/animframe_polyfill.js",
+        "assets/js/games/2048/keyboard_input_manager.js",
+        "assets/js/games/2048/html_actuator.js",
+        "assets/js/games/2048/grid.js",
+        "assets/js/games/2048/tile.js",
+        "assets/js/games/2048/local_storage_manager.js",
+        "assets/js/games/2048/game_manager.js",
+        "assets/js/games/2048/application.js"
     ];
 
     constructor(module: GamesModule) {

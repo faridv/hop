@@ -12,8 +12,8 @@ export default class BlockrainGame {
     private $game;
     private $el = $('#fullscreen');
     private scripts = [
-        "/assets/js/vendor/jquery-3.3.1.min.js",
-        "/assets/js/games/blockrain/blockrain.jquery.min.js"
+        "assets/js/vendor/jquery-3.3.1.min.js",
+        "assets/js/games/blockrain/blockrain.jquery.min.js"
     ];
 
     constructor(module: GamesModule) {
