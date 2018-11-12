@@ -1,7 +1,8 @@
 import * as GamesConfig from './games.config.json';
 import TemplateHelper from "../../_helpers/template.helper";
 import Inputs from "../../app/inputs";
-import Game2048 from '../games/2048/2048';
+import Game2048 from './2048/2048.game';
+import BlockrainGame from "./blockrain/blockrain.game";
 
 export default class GamesModule {
 
@@ -38,6 +39,7 @@ export default class GamesModule {
         const self = typeof instance !== 'undefined' ? instance : this;
         self.input.removeEvent('up', {key: 'games.prev'});
         self.input.removeEvent('down', {key: 'games.next'});
+        self.input.removeEvent('enter', {key: 'games.enter'});
         return true;
     }
 
@@ -71,8 +73,11 @@ export default class GamesModule {
             case '2048':
                 gameObject = Game2048;
                 break;
+            case 'blockrain':
+                gameObject = BlockrainGame;
+                break;
         }
-        const loadedGame = new gameObject();
+        const loadedGame = new gameObject(this);
     }
 
     registerKeyboardInputs() {
