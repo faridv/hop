@@ -13,7 +13,9 @@
         "url": "http://77.36.163.194/proxy.php?csurl=",
         "services": {
             "schedule": "http://pooyatv.ir/ipg",
-            "weather": "https://query.yahooapis.com/v1/public/yql"
+            "weather": "https://query.yahooapis.com/v1/public/yql",
+            "videoTest": "http://localhost:8008/assets/data/sample.mp4",
+            "videoTest2": "http://clips.vorwaerts-gmbh.de/VfE_html5.mp4"
         }
     },
 	"applications": [
@@ -28,7 +30,8 @@
             "connectionStatus": false,
             "theme": "default",
             "layout": "screen",
-            "stream": "http://localhost:8008/assets/data/sample.mp4"
+            "stream": "http://localhost:8008/assets/data/sample.mp4",
+            "hasAudio": false
         },
         {
             "button": {

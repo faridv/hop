@@ -19,7 +19,8 @@ export default class StreamModule {
         this.registerKeyboardInputs();
         this.render(config, () => {
             self.template.loading(false);
-            this.muteStream(false);
+            if (this.config.hasAudio)
+                this.muteStream(false);
         });
     }
 
@@ -35,7 +36,7 @@ export default class StreamModule {
 
     muteStream(flag: boolean = true) {
         const $tv = <HTMLVideoElement> $('#broadcast video:first')[0];
-        const $stream =  <HTMLVideoElement> $('#content video:first')[0];
+        const $stream = <HTMLVideoElement> $('#content video:first')[0];
         $tv.muted = !flag;
         $stream.muted = flag;
     }
@@ -47,7 +48,8 @@ export default class StreamModule {
         } else {
             $("#content").fadeOut('fast');
         }
-        this.muteStream();
+        if (this.config.hasAudio)
+            this.muteStream();
     }
 
     show(): void {
@@ -58,7 +60,8 @@ export default class StreamModule {
         } else {
             $("#content").fadeIn('fast');
         }
-        this.muteStream(false);
+        if (this.config.hasAudio)
+            this.muteStream(false);
     }
 
     pip(start: boolean = true, callback?): void {
@@ -66,12 +69,14 @@ export default class StreamModule {
         $("#content")[method]('half');
         $('body')[method]('broadcast-half');
         if (start) {
-            this.muteStream();
+            if (this.config.hasAudio)
+                this.muteStream();
             if (!$("#content").is('visible')) {
                 $("#content").fadeIn('fast');
             }
         } else {
-            this.muteStream(false);
+            if (this.config.hasAudio)
+                this.muteStream(false);
         }
         if (typeof callback === 'function')
             callback();
