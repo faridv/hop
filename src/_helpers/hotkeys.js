@@ -164,8 +164,8 @@
 
     // Return key code
     var code = function code(x) {
-        console.warn(x.toLowerCase(), _HbbTVEvents[x.toLowerCase()], _keyMap[x.toLowerCase()], _modifier[x.toLowerCase()], x.toUpperCase().charCodeAt(0));
-        return _HbbTVEvents[x.toLowerCase()] || _keyMap[x.toLowerCase()] || _modifier[x.toLowerCase()] || x.toUpperCase().charCodeAt(0);
+        console.warn(x.toLowerCase(), _keyMap[x.toLowerCase()], _modifier[x.toLowerCase()], _HbbTVEvents[x.toLowerCase()], x.toUpperCase().charCodeAt(0));
+        return _keyMap[x.toLowerCase()] || _modifier[x.toLowerCase()] || _HbbTVEvents[x.toLowerCase()] || x.toUpperCase().charCodeAt(0);
     };
 
     // Set to get the current range (default is 'all')
