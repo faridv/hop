@@ -95,7 +95,7 @@ export default class TemplateHelper {
             //         $el.find('[value=' + this + ']').attr({'selected': 'selected'});
             //     });
             // } else
-                $el.find('[value="' + value + '"]').attr({'selected': 'selected'});
+            $el.find('[value="' + value + '"]').attr({'selected': 'selected'});
             return $el.html();
         });
         Handlebars.registerHelper('replace', function (haystack, needle, replace, options) {
@@ -123,37 +123,53 @@ export default class TemplateHelper {
         });
     }
 
-    public static get Instance() {
+    public static get instance(): TemplateHelper {
         return this._instance || (this._instance = new this());
     }
 
-    public load(path: string, file: string) {
+    public load(path: string, file: string): jqXHR {
         return $.ajax(
             {
-            url: 'assets/templates/' + path + '/' + file + '.html'
-            , contentType: 'text/x-handlebars-template'
-        });
+                url: 'assets/templates/' + path + '/' + file + '.html'
+                , contentType: 'text/x-handlebars-template'
+            });
     }
 
-    public render(template: jqXHR, data: any, $container: any, mode: string = 'html', callback?: any) {
-        template.done(function(tmpl: string) {
+    loading(start: boolean = true): void {
+        const method = start ? 'addClass' : 'removeClass';
+        $('#app')[method]('loading');
+    }
+
+    public render(template: jqXHR, data: any, $container: any, mode: string = 'html', callback?: any): void {
+        template.done(function (tmpl: string) {
             const handlebarsTemplate = Handlebars.compile(tmpl);
             const output = handlebarsTemplate(data);
             if (mode === 'html')
                 $container.empty();
-            $container[mode](output).promise().done(function($parent) {
+            $container[mode](output).promise().done(function ($parent) {
                 if (typeof callback === 'function')
                     callback($parent);
             });
         });
     }
 
-    public addClass(classToAdd: string, element: string = 'body') {
+    public addClass(classToAdd: string, element: string = 'body'): void {
         $(element).addClass(classToAdd);
     }
 
-    public removeClass(classToRemove: string, element: string = 'body') {
+    public removeClass(classToRemove: string, element: string = 'body'): void {
         $(element).removeClass(classToRemove);
+    }
+
+    public removeClassIfContains(element: string = 'body', text: string = 'layout-'): void {
+        const classList: string[] = $(element).attr("class").split(" ");
+        let newClassList: string[] = [];
+        for (let i: number = 0; i < classList.length; i++) {
+            let result: number = classList[i].search(/itemnx+/);
+            if (result <= 0)
+                newClassList[newClassList.length] = classList[i];
+        }
+        $(element).removeClass().addClass(newClassList.join(" "));
     }
 
 }

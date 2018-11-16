@@ -6,5 +6,14 @@
         &.red, &.space {
             i { color: $red; }
         }
+        &.green {
+            i { color: $green; }
+        }
+        &.blue {
+            i { color: $blue; }
+        }
+        &.yelllow{
+            i { color: $yellow; }
+        }
     }
 }

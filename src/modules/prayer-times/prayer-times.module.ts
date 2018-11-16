@@ -16,13 +16,13 @@ export default class PrayerTimesModule {
     private input;
     private $el = $('#content');
 
-    constructor() {
+    constructor(config?) {
 
         this.store = Store;
-        this.template = TemplateHelper.Instance;
+        this.template = TemplateHelper.instance;
         this.prayTimes = new PrayerTimes();
         this.prayTimes.setMethod('Tehran');
-        this.input = Inputs.Instance;
+        this.input = Inputs.instance;
 
         const self = this;
 

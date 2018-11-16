@@ -1,0 +1,21 @@
+<section class="module games">
+    <header class="d-none"><h2>بازی‌ها</h2></header>
+    <div>
+        <ul class="game-items">
+            {{#each []}}
+            <li data-game="{{game}}" class="{{#if @first}}active{{/if}}">
+                <figure>
+                    <img src="{{image}}" alt="{{title}}">
+                </figure>
+                <div class="desc">
+                    <h3>
+                        {{title}}
+                    </h3>
+                    <p>{{{description}}}</p>
+                </div>
+            </li>
+            {{/each}}
+        </ul>
+    </div>
+</section>
+<!--<div id="game-wrapper"></div>-->

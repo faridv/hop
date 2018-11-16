@@ -9,59 +9,63 @@
     "theme": "default",
     "hd": true,
     "resolution": "720",
+    "api": {
+        "url": "http://77.36.163.194/proxy.php?csurl=",
+        "services": {
+            "schedule": "http://pooyatv.ir/ipg",
+            "weather": "https://query.yahooapis.com/v1/public/yql"        }
+    },
 	"applications": [
+        {
+            "button": {
+                "key": "green",
+                "image": "assets/img/greenbutton.png",
+                "position": "bottom: 20px; left: 20px;"
+            },
+            "hasHub": false,
+            "clock": false,
+            "connectionStatus": false,
+            "theme": "default",
+            "layout": "screen",
+            "stream": "http://clips.vorwaerts-gmbh.de/VfE_html5.mp4",
+            "hasAudio": false
+        },
         {
             "button": {
                 "key": "red",
                 "image": "assets/img/redbutton.png",
                 "position": "bottom: 0; right: 0;"
             },
+            "hasHub": true,
             "clock": true,
             "connectionStatus": true,
             "theme": "default",
             "layout": "carousel",
             "modules": [
                 {
-                    "title": "اوقات شرعی",
-                    "type": "prayer-times",
-                    "image": "assets/modules/games/icon.png",
-                    "icon": "sunrise"
-                },
-                {
-                    "title": "بازی‌ها",
-                    "type": "games",
-                    "image": "assets/modules/games/icon.png",
-                    "icon": "gamepad"
-                },
-                {
                     "title": "آب و هوا",
                     "type": "weather",
-                    "image": "assets/modules/games/icon.png",
                     "icon": "sun"
+                },
+                {
+                    "title": "اوقات شرعی",
+                    "type": "prayer-times",
+                    "icon": "sunrise"
                 },
                 {
                     "title": "جدول پخش",
                     "type": "schedule",
-                    "image": "assets/modules/games/icon.png",
                     "icon": "view_day"
                 },
                 {
-                    "title": "اخبار",
-                    "type": "news",
-                    "image": "assets/modules/games/icon.png",
-                    "icon": "newspaper"
+                    "title": "بازی‌ها",
+                    "type": "games",
+                    "icon": "gamepad"
                 },
                 {
-                    "title": "بازار",
-                    "type": "market",
-                    "image": "assets/modules/games/icon.png",
-                    "icon": "square"
-                },
-                {
-                    "title": "ویدیوها",
-                    "type": "videos",
-                    "image": "assets/modules/games/icon.png",
-                    "icon": "movie"
+                    "title": "درباره برنامه",
+                    "type": "info",
+                    "icon": "info_outline"
                 }
             ]
         }

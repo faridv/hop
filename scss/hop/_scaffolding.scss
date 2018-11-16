@@ -1,10 +1,22 @@
-html { overflow: hidden; }
+html { overflow: hidden; background: $body-bg-dark; }
 body {
-	overflow: hidden; transition: $transition-default;
+	overflow: hidden; transition: $transition-default; background: $body-bg-dark;
 	&.rtl {
 		direction: rtl; text-align: right;
 	}
 	&.active {
 
     }
+	&.broadcast-half {
+		#broadcast {
+			width: 45%; height: 45%; left: 75%;
+			object { width: 100% !important; height: 100% !important; }
+		}
+	}
+}
+#broadcast {
+	transition: $transition-default; position: fixed; top: 50%; left: 50%; width: 100%; height: 100%;
+	transform: translateX(-50%) translateY(-50%);
+	background: rgba(255, 255, 255, 0.8); box-shadow: 0 0 20px rgba(0, 0, 0, 0.75);
+	object { transition: $transition-default; }
 }

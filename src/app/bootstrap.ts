@@ -24,10 +24,15 @@ export default class Bootstrap {
 
         const self = this;
         this.handleBody();
+        this.cacheConfig(config);
         this.preFlight(function () {
             self.prepareApps();
             // this.initialize()
         });
+    }
+
+    cacheConfig(config) {
+        Store.set('config', this.config);
     }
 
     prepareApps(): void {
@@ -37,7 +42,7 @@ export default class Bootstrap {
         for (let i in applications) {
             $(function () {
                 // setTimeout(() => {
-                    self.initializeApp(applications[i]);
+                self.initializeApp(applications[i]);
                 // }, self.config.timeout);
             });
         }
@@ -67,8 +72,12 @@ export default class Bootstrap {
             self.broadcastVideo.setFullScreen(true);
             self.broadcastVideo.bindToCurrentChannel();
 
-            self.hbbApp = self.appManager.getOwnerApplication(document);
-            self.hbbApp.show();
+            try {
+                self.hbbApp = self.appManager.getOwnerApplication(document);
+                self.hbbApp.show();
+            } catch (error) {
+                console.error(error);
+            }
             // app.activate();
 
             if (typeof callback === 'function') {
@@ -105,8 +114,7 @@ export default class Bootstrap {
         Store.set('params', deviceParams);
     }
 
-    destroy(): void {
-        console.log('destruction called!');
+    destroy(layout?: string): void {
         this.hbbApp.destroyApplication();
     }
 }

@@ -1,0 +1,42 @@
+.module.weather {
+    //.form-group { margin-top: $grid-gutter-width * 2; }
+    .current {
+        border-bottom: 1px solid $gray-400; padding: $grid-gutter-width 0;
+    }
+    .card {
+        background: $gray-200; padding: $grid-gutter-width; height: 100%;
+        &.status {
+            text-align: center;
+            h1 { font-size: 5rem; }
+            .weather-icon { font-size: 8rem; line-height: 8rem; }
+            h3 { margin: 0; }
+        }
+        &.details {
+            padding: $grid-gutter-width $grid-gutter-width 0;
+            .row:last-child { margin-top: $grid-gutter-width; }
+        }
+    }
+    .forecast {
+        margin-top: $grid-gutter-width;
+        .inner {
+            padding: $grid-gutter-width / 2;
+            border-left: 1px solid $gray-300;
+            text-align: center;
+        }
+        .col {
+            &:last-child {
+                .inner { border-left: 0 none; }
+            }
+        }
+        .details {
+            float: left; width: 50%;
+            .icon { display: block; font-size: 3.5rem; line-height: 4rem; color: $gray-700; }
+        }
+        .temp {
+            margin-left: 50%; width: 50%; font-size: 2rem; text-align: right;
+            .high { color: $blue; }
+            .low { color: $green-dark }
+        }
+        time { clear: both; display: block; margin-top: $grid-gutter-width; color: $gray-700; }
+    }
+}

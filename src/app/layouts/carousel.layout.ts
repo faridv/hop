@@ -7,32 +7,25 @@ import Layouts from "../layouts";
 
 export default class CarouselLayout {
 
+    // Static Constructor
     public static init(config, appData, LayoutInstance: Layouts): void {
 
         // Load Clock
         if (typeof appData.clock !== 'undefined' && appData.clock) {
-            CarouselLayout.renderClock(config, $("#time span"));
+            LayoutInstance.renderClock(config, $("#time span"));
         }
 
         // Load Server Connection Status
         if (typeof appData.connectionStatus !== 'undefined' && appData.connectionStatus) {
-            CarouselLayout.renderConnectionStatus();
+            LayoutInstance.renderConnectionStatus();
         }
 
         // Initialize Carousel
-        CarouselLayout.initializeCarousel(config, $("#menu ul"), LayoutInstance);
+        CarouselLayout.initialize(config, $("#menu ul"), LayoutInstance);
     }
 
-    public static renderClock(config, $el): void {
-        new ClockHelper(config, $el);
-    }
-
-    public static renderConnectionStatus(): void {
-        new ConnectionHelper();
-    }
-
-    public static initializeCarousel(config, $el, LayoutInstance: Layouts): void {
-        CarouselLayout.handleCarouselEvents($el, config, LayoutInstance);
+    public static initialize(config, $el, LayoutInstance: Layouts): void {
+        CarouselLayout.handleEvents($el, config, LayoutInstance);
         let slidesToShow = 5;
         if (!$el.is(':visible'))
             $el.show(1);
@@ -51,22 +44,22 @@ export default class CarouselLayout {
             useCSS: false,
             useTransform: false
         });
-        CarouselLayout.handleCarouselKeys($el);
+        CarouselLayout.handleKeys($el);
     }
 
     public static duplicateItems($el, minCount: number): boolean {
         const currentItemsCount = $el.find('> li').length;
-        const cloneCount = Math.ceil(minCount / currentItemsCount);
-        for (let i:number = 1; i < cloneCount; i++) {
-            $el.find('> li').each(function() {
+        const cloneCount = Math.ceil((minCount + 1) / currentItemsCount);
+        for (let i: number = 1; i < cloneCount; i++) {
+            $el.find('> li').each(function () {
                 $el.append($(this).clone(true));
             });
         }
         return true;
     }
 
-    public static handleCarouselEvents($carousel, config, LayoutInstance: Layouts): void {
-        const input = Inputs.Instance;
+    public static handleEvents($carousel, config, LayoutInstance: Layouts): void {
+        const input = Inputs.instance;
 
         // $carousel.on('init afterChange', (e) => {
         //     const $currentSlide = $carousel.find('.slick-current').find('li:first a');
@@ -82,10 +75,10 @@ export default class CarouselLayout {
         });
     }
 
-    public static destroyCarousel($carousel, config, callback) {
+    public static destroy($carousel, config, callback): void {
         const self = this;
         $carousel.fadeOut(config.transitionSpeed, () => {
-            self.unsetCarouselKeys();
+            self.unsetKeys();
             $carousel.slick('destroy');
             if (typeof callback === 'function') {
                 callback();
@@ -93,15 +86,15 @@ export default class CarouselLayout {
         });
     }
 
-    public static loadModule($carousel, config, LayoutInstance) {
+    public static loadModule($carousel, config, LayoutInstance): void {
         const $currentSlide = $carousel.find('.slick-current').find('li:first');
-        CarouselLayout.destroyCarousel($carousel, config, () => {
-            LayoutInstance.loadModule($currentSlide.data('type'));
+        CarouselLayout.destroy($carousel, config, () => {
+            LayoutInstance.loadModule($currentSlide.data('type'), config);
         });
     }
 
-    public static handleCarouselKeys($carousel): void {
-        const input = Inputs.Instance;
+    public static handleKeys($carousel): void {
+        const input = Inputs.instance;
         const leftParams = {key: 'carousel.left', title: 'چپ', icon: 'left', button: false};
         input.addEvent('left', false, leftParams, () => {
             $carousel.slick('slickNext');
@@ -112,8 +105,8 @@ export default class CarouselLayout {
         });
     }
 
-    public static unsetCarouselKeys(): void {
-        const input = Inputs.Instance;
+    public static unsetKeys(): void {
+        const input = Inputs.instance;
         input.removeEvent('left', {key: 'carousel.left'});
         input.removeEvent('right', {key: 'carousel.right'});
         input.removeEvent('enter', {key: 'carousel.select'});

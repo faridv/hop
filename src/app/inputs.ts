@@ -96,7 +96,7 @@ export default class Inputs {
         $('body').trigger('event-change', eventData);
     }
 
-    public static get Instance() {
+    public static get instance() {
         return this._instance || (this._instance = new this());
     }
 }

@@ -15,8 +15,8 @@ export default class AppManager {
 
     constructor (appData, Config, BootstrapInstance: Bootstrap) {
         this.config = Config;
-        this.input = Inputs.Instance;
-        this.template = TemplateHelper.Instance;
+        this.input = Inputs.instance;
+        this.template = TemplateHelper.instance;
         this.container = Config.container;
         this._bootstrapInstance = BootstrapInstance;
         const self = this;
@@ -28,17 +28,17 @@ export default class AppManager {
 
     showButton(appData) {
         const self = this;
-        const templatePromise = this.template.load('controls', 'button');
+        const controlType = (appData.hasHub) ? 'button' : appData.layout;
+        const templatePromise = this.template.load('controls', controlType);
         const button = appData.button;
-        this.template.render(templatePromise, button, this.$el, 'append', function(element) {
+        this.template.render(templatePromise, appData, this.$el, 'append', function(element) {
             const inputParams = {key: 'app.' + button.key, title: 'init'};
             self.input.addEvent(button.key, true, inputParams, function() {
                 self.initializeApplication(appData);
             });
 
             setTimeout(() => {
-                $(element).find('[class*="button-"]');
-                // $(element).find('[class*="button-"]').addClass('show');
+                $(element).find('[class*="button-"]').addClass('show');
             }, self.config.timeout);
         });
     }
@@ -51,13 +51,15 @@ export default class AppManager {
 
         this.template.render(templatePromise, modules, this.$el, 'html', function() {
             self.template.addClass('active');
-            self.template.addClass('layout-' + layout, self.config.container);
+
+            // Should be on body
+            self.template.addClass('layout-' + layout, 'body');
 
             const inputParams = {key: 'app.close', title: 'خروج', button: true};
             self.input.addEvent(appData.button.key, true, inputParams, function() {
-                self._bootstrapInstance.destroy()
+                self.template.removeClassIfContains('body', 'layout-')
+                self._bootstrapInstance.destroy(layout);
             });
-
             new Layouts(layout, self.config, appData);
         });
     }
