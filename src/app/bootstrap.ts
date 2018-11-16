@@ -10,9 +10,11 @@ export default class Bootstrap {
     config;
     store;
 
-    broadcastVideo;
-    appManager;
-    hbbApp;
+    broadcastVideo: any;
+    appManager: any;
+    hbbApp: any;
+    configObject: any;
+
     deviceParams: DeviceConfig = new DeviceConfig();
 
     constructor(config) {
@@ -31,7 +33,7 @@ export default class Bootstrap {
         });
     }
 
-    cacheConfig(config) {
+    cacheConfig(config): void {
         Store.set('config', this.config);
     }
 
@@ -41,15 +43,13 @@ export default class Bootstrap {
 
         for (let i in applications) {
             $(function () {
-                // setTimeout(() => {
                 self.initializeApp(applications[i]);
-                // }, self.config.timeout);
             });
         }
     }
 
     initializeApp(app: object): void {
-        const application = new Application(app, this.config, this);
+        new Application(app, this.config, this);
     }
 
     handleBody(): void {
@@ -62,28 +62,60 @@ export default class Bootstrap {
 
     preFlight(callback): void {
         const self = this;
+        // $(document).on('keyup keydown', function(e) {
+        //     console.log(e);
+        // });
         window.onload = function () {
-            self.broadcastVideo = document.getElementById("broadcastvideo");
-            self.appManager = document.getElementById("appmgr");
+            setTimeout(() => {
+                self.broadcastVideo = document.getElementById("broadcastvideo");
+                self.appManager = document.getElementById("appmgr");
+                self.configObject = document.getElementById("oipfcfg");
 
-            self.getDeviceParams(self.broadcastVideo);
-            self.handleVideoSize(self.broadcastVideo);
+                self.getDeviceParams(self.broadcastVideo);
+                self.handleVideoSize(self.broadcastVideo);
+                self.setKeySet(0x1 + 0x2); // Red and Green
 
-            self.broadcastVideo.setFullScreen(true);
-            self.broadcastVideo.bindToCurrentChannel();
-
-            try {
-                self.hbbApp = self.appManager.getOwnerApplication(document);
-                self.hbbApp.show();
-            } catch (error) {
-                console.error(error);
-            }
-            // app.activate();
-
-            if (typeof callback === 'function') {
-                callback();
-            }
+                try {
+                    self.broadcastVideo.setFullScreen(true);
+                } catch (e) {
+                    // error switch to fullscreen
+                }
+                try {
+                    self.broadcastVideo.bindToCurrentChannel();
+                } catch (e) {
+                    //error bind element to current channel
+                }
+                try {
+                    self.hbbApp = self.appManager.getOwnerApplication(document);
+                    self.hbbApp.show();
+                    // self.hbbApp.activate();
+                } catch (error) {
+                    console.error('Problem initializing application', error);
+                }
+                if (typeof callback === 'function') {
+                    callback();
+                }
+            }, 1000);
         };
+    }
+
+    setKeySet(mask): void {
+        try {
+            this.configObject.keyset.value = mask;
+        } catch (e) {
+            // open
+        }
+        try {
+            this.configObject.keyset.setValue(mask);
+        } catch (e) {
+            //open
+        }
+        try {
+            this.hbbApp.privateData.keyset.setValue(mask);
+            this.hbbApp.privateData.keyset.value = mask;
+        } catch (e) {
+            // catch error
+        }
     }
 
     handleVideoSize(broadCastVideo): void {
@@ -95,13 +127,21 @@ export default class Bootstrap {
     }
 
     getDeviceParams(broadcastObject): void {
-        this.deviceParams.channelList = broadcastObject.getChannelConfig().channelList;
-        this.deviceParams.channelName = broadcastObject.currentChannel.name;
-        this.deviceParams.channelCCID = broadcastObject.currentChannel.ccid;
-        this.deviceParams.channelDescription = broadcastObject.currentChannel.description;
-        this.deviceParams.channelONID = broadcastObject.currentChannel.onid;
-        this.deviceParams.channelSID = broadcastObject.currentChannel.sid;
-        this.deviceParams.channelTSID = broadcastObject.currentChannel.tsid;
+        if (typeof broadcastObject.currentChannel !== 'undefined' && broadcastObject.currentChannel) {
+            try {
+                this.deviceParams.channelList = broadcastObject.getChannelConfig().channelList;
+                this.deviceParams.channelName = broadcastObject.currentChannel.name;
+                this.deviceParams.channelCCID = broadcastObject.currentChannel.ccid;
+                this.deviceParams.channelDescription = broadcastObject.currentChannel.description;
+                this.deviceParams.channelONID = broadcastObject.currentChannel.onid;
+                this.deviceParams.channelSID = broadcastObject.currentChannel.sid;
+                this.deviceParams.channelTSID = broadcastObject.currentChannel.tsid;
+            } catch (e) {
+                console.error('Problem mapping current channel data to deviceParams: 2', e);
+            }
+        } else {
+            console.error('Problem mapping current channel data to deviceParams: 1');
+        }
         this.deviceParams.cookieEnabled = navigator.cookieEnabled;
         this.deviceParams.userAgent = navigator.userAgent;
         this.deviceParams.viewportWidth = $(window).width();
@@ -115,6 +155,15 @@ export default class Bootstrap {
     }
 
     destroy(layout?: string): void {
-        this.hbbApp.destroyApplication();
+        if (this.config.exitMethod === 'hide') {
+            try {
+                this.hbbApp.hide();
+            } catch (e) {
+                console.error('Error hiding application');
+            }
+        } else {
+            this.setKeySet(0x1 + 0x8);
+            this.hbbApp.destroyApplication();
+        }
     }
 }
