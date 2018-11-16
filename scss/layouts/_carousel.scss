@@ -5,10 +5,9 @@
         margin: 0; padding: 0; list-style: none;
         li {
             a { text-decoration: none; color: #fff; display: inline-block;  }
-            width: 200px; height: 200px; text-align: center;
-            background: #303F9F;
-            padding: 30px 15px; margin: 0 10px; color: #fff;
+            width: 200px; height: 200px; text-align: center; background: #303F9F; padding: 30px 15px; color: #fff;
             box-shadow: 0 0 5px #777; transition: $transition-default;
+            //margin: 0 10px;
             .glyphicon { font-size: 56px; }
 
             &[data-type="info"] { background: linear-gradient(135deg, #26c6da 0%, darken(#26c6da, 20%) 100%); }
