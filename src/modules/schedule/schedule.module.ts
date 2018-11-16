@@ -10,9 +10,13 @@ export default class ScheduleModule {
     private input;
     private template;
     private $el = $('#content');
-    private currentDate = moment();
+    private currentDate;
 
     constructor(Config?) {
+
+        moment.locale('en');
+        this.currentDate = moment();
+
         this.template = TemplateHelper.instance;
         this.input = Inputs.instance;
         this.service = ScheduleService.instance;
@@ -50,6 +54,7 @@ export default class ScheduleModule {
     findCurrent(list: Schedules): Schedules {
         const today = moment();
         if (this.currentDate.format('YYYY-MM-DD') === today.format('YYYY-MM-DD')) {
+            console.warn(this.currentDate, today);
             console.log('current schedule is for today!', this.currentDate.format('YYYY-MM-DD'));
             let currentIndex: number = 9999;
             for (let index in list) {
