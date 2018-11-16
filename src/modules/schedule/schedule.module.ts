@@ -54,8 +54,6 @@ export default class ScheduleModule {
     findCurrent(list: Schedules): Schedules {
         const today = moment();
         if (this.currentDate.format('YYYY-MM-DD') === today.format('YYYY-MM-DD')) {
-            console.warn(this.currentDate, today);
-            console.log('current schedule is for today!', this.currentDate.format('YYYY-MM-DD'));
             let currentIndex: number = 9999;
             for (let index in list) {
                 let momentDate = moment(list[index].time, 'HH:mm:ss')
