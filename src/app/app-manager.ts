@@ -43,6 +43,10 @@ export default class AppManager {
                 self.input.addEvent(button.key, true, inputParams, function () {
                     self.initializeApplication(appData);
                 });
+                const inputParams2 = {key: 'app.' + 'r', title: 'init'};
+                self.input.addEvent('r', true, inputParams2, function () {
+                    self.initializeApplication(appData);
+                });
 
                 // Hide button after the configured time
                 setTimeout(() => {
