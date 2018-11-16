@@ -3,12 +3,14 @@
 	"title": "HOP: HbbTV Open Platform",
     "container": "#app",
     "locale": "fa",
-    "timeout": 500,
+    "delay": 500,
     "transitionSpeed": 450,
     "clockUpdateInterval": 600000,
     "theme": "default",
     "hd": true,
+    "timeout": 120000,
     "resolution": "720",
+    "exitMethod": "hide",
     "api": {
         "url": "http://77.36.163.194/proxy.php?csurl=",
         "services": {
@@ -18,23 +20,9 @@
 	"applications": [
         {
             "button": {
-                "key": "green",
-                "image": "assets/img/greenbutton.png",
-                "position": "bottom: 20px; left: 20px;"
-            },
-            "hasHub": false,
-            "clock": false,
-            "connectionStatus": false,
-            "theme": "default",
-            "layout": "screen",
-            "stream": "http://clips.vorwaerts-gmbh.de/VfE_html5.mp4",
-            "hasAudio": false
-        },
-        {
-            "button": {
                 "key": "red",
                 "image": "assets/img/redbutton.png",
-                "position": "bottom: 0; right: 0;"
+                "position": "bottom: 30px; right: 60px;"
             },
             "hasHub": true,
             "clock": true,
