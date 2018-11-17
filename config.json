@@ -11,7 +11,7 @@
     "timeout": 120000,
     "resolution": "720",
     "verboseEvents": false,
-    "autostart": true,
+    "autostart": false,
     "exitMethod": "hide",
     "api": {
         "url": "http://77.36.163.194/proxy.php?csurl=",
