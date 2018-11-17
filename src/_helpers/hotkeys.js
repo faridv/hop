@@ -166,6 +166,9 @@
     var code = function code(x) {
         console.warn(x.toLowerCase(), _keyMap[x.toLowerCase()], _modifier[x.toLowerCase()], _HbbTVEvents[x.toLowerCase()], x.toUpperCase().charCodeAt(0));
         if ($('#logs').length) {
+            if ($('#logs p').length > 19) {
+                $('#logs p:first').remove();
+            }
             $('#logs').append('<p class="red">listen for: ' + x.toLowerCase() + '; which is: "' + _keyMap[x.toLowerCase()] + '", "' + _modifier[x.toLowerCase()] + '", "' +  _HbbTVEvents[x.toLowerCase()] + '", "' + x.toUpperCase().charCodeAt(0) + '"</p>');
         }
 

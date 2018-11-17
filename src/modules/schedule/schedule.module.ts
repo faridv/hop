@@ -40,9 +40,9 @@ export default class ScheduleModule {
                 $('.schedule-items').scrollTop(0);
                 if ($('.schedule-items li.current').length) {
                     setTimeout(() => {
-                        $('.schedule-items').animate({
+                        $('.schedule-items').css({
                             scrollTop: $('.schedule-items li.current').offset().top - 100
-                        }, 500);
+                        });
                     }, 500);
                 } else {
                     $('.schedule-items li').first().addClass('active');
@@ -103,9 +103,9 @@ export default class ScheduleModule {
                 $current.removeClass('active') && $current.prev().addClass('active');
         }
         const $activeElement = $('.schedule-items li.active');
-        $('.schedule-items').animate({
+        $('.schedule-items').css({
             scrollTop: $activeElement.position().top + $('.schedule-items').scrollTop() - 100
-        }, 500);
+        });
     }
 
     openLink(): void {

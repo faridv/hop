@@ -79,9 +79,17 @@ export default class AppManager {
             self.template.addClass('layout-' + layout, 'body');
 
             const inputParams = {key: 'app.close', title: 'خروج', button: true};
-            self.input.addEvent(appData.button.key, true, inputParams, function () {
-                self.template.removeClassIfContains('body', 'layout-')
-                self._bootstrapInstance.destroy(layout);
+            self.input.addEvent(appData.button.key, false, inputParams, function () {
+                if (this.config.exitMethod === 'hide') {
+                    if ($("#app").is(":visible")) {
+                        $("#app").hide(1);
+                    } else {
+                        $("#app").show(1);
+                    }
+                } else {
+                    self.template.removeClassIfContains('body', 'layout-')
+                    self._bootstrapInstance.destroy(layout);
+                }
             });
             new Layouts(layout, self.config, appData);
         });

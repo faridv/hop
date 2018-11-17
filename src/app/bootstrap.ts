@@ -45,8 +45,11 @@ export default class Bootstrap {
         if (this.config.verboseEvents) {
             $(function() {
                 $("body").append('<div id="logs"></div>');
-                $(document).on('keyup', function(e) {
-                    $('#logs').append('<p class="green">key event: ' + e.key + '; which is: ' + e.which + '</p>');
+                $(document).on('keydown', function(e) {
+                    if ($('#logs p').length > 19) {
+                        $('#logs p:first').remove();
+                    }
+                    $('#logs').append('<p>key event: ' + e.key + '; which is: ' + e.which + '</p>');
                 });
             });
         }
@@ -83,7 +86,8 @@ export default class Bootstrap {
 
                 self.getDeviceParams(self.broadcastVideo);
                 self.handleVideoSize(self.broadcastVideo);
-                self.setKeySet(0x1 + 0x2); // Red and Green
+                self.setKeySet(0x1 + 0x2 + 0x4 + 0x8); // Colors
+                // this.setKeySet(0x1 + 0x2 + 0x4 + 0x8 + 0x10 + 0x20 + 0x40 + 0x80);
 
                 try {
                     self.broadcastVideo.setFullScreen(true);
@@ -172,7 +176,7 @@ export default class Bootstrap {
                 console.error('Error hiding application');
             }
         } else {
-            this.setKeySet(0x1 + 0x8);
+            this.setKeySet(0x1 + 0x2 + 0x4 + 0x8);
             this.hbbApp.destroyApplication();
         }
     }
