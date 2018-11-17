@@ -41,6 +41,16 @@ export default class Bootstrap {
         const applications = this.config.applications;
         const self = this;
 
+        // Verbose events
+        if (this.config.verboseEvents) {
+            $(function() {
+                $("body").append('<div id="logs"></div>');
+                $(document).on('keyup', function(e) {
+                    $('#logs').append('<p class="green">key event: ' + e.key + '; which is: ' + e.which + '</p>');
+                });
+            });
+        }
+
         for (let i in applications) {
             $(function () {
                 self.initializeApp(applications[i]);

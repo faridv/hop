@@ -26,8 +26,14 @@ export default class AppManager {
         });
     }
 
-    showButton(appData) {
+    showButton(appData): boolean {
         const self = this;
+
+        if (this.config.autostart) {
+            self.initializeApplication(appData);
+            return true;
+        }
+
         const controlType = (appData.hasHub) ? 'button' : appData.layout;
         const templatePromise = this.template.load('controls', controlType);
         const button = appData.button;
@@ -64,7 +70,7 @@ export default class AppManager {
         const templatePromise = this.template.load('layouts', layout);
         const modules = appData.modules;
 
-        this._bootstrapInstance.setKeySet(0x1+0x2+0x4+0x8+0x10+0x20+0x40+0x80); // All Keys
+        this._bootstrapInstance.setKeySet(0x1 + 0x2 + 0x4 + 0x8 + 0x10 + 0x20 + 0x40 + 0x80); // All Keys
 
         this.template.render(templatePromise, modules, this.$el, 'html', function () {
             self.template.addClass('active');
