@@ -1,5 +1,5 @@
 {
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"title": "HOP: HbbTV Open Platform",
     "container": "#app",
     "locale": "fa",
@@ -17,7 +17,8 @@
         "url": "http://77.36.163.194/proxy.php?csurl=",
         "services": {
             "schedule": "http://pooyatv.ir/ipg",
-            "weather": "https://query.yahooapis.com/v1/public/yql"        }
+            "weather": "https://query.yahooapis.com/v1/public/yql"        
+        }
     },
 	"applications": [
         {
