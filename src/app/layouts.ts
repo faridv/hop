@@ -73,7 +73,7 @@ export default class Layouts {
         if (JSON.stringify(items) !== this.cachedFooterElements) {
             const templatePromise = this.template.load('controls', 'footer');
             const $footer = $('#footer');
-            this.template.render(templatePromise, items, $footer, 'html');
+            this.template.render(templatePromise, {items: items}, $footer, 'html');
             this.cachedFooterElements = JSON.stringify(items);
         }
     }
@@ -115,7 +115,7 @@ export default class Layouts {
     private prepareUnloadModule(moduleInstance) {
         const exitParams = {key: 'module.exit', title: 'بازگشت به منو', icon: 'refresh', button: true};
         const self = this;
-        this.input.addEvent('back', true, exitParams, () => {
+        this.input.addEvent('back,backspace,b', true, exitParams, () => {
             if (moduleInstance.destroy()) {
                 this.cleanUpPage(() => {
                     self[this.layout]();
