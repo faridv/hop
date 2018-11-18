@@ -6,6 +6,7 @@ const nodeEnv = process.env.NODE_ENV || 'development';
 const isProd = nodeEnv === 'production';
 
 const plugins = [
+    new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /fa/),
     new webpack.DefinePlugin({
         'process.env': {
             NODE_ENV: JSON.stringify(nodeEnv)
