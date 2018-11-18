@@ -7,13 +7,13 @@
 </div>
 <div id="menu">
     <ul>
-        {{#each []}}
+        {{#each items}}
         <li data-type="{{type}}">
             <a>
                 <span class="glyphicon">
-                    <i class="icon-{{this.icon}}"></i>
+                    <i class="icon-{{icon}}"></i>
                 </span>
-                <h3>{{this.title}}</h3>
+                <h3>{{title}}</h3>
             </a>
         </li>
         {{/each}}
