@@ -20,8 +20,10 @@ export default class Inputs {
         const self = this;
         this.registerEvent(eventData);
         hotkeys(key, (e) => {
-            if (typeof handler !== 'undefined')
+            e.preventDefault();
+            if (typeof handler !== 'undefined') {
                 handler(e);
+            }
             if (reset) {
                 self.off(key, eventData);
             }
@@ -33,8 +35,10 @@ export default class Inputs {
     }
 
     private off(key, eventData = {}): void {
-        hotkeys.unbind(key);
-        this.purgeEvent(key, eventData);
+        if (this.checkKeyRegistration(key)) {
+            hotkeys.unbind(key);
+            this.purgeEvent(key, eventData);
+        }
     }
 
     public getEventList(onlyButtons: boolean = false) {
@@ -57,6 +61,15 @@ export default class Inputs {
         }
         this.events.push(params);
         $('body').trigger('event-change', params);
+    }
+
+    private checkKeyRegistration(key): boolean {
+        for (let i: number = 0; i < this.events.length; i++) {
+            if (this.events[i]['eventKey'] === key) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private purgeEvent(key, eventData): void {
