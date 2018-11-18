@@ -47,13 +47,13 @@
     },
     "dependencies": {
         "@types/handlebars": "^4.0.39",
-        "@types/node": "^10.12.8",
+        "@types/node": "^10.12.9",
         "@types/slick-carousel": "^1.6.32",
-        "handlebars": "^4.0.11",
         "hbbtv-typings": "^1.5.2",
         "jquery": "^3.3.1",
         "moment-jalaali": "^0.7.4",
         "prayer-times": "^0.1.0",
-        "slick-carousel": "^1.8.1"
+        "slick-carousel": "^1.8.1",
+        "template7": "^1.4.0"
     }
 }
