@@ -12,6 +12,8 @@
     "resolution": "720",
     "verboseEvents": false,
     "autostart": false,
+    "streamMode": false,
+    "streamUrl": "http://test.livemedia.irib.ir/mdash/tv3-1m.stream/manifest.m3u8",
     "exitMethod": "hide",
     "api": {
         "url": "http://77.36.163.194/proxy.php?csurl=",
