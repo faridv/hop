@@ -41,7 +41,8 @@
     }
 
     .initial-stream {
-        box-shadow: 0 0 3px $text-color; border: 1px solid #fff; max-height: 250px;
+        /*box-shadow: 0 0 3px $text-color; */
+        border: 1px solid #fff; max-height: 250px;
         video { display: block; max-height: 248px; width: auto; }
         img { display: block; position: absolute; bottom: 15px; right: 10px; }
     }

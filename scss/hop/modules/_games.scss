@@ -8,11 +8,11 @@
             margin-bottom: $grid-gutter-width / 2;
             background: #fff; border: 1px solid $gray-200;
             figure {
-                float: right; width: 160px; margin-bottom: 0; transition: $transition-default;
+                float: right; width: 160px; margin-bottom: 0; // transition: $transition-default;
                 img { display: block; width: 100%; height: auto; }
             }
             .desc {
-                margin-right: 160px; padding: $grid-gutter-width / 2; transition: $transition-default;
+                margin-right: 160px; padding: $grid-gutter-width / 2; // transition: $transition-default;
                 h3 { font-size: 1.25rem; margin-top: 8px; }
                 p { font-size: 0.85rem; }
             }

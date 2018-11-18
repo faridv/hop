@@ -3,7 +3,7 @@
     li {
         display: inline-block; font-size: 16px; color: #fff; text-shadow: 0 0 3px #333; margin-left: $grid-gutter-width;
         i { margin-left: 10px; }
-        &.red, &.space {
+        &.red, &.space, &[class^="red,r"] {
             i { color: $red; }
         }
         &.green {
