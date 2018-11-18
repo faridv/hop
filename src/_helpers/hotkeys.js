@@ -164,7 +164,6 @@
 
     // Return key code
     var code = function code(x) {
-        console.warn(x.toLowerCase(), _keyMap[x.toLowerCase()], _modifier[x.toLowerCase()], _HbbTVEvents[x.toLowerCase()], x.toUpperCase().charCodeAt(0));
         if ($('#logs').length) {
             if ($('#logs p').length > 19) {
                 $('#logs p:first').remove();
@@ -172,7 +171,10 @@
             $('#logs').append('<p class="red">listen for: ' + x.toLowerCase() + '; which is: "' + _keyMap[x.toLowerCase()] + '", "' + _modifier[x.toLowerCase()] + '", "' +  _HbbTVEvents[x.toLowerCase()] + '", "' + x.toUpperCase().charCodeAt(0) + '"</p>');
         }
 
-        return _keyMap[x.toLowerCase()] || _modifier[x.toLowerCase()] || _HbbTVEvents[x.toLowerCase()] || x.toUpperCase().charCodeAt(0);
+        // IMPORTANT: Default hotkeys will listen to modifiers, but since we don't have any in HbbTV, I skip checking them
+        // return _keyMap[x.toLowerCase()] || _modifier[x.toLowerCase()] || _HbbTVEvents[x.toLowerCase()] || x.toUpperCase().charCodeAt(0);
+        var keyCode = _keyMap[x.toLowerCase()] || _HbbTVEvents[x.toLowerCase()] || x.toUpperCase().charCodeAt(0);
+        return keyCode;
     };
 
     // Set to get the current range (default is 'all')
@@ -254,6 +256,8 @@
         var keys = void 0;
         var mods = [];
         var obj = void 0;
+
+        console.warn('unbind', key, JSON.stringify(getKeys(key)));
 
         for (var i = 0; i < multipleKeys.length; i++) {
             // Split the combined shortcut into an array
@@ -412,6 +416,8 @@
                 clearModifier(e);
             });
         }
+
+        console.warn('bind', key, JSON.stringify(keys));
     }
 
     var _api = {
