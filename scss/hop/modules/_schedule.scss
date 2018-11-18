@@ -1,12 +1,7 @@
 .module.schedule {
     max-height: 100%; overflow: hidden; display: flex;
-    //> * {
-    //    display: flex; flex: 1 1 auto; height: 0;
-    //    position: relative; flex-direction: column;
-    //    -webkit-box-orient: vertical; -webkit-box-direction: normal; -webkit-box-flex: 1;
-    //}
     ul {
-        list-style: none; padding: 0; height: 100%; overflow: hidden; overflow-y: auto;
+        list-style: none; padding: 0; height: 100%; overflow: hidden; // overflow-y: auto;
         li {
             @include clearfix;
             min-height: 120px;
@@ -24,7 +19,7 @@
                 p {
                     font-size: 0.8rem;
                     &.summary { overflow: hidden; max-height: 2.4rem; }
-                    &.description { display: none; margin-bottom: 0; }
+                    &.description { display: none; margin-bottom: 0; max-height: 3.6rem; overflow: hidden; }
                 }
             }
             &.current { background: $gray-100; }
