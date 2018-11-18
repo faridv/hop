@@ -1,7 +1,5 @@
 import * as $ from 'jquery';
 import 'slick-carousel/slick/slick';
-import ClockHelper from "../../_helpers/clock.helper";
-import ConnectionHelper from "../../_helpers/connection.helper";
 import Inputs from "../inputs";
 import Layouts from "../layouts";
 
@@ -9,6 +7,10 @@ export default class CarouselLayout {
 
     // Static Constructor
     public static init(config, appData, LayoutInstance: Layouts): void {
+
+        const input = Inputs.instance;
+        // Remove back key if we are returning back from a module
+        input.removeEvent('back,backspace,b', {key: 'module.exit'});
 
         // Load Clock
         if (typeof appData.clock !== 'undefined' && appData.clock) {
