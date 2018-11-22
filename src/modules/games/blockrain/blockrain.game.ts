@@ -60,7 +60,7 @@ export default class BlockrainGame {
     private registerKeyboardInputs(): void {
         const self = this;
         const stopParams = {key: 'blockrain.exit', title: 'خروج از بازی', icon: 'stop', button: true};
-        this.input.addEvent('stop', false, stopParams, () => {
+        this.input.addEvent('stop,s', false, stopParams, () => {
             self.destroy();
         });
     }
@@ -78,7 +78,7 @@ export default class BlockrainGame {
     private destroy(): void {
         const self = this;
         this.unloadDependencies();
-        this.input.removeEvent('stop', {key: '2048.stop'});
+        this.input.removeEvent('stop,s', {key: '2048.stop'});
         this.$el.fadeOut(100, () => {
             self.$el.empty();
             self.gamesModule.reInit();

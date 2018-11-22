@@ -10,9 +10,13 @@ export default class ScheduleModule {
     private input;
     private template;
     private $el = $('#content');
-    private currentDate = moment();
+    private currentDate;
 
     constructor(Config?) {
+
+        moment.locale('en');
+        this.currentDate = moment();
+
         this.template = TemplateHelper.instance;
         this.input = Inputs.instance;
         this.service = ScheduleService.instance;
@@ -38,11 +42,12 @@ export default class ScheduleModule {
                     setTimeout(() => {
                         $('.schedule-items').animate({
                             scrollTop: $('.schedule-items li.current').offset().top - 100
-                        }, 500);
+                        });
                     }, 500);
                 } else {
                     $('.schedule-items li').first().addClass('active');
                 }
+                // $('.schedule-items').on('')
             });
         });
     }
@@ -50,7 +55,6 @@ export default class ScheduleModule {
     findCurrent(list: Schedules): Schedules {
         const today = moment();
         if (this.currentDate.format('YYYY-MM-DD') === today.format('YYYY-MM-DD')) {
-            console.log('current schedule is for today!', this.currentDate.format('YYYY-MM-DD'));
             let currentIndex: number = 9999;
             for (let index in list) {
                 let momentDate = moment(list[index].time, 'HH:mm:ss')
@@ -74,7 +78,7 @@ export default class ScheduleModule {
         const self = this;
         const templatePromise = this.template.load('modules', 'schedule');
         data = self.findCurrent(data);
-        this.template.render(templatePromise, data, this.$el, 'html', function () {
+        this.template.render(templatePromise, {items: data}, this.$el, 'html', function () {
             if (typeof callback === 'function')
                 callback(data);
         });
@@ -93,22 +97,28 @@ export default class ScheduleModule {
     setActive(which: string): void {
         const $current = $('.schedule-items li.active');
         if (which === 'next') {
-            if ($current.next().length)
-                $current.removeClass('active') && $current.next().addClass('active');
+            if ($current.next('li').length) {
+                $current.next('li').addClass('active');
+                $current.removeClass('active');
+            }
         } else {
-            if ($current.prev().length)
-                $current.removeClass('active') && $current.prev().addClass('active');
+            if ($current.prev('li').length) {
+                $current.prev('li').addClass('active');
+                $current.removeClass('active');
+            }
         }
         const $activeElement = $('.schedule-items li.active');
         $('.schedule-items').animate({
             scrollTop: $activeElement.position().top + $('.schedule-items').scrollTop() - 100
-        }, 500);
+        });
     }
 
     openLink(): void {
-        const href = $('.schedule-items li.active').data('href');
-        const win = window.open(href, '_blank');
-        win.focus();
+        if ($('.schedule-items li.active').length) {
+            const href = $('.schedule-items li.active').data('href');
+            const win = window.open(href, '_blank');
+            win.focus();
+        }
     }
 
     registerKeyboardInputs(): void {
@@ -142,7 +152,7 @@ export default class ScheduleModule {
 
         const enterParams = {key: 'schedule.enter', title: 'اطلاعات برنامه', icon: 'enter', button: true};
         this.input.addEvent('enter', false, enterParams, () => {
-            // Next Day
+            // Open Link
             self.openLink();
         });
     }

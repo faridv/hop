@@ -57,12 +57,13 @@ export default class WeatherModule {
         let i: number = 0;
         let weather: any = data.query.results.channel;
         const statusCode = ~~weather.item.condition.code;
+        moment.locale('en');
         weather['status'] = WeatherCodesHelper.resolveCode(statusCode);
         weather['icon'] = WeatherCodesHelper.resolveIcon(statusCode);
         weather.item.forecast = weather.item.forecast.slice(0, 5);
         weather.item.forecast.forEach((forecast) => {
             const forecastCode = ~~forecast.code;
-            const momentDate = moment(forecast.date, 'DD MMM YYYY');
+            const momentDate = moment(forecast.date.toString(), 'DD MMM YYYY', false);
             forecast['status'] = WeatherCodesHelper.resolveCode(forecastCode);
             forecast['icon'] = WeatherCodesHelper.resolveIcon(forecastCode);
             forecast['fdate'] = momentDate.isSame(moment(), 'day') ? 'امشب' : momentDate.format('jM/jD');

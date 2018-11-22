@@ -2,7 +2,7 @@ export {};
 
 declare global {
     interface HTMLElement {
-        currentChannel: Object;
+        currentChannel: any;
         getChannelConfig(): any;
         setFullScreen(fullScreen?: Boolean): void;
         getOwnerApplication(document?: Document): any;

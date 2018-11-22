@@ -2,7 +2,7 @@
     <header class="d-none"><h2>جدول پخش</h2></header>
     <div>
         <ul class="schedule-items">
-            {{#each []}}
+            {{#each items}}
             <li data-href="{{url}}" class="{{#if current}}current active{{/if}}">
                 <figure>
                     <img src="{{image}}" alt="{{name}}">

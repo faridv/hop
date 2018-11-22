@@ -29,7 +29,7 @@ export default class GamesModule {
     renderList(games, callback?) {
         const self = this;
         const templatePromise = this.template.load('modules', 'games');
-        this.template.render(templatePromise, games, this.$el, 'html', function () {
+        this.template.render(templatePromise, {items: games}, this.$el, 'html', function () {
             if (typeof callback === 'function')
                 callback(games);
         });
@@ -67,7 +67,10 @@ export default class GamesModule {
 
     loadGame() {
         const $current = $('.game-items li.active');
-        const game = $current.data('game').toString();
+        if ($('.game-items li.active').length < 1) {
+            return false;
+        }
+        const game = $current.attr('data-game').toString();
         let gameObject: any = null;
         switch(game) {
             case '2048':

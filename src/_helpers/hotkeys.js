@@ -107,26 +107,25 @@
         '\\': 220
     };
 
-    if (typeof KeyEvent === 'undefined') {
-        KeyEvent = {};
-    }
     var _HbbTVEvents = {
-        enter: KeyEvent.VK_ENTER || 13,
-        return: KeyEvent.VK_ENTER || 13,
-        left: KeyEvent.VK_LEFT || 37,
-        up: KeyEvent.VK_UP || 38,
-        right: KeyEvent.VK_RIGHT || 39,
-        down: KeyEvent.VK_DOWN || 40,
         red: KeyEvent.VK_RED || 116,
         green: KeyEvent.VK_GREEN || 117,
         yellow: KeyEvent.VK_YELLOW || 118,
         blue: KeyEvent.VK_BLUE || 119,
+
+        left: KeyEvent.VK_LEFT || 37,
+        up: KeyEvent.VK_UP || 38,
+        right: KeyEvent.VK_RIGHT || 39,
+        down: KeyEvent.VK_DOWN || 40,
+        enter: KeyEvent.VK_ENTER || 13,
+        return: KeyEvent.VK_ENTER || 13,
+        back: KeyEvent.VK_BACK || 461,
+
         play: KeyEvent.VK_PLAY || 415,
         pause: KeyEvent.VK_PAUSE || 19,
         stop: KeyEvent.VK_STOP || 413,
         fast_fwd: KeyEvent.VK_FAST_FWD || 417,
-        rewind: KeyEvent.VK_REWIND || 412,
-        back: KeyEvent.VK_BACK || 461
+        rewind: KeyEvent.VK_REWIND || 412
     };
 
     var _modifier = { // Modifier key
@@ -165,17 +164,18 @@
 
     // Return key code
     var code = function code(x) {
-        console.warn(x.toLowerCase(), _HbbTVEvents[x.toLowerCase()], _keyMap[x.toLowerCase()], _modifier[x.toLowerCase()], x.toUpperCase().charCodeAt(0));
-        // return _hbbMap[x.toLowerCase()] || _keyMap[x.toLowerCase()] || _modifier[x.toLowerCase()] || x.toUpperCase().charCodeAt(0);
-        return _HbbTVEvents[x.toLowerCase()], _keyMap[x.toLowerCase()] || _modifier[x.toLowerCase()] || x.toUpperCase().charCodeAt(0);
+        if ($('#logs').length) {
+            if ($('#logs p').length > 19) {
+                $('#logs p:first').remove();
+            }
+            $('#logs').append('<p class="red">listen for: ' + x.toLowerCase() + '; which is: "' + _keyMap[x.toLowerCase()] + '", "' + _modifier[x.toLowerCase()] + '", "' +  _HbbTVEvents[x.toLowerCase()] + '", "' + x.toUpperCase().charCodeAt(0) + '"</p>');
+        }
+
+        // IMPORTANT: Default hotkeys will listen to modifiers, but since we don't have any in HbbTV, I skip checking them
+        // return _keyMap[x.toLowerCase()] || _modifier[x.toLowerCase()] || _HbbTVEvents[x.toLowerCase()] || x.toUpperCase().charCodeAt(0);
+        var keyCode = _keyMap[x.toLowerCase()] || _HbbTVEvents[x.toLowerCase()] || x.toUpperCase().charCodeAt(0);
+        return keyCode;
     };
-    //
-    // function extendMap(keys) {
-    //     console.log(keys);
-    //     for (var i in keys) {
-    //         _keyMap[keys[i]['key']] = keys[i]['value'];
-    //     }
-    // }
 
     // Set to get the current range (default is 'all')
     function setScope(scope) {
@@ -256,6 +256,8 @@
         var keys = void 0;
         var mods = [];
         var obj = void 0;
+
+        console.warn('unbind', key, JSON.stringify(getKeys(key)));
 
         for (var i = 0; i < multipleKeys.length; i++) {
             // Split the combined shortcut into an array
@@ -356,7 +358,6 @@
         }
         // Key does not return in _handlers
         if (!(key in _handlers)) return;
-
         for (var _i = 0; _i < _handlers[key].length; _i++) {
             // Find processing content
             eventHandler(event, _handlers[key][_i], scope);
@@ -415,6 +416,8 @@
                 clearModifier(e);
             });
         }
+
+        console.warn('bind', key, JSON.stringify(keys));
     }
 
     var _api = {

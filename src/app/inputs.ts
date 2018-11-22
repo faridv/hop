@@ -1,40 +1,14 @@
 import * as $ from 'jquery';
-// import hotkeys from 'hotkeys-js';
 import * as hotkeys from '../_helpers/hotkeys.js';
-
-declare let KeyEvent;
 
 export default class Inputs {
 
     private static _instance: Inputs;
-    private events;
-    public hbbtvKeyEvents = [
-        {key: 'enter', value: KeyEvent.VK_ENTER || 13},
-        {key: 'return', value: KeyEvent.VK_ENTER || 13},
-        {key: 'left', value: KeyEvent.VK_LEFT || 37},
-        {key: 'up', value: KeyEvent.VK_UP || 38},
-        {key: 'right', value: KeyEvent.VK_RIGHT || 39},
-        {key: 'down', value: KeyEvent.VK_DOWN || 40},
-        {key: 'red', value: KeyEvent.VK_RED || 116},
-        {key: 'green', value: KeyEvent.VK_GREEN || 117},
-        {key: 'yellow', value: KeyEvent.VK_YELLOW || 118},
-        {key: 'blue', value: KeyEvent.VK_BLUE || 119},
-        {key: 'play', value: KeyEvent.VK_PLAY || 415},
-        {key: 'pause', value: KeyEvent.VK_PAUSE || 19},
-        {key: 'stop', value: KeyEvent.VK_STOP || 413},
-        {key: 'fast_fwd', value: KeyEvent.VK_FAST_FWD || 417},
-        {key: 'rewind', value: KeyEvent.VK_REWIND || 412},
-        {key: 'back', value: KeyEvent.VK_BACK || 461}
-    ];
+    private events: any;
 
     constructor() {
         this.events = {};
-        // this.extendKeyMap(this.hbbtvKeyEvents);
     }
-
-    // private extendKeyMap(keys) {
-    //     hotkeys.extendMap(keys);
-    // }
 
     public addEvent(key: string, once: boolean = false, params: any = {}, handler: any): void {
         const scope = typeof params.key !== 'undefined' ? params.key.split('.')[0] : 'default';
@@ -46,8 +20,10 @@ export default class Inputs {
         const self = this;
         this.registerEvent(eventData);
         hotkeys(key, (e) => {
-            if (typeof handler !== 'undefined')
+            e.preventDefault();
+            if (typeof handler !== 'undefined') {
                 handler(e);
+            }
             if (reset) {
                 self.off(key, eventData);
             }
@@ -59,8 +35,10 @@ export default class Inputs {
     }
 
     private off(key, eventData = {}): void {
-        hotkeys.unbind(key);
-        this.purgeEvent(key, eventData);
+        if (this.checkKeyRegistration(key)) {
+            hotkeys.unbind(key);
+            this.purgeEvent(key, eventData);
+        }
     }
 
     public getEventList(onlyButtons: boolean = false) {
@@ -83,6 +61,15 @@ export default class Inputs {
         }
         this.events.push(params);
         $('body').trigger('event-change', params);
+    }
+
+    private checkKeyRegistration(key): boolean {
+        for (let i: number = 0; i < this.events.length; i++) {
+            if (this.events[i]['eventKey'] === key) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private purgeEvent(key, eventData): void {
