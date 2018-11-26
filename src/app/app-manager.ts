@@ -59,7 +59,7 @@ export default class AppManager {
 
                 // Add application initialization key event
                 const inputParams = {key: 'app.' + button.key, title: 'init'};
-                self.input.addEvent(button.key + ',r', true, inputParams, function () {
+                self.input.addEvent(button.key, true, inputParams, function () {
                     self.initializeApplication(appData);
                 });
                 // const inputParams2 = {key: 'app.' + 'r', title: 'init'};
