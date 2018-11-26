@@ -68,7 +68,7 @@
     }
 
     if (typeof KeyEvent === 'undefined') {
-        KeyEvent = {};
+        var KeyEvent = {};
     }
 
     var _keyMap = { // Special key
@@ -107,6 +107,7 @@
         '\\': 220
     };
 
+    console.log(JSON.stringify(KeyEvent.VK_RED));
     var _HbbTVEvents = {
         red: KeyEvent.VK_RED || 116,
         green: KeyEvent.VK_GREEN || 117,
