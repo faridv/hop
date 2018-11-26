@@ -127,8 +127,6 @@ export default class Store {
     }
 
     static is_localstorage(): boolean {
-        // return 'undefined' !== typeof localStorage;
-
         if (typeof localStorage !== 'undefined') {
             try {
                 localStorage.setItem('feature_test', 'yes');
@@ -177,7 +175,6 @@ export default class Store {
     }
 
     static set(key: string, value: string, options?: StoreOptions) {
-
         if (Store.is_localstorage()) {
             return Store.local(key, value, options);
         } else {
