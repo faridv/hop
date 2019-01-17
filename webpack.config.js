@@ -29,12 +29,14 @@ const plugins = [
         }
     }),
     new CopyWebpackPlugin([
-        {from: './assets', to: 'assets/'}
+        {from: './assets', to: 'assets/'},
+        {from: '.htaccess'}
     ])
 ];
 
 var config = {
-    devtool: isProd ? 'hidden-source-map' : 'source-map',
+    // devtool: isProd ? 'hidden-source-map' : 'source-map',
+    devtool: isProd ? '' : 'source-map',
     context: path.resolve('./src'),
     entry: {
         app: './main.ts'
@@ -68,7 +70,7 @@ var config = {
     resolve: {
         extensions: ['.ts', '.js'],
         alias: {
-            handlebars: 'handlebars/dist/handlebars.min.js'
+            // handlebars: 'handlebars/dist/handlebars.min.js'
         }
     },
     plugins: plugins,

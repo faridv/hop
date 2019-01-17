@@ -11,15 +11,15 @@
     "timeout": 120000,
     "resolution": "720",
     "verboseEvents": false,
-    "autostart": false,
+    "autostart": true,
     "streamMode": false,
-    "streamUrl": "http://test.livemedia.irib.ir/mdash/tv3-1m.stream/manifest.m3u8",
+    "streamUrl": "http://test.livemedia.irib.ir/mdash/pouya-1m.stream/manifest.m3u8",
     "exitMethod": "hide",
     "api": {
         "url": "http://77.36.163.194/proxy.php?csurl=",
         "services": {
             "schedule": "http://pooyatv.ir/ipg",
-            "weather": "https://query.yahooapis.com/v1/public/yql"        
+            "weather": "https://query.yahooapis.com/v1/public/yql"
         }
     },
 	"applications": [

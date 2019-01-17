@@ -4,9 +4,9 @@ body {
 	&.rtl {
 		direction: rtl; text-align: right;
 	}
-	&.active {
+	// &.active {
 
-    }
+    // }
 	&.broadcast-half {
 		#broadcast {
 			width: 45%; height: 45%; left: 75%; box-shadow: 0 0 20px rgba(0, 0, 0, 0.75);
