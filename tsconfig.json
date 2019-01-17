@@ -16,9 +16,6 @@
         "resolveJsonModule": true,
         "typeRoots": [
             "node_modules/@types"
-        ],
-        "include": [
-            "./node_modules/hbbtv-typings"
         ]
     },
     "include": [

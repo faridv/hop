@@ -67,10 +67,6 @@
         return isIndex;
     }
 
-    if (typeof KeyEvent === 'undefined') {
-        var KeyEvent = {};
-    }
-
     var _keyMap = { // Special key
         backspace: 8,
         tab: 9,
@@ -107,7 +103,40 @@
         '\\': 220
     };
 
-    console.log(JSON.stringify(KeyEvent.VK_RED));
+    KeyEvent = window['KeyEvent'] || {};
+
+    KeyEvent.VK_ENTER = KeyEvent.VK_ENTER || 13;
+    KeyEvent.VK_BACK = KeyEvent.VK_BACK || 461;
+
+    KeyEvent.VK_LEFT = KeyEvent.VK_LEFT || 37;
+    KeyEvent.VK_UP = KeyEvent.VK_UP || 38;
+    KeyEvent.VK_RIGHT = KeyEvent.VK_RIGHT || 39;
+    KeyEvent.VK_DOWN = KeyEvent.VK_DOWN || 40;
+
+    KeyEvent.VK_RED = KeyEvent.VK_RED || 403;
+    KeyEvent.VK_GREEN = KeyEvent.VK_GREEN || 404;
+    KeyEvent.VK_YELLOW = KeyEvent.VK_YELLOW || 405;
+    KeyEvent.VK_BLUE = KeyEvent.VK_BLUE || 406;
+
+    KeyEvent.VK_0 = KeyEvent.VK_0 || 48;
+    KeyEvent.VK_1 = KeyEvent.VK_1 || 49;
+    KeyEvent.VK_2 = KeyEvent.VK_2 || 50;
+    KeyEvent.VK_3 = KeyEvent.VK_3 || 51;
+    KeyEvent.VK_4 = KeyEvent.VK_4 || 52;
+    KeyEvent.VK_5 = KeyEvent.VK_5 || 53;
+    KeyEvent.VK_6 = KeyEvent.VK_6 || 54;
+    KeyEvent.VK_7 = KeyEvent.VK_7 || 55;
+    KeyEvent.VK_8 = KeyEvent.VK_8 || 56;
+    KeyEvent.VK_9 = KeyEvent.VK_9 || 57;
+
+    KeyEvent.VK_PLAY = KeyEvent.VK_PLAY || 415;
+    KeyEvent.VK_PAUSE = KeyEvent.VK_PAUSE || 19;
+    KeyEvent.VK_STOP = KeyEvent.VK_STOP || 413;
+
+    KeyEvent.VK_TOBEGIN = KeyEvent.VK_TOBEGIN || 423;
+    KeyEvent.VK_TOEND = KeyEvent.VK_TOEND || 425;
+    KeyEvent.VK_FAST_FWD = KeyEvent.VK_FAST_FWD || 417;
+    KeyEvent.VK_REWIND = KeyEvent.VK_REWIND || 412;
     var _HbbTVEvents = {
         red: KeyEvent.VK_RED || 116,
         green: KeyEvent.VK_GREEN || 117,
@@ -148,7 +177,7 @@
         18: 'altKey',
         17: 'ctrlKey'
     };
-    var _mods = {16: false, 18: false, 17: false};
+    var _mods = { 16: false, 18: false, 17: false };
     var _handlers = {};
 
     // F1~F12 Special key
@@ -169,7 +198,7 @@
             if ($('#logs p').length > 19) {
                 $('#logs p:first').remove();
             }
-            $('#logs').append('<p class="red">listen for: ' + x.toLowerCase() + '; which is: "' + _keyMap[x.toLowerCase()] + '", "' + _modifier[x.toLowerCase()] + '", "' +  _HbbTVEvents[x.toLowerCase()] + '", "' + x.toUpperCase().charCodeAt(0) + '"</p>');
+            $('#logs').append('<p class="red">listen for: ' + x.toLowerCase() + '; which is: "' + _keyMap[x.toLowerCase()] + '", "' + _modifier[x.toLowerCase()] + '", "' + _HbbTVEvents[x.toLowerCase()] + '", "' + x.toUpperCase().charCodeAt(0) + '"</p>');
         }
 
         // IMPORTANT: Default hotkeys will listen to modifiers, but since we don't have any in HbbTV, I skip checking them
@@ -360,6 +389,7 @@
         // Key does not return in _handlers
         if (!(key in _handlers)) return;
         for (var _i = 0; _i < _handlers[key].length; _i++) {
+            console.error(key, event, _handlers[key][_i], scope);
             // Find processing content
             eventHandler(event, _handlers[key][_i], scope);
         }

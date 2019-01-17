@@ -3,7 +3,7 @@ import Inputs from "./inputs";
 import TemplateHelper from "../_helpers/template.helper";
 import Layouts from "./layouts";
 import Bootstrap from "./bootstrap";
-import {ScriptLoaderService} from "../_services/script-loader.service";
+import { ScriptLoaderService } from "../_services/script-loader.service";
 import '../_declarations/videojs.declaration';
 
 export default class AppManager {
@@ -50,22 +50,16 @@ export default class AppManager {
         const controlType = (appData.hasHub) ? 'button' : appData.layout;
         const templatePromise = this.template.load('controls', controlType);
         const button = appData.button;
-        this.template.render(templatePromise, appData, this.$el, 'append', function (element) {
-
+        this.template.render(templatePromise, appData, this.$el, 'append', (element) => {
             // Show button after intentional delay time
             setTimeout(() => {
-
                 $(element).find('[class*="button-"]').addClass('show');
 
                 // Add application initialization key event
-                const inputParams = {key: 'app.' + button.key, title: 'init'};
-                self.input.addEvent(button.key, true, inputParams, function () {
+                const inputParams = { key: 'app.' + button.key, title: 'init' };
+                self.input.addEvent(button.key, true, inputParams, () => {
                     self.initializeApplication(appData);
                 });
-                // const inputParams2 = {key: 'app.' + 'r', title: 'init'};
-                // self.input.addEvent('r', true, inputParams2, function () {
-                //     self.initializeApplication(appData);
-                // });
 
                 // Hide button after the configured time
                 setTimeout(() => {
@@ -82,7 +76,7 @@ export default class AppManager {
         const self = this;
         const layout = appData.layout;
         const templatePromise = this.template.load('layouts', layout);
-        const modules = {items: appData.modules};
+        const modules = { items: appData.modules };
 
         this._bootstrapInstance.setKeySet(0x1 + 0x2 + 0x4 + 0x8 + 0x10 + 0x20 + 0x40 + 0x80); // All Keys
 
@@ -92,8 +86,8 @@ export default class AppManager {
             // Should be on body
             self.template.addClass('layout-' + layout, 'body');
 
-            const inputParams = {key: 'app.close', title: 'خروج', button: true};
-            self.input.addEvent(appData.button.key + ',r', false, inputParams, function () {
+            const inputParams = { key: 'app.close', title: 'خروج', button: true };
+            self.input.addEvent(appData.button.key, false, inputParams, function () {
                 if (self.config.exitMethod === 'hide') {
                     if ($("#app").is(":visible")) {
                         $("#app").hide(1);
