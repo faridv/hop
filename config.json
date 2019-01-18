@@ -10,7 +10,7 @@
     "hd": true,
     "timeout": 120000,
     "resolution": "720",
-    "verboseEvents": true,
+    "verboseEvents": false,
     "autostart": false,
     "streamMode": false,
     "streamUrl": "http://test.livemedia.irib.ir/mdash/pouya-1m.stream/manifest.m3u8",

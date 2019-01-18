@@ -21,7 +21,6 @@ export default class Inputs {
         const self = this;
         this.registerEvent(eventData);
         hotkeys(key, (e) => {
-            alert(key);
 
             e.preventDefault();
             if (typeof handler !== 'undefined') {

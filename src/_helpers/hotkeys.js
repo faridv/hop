@@ -103,7 +103,7 @@
         '\\': 220
     };
 
-    KeyEvent = window['KeyEvent'] || {};
+    var KeyEvent = typeof window['KeyEvent'] !== 'undefined' ? window['KeyEvent'] : {};
 
     KeyEvent.VK_ENTER = KeyEvent.VK_ENTER || 13;
     KeyEvent.VK_BACK = KeyEvent.VK_BACK || 461;
@@ -177,7 +177,7 @@
         18: 'altKey',
         17: 'ctrlKey'
     };
-    var _mods = { 16: false, 18: false, 17: false };
+    var _mods = {16: false, 18: false, 17: false};
     var _handlers = {};
 
     // F1~F12 Special key
@@ -186,8 +186,8 @@
     }
 
     // Compatible with Firefox
-    modifierMap[isff ? 224 : 91] = 'metaKey';
-    _mods[isff ? 224 : 91] = false;
+    // modifierMap[isff ? 224 : 91] = 'metaKey';
+    // _mods[isff ? 224 : 91] = false;
 
     var _scope = 'all'; // Default hotkey range
     var isBindElement = false; // Whether to bind a node
@@ -262,6 +262,7 @@
 
     // Clear modifier key
     function clearModifier(event) {
+        /*
         var key = event.keyCode || event.which || event.charCode;
         var i = _downKeys.indexOf(key);
 
@@ -278,6 +279,7 @@
                 if (_modifier[k] === key) hotkeys[k] = false;
             }
         }
+        */
     }
 
     // Unbind a range of shortcuts
@@ -294,7 +296,7 @@
             keys = multipleKeys[i].split('+');
 
             // Record the key code of the modifier key in each key combination Return array
-            if (keys.length > 1) mods = getMods(_modifier, keys);
+            // if (keys.length > 1) mods = getMods(_modifier, keys);
 
             // Get the key value in addition to the modifier key
             key = keys[keys.length - 1];
@@ -325,16 +327,18 @@
         // See if it is in the current range
         if (handler.scope === scope || handler.scope === 'all') {
             // Check for matching modifiers (if true is returned)
+            /*
             modifiersMatch = handler.mods.length > 0;
-
             for (var y in _mods) {
                 if (Object.prototype.hasOwnProperty.call(_mods, y)) {
-                    if (!_mods[y] && handler.mods.indexOf(+y) > -1 || _mods[y] && handler.mods.indexOf(+y) === -1) modifiersMatch = false;
+                    if (!_mods[y] && handler.mods.indexOf(+y) > -1 || _mods[y] && handler.mods.indexOf(+y) === -1)
+                        modifiersMatch = false;
                 }
             }
+            */
 
-            // Call the handler, if it is a modifier key, it will not be processed.
             if (handler.mods.length === 0 && !_mods[16] && !_mods[18] && !_mods[17] && !_mods[91] || modifiersMatch || handler.shortcut === '*') {
+                // Call the handler, if it is a modifier key, it will not be processed.
                 if (handler.method(event, handler) === false) {
                     if (event.preventDefault) event.preventDefault(); else event.returnValue = false;
                     if (event.stopPropagation) event.stopPropagation();
@@ -348,31 +352,31 @@
     function dispatch(event) {
         var asterisk = _handlers['*'];
         var key = event.keyCode || event.which || event.charCode;
-
         // Collect bound keys
         if (_downKeys.indexOf(key) === -1) _downKeys.push(key);
-
         // Gecko (Firefox)'s command key value 224, consistent in Webkit (Chrome)
         // Webkit left and right command key values are different
         if (key === 93 || key === 224) key = 91;
+        /*
 
-        if (key in _mods) {
-            _mods[key] = true;
+                if (key in _mods) {
+                    _mods[key] = true;
 
-            // Register the key of the special character to hotkeys
-            for (var k in _modifier) {
-                if (_modifier[k] === key) hotkeys[k] = true;
-            }
+                    // Register the key of the special character to hotkeys
+                    for (var k in _modifier) {
+                        if (_modifier[k] === key) hotkeys[k] = true;
+                    }
 
-            if (!asterisk) return;
-        }
+                    if (!asterisk) return;
+                }
 
-        // Bind the modifier key in the modifierMap to the event
-        for (var e in _mods) {
-            if (Object.prototype.hasOwnProperty.call(_mods, e)) {
-                _mods[e] = event[modifierMap[e]];
-            }
-        }
+                // Bind the modifier key in the modifierMap to the event
+                for (var e in _mods) {
+                    if (Object.prototype.hasOwnProperty.call(_mods, e)) {
+                        _mods[e] = event[modifierMap[e]];
+                    }
+                }
+        */
 
         // Form control filter Default form control does not trigger shortcuts
         if (!hotkeys.filter.call(this, event)) return;
@@ -389,7 +393,6 @@
         // Key does not return in _handlers
         if (!(key in _handlers)) return;
         for (var _i = 0; _i < _handlers[key].length; _i++) {
-            console.error(key, event, _handlers[key][_i], scope);
             // Find processing content
             eventHandler(event, _handlers[key][_i], scope);
         }
@@ -420,7 +423,7 @@
             mods = [];
 
             // If it is a combination shortcut to get a combination shortcut
-            if (key.length > 1) mods = getMods(_modifier, key);
+            /*if (key.length > 1) mods = getMods(_modifier, key);*/
 
             // Convert unmodified keys to key codes
             key = key[key.length - 1];
