@@ -43,7 +43,7 @@
         "typescript": "^3.1.6",
         "webpack": "^4.25.1",
         "webpack-cli": "^3.1.0",
-        "webpack-dev-server": "^3.1.5"
+        "webpack-dev-server": "^3.1.14"
     },
     "dependencies": {
         "@types/handlebars": "^4.0.39",
@@ -52,6 +52,7 @@
         "hbbtv-typings": "^1.5.2",
         "jquery": "^3.3.1",
         "moment-jalaali": "^0.7.4",
+        "oauth": "^0.9.15",
         "prayer-times": "^0.1.0",
         "slick-carousel": "^1.8.1",
         "template7": "^1.4.0"
