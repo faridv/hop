@@ -69,12 +69,29 @@ export default class Layouts {
     }
 
     private renderFooter(): void {
+        const self = this;
         let items = this.getFooterItems();
         if (JSON.stringify(items) !== this.cachedFooterElements) {
             const templatePromise = this.template.load('controls', 'footer');
             const $footer = $('#footer');
-            this.template.render(templatePromise, {items: items}, $footer, 'html');
+            this.template.render(templatePromise, {items: items}, $footer, 'html', () => {
+                self.addFooterItemsClickListener();
+            });
             this.cachedFooterElements = JSON.stringify(items);
+        }
+    }
+
+    private addFooterItemsClickListener(): void {
+        if (typeof window['footerClickable'] === 'undefined' || window['footerClickable'] === false) {
+            const self = this;
+            window['footerClickable'] = true;
+            $(document).on('click', '.footer-items li', function (e: Event) {
+                e.preventDefault();
+                const key = $(this).attr('class').split(',')[0].charAt(0);
+                const keyCode = key.toUpperCase().charCodeAt(0);
+
+                self.doKeyPress(keyCode);
+            });
         }
     }
 
@@ -139,6 +156,32 @@ export default class Layouts {
 
     public renderConnectionStatus(): void {
         new ConnectionHelper();
+    }
+
+    // Dirty key-press simulator, just for handling footer items
+    private doKeyPress(key) {
+        let oEvent = document.createEvent('KeyboardEvent');
+        Object.defineProperty(oEvent, 'keyCode', { // for Chrome based browser
+            get: function () {
+                return this.keyCodeVal;
+            }
+        });
+        Object.defineProperty(oEvent, 'which', {
+            get: function () {
+                return this.keyCodeVal;
+            }
+        });
+        if (oEvent.initKeyboardEvent) {
+            // @ts-ignore
+            oEvent.initKeyboardEvent('keydown', true, true, document.defaultView, false, false, false, false, key, key);
+        } else {
+            // @ts-ignore
+            oEvent.initKeyEvent('keydown', true, true, document.defaultView, false, false, false, false, key, 0);
+        }
+
+        // @ts-ignore
+        oEvent.keyCodeVal = key;
+        document.activeElement.dispatchEvent(oEvent);
     }
 
 }
