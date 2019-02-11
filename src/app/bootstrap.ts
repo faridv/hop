@@ -43,9 +43,9 @@ export default class Bootstrap {
 
         // Verbose events
         if (this.config.verboseEvents) {
-            $(function() {
+            $(function () {
                 $("body").append('<div id="logs"></div>');
-                $(document).on('keydown', function(e) {
+                $(document).on('keydown', function (e) {
                     if ($('#logs p').length > 19) {
                         $('#logs p:first').remove();
                     }
@@ -133,15 +133,17 @@ export default class Bootstrap {
     }
 
     handleVideoSize(broadCastVideo): void {
-        broadCastVideo.style.display = 'block';
-        broadCastVideo.style.left = '0px';
-        broadCastVideo.style.top = '0px';
-        broadCastVideo.style.width = this.config.hd ? ((this.config.resolution * 16) / 9) + 'px' : ((this.config.resolution * 4) / 3) + 'px';
-        broadCastVideo.style.height = this.config.resolution + 'px';
+        if (broadCastVideo && broadCastVideo.style) {
+            broadCastVideo.style.display = 'block';
+            broadCastVideo.style.left = '0px';
+            broadCastVideo.style.top = '0px';
+            broadCastVideo.style.width = this.config.hd ? ((this.config.resolution * 16) / 9) + 'px' : ((this.config.resolution * 4) / 3) + 'px';
+            broadCastVideo.style.height = this.config.resolution + 'px';
+        }
     }
 
     getDeviceParams(broadcastObject): void {
-        if (typeof broadcastObject.currentChannel !== 'undefined' && broadcastObject.currentChannel) {
+        if (broadcastObject && typeof broadcastObject.currentChannel !== 'undefined' && broadcastObject.currentChannel) {
             try {
                 this.deviceParams.channelList = broadcastObject.getChannelConfig().channelList;
                 this.deviceParams.channelName = broadcastObject.currentChannel.name;
