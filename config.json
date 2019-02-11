@@ -19,13 +19,13 @@
         "url": "http://77.36.163.194/proxy.php?csurl=",
         "services": {
             "schedule": "http://pooyatv.ir/ipg",
-            "weather": "https://query.yahooapis.com/v1/public/yql"
+            "weather": "http://api.openweathermap.org/data/2.5/forecast"
         }
     },
 	"applications": [
         {
             "button": {
-                "key": "red",
+                "key": "red,r",
                 "image": "assets/img/redbutton.png",
                 "position": "bottom: 30px; right: 60px;"
             },
