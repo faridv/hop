@@ -55,10 +55,6 @@ export default class AppManager {
             setTimeout(() => {
                 $(element).find('[class*="button-"]').addClass('show');
 
-                self.input.addEvent('f', false, { key: 'app.test', title: 'test', button: false }, function () {
-                    alert();
-                });
-
                 // Add application initialization key event
                 const inputParams = { key: 'app.' + button.key, title: 'init' };
                 self.input.addEvent(button.key, true, inputParams, () => {
