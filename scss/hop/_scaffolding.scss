@@ -1,37 +1,39 @@
 html { overflow: hidden; }
+
 body {
-	overflow: hidden; // transition: $transition-default;
-	&.rtl {
-		direction: rtl; text-align: right;
-	}
-	// &.active {
+    overflow: hidden; // transition: $transition-default;
+    &.rtl {
+        direction: rtl; text-align: right;
+    }
+    // &.active {
 
     // }
-	&.broadcast-half {
-		#broadcast {
-			width: 45%; height: 45%; left: 75%; box-shadow: 0 0 20px rgba(0, 0, 0, 0.75);
-			object { width: 100% !important; height: 100% !important; }
-		}
-	}
-	&.stream-mode {
-		#broadcast {
-			display: none;
-		}
-	}
+    &.broadcast-half {
+        #broadcast {
+            width: 45%; height: 45%; left: 75%; box-shadow: 0 0 20px rgba(0, 0, 0, 0.75);
+            object { width: 100% !important; height: 100% !important; }
+        }
+    }
+    &.stream-mode {
+        #broadcast {
+            display: none;
+        }
+    }
 }
+
 #broadcast {
-	//transition: $transition-default;
-	position: fixed; top: 50%; left: 50%; width: 100%; height: 100%;
-	transform: translateX(-50%) translateY(-50%);
-	 object { transition: $transition-default; }
+    //transition: $transition-default;
+    position: fixed; top: 50%; left: 50%; width: 100%; height: 100%;
+    transform: translateX(-50%) translateY(-50%); z-index: 100;
+    object { transition: $transition-default; }
 }
 
 #logs {
-	width: 30%; height: 50%; position: absolute; top: 30px; left: 150px; border: 2px dashed $gray-500; font-size: 12px;
-	direction: ltr; text-align: left;
-	p {
-		margin: 0; color: #fff;
-		&.red { color: $red; }
-		&.green { color: $green; }
-	}
+    width: 30%; height: 50%; position: absolute; top: 30px; left: 150px; border: 2px dashed $gray-500; font-size: 12px;
+    direction: ltr; text-align: left;
+    p {
+        margin: 0; color: #fff;
+        &.red { color: $red; }
+        &.green { color: $green; }
+    }
 }

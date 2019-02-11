@@ -13,7 +13,6 @@
     <meta http-equiv="pragma" content="no-cache" />
     <link rel="stylesheet" href="assets/css/style.css" />
     <link href="assets/img/favicon.ico" rel="icon" type="image/x-icon" />
-
     <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-63573054-3" type="text/javascript"></script> -->
     <script>
         /*
@@ -24,11 +23,11 @@
         */
 
         (function takeOverConsole() {
-            var console = window.console
+            var console = window.console;
             function intercept(method) {
-                var original = console[method]
+                var original = console[method];
                 console[method] = function () {
-                    var message = Array.prototype.slice.apply(arguments).join(' ')
+                    var message = Array.prototype.slice.apply(arguments).join(' ');
                     original.call(console, arguments);
                     var xhr = new XMLHttpRequest();
                     // xhr.open('get', '/log.php?error=' + message);
@@ -37,7 +36,7 @@
                 }
             }
             // var methods = ['warn', 'error']
-            var methods = ['error']
+            var methods = ['error'];
             for (var i = 0; i < methods.length; i++)
                 intercept(methods[i]);
         })();
