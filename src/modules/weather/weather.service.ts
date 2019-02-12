@@ -1,5 +1,5 @@
 import httpHelper from "../../_helpers/http.helper";
-import { ApiHelper } from "../../_helpers/api.helper";
+import {ApiHelper} from "../../_helpers/api.helper";
 
 export class WeatherService {
     private static _instance: WeatherService;

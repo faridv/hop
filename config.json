@@ -25,7 +25,7 @@
 	"applications": [
         {
             "button": {
-                "key": "red",
+                "key": "red,r",
                 "image": "assets/img/redbutton.png",
                 "position": "bottom: 30px; right: 60px;"
             },
