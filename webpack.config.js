@@ -18,7 +18,8 @@ const plugins = [
         template: '!!ejs-loader!src/index.html',
         direction: 'rtl',
         language: 'fa-IR',
-        languageCode: 'fa'
+        languageCode: 'fa',
+        chunks: ["index", "bundle_head"]
     }),
     new webpack.LoaderOptionsPlugin({
         options: {

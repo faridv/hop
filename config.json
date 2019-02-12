@@ -19,7 +19,7 @@
         "url": "http://77.36.163.194/proxy.php?csurl=",
         "services": {
             "schedule": "http://pooyatv.ir/ipg",
-            "weather": "https://query.yahooapis.com/v1/public/yql"
+            "weather": "http://77.36.163.194/weather.php"
         }
     },
 	"applications": [
