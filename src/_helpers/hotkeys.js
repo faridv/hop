@@ -198,7 +198,7 @@
             if ($('#logs p').length > 19) {
                 $('#logs p:first').remove();
             }
-            $('#logs').append('<p class="red">listen for: ' + x.toLowerCase() + '; which is: "' + _keyMap[x.toLowerCase()] + '", "' + _modifier[x.toLowerCase()] + '", "' + _HbbTVEvents[x.toLowerCase()] + '", "' + x.toUpperCase().charCodeAt(0) + '"</p>');
+            $('#logs').append('<p class="red">listen for: ' + x.toLowerCase() + '; which is: "' + _keyMap[x.toLowerCase()] + '", "' + _HbbTVEvents[x.toLowerCase()] + '", "' + x.toUpperCase().charCodeAt(0) + '"</p>');
         }
 
         // IMPORTANT: Default hotkeys will listen to modifiers, but since we don't have any in HbbTV, I skip checking them
