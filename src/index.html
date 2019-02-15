@@ -1,29 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE html PUBLIC "-//HbbTV//1.2.1//EN" "http://www.hbbtv.org/dtd/HbbTV-1.2.1.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= htmlWebpackPlugin.options.languageCode %>" lang="<%= htmlWebpackPlugin.options.languageCode %>"
-    dir="<%= htmlWebpackPlugin.options.direction %>">
-
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= htmlWebpackPlugin.options.languageCode %>" lang="<%= htmlWebpackPlugin.options.languageCode %>" dir="<%= htmlWebpackPlugin.options.direction %>">
 <head>
-    <title>
-        <%= htmlWebpackPlugin.options.title %>
-    </title>
-    <meta http-equiv="content-type" content="Content-Type: application/vnd.hbbtv.xhtml+xml; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="<%= htmlWebpackPlugin.options.description %>" />
-    <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
-    <meta http-equiv="pragma" content="no-cache" />
-    <link rel="stylesheet" href="assets/css/style.css" />
-    <link href="assets/img/favicon.ico" rel="icon" type="image/x-icon" />
-    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-63573054-3" type="text/javascript"></script> -->
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <meta http-equiv="content-type" content="Content-Type: application/vnd.hbbtv.xhtml+xml; charset=UTF-8"/>
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT"/>
+    <meta http-equiv="pragma" content="no-cache"/>
+    <meta http-equiv="last-modified" content="<%= htmlWebpackPlugin.options.modified %>"/>
+    <meta http-equiv="cache-control" content="no-cache, must-revalidate"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="<%= htmlWebpackPlugin.options.description %>"/>
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css?<%= htmlWebpackPlugin.options.buildHash %>"/>
+    <link href="assets/img/favicon.ico" rel="icon" type="image/x-icon"/>
     <script>
-        /*
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'UA-63573054-3');
-        */
-
         (function takeOverConsole() {
             var console = window.console;
+
             function intercept(method) {
                 var original = console[method];
                 console[method] = function () {
@@ -35,6 +27,7 @@
                     xhr.send();
                 }
             }
+
             // var methods = ['warn', 'error']
             var methods = ['error'];
             for (var i = 0; i < methods.length; i++)
@@ -43,7 +36,7 @@
     </script>
 </head>
 
-<body class="<%= htmlWebpackPlugin.options.direction %>" dir="<%= htmlWebpackPlugin.options.direction %>">
+<body class="<%= htmlWebpackPlugin.options.direction %>" dir="<%= htmlWebpackPlugin.options.direction %>" onload="">
     <object id="appmgr" type="application/oipfApplicationManager" style="position: absolute; left: 0px; top: 0px; width: 0px; height: 0px;"></object>
     <object id="oipfcfg" type="application/oipfConfiguration" style="position: absolute; left: 0px; top: 0px; width: 0px; height: 0px;"></object>
     <div id="broadcast">
