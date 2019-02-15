@@ -4,13 +4,13 @@
     "container": "#app",
     "locale": "fa",
     "delay": 500,
+    "timeout": 120000,
     "transitionSpeed": 0,
     "clockUpdateInterval": 600000,
     "theme": "default",
     "hd": true,
-    "timeout": 120000,
     "resolution": "720",
-    "verboseEvents": false,
+    "verbose": false,
     "autostart": false,
     "streamMode": false,
     "streamUrl": "http://test.livemedia.irib.ir/mdash/pouya-1m.stream/manifest.m3u8",
@@ -18,7 +18,7 @@
     "api": {
         "url": "http://77.36.163.194/proxy.php?csurl=",
         "services": {
-            "schedule": "http://pooyatv.ir/ipg",
+            "schedule": "http://www.pooyatv.ir/ipg",
             "weather": "http://77.36.163.194/weather.php"
         }
     },
