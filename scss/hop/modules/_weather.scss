@@ -34,9 +34,11 @@
         }
         .temp {
             margin-left: 50%; width: 50%; font-size: 2rem; text-align: right;
+            .avg { color: $text-color; }
             .high { color: $blue; }
             .low { color: $green-dark }
         }
-        time { clear: both; display: block; margin-top: $grid-gutter-width; color: $gray-700; }
+        .desc { clear: both; margin-bottom: 0; margin-top: 40px; }
+        time { clear: both; display: block; margin-top: 10px; color: $gray-700; }
     }
 }
