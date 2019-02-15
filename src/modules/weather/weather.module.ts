@@ -1,10 +1,8 @@
 import * as moment from 'moment-jalaali';
 import TemplateHelper from "../../_helpers/template.helper";
 import Inputs from "../../app/inputs";
-import {Schedules} from "../../_models/schedule.model";
 import {WeatherService} from "./weather.service";
 import Store from "../../_utilities/storage.utility";
-import {WeatherCodesHelper} from "./weather-codes.helper";
 
 export default class WeatherModule {
 
@@ -23,7 +21,6 @@ export default class WeatherModule {
         this.service = WeatherService.instance;
         const self = this;
 
-        // this.registerKeyboardInputs();
         this.coordinations = this.store.get('location') ? this.store.get('location').coordinations : [35.6961, 51.4231]; // Tehran
         // Load weather template
         this.render({location: this.coordinations.join(',')}, () => {
@@ -42,7 +39,6 @@ export default class WeatherModule {
     load(coordinations, callback?: any) {
         const self = this;
         this.loading();
-        // TODO
         this.service.getCity(coordinations.toString()).done((data) => {
             // End loading
             self.loading(false);
@@ -54,20 +50,15 @@ export default class WeatherModule {
     }
 
     prepareData(data) {
-        let i: number = 0;
-        let weather: any = data.query.results.channel;
-        const statusCode = ~~weather.item.condition.code;
+        let weather: any = data;
         moment.locale('en');
-        weather['status'] = WeatherCodesHelper.resolveCode(statusCode);
-        weather['icon'] = WeatherCodesHelper.resolveIcon(statusCode);
-        weather.item.forecast = weather.item.forecast.slice(0, 5);
-        weather.item.forecast.forEach((forecast) => {
-            const forecastCode = ~~forecast.code;
-            const momentDate = moment(forecast.date.toString(), 'DD MMM YYYY', false);
-            forecast['status'] = WeatherCodesHelper.resolveCode(forecastCode);
-            forecast['icon'] = WeatherCodesHelper.resolveIcon(forecastCode);
-            forecast['fdate'] = momentDate.isSame(moment(), 'day') ? 'امشب' : momentDate.format('jM/jD');
+        moment.loadPersian({dialect: 'persian-modern'});
+        weather.forecast = weather.forecast.slice(0, 5);
+        weather.forecast.forEach((forecast) => {
+            const momentDate = moment(forecast.date.toString().split(' ')[0], 'YYYY-MM-DD ', false);
+            forecast['fdate'] = momentDate.isSame(moment(), 'day') ? 'امشب' : momentDate.format('dddd jM/jD');
         });
+        console.log(weather);
         return weather;
     }
 

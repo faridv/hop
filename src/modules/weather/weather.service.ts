@@ -9,7 +9,7 @@ export class WeatherService {
     }
 
     getCity(coordinates) {
-        return this.http.get(ApiHelper.get('weather'), { lon: coordinates.split(',')[0], lat: coordinates.split(',')[1] });
+        return this.http.get(ApiHelper.get('weather'), { lon: coordinates.split(',')[1], lat: coordinates.split(',')[0] });
     }
 
     public static get instance() {
