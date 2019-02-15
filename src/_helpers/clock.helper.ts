@@ -2,12 +2,15 @@ import * as moment from 'moment-jalaali';
 import * as $ from 'jquery';
 import jqXHR = JQuery.jqXHR;
 
+declare let window: any;
+
 export default class ClockHelper {
 
     locale: string;
     clockTimer: number;
     updateInterval: number;
     $el;
+
 
     constructor(config, $container) {
         this.updateInterval = config.clockUpdateInterval;
@@ -16,7 +19,8 @@ export default class ClockHelper {
 
         this.initClock();
 
-        setInterval(() => {
+        window.clearInterval(window.clockUpdateInterval);
+        window.clockUpdateInterval = setInterval(() => {
             this.initClock();
         }, this.updateInterval);
     }
@@ -24,10 +28,10 @@ export default class ClockHelper {
     initClock(): void {
         const self = this;
         $.when(this.getClock()).then(
-            function(data, textStatus, request) {
+            function (data, textStatus, request) {
                 self.processDate(request.getResponseHeader('Date'));
             },
-            function(xmlhttprequest, textstatus, message) {
+            function (xmlhttprequest, textstatus, message) {
                 self.processDate(xmlhttprequest.getResponseHeader('Date'));
             }
         );
@@ -58,7 +62,8 @@ export default class ClockHelper {
     updateTime(formattedClock): void {
         const self = this;
         clearInterval(this.clockTimer);
-        this.clockTimer = <any>setInterval(() => {
+        window.clearInterval(window.clockTimerInterval);
+        window.clockTimerInterval = this.clockTimer = <any>setInterval(() => {
             formattedClock.add(1, 'seconds');
             self.render(formattedClock.format('HH:mm:ss'));
         }, 1000);
