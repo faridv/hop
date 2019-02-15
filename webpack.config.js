@@ -4,6 +4,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const nodeEnv = process.env.NODE_ENV || 'development';
 const isProd = nodeEnv === 'production';
+// const package = require('./package.json');
+
+const buildDate = new Date().toGMTString().slice(0, 25);
+const buildHash = (+new Date() / 1000).toFixed(0);
 
 const plugins = [
     new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /fa/),
@@ -12,6 +16,7 @@ const plugins = [
             NODE_ENV: JSON.stringify(nodeEnv)
         }
     }),
+    new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
         title: 'HOP: The HbbTV Open Platform',
         description: 'HbbTV Open Platform built to run on HbbTV-ready TV sets.',
@@ -19,7 +24,21 @@ const plugins = [
         direction: 'rtl',
         language: 'fa-IR',
         languageCode: 'fa',
-        chunks: ["index", "bundle_head"]
+        modified: buildDate,
+        buildHash: buildHash,
+        hash: true,
+        inject: 'head',
+        // minify: true,
+        cache: false
+        // , meta: {
+        //     "description": "HbbTV Open Platform built to run on HbbTV-ready TV sets.",
+        //     "viewport": "width=device-width, initial-scale=1.0",
+        //     "content-type": "Content-Type: application/vnd.hbbtv.xhtml+xml; charset=UTF-8",
+        //     "expires": "Tue, 01 Jan 1980 1:00:00 GMT",
+        //     "pragma": "no-cache",
+        //     "last-modified": buildDate,
+        //     "cache-control": "no-cache, must-revalidate"
+        // }
     }),
     new webpack.LoaderOptionsPlugin({
         options: {
@@ -40,6 +59,7 @@ var config = {
     devtool: isProd ? '' : 'source-map',
     context: path.resolve('./src'),
     entry: {
+        // vendor: Object.keys(package.dependencies),
         app: './main.ts'
     },
     output: {
@@ -70,9 +90,7 @@ var config = {
     },
     resolve: {
         extensions: ['.ts', '.js'],
-        alias: {
-            // handlebars: 'handlebars/dist/handlebars.min.js'
-        }
+        alias: {}
     },
     plugins: plugins,
     devServer: {
