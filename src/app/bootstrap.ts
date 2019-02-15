@@ -42,7 +42,7 @@ export default class Bootstrap {
         const self = this;
 
         // Verbose events
-        if (this.config.verboseEvents) {
+        if (this.config.verbose) {
             $(function () {
                 $("body").append('<div id="logs"></div>');
                 $(document).on('keydown', function (e) {
@@ -75,10 +75,7 @@ export default class Bootstrap {
 
     preFlight(callback): void {
         const self = this;
-        // $(document).on('keyup keydown', function(e) {
-        //     console.log(e);
-        // });
-        window.onload = function () {
+        $(function () {
             setTimeout(() => {
                 self.broadcastVideo = document.getElementById("broadcastvideo");
                 self.appManager = document.getElementById("appmgr");
@@ -110,7 +107,7 @@ export default class Bootstrap {
                     callback();
                 }
             }, 1000);
-        };
+        });
     }
 
     setKeySet(mask): void {
