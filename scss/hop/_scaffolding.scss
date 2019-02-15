@@ -30,7 +30,7 @@ body {
 
 #logs {
     width: 30%; height: 50%; position: absolute; top: 30px; left: 150px; border: 2px dashed $gray-500; font-size: 12px;
-    direction: ltr; text-align: left;
+    direction: ltr; text-align: left; z-index: 9999;
     p {
         margin: 0; color: #fff;
         &.red { color: $red; }
