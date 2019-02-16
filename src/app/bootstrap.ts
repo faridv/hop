@@ -76,25 +76,25 @@ export default class Bootstrap {
     preFlight(callback): void {
         const self = this;
         $(function () {
-            setTimeout(() => {
+            // setTimeout(() => {
                 self.broadcastVideo = document.getElementById("broadcastvideo");
                 self.appManager = document.getElementById("appmgr");
                 self.configObject = document.getElementById("oipfcfg");
 
-                self.getDeviceParams(self.broadcastVideo);
-                self.handleVideoSize(self.broadcastVideo);
+                // self.getDeviceParams(self.broadcastVideo);
+                // self.handleVideoSize(self.broadcastVideo);
                 self.setKeySet(0x1 + 0x2 + 0x4 + 0x8); // Colors
                 // this.setKeySet(0x1 + 0x2 + 0x4 + 0x8 + 0x10 + 0x20 + 0x40 + 0x80);
 
                 try {
                     self.broadcastVideo.setFullScreen(true);
                 } catch (e) {
-                    // error switch to fullscreen
+                    console.error('Error switching to fullscreen', e);
                 }
                 try {
                     self.broadcastVideo.bindToCurrentChannel();
                 } catch (e) {
-                    //error bind element to current channel
+                    console.error('Error bind element to current channel', e);
                 }
                 try {
                     self.hbbApp = self.appManager.getOwnerApplication(document);
@@ -106,7 +106,7 @@ export default class Bootstrap {
                 if (typeof callback === 'function') {
                     callback();
                 }
-            }, 1000);
+            // }, 1000);
         });
     }
 
