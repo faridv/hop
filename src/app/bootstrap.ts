@@ -77,15 +77,23 @@ export default class Bootstrap {
         const self = this;
         $(function () {
             // setTimeout(() => {
-                self.broadcastVideo = document.getElementById("broadcastvideo");
-                self.appManager = document.getElementById("appmgr");
-                self.configObject = document.getElementById("oipfcfg");
+            self.broadcastVideo = document.getElementById("broadcastvideo");
+            self.appManager = document.getElementById("appmgr");
+            self.configObject = document.getElementById("oipfcfg");
 
-                // self.getDeviceParams(self.broadcastVideo);
-                // self.handleVideoSize(self.broadcastVideo);
-                self.setKeySet(0x1 + 0x2 + 0x4 + 0x8); // Colors
-                // this.setKeySet(0x1 + 0x2 + 0x4 + 0x8 + 0x10 + 0x20 + 0x40 + 0x80);
+            // self.getDeviceParams(self.broadcastVideo);
+            // self.handleVideoSize(self.broadcastVideo);
 
+            // Show application
+            try {
+                self.hbbApp = self.appManager.getOwnerApplication(document);
+                self.hbbApp.show();
+                self.hbbApp.activate(); // this is for HbbTV 0.5 backwards-compliance. It will throw an ignored exception on HbbTV 1.x devices, which is fine
+            } catch (error) {
+                console.error('Problem initializing application', error);
+            }
+
+            if (self.broadcastVideo.currentChannel) {
                 try {
                     self.broadcastVideo.setFullScreen(true);
                 } catch (e) {
@@ -96,16 +104,13 @@ export default class Bootstrap {
                 } catch (e) {
                     console.error('Error bind element to current channel', e);
                 }
-                try {
-                    self.hbbApp = self.appManager.getOwnerApplication(document);
-                    self.hbbApp.show();
-                    // self.hbbApp.activate();
-                } catch (error) {
-                    console.error('Problem initializing application', error);
-                }
-                if (typeof callback === 'function') {
-                    callback();
-                }
+            }
+
+            if (typeof callback === 'function') {
+                callback();
+            }
+            self.setKeySet(0x1 + 0x2 + 0x4 + 0x8); // Colors
+            // this.setKeySet(0x1 + 0x2 + 0x4 + 0x8 + 0x10 + 0x20 + 0x40 + 0x80);
             // }, 1000);
         });
     }
