@@ -102,61 +102,61 @@
         ']': 221,
         '\\': 220
     };
-
-    var KeyEvent = typeof window['KeyEvent'] !== 'undefined' ? window['KeyEvent'] : {};
-
-    KeyEvent.VK_ENTER = KeyEvent.VK_ENTER || 13;
-    KeyEvent.VK_BACK = KeyEvent.VK_BACK || 461;
-
-    KeyEvent.VK_LEFT = KeyEvent.VK_LEFT || 37;
-    KeyEvent.VK_UP = KeyEvent.VK_UP || 38;
-    KeyEvent.VK_RIGHT = KeyEvent.VK_RIGHT || 39;
-    KeyEvent.VK_DOWN = KeyEvent.VK_DOWN || 40;
-
-    KeyEvent.VK_RED = KeyEvent.VK_RED || 403;
-    KeyEvent.VK_GREEN = KeyEvent.VK_GREEN || 404;
-    KeyEvent.VK_YELLOW = KeyEvent.VK_YELLOW || 405;
-    KeyEvent.VK_BLUE = KeyEvent.VK_BLUE || 406;
-
-    KeyEvent.VK_0 = KeyEvent.VK_0 || 48;
-    KeyEvent.VK_1 = KeyEvent.VK_1 || 49;
-    KeyEvent.VK_2 = KeyEvent.VK_2 || 50;
-    KeyEvent.VK_3 = KeyEvent.VK_3 || 51;
-    KeyEvent.VK_4 = KeyEvent.VK_4 || 52;
-    KeyEvent.VK_5 = KeyEvent.VK_5 || 53;
-    KeyEvent.VK_6 = KeyEvent.VK_6 || 54;
-    KeyEvent.VK_7 = KeyEvent.VK_7 || 55;
-    KeyEvent.VK_8 = KeyEvent.VK_8 || 56;
-    KeyEvent.VK_9 = KeyEvent.VK_9 || 57;
-
-    KeyEvent.VK_PLAY = KeyEvent.VK_PLAY || 415;
-    KeyEvent.VK_PAUSE = KeyEvent.VK_PAUSE || 19;
-    KeyEvent.VK_STOP = KeyEvent.VK_STOP || 413;
-
-    KeyEvent.VK_TOBEGIN = KeyEvent.VK_TOBEGIN || 423;
-    KeyEvent.VK_TOEND = KeyEvent.VK_TOEND || 425;
-    KeyEvent.VK_FAST_FWD = KeyEvent.VK_FAST_FWD || 417;
-    KeyEvent.VK_REWIND = KeyEvent.VK_REWIND || 412;
-    var _HbbTVEvents = {
-        red: KeyEvent.VK_RED || 116,
-        green: KeyEvent.VK_GREEN || 117,
-        yellow: KeyEvent.VK_YELLOW || 118,
-        blue: KeyEvent.VK_BLUE || 119,
-
-        left: KeyEvent.VK_LEFT || 37,
-        up: KeyEvent.VK_UP || 38,
-        right: KeyEvent.VK_RIGHT || 39,
-        down: KeyEvent.VK_DOWN || 40,
-        enter: KeyEvent.VK_ENTER || 13,
-        return: KeyEvent.VK_ENTER || 13,
-        back: KeyEvent.VK_BACK || 461,
-
-        play: KeyEvent.VK_PLAY || 415,
-        pause: KeyEvent.VK_PAUSE || 19,
-        stop: KeyEvent.VK_STOP || 413,
-        fast_fwd: KeyEvent.VK_FAST_FWD || 417,
-        rewind: KeyEvent.VK_REWIND || 412
-    };
+    //
+    // var KeyEvent = typeof window['KeyEvent'] !== 'undefined' ? window['KeyEvent'] : {};
+    //
+    // KeyEvent.VK_ENTER = KeyEvent.VK_ENTER || 13;
+    // KeyEvent.VK_BACK = KeyEvent.VK_BACK || 461;
+    //
+    // KeyEvent.VK_LEFT = KeyEvent.VK_LEFT || 37;
+    // KeyEvent.VK_UP = KeyEvent.VK_UP || 38;
+    // KeyEvent.VK_RIGHT = KeyEvent.VK_RIGHT || 39;
+    // KeyEvent.VK_DOWN = KeyEvent.VK_DOWN || 40;
+    //
+    // KeyEvent.VK_RED = KeyEvent.VK_RED || 403;
+    // KeyEvent.VK_GREEN = KeyEvent.VK_GREEN || 404;
+    // KeyEvent.VK_YELLOW = KeyEvent.VK_YELLOW || 405;
+    // KeyEvent.VK_BLUE = KeyEvent.VK_BLUE || 406;
+    //
+    // KeyEvent.VK_0 = KeyEvent.VK_0 || 48;
+    // KeyEvent.VK_1 = KeyEvent.VK_1 || 49;
+    // KeyEvent.VK_2 = KeyEvent.VK_2 || 50;
+    // KeyEvent.VK_3 = KeyEvent.VK_3 || 51;
+    // KeyEvent.VK_4 = KeyEvent.VK_4 || 52;
+    // KeyEvent.VK_5 = KeyEvent.VK_5 || 53;
+    // KeyEvent.VK_6 = KeyEvent.VK_6 || 54;
+    // KeyEvent.VK_7 = KeyEvent.VK_7 || 55;
+    // KeyEvent.VK_8 = KeyEvent.VK_8 || 56;
+    // KeyEvent.VK_9 = KeyEvent.VK_9 || 57;
+    //
+    // KeyEvent.VK_PLAY = KeyEvent.VK_PLAY || 415;
+    // KeyEvent.VK_PAUSE = KeyEvent.VK_PAUSE || 19;
+    // KeyEvent.VK_STOP = KeyEvent.VK_STOP || 413;
+    //
+    // KeyEvent.VK_TOBEGIN = KeyEvent.VK_TOBEGIN || 423;
+    // KeyEvent.VK_TOEND = KeyEvent.VK_TOEND || 425;
+    // KeyEvent.VK_FAST_FWD = KeyEvent.VK_FAST_FWD || 417;
+    // KeyEvent.VK_REWIND = KeyEvent.VK_REWIND || 412;
+    // var _HbbTVEvents = {
+    //     red: KeyEvent.VK_RED || 116,
+    //     green: KeyEvent.VK_GREEN || 117,
+    //     yellow: KeyEvent.VK_YELLOW || 118,
+    //     blue: KeyEvent.VK_BLUE || 119,
+    //
+    //     left: KeyEvent.VK_LEFT || 37,
+    //     up: KeyEvent.VK_UP || 38,
+    //     right: KeyEvent.VK_RIGHT || 39,
+    //     down: KeyEvent.VK_DOWN || 40,
+    //     enter: KeyEvent.VK_ENTER || 13,
+    //     return: KeyEvent.VK_ENTER || 13,
+    //     back: KeyEvent.VK_BACK || 461,
+    //
+    //     play: KeyEvent.VK_PLAY || 415,
+    //     pause: KeyEvent.VK_PAUSE || 19,
+    //     stop: KeyEvent.VK_STOP || 413,
+    //     fast_fwd: KeyEvent.VK_FAST_FWD || 417,
+    //     rewind: KeyEvent.VK_REWIND || 412
+    // };
 
     var _modifier = { // Modifier key
         '⇧': 16,
