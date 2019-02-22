@@ -1,6 +1,6 @@
 import * as $ from 'jquery';
 import jqXHR = JQuery.jqXHR;
-import Template7 from 'template7';
+import * as Handlebars from 'handlebars';
 import ClockHelper from "./clock.helper";
 
 export default class TemplateHelper {
@@ -12,7 +12,7 @@ export default class TemplateHelper {
     }
 
     private addHelpers(): void {
-        Template7.registerHelper("math", function (lvalue, operator, rvalue, options) {
+        Handlebars.registerHelper("math", function (lvalue, operator, rvalue, options) {
             lvalue = parseFloat(lvalue);
             rvalue = parseFloat(rvalue);
 
@@ -24,30 +24,30 @@ export default class TemplateHelper {
                 "%": lvalue % rvalue
             }[operator];
         });
-        Template7.registerHelper('times', function (n, block) {
+        Handlebars.registerHelper('times', function (n, block) {
             // Loop a block starting at 0
             let accum = '';
             for (let i = 0; i < n; ++i)
                 accum += block.fn(i);
             return accum;
         });
-        Template7.registerHelper('debug', function (value, options) {
+        Handlebars.registerHelper('debug', function (value, options) {
             console.log(value);
         });
-        Template7.registerHelper('extractTime', function (value, options) {
+        Handlebars.registerHelper('extractTime', function (value, options) {
             if (typeof value === "undefined" || !value || +value.split('-')[0] === 1900)
                 return '';
             let splitter = (value.indexOf('T') !== -1) ? 'T' : ' ';
             return value.split(splitter)[1];
         });
-        Template7.registerHelper('for', function (from, to, incr, block) {
+        Handlebars.registerHelper('for', function (from, to, incr, block) {
             // For loop {{#for i to steps}} -> {{#for 0 10 2}}
             let accum = '';
             for (let i = from; i < to; i += incr)
                 accum += block.fn(i);
             return accum;
         });
-        Template7.registerHelper('ifCond', function (v1, operator, v2, options) {
+        Handlebars.registerHelper('ifCond', function (v1, operator, v2, options) {
             switch (operator) {
                 case '==':
                     return (v1 == v2) ? options.fn(this) : options.inverse(this);
@@ -71,13 +71,13 @@ export default class TemplateHelper {
                     return options.inverse(this);
             }
         });
-        Template7.registerHelper('ifCondNot', function (v1, v2, options) {
+        Handlebars.registerHelper('ifCondNot', function (v1, v2, options) {
             if (v1 !== v2) {
                 return options.fn(this);
             }
             return options.inverse(this);
         });
-        Template7.registerHelper('stringify', function (obj, options) {
+        Handlebars.registerHelper('stringify', function (obj, options) {
             if (typeof obj === "object") {
                 $.each(obj, function () {
                     delete this.raw;
@@ -85,7 +85,7 @@ export default class TemplateHelper {
             }
             return (typeof obj === "object") ? JSON.stringify(obj) : obj;
         });
-        Template7.registerHelper('select', function (value, options) {
+        Handlebars.registerHelper('select', function (value, options) {
             let $el = $('<select />').html(options.fn(this));
             if (typeof value === "undefined" || !value || value === "")
                 return $el.html();
@@ -98,10 +98,10 @@ export default class TemplateHelper {
             $el.find('[value="' + value + '"]').attr({'selected': 'selected'});
             return $el.html();
         });
-        Template7.registerHelper('replace', function (haystack, needle, replace, options) {
+        Handlebars.registerHelper('replace', function (haystack, needle, replace, options) {
             return haystack.replace(needle, replace);
         });
-        Template7.registerHelper('find', function (needle, haystack, options) {
+        Handlebars.registerHelper('find', function (needle, haystack, options) {
             if (typeof haystack === "undefined" || !haystack)
                 return false;
             if (typeof haystack === "string" && haystack.indexOf(',') !== -1)
@@ -116,11 +116,11 @@ export default class TemplateHelper {
             }
             return (found) ? options.fn(this) : options.inverse(this);
         });
-        // Template7.registerHelper('br', function (text) {
-        //     text = Template7.Utils.escapeExpression(text);
-        //     text = text.replace(/(\r\n|\n|\r)/gm, '<br />');
-        //     return new Template7.SafeString(text);
-        // });
+        Handlebars.registerHelper('br', function (text) {
+            text = Handlebars.Utils.escapeExpression(text);
+            text = text.replace(/(\r\n|\n|\r)/gm, '<br />');
+            return new Handlebars.SafeString(text);
+        });
     }
 
     public static get instance(): TemplateHelper {
@@ -131,7 +131,8 @@ export default class TemplateHelper {
         return $.ajax(
             {
                 url: 'assets/templates/' + path + '/' + file + '.html'
-                , contentType: 'text/template7'
+                , contentType: 'text/x-handlebars-template'
+                // , contentType: 'text/template7'
             });
     }
 
@@ -142,8 +143,8 @@ export default class TemplateHelper {
 
     public render(template: jqXHR, data: any, $container: any, mode: string = 'html', callback?: any): void {
         template.done(function (tmpl: string) {
-            const Template7Template = Template7.compile(tmpl);
-            const output = Template7Template(data);
+            const HandlebarsTemplate = Handlebars.compile(tmpl);
+            const output = HandlebarsTemplate(data);
             if (mode === 'html')
                 $container.empty();
             $container[mode](output).promise().done(function ($parent) {
