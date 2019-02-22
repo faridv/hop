@@ -11,6 +11,7 @@
     "hd": true,
     "resolution": "720",
     "verbose": false,
+    "log": true,
     "autostart": false,
     "streamMode": false,
     "streamUrl": "http://test.livemedia.irib.ir/mdash/pouya-1m.stream/manifest.m3u8",
@@ -19,7 +20,8 @@
         "url": "http://77.36.163.194/proxy.php?csurl=",
         "services": {
             "schedule": "http://www.pooyatv.ir/ipg",
-            "weather": "http://77.36.163.194/weather.php"
+            "weather": "http://77.36.163.194/weather.php",
+            "log": "/misc/log.php"
         }
     },
 	"applications": [
