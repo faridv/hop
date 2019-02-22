@@ -137,4 +137,4 @@ var _HbbTVEvents = {
     rewind: KeyEvent.VK_REWIND || 412
 };
 
-console.log(_HbbTVEvents);
+// console.log(_HbbTVEvents);
