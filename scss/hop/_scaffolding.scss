@@ -21,11 +21,12 @@ body {
     }
 }
 
+#appmgr, #oipfcfg { z-index: 1; }
 #broadcast {
     //transition: $transition-default;
     position: fixed; top: 50%; left: 50%; width: 100%; height: 100%;
-    transform: translateX(-50%) translateY(-50%); z-index: 100;
-    object { transition: $transition-default; }
+    transform: translateX(-50%) translateY(-50%); z-index: 1;
+    object { transition: $transition-default; z-index: 1; }
 }
 
 #logs {
