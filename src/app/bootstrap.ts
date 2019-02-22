@@ -1,6 +1,6 @@
 import Store from "../_utilities/storage.utility";
 import * as $ from 'jquery';
-import {DeviceConfig} from "../_models/device-config.model";
+import { DeviceConfig } from "../_models/device-config.model";
 import Application from "./app-manager";
 
 declare let window: any;
@@ -25,16 +25,22 @@ export default class Bootstrap {
         this.store = Store;
 
         const self = this;
-        this.handleBody();
+        // this.handleBody();
         this.cacheConfig(config);
         this.preFlight(function () {
+            self.sendLog('all preload tasks done - starting application', 'info');
             self.prepareApps();
             // this.initialize()
         });
     }
 
     cacheConfig(config): void {
-        Store.set('config', this.config);
+        try {
+            Store.set('config', this.config);
+            this.sendLog('cacing config', 'info');
+        } catch (e) {
+            this.sendLog('error caching config', 'error');
+        }
     }
 
     prepareApps(): void {
@@ -43,94 +49,129 @@ export default class Bootstrap {
 
         // Verbose events
         if (this.config.verbose) {
-            $(function () {
-                $("body").append('<div id="logs"></div>');
-                $(document).on('keydown', function (e) {
-                    if ($('#logs p').length > 19) {
-                        $('#logs p:first').remove();
-                    }
-                    $('#logs').append('<p>key event: ' + e.key + '; which is: ' + e.which + '</p>');
-                });
+            $("body").append('<div id="logs"></div>');
+            $(document).on('keydown', function (e) {
+                if ($('#logs p').length > 19) {
+                    $('#logs p:first').remove();
+                }
+                $('#logs').append('<p>key event: ' + e.key + '; which is: ' + e.which + '</p>');
             });
         }
 
         for (let i in applications) {
-            $(function () {
-                self.initializeApp(applications[i]);
-            });
+            self.initializeApp(applications[i]);
         }
     }
 
     initializeApp(app: object): void {
+        this.sendLog('initializing application]', 'info');
         new Application(app, this.config, this);
     }
 
     handleBody(): void {
         const self = this;
-        $(function () {
-            const bodyClass: string = (self.config.hd ? 'hd-' : 'sd-') + self.config.resolution;
-            $("body").addClass(bodyClass);
-        });
+        const bodyClass: string = (self.config.hd ? 'hd-' : 'sd-') + self.config.resolution;
+        $("body").addClass(bodyClass);
+    }
+
+    checkAgent(needle: string): boolean {
+        if (navigator.userAgent.search(new RegExp(needle, "i")) == -1) {
+            return true;
+        }
+        return false;
+    }
+
+    sendLog(msg: string, type: string = 'info'): void {
+        $.get('/misc/vestel.php?msg=' + type + encodeURI(': ' + msg));
     }
 
     preFlight(callback): void {
         const self = this;
-        $(function () {
-            // setTimeout(() => {
-            self.broadcastVideo = document.getElementById("broadcastvideo");
-            self.appManager = document.getElementById("appmgr");
-            self.configObject = document.getElementById("oipfcfg");
+        self.sendLog('starting pre-flight tasks', 'info');
+        // $(function () {
+        window.onload = (function () {
+            const $$video: any = self.broadcastVideo = document.getElementById("broadcastvideo");
+            const $$appManager: any = self.appManager = document.getElementById("appmgr");
+            const $$oipfConfig: any = self.configObject = document.getElementById("oipfcfg");
 
             // self.getDeviceParams(self.broadcastVideo);
             // self.handleVideoSize(self.broadcastVideo);
 
+            self.sendLog('onload function called', 'info');
+
             // Show application
+            let $app: any;
             try {
-                self.hbbApp = self.appManager.getOwnerApplication(document);
-                self.hbbApp.show();
-                self.hbbApp.activate(); // this is for HbbTV 0.5 backwards-compliance. It will throw an ignored exception on HbbTV 1.x devices, which is fine
+                try {
+                    $app = $$appManager.getOwnerApplication(document);
+                    $app.show();
+                } catch (error) {
+                    self.sendLog('application show() failed!', 'error');
+                    console.error('Application show() failed!', error);
+                }
+                try {
+                    $app.activate();
+                    self.sendLog('application activate()', 'info');
+                } catch (error) {
+                    /* this is for HbbTV 0.5 backwards-compliance. It will throw an ignored exception on HbbTV 1.x devices, which is fine */
+                    // ignore
+                }
             } catch (error) {
-                console.error('Problem initializing application', error);
+                self.sendLog('problem initializing application', 'error');
+                // console.error('Problem initializing application', error);
             }
 
-            if (self.broadcastVideo.currentChannel) {
+            if ($$video.currentChannel) {
                 try {
-                    self.broadcastVideo.setFullScreen(true);
+                    $$video.setFullScreen(true);
+                    // self.sendLog('video object setFullScreen() called', 'info');
                 } catch (e) {
-                    console.error('Error switching to fullscreen', e);
+                    // console.error('Error switching to fullscreen', e);
+                    // self.sendLog('Cannot switch to fullscreen', 'error');
                 }
                 try {
-                    self.broadcastVideo.bindToCurrentChannel();
+                    $$video.bindToCurrentChannel();
+                    // self.sendLog('video object bindToCurrentChannel() called', 'info');
                 } catch (e) {
-                    console.error('Error bind element to current channel', e);
+                    // console.error('Error bind element to current channel', e);
+                    self.sendLog('cannot bind to current channel', 'error');
                 }
+            } else {
+                self.sendLog('cannot determine current channel', 'error');
+                // console.error('Cannot determine current channel.');
             }
 
-            if (typeof callback === 'function') {
-                callback();
-            }
             self.setKeySet(0x1 + 0x2 + 0x4 + 0x8); // Colors
-            // this.setKeySet(0x1 + 0x2 + 0x4 + 0x8 + 0x10 + 0x20 + 0x40 + 0x80);
-            // }, 1000);
+            callback();
         });
     }
 
     setKeySet(mask): void {
+        let elemcfg, app;
+        // for HbbTV 0.5:
         try {
-            this.configObject.keyset.value = mask;
+            elemcfg = document.getElementById('oipfcfg');
+            elemcfg.keyset.value = mask;
+            this.sendLog('trying to set keyset value [for HbbTV 0.5]', 'info');
         } catch (e) {
-            // open
+            /* In newer versions of HbbTV keyset.value is read-only, therefore this method throws an exception */
+            // ignore
         }
         try {
-            this.configObject.keyset.setValue(mask);
+            elemcfg = document.getElementById('oipfcfg');
+            elemcfg.keyset.setValue(mask);
+            this.sendLog('trying to set keyset value [generic]', 'info');
         } catch (e) {
-            //open
+            /* In newer versions of HbbTV keyset.setValue only works on privateData of application, therefore this method throws an exception */
+            // ignore
         }
+        // for HbbTV 1.0:
         try {
-            this.hbbApp.privateData.keyset.setValue(mask);
-            this.hbbApp.privateData.keyset.value = mask;
+            app = this.appManager.getOwnerApplication(document);
+            app.privateData.keyset.setValue(mask);
+            this.sendLog('trying to set keyset value [for HbbTV 1.0]', 'info');
         } catch (e) {
-            // catch error
+            this.sendLog('set keyset value failed [for HbbTV 1.0]', 'error');
         }
     }
 
@@ -155,10 +196,10 @@ export default class Bootstrap {
                 this.deviceParams.channelSID = broadcastObject.currentChannel.sid;
                 this.deviceParams.channelTSID = broadcastObject.currentChannel.tsid;
             } catch (e) {
-                console.error('Problem mapping current channel data to deviceParams: 2', e);
+                console.error('problem mapping current channel data to deviceParams: 2', e);
             }
         } else {
-            console.error('Problem mapping current channel data to deviceParams: 1');
+            console.error('problem mapping current channel data to deviceParams: 1');
         }
         this.deviceParams.cookieEnabled = navigator.cookieEnabled;
         this.deviceParams.userAgent = navigator.userAgent;
@@ -177,7 +218,7 @@ export default class Bootstrap {
             try {
                 this.hbbApp.hide();
             } catch (e) {
-                console.error('Error hiding application');
+                console.error('error hiding application');
             }
         } else {
             this.setKeySet(0x1 + 0x2 + 0x4 + 0x8);
