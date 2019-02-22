@@ -13,7 +13,7 @@ export default class Inputs {
     public addEvent(key: string, once: boolean = false, params: any = {}, handler: any): void {
         const scope = typeof params.key !== 'undefined' ? params.key.split('.')[0] : 'default';
         const eventData = $.extend({}, params, {eventKey: key, once: once, handler: typeof handler === 'function'});
-        
+
         this.on(key, handler, scope, once, eventData);
     }
 
