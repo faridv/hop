@@ -90,7 +90,9 @@ var config = {
     },
     resolve: {
         extensions: ['.ts', '.js'],
-        alias: {}
+        alias: {
+            handlebars: 'handlebars/dist/handlebars.min.js'
+        }
     },
     plugins: plugins,
     devServer: {
