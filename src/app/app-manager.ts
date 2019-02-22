@@ -33,16 +33,21 @@ export default class AppManager {
             this.handleStreamMode();
         }
 
-        $(function () {
+        // $(function () {
             self.$el = $(self.container);
             self.showButton(appData);
-        });
+        // });
+    }
+
+    sendLog(msg: string, type: string = 'info'): void {
+        $.get('/misc/vestel.php?msg=' + type + encodeURI(': ' + msg));
     }
 
     showButton(appData): boolean {
         const self = this;
 
         if (this.config.autostart) {
+            self.sendLog('application is in auto-start mode, skipping button', 'info');
             self.initializeApplication(appData);
             return true;
         }
@@ -51,18 +56,22 @@ export default class AppManager {
         const templatePromise = this.template.load('controls', controlType);
         const button = appData.button;
         this.template.render(templatePromise, appData, this.$el, 'append', (element) => {
+            self.sendLog('trying to render button', 'info');
             // Show button after intentional delay time
             setTimeout(() => {
                 $(element).find('[class*="button-"]').addClass('show');
 
                 // Add application initialization key event
                 const inputParams = {key: 'app.' + button.key, title: 'init'};
+                self.sendLog('button is visible, adding event listener', 'info');
                 self.input.addEvent(button.key, true, inputParams, () => {
+                    self.sendLog('button pressed, show menu', 'info');
                     self.initializeApplication(appData);
-                });
+                }); 
 
                 // Hide button after the configured time
                 setTimeout(() => {
+                    self.sendLog('no interaction happened, hiding button', 'info');
                     if ($(element).find('.show[class*="button-"]').length) {
                         $(element).find('[class*="button-"]').removeClass('show');
                     }
@@ -78,9 +87,14 @@ export default class AppManager {
         const templatePromise = this.template.load('layouts', layout);
         const modules = {items: appData.modules};
 
+        self.sendLog('starting application, capturing all available key sets', 'info');
+
         this._bootstrapInstance.setKeySet(0x1 + 0x2 + 0x4 + 0x8 + 0x10 + 0x20 + 0x40 + 0x80); // All Keys
 
         this.template.render(templatePromise, modules, this.$el, 'html', function () {
+
+            self.sendLog('menu rendered', 'info');
+
             self.template.addClass('active');
 
             // Should be on body
