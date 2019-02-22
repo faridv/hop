@@ -1,4 +1,64 @@
 # <Files "index.html">
 # ForceType 'application/vnd.hbbtv.xhtml+xml; charset=UTF-8'
 # </Files>
+Header unset X-Powered-By
 AddDefaultCharset utf-8
+SetEnv TZ Asia/Tehran
+ServerSignature Off
+
+# ----------------------------------------------------------------------
+# Webfont access
+# ----------------------------------------------------------------------
+# Allow access from all domains for webfonts.Alternatively you could only whitelist your
+# subdomains like "subdomain.example.com".
+<IfModule mod_headers.c>
+  <FilesMatch "\.(ttf|ttc|otf|eot|woff|font.css)$">
+    Header set Access-Control-Allow-Origin "*"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_expires.c>
+    ExpiresActive on
+    ExpiresDefault                          "access plus 0 seconds"
+    ExpiresByType text/html                 "access plus 0 seconds"
+    ExpiresByType text/css                  "access plus 0 seconds"
+    ExpiresByType application/javascript    "access plus 0 seconds"
+</IfModule>
+
+# ----------------------------------------------------------------------
+# Proper MIME type for all files
+# ----------------------------------------------------------------------
+# JavaScript
+# Normalize to standard type (it is sniffed in IE anyways)
+# futher details: tools.ietf.org/html/rfc4329#section-7.2
+AddType application/javascript         js jsonp
+AddType application/json               json
+#
+# Media
+#
+AddType audio/ogg                      oga ogg
+AddType audio/mp4                      m4a f4a f4b
+AddType video/ogg                      ogv
+AddType video/mp4                      mp4 m4v f4v f4p
+AddType video/webm                     webm
+AddType video/x-flv                    flv
+#
+# SVG
+# Required for svg webfonts on iPad
+# futher details: twitter.com/FontSquirrel/status/14855840545
+#
+AddType     image/svg+xml              svg svgz
+AddEncoding gzip                       svgz
+#
+# Webfonts
+#
+AddType application/vnd.ms-fontobject  eot
+AddType application/x-font-ttf         ttf ttc
+AddType font/opentype                  otf
+AddType application/x-font-woff        woff
+#
+# Assorted types
+#
+AddType image/x-icon                        ico
+AddType application/x-shockwave-flash       swf
+AddType text/vtt                            vtt
