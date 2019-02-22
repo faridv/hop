@@ -2,6 +2,7 @@ import Store from "../_utilities/storage.utility";
 import * as $ from 'jquery';
 import { DeviceConfig } from "../_models/device-config.model";
 import Application from "./app-manager";
+import LogHelper from '../_helpers/log.helper';
 
 declare let window: any;
 
@@ -14,6 +15,7 @@ export default class Bootstrap {
     appManager: any;
     hbbApp: any;
     configObject: any;
+    log: LogHelper;
 
     deviceParams: DeviceConfig = new DeviceConfig();
 
@@ -23,23 +25,21 @@ export default class Bootstrap {
 
         this.config = config;
         this.store = Store;
+        this.log = new LogHelper(config);
 
         const self = this;
-        // this.handleBody();
+        this.handleBody();
         this.cacheConfig(config);
         this.preFlight(function () {
-            self.sendLog('all preload tasks done - starting application', 'info');
             self.prepareApps();
-            // this.initialize()
         });
     }
 
     cacheConfig(config): void {
         try {
-            Store.set('config', this.config);
-            this.sendLog('cacing config', 'info');
+            Store.set('config', config);
         } catch (e) {
-            this.sendLog('error caching config', 'error');
+            this.log.error('error caching config');
         }
     }
 
@@ -64,7 +64,6 @@ export default class Bootstrap {
     }
 
     initializeApp(app: object): void {
-        this.sendLog('initializing application]', 'info');
         new Application(app, this.config, this);
     }
 
@@ -74,30 +73,15 @@ export default class Bootstrap {
         $("body").addClass(bodyClass);
     }
 
-    checkAgent(needle: string): boolean {
-        if (navigator.userAgent.search(new RegExp(needle, "i")) == -1) {
-            return true;
-        }
-        return false;
-    }
-
-    sendLog(msg: string, type: string = 'info'): void {
-        $.get('/misc/vestel.php?msg=' + type + encodeURI(': ' + msg));
-    }
-
     preFlight(callback): void {
         const self = this;
-        self.sendLog('starting pre-flight tasks', 'info');
-        // $(function () {
         window.onload = (function () {
             const $$video: any = self.broadcastVideo = document.getElementById("broadcastvideo");
             const $$appManager: any = self.appManager = document.getElementById("appmgr");
-            const $$oipfConfig: any = self.configObject = document.getElementById("oipfcfg");
+            self.configObject = document.getElementById("oipfcfg");
 
             // self.getDeviceParams(self.broadcastVideo);
             // self.handleVideoSize(self.broadcastVideo);
-
-            self.sendLog('onload function called', 'info');
 
             // Show application
             let $app: any;
@@ -106,38 +90,36 @@ export default class Bootstrap {
                     $app = $$appManager.getOwnerApplication(document);
                     $app.show();
                 } catch (error) {
-                    self.sendLog('application show() failed!', 'error');
-                    console.error('Application show() failed!', error);
+                    self.log.error('application show() failed!');
+                    // console.error('Application show() failed!', error);
                 }
                 try {
                     $app.activate();
-                    self.sendLog('application activate()', 'info');
+                    self.log.info('application activate()');
                 } catch (error) {
                     /* this is for HbbTV 0.5 backwards-compliance. It will throw an ignored exception on HbbTV 1.x devices, which is fine */
                     // ignore
                 }
             } catch (error) {
-                self.sendLog('problem initializing application', 'error');
+                self.log.error('problem initializing application');
                 // console.error('Problem initializing application', error);
             }
 
             if ($$video.currentChannel) {
                 try {
                     $$video.setFullScreen(true);
-                    // self.sendLog('video object setFullScreen() called', 'info');
                 } catch (e) {
                     // console.error('Error switching to fullscreen', e);
-                    // self.sendLog('Cannot switch to fullscreen', 'error');
+                    // self.log.error('Cannot switch to fullscreen');
                 }
                 try {
                     $$video.bindToCurrentChannel();
-                    // self.sendLog('video object bindToCurrentChannel() called', 'info');
                 } catch (e) {
+                    self.log.error('cannot bind to current channel');
                     // console.error('Error bind element to current channel', e);
-                    self.sendLog('cannot bind to current channel', 'error');
                 }
             } else {
-                self.sendLog('cannot determine current channel', 'error');
+                self.log.error('cannot determine current channel');
                 // console.error('Cannot determine current channel.');
             }
 
@@ -148,11 +130,11 @@ export default class Bootstrap {
 
     setKeySet(mask): void {
         let elemcfg, app;
-        // for HbbTV 0.5:
+
         try {
             elemcfg = document.getElementById('oipfcfg');
+            // for HbbTV 0.5:
             elemcfg.keyset.value = mask;
-            this.sendLog('trying to set keyset value [for HbbTV 0.5]', 'info');
         } catch (e) {
             /* In newer versions of HbbTV keyset.value is read-only, therefore this method throws an exception */
             // ignore
@@ -160,7 +142,6 @@ export default class Bootstrap {
         try {
             elemcfg = document.getElementById('oipfcfg');
             elemcfg.keyset.setValue(mask);
-            this.sendLog('trying to set keyset value [generic]', 'info');
         } catch (e) {
             /* In newer versions of HbbTV keyset.setValue only works on privateData of application, therefore this method throws an exception */
             // ignore
@@ -169,9 +150,8 @@ export default class Bootstrap {
         try {
             app = this.appManager.getOwnerApplication(document);
             app.privateData.keyset.setValue(mask);
-            this.sendLog('trying to set keyset value [for HbbTV 1.0]', 'info');
         } catch (e) {
-            this.sendLog('set keyset value failed [for HbbTV 1.0]', 'error');
+            this.log.error('set keyset value failed [for HbbTV 1.0]');
         }
     }
 
