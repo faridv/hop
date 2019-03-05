@@ -1,0 +1,32 @@
+<section class="module news">
+    <header><h2>آخرین اخبار</h2></header>
+    <div>
+        <ul class="news-items">
+            {{#each items}}
+            {{#if IsPublished}}
+            <li data-id="{{Id}}">
+                <figure>
+                    {{#each Repositories}}
+                    {{#if @first}}
+                    <img src="{{Thumbnail}}" alt="{{Description}}">
+                    {{/if}}
+                    {{/each}}
+                </figure>
+                <div class="desc">
+                    <h3>
+                        <span class="title">{{ShortTitle}}</span>
+                        {{#each Categories}}
+                        {{#if @first}}
+                        <span class="badge badge-secondary"><i class="icon-hashtag"></i> {{Title}}</span>
+                        {{/if}}
+                        {{/each}}
+                    </h3>
+                    <p class="summary">{{Introtext}}</p>
+                </div>
+            </li>
+            {{/if}}
+            {{/each}}
+        </ul>
+    </div>
+    <div id="news-details"></div>
+</section>

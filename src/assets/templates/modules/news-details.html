@@ -1,0 +1,16 @@
+<div class="inner">
+    <h3>{{data.Title}}</h3>
+    <figure>
+        {{#each data.Repositories}}
+        {{#if @first}}
+        <img src="{{Thumbnail}}" alt="{{Description}}">
+        {{/if}}
+        {{/each}}
+    </figure>
+    <div class="categories">
+        {{#each data.Categories}}
+        <span class="badge badge-secondary"><i class="icon-hashtag"></i> {{Title}}</span>
+        {{/each}}
+    </div>
+    {{{data.Fulltext}}}
+</div>
