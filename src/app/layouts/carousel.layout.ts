@@ -37,7 +37,7 @@ export default class CarouselLayout {
         $el.slick({
             rtl: $("body").hasClass('rtl'),
             accessibility: false,
-            slidesToShow: 5,
+            slidesToShow: slidesToShow,
             slidesToScroll: 1,
             centerMode: true,
             focusOnSelect: true,
