@@ -110,12 +110,14 @@ export default class AppManager {
 
     handleStreamMode(): void {
         const self = this;
+
+        if ($('body').hasClass('stream-mode'))
+            return;
+
         $('body').addClass('stream-mode');
         $('body').prepend('<video id="tv-stream" class="video-js" preload="auto" autoplay width="1280" height="720"></video>');
-        // $("#tv-stream").css({'display': 'block'});
         this.scripts.forEach((script) => {
             self.scriptLoader.loadScript('head', script, true).then(() => {
-                // $("#tv-stream").append('<source src="' + this.config.streamUrl + '" type="application/x-mpegURL">');
                 videojs('tv-stream', {
                     autoplay: true,
                     sources: [{
