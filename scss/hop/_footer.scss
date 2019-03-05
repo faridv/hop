@@ -7,13 +7,13 @@
         &.red, &.space, &[class^="red,r"] {
             i { color: $red; }
         }
-        &.green {
+        &.green, &[class^="green,g"] {
             i { color: $green; }
         }
-        &.blue {
+        &.blue, &[class^="blue,b"] {
             i { color: $blue; }
         }
-        &.yelllow{
+        &.yelllow, &[class^="yelllow,y"] {
             i { color: $yellow; }
         }
     }
