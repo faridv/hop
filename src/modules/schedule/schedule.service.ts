@@ -9,6 +9,10 @@ export class ScheduleService {
     constructor() {
     }
 
+    getIPG(date) {
+        return this.http.get(ApiHelper.get('ipg'), {date: date});
+    }
+
     getDate(date) {
         return this.http.get(ApiHelper.get('schedule'), {date: date});
     }

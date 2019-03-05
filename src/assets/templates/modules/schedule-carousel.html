@@ -1,0 +1,21 @@
+<section class="module schedule">
+    <header class="d-none"><h2>جدول پخش</h2></header>
+    <div>
+        <ul class="schedule-items">
+            {{#each items}}
+            <li data-id="{{MediaId}}" class="{{#if isCurrent}}current{{/if}} {{#if hasVideo}}video{{/if}}">
+                <figure>
+                    <img src="{{thumbnail}}" alt="{{programTitle}}">
+                </figure>
+                <div class="desc">
+                    <h3>
+                        {{episodeTitle}}
+                        <small class="time">{{sec2time duration}}</small>
+                    </h3>
+                    <p class="summary">{{description}}</p>
+                </div>
+            </li>
+            {{/each}}
+        </ul>
+    </div>
+</section>
