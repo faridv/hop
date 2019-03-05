@@ -1,0 +1,46 @@
+.layout-iktv {
+    #menu {
+        //box-shadow: inset 0px -200px 200px -170px rgba(0,0,0,0.75);
+        position: absolute; bottom: 50px; width: 100%;
+        ul {
+            margin: 0; padding: 0; list-style: none;
+            li {
+                a { text-decoration: none; color: #fff; display: inline-block; }
+                width: 160px; height: 180px; text-align: center; background: #292940; padding: 30px 10px 0; color: #fff;
+                //box-shadow: 0 0 5px #777; transition: $transition-default;
+                //margin: 0 10px;
+                .glyphicon { font-size: 48px; }
+
+                //&[data-type="info"] { background: linear-gradient(135deg, #26c6da 0%, darken(#26c6da, 20%) 100%); }
+                //&[data-type="games"] { background: linear-gradient(135deg, #26a69a 0%, darken(#26a69a, 20%) 100%); }
+                //&[data-type="weather"] { background: linear-gradient(135deg, #ffa726 0%, darken(#ffa726, 20%) 100%); }
+                //&[data-type="schedule"] { background: linear-gradient(135deg, #42a5f5 0%, darken(#42a5f5, 20%) 100%); }
+                //&[data-type="prayer-times"] { background: linear-gradient(135deg, #9ccc65 0%, darken(#9ccc65, 20%) 100%); }
+            }
+        }
+        .slick-slide {
+            > div { padding: 10px; }
+        }
+        .slick-current {
+            &.slick-active {
+                li {
+                    background: #c10c08;
+                    //transform: scale(1.1);
+                }
+            }
+        }
+        .slick-arrow { display: none !important; }
+
+        &.out { display: none; }
+    }
+    #content {
+        background: transparent;
+        width: 100%; height: 100%; position: absolute; top: 0; left: 0;
+        transition: 0.5s all; margin-top: 0; opacity: 1; visibility: visible;
+        &:empty { margin-top: 100px; opacity: 0; visibility: hidden; }
+        &.fullscreen { padding: 0; width: 100%; height: 100%; }
+        &.half { width: 45%; left: 25%; height: 45%; }
+
+    }
+    .module { background: rgba(255, 255, 255, 0.8); padding: 20px; }
+}
