@@ -13,28 +13,29 @@
     <link rel="stylesheet" type="text/css" href="assets/css/style.css?<%= htmlWebpackPlugin.options.buildHash %>"/>
     <link href="assets/img/favicon.ico" rel="icon" type="image/x-icon"/>
     <script>
-        (function takeOverConsole() {
-            var console = window.console;
-
-            function intercept(method) {
-                var original = console[method];
-                console[method] = function () {
-                    var message = Array.prototype.slice.apply(arguments).join(' ');
-                    original.call(console, arguments);
-                    var xhr = new XMLHttpRequest();
-                    // xhr.open('get', '/log.php?error=' + message);
-                    xhr.open('get', '/log.php?error=' + JSON.stringify(arguments));
-                    xhr.send();
-                }
-            }
-
-            // var methods = ['warn', 'error']
-            var methods = ['error'];
-            for (var i = 0; i < methods.length; i++)
-                intercept(methods[i]);
-        })();
+//        (function takeOverConsole() {
+//            var console = window.console;
+//
+//            function intercept(method) {
+//                var original = console[method];
+//                console[method] = function () {
+//                    var message = Array.prototype.slice.apply(arguments).join(' ');
+//                    original.call(console, arguments);
+//                    var xhr = new XMLHttpRequest();
+//                    // xhr.open('get', '/log.php?error=' + message);
+//                    xhr.open('get', '/log.php?error=' + JSON.stringify(arguments));
+//                    xhr.send();
+//                }
+//            }
+//
+//            // var methods = ['warn', 'error']
+//            var methods = ['error'];
+//            for (var i = 0; i < methods.length; i++)
+//                intercept(methods[i]);
+//        })();
     </script>
-    <script type="text/javascript" src="assets/js/static/keycodes.js"></script>
+    <!--<script type="text/javascript" src="assets/js/static/keycodes.js"></script>-->
+    <!--<script type="text/javascript" src="assets/js/vendor/video.min.js"></script>-->
 </head>
 
 <body class="<%= htmlWebpackPlugin.options.direction %>" dir="<%= htmlWebpackPlugin.options.direction %>">
