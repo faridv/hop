@@ -13,7 +13,7 @@ export default class Bootstrap {
 
     broadcastVideo: any;
     appManager: any;
-    hbbApp: any;
+    // hbbApp: any;
     configObject: any;
     log: LogHelper;
 
@@ -196,13 +196,18 @@ export default class Bootstrap {
     destroy(layout?: string): void {
         if (this.config.exitMethod === 'hide') {
             try {
-                this.hbbApp.hide();
+                this.appManager.hide();
             } catch (e) {
                 console.error('error hiding application');
             }
         } else {
             this.setKeySet(0x1 + 0x2 + 0x4 + 0x8);
-            this.hbbApp.destroyApplication();
+            try {
+                this.appManager.destroyApplication();
+            } catch (e) {
+                console.error('cannot destroy application, force-hiding app');
+                document.getElementById('app').style.display = 'none';
+            }
         }
     }
 }
