@@ -13,6 +13,9 @@ import ConnectionHelper from "../_helpers/connection.helper";
 import ScreenLayout from "./layouts/screen.layout";
 import StreamModule from "../modules/stream/stream.module";
 import InfoModule from "../modules/info/info.module";
+import ScheduleCarouselModule from '../modules/schedule-carousel/schedule-carousel.module';
+import IKTVLayout from './layouts/iktv.layout';
+import NewsModule from '../modules/news/news.module';
 
 export default class Layouts {
 
@@ -21,6 +24,7 @@ export default class Layouts {
     public appData;
     private template;
     private input;
+    private currentModuleInstance;
     private cachedFooterElements: string;
 
     constructor(layout: string = 'carousel', Config, appData) {
@@ -32,7 +36,6 @@ export default class Layouts {
         this.appData = appData;
         this.input = Inputs.instance;
         this.template = TemplateHelper.instance;
-
 
         try {
             this[this.layout]();
@@ -50,6 +53,10 @@ export default class Layouts {
         setInterval(() => {
             self.updateFooter();
         }, 500);
+    }
+
+    private iktv(): void {
+        IKTVLayout.init(this.config, this.appData, this);
     }
 
     private carousel(): void {
@@ -111,6 +118,9 @@ export default class Layouts {
             case 'schedule':
                 module = ScheduleModule;
                 break;
+            case 'schedule-carousel':
+                module = ScheduleCarouselModule;
+                break;
             case 'games':
                 module = GamesModule;
                 break;
@@ -120,20 +130,24 @@ export default class Layouts {
             case 'info':
                 module = InfoModule;
                 break;
+            case 'news':
+                module = NewsModule;
+                break;
         }
         if (!module)
             return;
 
-        const moduleInstance = new module(config);
+        const moduleInstance = this.currentModuleInstance = new module(config, this);
         if (!skipUnload)
             this.prepareUnloadModule(moduleInstance);
     }
 
-    private prepareUnloadModule(moduleInstance) {
+    public prepareUnloadModule(moduleInstance?) {
         const exitParams = {key: 'module.exit', title: 'بازگشت به منو', icon: 'refresh', button: true};
         const self = this;
-        this.input.addEvent('back,backspace,b', true, exitParams, () => {
-            if (moduleInstance.destroy()) {
+        const module = typeof moduleInstance !== 'undefined' ? moduleInstance : this.currentModuleInstance;
+        this.input.addEvent('back,backspace', true, exitParams, () => {
+            if (module.destroy()) {
                 this.cleanUpPage(() => {
                     self[this.layout]();
                 });
@@ -148,8 +162,9 @@ export default class Layouts {
         });
     }
 
-    // Helpers
-
+    /*
+    * Helpers
+    */
     public renderClock(config, $el): void {
         new ClockHelper(config, $el);
     }
