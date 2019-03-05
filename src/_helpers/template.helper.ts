@@ -11,7 +11,16 @@ export default class TemplateHelper {
         this.addHelpers();
     }
 
+    private zeroFill(num, size = 2): string {
+        let number = num.toString();
+        while (number.length < size)
+            number = "0" + number;
+        return number;
+    }
+
     private addHelpers(): void {
+        const self = this;
+        
         Handlebars.registerHelper("math", function (lvalue, operator, rvalue, options) {
             lvalue = parseFloat(lvalue);
             rvalue = parseFloat(rvalue);
@@ -89,12 +98,6 @@ export default class TemplateHelper {
             let $el = $('<select />').html(options.fn(this));
             if (typeof value === "undefined" || !value || value === "")
                 return $el.html();
-            // if (typeof value === "string" && value.indexOf(',') !== -1) {
-            //     let values = value.split(',');
-            //     $.each(values, function () {
-            //         $el.find('[value=' + this + ']').attr({'selected': 'selected'});
-            //     });
-            // } else
             $el.find('[value="' + value + '"]').attr({'selected': 'selected'});
             return $el.html();
         });
@@ -120,6 +123,23 @@ export default class TemplateHelper {
             text = Handlebars.Utils.escapeExpression(text);
             text = text.replace(/(\r\n|\n|\r)/gm, '<br />');
             return new Handlebars.SafeString(text);
+        });
+        Handlebars.registerHelper('sec2time', function (value, options) {
+            const time = new Date(0, 0, 0, 0, 0, Math.abs(value), 0);
+            return self.zeroFill(time.getHours()) + ":" + self.zeroFill(time.getMinutes()) + ":" + self.zeroFill(time.getSeconds());
+        });
+        Handlebars.registerHelper('getSeconds', function (value, options) {
+            try {
+                const splitter = (value.indexOf('T') !== -1) ? 'T' : ' ';
+                let times = value.split(splitter)[1].toString().split(":");
+                return parseInt(times[2], 10) + (parseInt(times[1], 10) * 60) + (parseInt(times[0], 10) * 3600);
+            } catch (e) {
+                console.error('cannot convert "' + value + '" to seconds.', e);
+            }
+        });
+        Handlebars.registerHelper('min2time', function (value, options) {
+            const time = new Date(0, 0, 0, 0, Math.abs(value), 0, 0);
+            return self.zeroFill(time.getHours()) + ":" + self.zeroFill(time.getMinutes()) + ":" + self.zeroFill(time.getSeconds());
         });
     }
 
