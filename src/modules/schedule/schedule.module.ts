@@ -2,7 +2,7 @@ import * as moment from 'moment-jalaali';
 import TemplateHelper from "../../_helpers/template.helper";
 import Inputs from "../../app/inputs";
 import {ScheduleService} from "./schedule.service";
-import {Schedules} from "../../_models/schedule.model";
+import {IPGs} from "../../_models/schedule.model";
 
 export default class ScheduleModule {
 
@@ -12,7 +12,7 @@ export default class ScheduleModule {
     private $el = $('#content');
     private currentDate;
 
-    constructor(Config?) {
+    constructor(Config?, layoutInstance?) {
 
         moment.locale('en');
         this.currentDate = moment();
@@ -33,10 +33,10 @@ export default class ScheduleModule {
     load(date, callback?: any) {
         const self = this;
         this.template.loading();
-        this.service.getDate(date.format('YYYY-MM-DD')).done((data: Schedules) => {
+        this.service.getIPG(date.format('YYYY-MM-DD')).done((data: IPGs) => {
             // End loading
             self.template.loading(false);
-            self.render(data, (data: Schedules) => {
+            self.render(data, (data: IPGs) => {
                 $('.schedule-items').scrollTop(0);
                 if ($('.schedule-items li.current').length) {
                     setTimeout(() => {
@@ -52,7 +52,7 @@ export default class ScheduleModule {
         });
     }
 
-    findCurrent(list: Schedules): Schedules {
+    findCurrent(list: IPGs): IPGs {
         const today = moment();
         if (this.currentDate.format('YYYY-MM-DD') === today.format('YYYY-MM-DD')) {
             let currentIndex: number = 9999;
@@ -74,7 +74,7 @@ export default class ScheduleModule {
         return list;
     }
 
-    render(data: Schedules, callback): void {
+    render(data: IPGs, callback): void {
         const self = this;
         const templatePromise = this.template.load('modules', 'schedule');
         data = self.findCurrent(data);

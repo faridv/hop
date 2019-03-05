@@ -8,7 +8,7 @@ export default class InfoModule {
     private $el = $('#content');
     private config;
 
-    constructor(config: object = {}) {
+    constructor(config: object = {}, layoutInstance?) {
         this.config = config;
         this.template = TemplateHelper.instance;
         this.input = Inputs.instance;

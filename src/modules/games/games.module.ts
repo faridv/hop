@@ -10,7 +10,7 @@ export default class GamesModule {
     private template;
     private $el = $('#content');
 
-    constructor(config?) {
+    constructor(config?, layoutInstance?) {
         this.template = TemplateHelper.instance;
         this.input = Inputs.instance;
         const self = this;

@@ -9,7 +9,7 @@ export default class StreamModule {
     private $el = $('#content');
     private activeMode: string = 'both';
 
-    constructor(config) {
+    constructor(config, layoutInstance?) {
         this.template = TemplateHelper.instance;
         this.input = Inputs.instance;
         this.config = config;
