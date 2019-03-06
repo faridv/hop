@@ -25,14 +25,17 @@ export interface Schedule {
     MediaId: number;
     description: string;
     duration: string;
+    episodeId: number;
     episodeLink: string;
     episodeTitle: string;
+    episodeThumbnail: string;
     hasVideo: boolean;
     isCurrent: boolean;
+    programId: number;
     programLink: string;
     programTitle: string;
     start: string;
     thumbnail: string;
 
-    media?: string;
+    episodeMedia?: string;
 }
