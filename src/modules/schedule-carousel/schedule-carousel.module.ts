@@ -36,8 +36,8 @@ export default class ScheduleCarouselModule {
         this.template.loading();
         this.service.getDate(date.format('YYYY-MM-DD')).done((data: Schedule[]) => {
             // End loading
-            self.template.loading(false);
             self.render(data, (data: Schedule[]) => {
+                self.template.loading(false);
                 self.initializeSlider();
                 // $('.schedule-items').scrollTop(0);
                 // if ($('.schedule-items li.current').length) {
@@ -60,13 +60,17 @@ export default class ScheduleCarouselModule {
         const slidesToShow = 5;
         if (!$el.is(':visible'))
             $el.show(1);
+        // $el.on('init.slick', () => {
+        //     console.log('init called');
+        //     setTimeout(() => {
+        //     }, 0);
+        // });
         $el.slick({
-            // rtl: $("body").hasClass('rtl'),
-            // accessibility: false,
             slidesToShow: slidesToShow,
             slidesToScroll: 1,
             vertical: true,
             centerMode: true,
+            lazyLoad: 'ondemand',
             // focusOnSelect: true,
             // infinite: false,
             // speed: self.config.transitionSpeed,
@@ -78,8 +82,17 @@ export default class ScheduleCarouselModule {
     }
 
     goToCurrent($carousel): void {
-        const $current = $carousel.find('li.current').parents('.slick-slide:first');
-        $carousel.slick('slickGoTo', $current.attr('data-slick-index'));
+        const self = this;
+        try {
+            const $current = $carousel.find('li.current').parents('.slick-slide:first');
+            $carousel.slick('slickGoTo', $current.attr('data-slick-index'), true);
+        } catch (e) {
+            console.log(e);
+            setTimeout(() => {
+                self.goToCurrent($carousel);
+            }, 200);
+            return;
+        }
     }
 
     findCurrent(list: Schedule[]): Schedule[] {
@@ -120,11 +133,10 @@ export default class ScheduleCarouselModule {
         // https://cdn.iktv.ir/videos/20190216/69707_whq.mp4
         items.forEach((item) => {
             if (item.hasVideo) {
-                const fileName = item.thumbnail.split('/').pop();
-                item.media = 'https://cdn.iktv.ir/videos/20190216/' + fileName + '_whq.mp4'
+                item.episodeMedia = item.episodeThumbnail.replace('.jpg', '_whq.mp4');
             }
         });
-
+        return items;
     }
 
     destroy(instance?: ScheduleCarouselModule): boolean {
