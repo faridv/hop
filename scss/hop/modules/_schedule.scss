@@ -13,6 +13,7 @@
             }
             .desc {
                 margin-right: 160px; padding: $grid-gutter-width / 2; transition: $transition-default;
+                h4 { color: #808080; font-size: 13px; }
                 h3 { font-size: 1.25rem; }
                 .time { display: inline-block; float: left; }
                 .episode { font-size: 60%; color: #666; }
@@ -20,6 +21,11 @@
                     font-size: 0.8rem;
                     &.summary { overflow: hidden; max-height: 2.4rem; }
                     &.description { display: none; margin-bottom: 0; max-height: 3.6rem; overflow: hidden; }
+                }
+                time {
+                    padding-top: 20px; display: block; width: 100px; height: 100px; position: absolute; left: 0; top: 0;
+                    color: #ec602b; font-size: 30px; font-weight: bold; text-align: center;
+                    span { color: #808080; display: block; font-size: 16px; }
                 }
             }
             &.current { background: $gray-100; }
@@ -29,6 +35,20 @@
                     margin-right: 200px;
                     p.description { display: block; }
                 }
+            }
+        }
+    }
+    &.schedule-carousel {
+        ul {
+            background: #fff;
+            li {
+                border: 0 none; border-bottom: 1px solid $gray-200; position: relative;
+                margin: 0 ; padding: $grid-gutter-width; height: 132px;
+                .desc {
+                    padding: 0 $grid-gutter-width / 2 0 120px;
+                    p { font-size: 0.75rem; color: #808080; margin-bottom: 0; max-height: 36px; overflow: hidden; }
+                }
+                &.current, &.active { height: auto; }
             }
         }
     }
