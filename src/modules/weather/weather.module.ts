@@ -31,17 +31,12 @@ export default class WeatherModule {
         return this;
     }
 
-    loading(start: boolean = true): void {
-        const method = start ? 'addClass' : 'removeClass';
-        $('#app')[method]('loading');
-    }
-
     load(coordinations, callback?: any) {
         const self = this;
-        this.loading();
+        this.template.loading();
         this.service.getCity(coordinations.toString()).done((data) => {
             // End loading
-            self.loading(false);
+            self.template.loading(false);
             data = self.prepareData(data);
             self.renderDetails(data, (data: any) => {
 
@@ -108,7 +103,8 @@ export default class WeatherModule {
 
         const upParams = {key: 'location.prev', title: 'شهر قبلی', icon: 'up', button: true};
         this.input.addEvent('up', false, upParams, () => {
-            if (!$('#app').hasClass('loading')) {
+            if (!self.template.hasClass('loading', '#app')) {
+            // if (!$('#app').hasClass('loading')) {
                 if ($select.find('option:selected').prev().is('option')) {
                     let $current = $select.find('option:selected');
                     $current.prev().prop('selected', 'selected');
@@ -120,7 +116,7 @@ export default class WeatherModule {
 
         const downParams = {key: 'location.next', title: 'شهر بعدی', icon: 'bottom', button: true};
         this.input.addEvent('down', false, downParams, () => {
-            if (!$('#app').hasClass('loading')) {
+            if (!self.template.hasClass('loading', '#app')) {
                 if ($select.find('option:selected').next().is('option')) {
                     let $current = $select.find('option:selected');
                     $current.next().prop('selected', 'selected');
