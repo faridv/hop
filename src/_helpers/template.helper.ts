@@ -1,7 +1,6 @@
 import * as $ from 'jquery';
 import jqXHR = JQuery.jqXHR;
 import * as Handlebars from 'handlebars';
-import ClockHelper from "./clock.helper";
 
 export default class TemplateHelper {
 
@@ -20,7 +19,7 @@ export default class TemplateHelper {
 
     private addHelpers(): void {
         const self = this;
-        
+
         Handlebars.registerHelper("math", function (lvalue, operator, rvalue, options) {
             lvalue = parseFloat(lvalue);
             rvalue = parseFloat(rvalue);
@@ -156,9 +155,9 @@ export default class TemplateHelper {
             });
     }
 
-    loading(start: boolean = true): void {
+    public loading(start: boolean = true): void {
         const method = start ? 'addClass' : 'removeClass';
-        $('#app')[method]('loading');
+        this[method]('loading', '#app');
     }
 
     public render(template: jqXHR, data: any, $container: any, mode: string = 'html', callback?: any): void {
@@ -174,12 +173,31 @@ export default class TemplateHelper {
         });
     }
 
-    public addClass(classToAdd: string, element: string = 'body'): void {
-        $(element).addClass(classToAdd);
+    /*
+    * Helper methods
+    */
+    public getElement(element: any = 'body'): JQuery {
+        return (typeof element === 'string') ? $(element) : element;
     }
 
-    public removeClass(classToRemove: string, element: string = 'body'): void {
-        $(element).removeClass(classToRemove);
+    public addClass(classToAdd: string, element: any): void {
+        const $element = this.getElement(element);
+        $element.addClass(classToAdd);
+    }
+
+    public hasClass(classToCheck: string, element: any): boolean {
+        const $element = this.getElement(element);
+        return $element.hasClass(classToCheck);
+    }
+
+    public removeClass(classToRemove: string, element: any): void {
+        const $element = this.getElement(element);
+        $element.removeClass(classToRemove);
+    }
+
+    public prepend(content: string, element: any): void {
+        const $element = this.getElement(element);
+        $element.prepend(content);
     }
 
     public removeClassIfContains(element: string = 'body', text: string = 'layout-'): void {
