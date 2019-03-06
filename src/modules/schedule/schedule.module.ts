@@ -45,9 +45,8 @@ export default class ScheduleModule {
                         });
                     }, 500);
                 } else {
-                    $('.schedule-items li').first().addClass('active');
+                    self.template.addClass('active', $('.schedule-items li').first());
                 }
-                // $('.schedule-items').on('')
             });
         });
     }
@@ -98,13 +97,17 @@ export default class ScheduleModule {
         const $current = $('.schedule-items li.active');
         if (which === 'next') {
             if ($current.next('li').length) {
-                $current.next('li').addClass('active');
-                $current.removeClass('active');
+                this.template.addClass('active', $current.next('li'));
+                this.template.removeClass('active', $current);
+                // $current.next('li').addClass('active');
+                // $current.removeClass('active');
             }
         } else {
             if ($current.prev('li').length) {
-                $current.prev('li').addClass('active');
-                $current.removeClass('active');
+                this.template.addClass('active', $current.prev('li'));
+                this.template.removeClass('active', $current);
+                // $current.prev('li').addClass('active');
+                // $current.removeClass('active');
             }
         }
         const $activeElement = $('.schedule-items li.active');

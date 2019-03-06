@@ -45,24 +45,28 @@ export default class GamesModule {
 
     setActive(which: string): void {
         const $current = $('.game-items li.active');
-        $current.removeClass('active');
+        let $el;
+        this.template.removeClass('active', $current);
+        // $current.removeClass('active');
         if (which === 'next') {
             if ($current.next().length) {
-                $current.next().addClass('active');
+                $el = $current.next();
+                // $current.next().addClass('active');
             } else {
-                $current.parents('ul:first').find('li:first').addClass('active');
+                $el = $current.parents('ul:first').find('li:first');
+                // $current.parents('ul:first').find('li:first').addClass('active');
             }
         } else {
             if ($current.prev().length) {
-                $current.prev().addClass('active');
+                $el = $current.prev();
+                // $current.prev().addClass('active');
             } else {
-                $current.parents('ul:first').find('li:last').addClass('active');
+                $el = $current.parents('ul:first').find('li:last');
+                // $current.parents('ul:first').find('li:last').addClass('active');
             }
         }
-        const $activeElement = $('.game-items li.active');
-        // $('.schedule-items').animate({
-        //     scrollTop: $activeElement.position().top + $('.schedule-items').scrollTop() - 100
-        // }, 500);
+        this.template.addClass('active', $el);
+        // const $activeElement = $('.game-items li.active');
     }
 
     loadGame() {

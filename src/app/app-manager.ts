@@ -37,8 +37,8 @@ export default class AppManager {
         }
 
         // $(function () {
-            self.$el = $(self.container);
-            self.showButton(appData);
+        self.$el = $(self.container);
+        self.showButton(appData);
         // });
     }
 
@@ -56,13 +56,14 @@ export default class AppManager {
         this.template.render(templatePromise, appData, this.$el, 'append', (element) => {
             // Show button after intentional delay time
             setTimeout(() => {
-                $(element).find('[class*="button-"]').addClass('show');
+                const $buttonElement = $(element).find('[class*="button-"]');
+                self.template.addClass('show', $buttonElement);
 
                 // Add application initialization key event
                 const inputParams = {key: 'app.' + button.key, title: 'init'};
                 self.input.addEvent(button.key, true, inputParams, () => {
                     self.initializeApplication(appData);
-                }); 
+                });
 
                 // Hide button after the configured time
                 setTimeout(() => {
@@ -110,12 +111,11 @@ export default class AppManager {
 
     handleStreamMode(): void {
         const self = this;
-
-        if ($('body').hasClass('stream-mode'))
+        if (this.template.hasClass('stream-mode'))
             return;
 
-        $('body').addClass('stream-mode');
-        $('body').prepend('<video id="tv-stream" class="video-js" preload="auto" autoplay width="1280" height="720"></video>');
+        this.template.addClass('stream-mode');
+        this.template.prepend('<video id="tv-stream" class="video-js" preload="auto" autoplay width="1280" height="720"></video>');
         this.scripts.forEach((script) => {
             self.scriptLoader.loadScript('head', script, true).then(() => {
                 videojs('tv-stream', {
