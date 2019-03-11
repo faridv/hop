@@ -39,6 +39,8 @@
         }
     }
     &.schedule-carousel {
+        background: rgba(0, 0, 0, 0.8);
+        > div { padding-bottom: 30px; }
         ul {
             background: #fff;
             li {
@@ -49,7 +51,17 @@
                     p { font-size: 0.75rem; color: #808080; margin-bottom: 0; max-height: 36px; overflow: hidden; }
                 }
                 &.current, &.active { height: auto; }
+                &.video {
+                    figure {
+                        position: relative;
+                        &:before {
+                            display: block; content: '\ea1c'; font: normal 2rem/1 $font-family-icons; position: absolute; top: 50%; left: 50%;
+                            transform: translateX(-50%) translateY(-50%); color: #fff; text-shadow: 0 0 3px #333;
+                        }
+                    }
+                }
             }
+            .slick-center li { border-right: 5px solid #2cb379; }
         }
     }
 }
