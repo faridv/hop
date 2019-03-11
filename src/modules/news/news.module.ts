@@ -81,16 +81,16 @@ export default class NewsModule {
     registerKeyboardInputs($carousel): void {
         const self = this;
 
-        const upParams = {key: 'news.left', title: 'خبر قبلی', icon: 'left', button: true};
-        this.input.addEvent('left', false, upParams, () => {
-            // Prev News
-            $carousel.slick('slickNext');
-        });
-
         const downParams = {key: 'news.right', title: 'خبر بعدی', icon: 'right', button: true};
         this.input.addEvent('right', false, downParams, () => {
             // Next News
             $carousel.slick('slickPrev');
+        });
+
+        const upParams = {key: 'news.left', title: 'خبر قبلی', icon: 'left', button: true};
+        this.input.addEvent('left', false, upParams, () => {
+            // Prev News
+            $carousel.slick('slickNext');
         });
 
         const enterParams = {key: 'news.enter', title: 'نمایش خبر', icon: 'enter', button: true};
@@ -129,18 +129,23 @@ export default class NewsModule {
         $('#news-details').fadeIn();
         const self = this;
 
-        // this.input.removeEvent('back,backspace', {key: 'module.exit'});
-        const backParams = {key: 'news.back', title: 'بازگشت به اخبار', icon: 'bottom', button: true};
-        this.input.addEvent('down', false, backParams, () => {
+        this.input.removeEvent('back,backspace', {key: 'module.exit'});
+        const backParams = {key: 'news.back', title: 'بازگشت به اخبار', icon: 'refresh', button: true};
+        this.input.addEvent('back,backspace', false, backParams, () => {
             // Return to news list
             self.hideDetails();
         });
     }
 
     hideDetails(): void {
+        const self = this;
+
         $('#news-details').fadeOut();
-        this.input.removeEvent('down', {key: 'news.back'});
+        this.input.removeEvent('back,backspace', {key: 'news.back'});
         // this.layoutInstance.prepareUnloadModule();
+        setTimeout(() => {
+            self.layoutInstance.prepareUnloadModule();
+        }, 500);
     }
 
 }

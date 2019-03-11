@@ -1,5 +1,6 @@
 .module.news {
     height: 100%; max-height: 100%; overflow: hidden; background: rgba(0, 0, 0, 0.8);
+    > header { color: #fff; }
     //display: flex;
     ul {
         list-style: none; padding: 0; overflow: hidden; // overflow-y: auto;
@@ -7,7 +8,7 @@
         .slick-slide {
             > div { padding: 10px; }
             &.slick-current.slick-center {
-                li { background: #fff; }
+                li { background: #fff; border-top: 4px solid #2cb379; }
             }
         }
         li {
