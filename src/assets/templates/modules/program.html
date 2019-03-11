@@ -1,0 +1,24 @@
+<section class="module programs">
+    <header><h2>آخرین برنامه‌ها</h2></header>
+    <div>
+        <ul class="program-items">
+            {{#each items}}
+            {{#if IsPublished}}
+            <li data-id="{{Id}}">
+                <figure>
+                    <img src="https://cdn.iktv.ir/videos/{{Image}}" alt="{{IntroText}}">
+                </figure>
+                <div class="desc">
+                    <h3>
+                        <span class="title">{{Title}}</span>
+                        <!--<span class="badge badge-info">تعداد قسمت: {{EpisodesCount}}</span>-->
+                    </h3>
+                    <p class="summary">{{IntroText}}</p>
+                </div>
+            </li>
+            {{/if}}
+            {{/each}}
+        </ul>
+    </div>
+    <div id="program-episodes"></div>
+</section>

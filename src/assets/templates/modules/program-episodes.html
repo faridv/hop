@@ -1,0 +1,35 @@
+<section class="module program-episodes">
+    <div>
+        <div class="row">
+            <div class="col-3">
+                <div class="program-details">
+                    <h2>{{items.program.Title}}</h2>
+                    <figure>
+                        <img src="https://cdn.iktv.ir/videos/{{items.program.Image}}" alt="{{items.program.Introtext}}"/>
+                    </figure>
+                    <div class="desc">{{{items.program.FullText}}}</div>
+                </div>
+            </div>
+            <div class="col-9">
+                <ul class="episode-items">
+                    {{#each items.items}}
+                    {{#if IsPublished}}
+                    <li data-id="{{Id}}">
+                        <figure>
+                            <img src="https://cdn.iktv.ir/videos/{{Image}}" alt="{{Introtext}}">
+                        </figure>
+                        <div class="desc">
+                            <h3>
+                                <span class="title">{{Title}}</span>
+                            </h3>
+                            <p class="summary">{{Introtext}}</p>
+                        </div>
+                    </li>
+                    {{/if}}
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+        <div id="mediaplayer"></div>
+    </div>
+</section>
