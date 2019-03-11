@@ -16,6 +16,8 @@ import InfoModule from "../modules/info/info.module";
 import ScheduleCarouselModule from '../modules/schedule-carousel/schedule-carousel.module';
 import IKTVLayout from './layouts/iktv.layout';
 import NewsModule from '../modules/news/news.module';
+import ProgramModule from '../modules/program/program.module';
+import MarketModule from '../modules/market/market.module';
 
 export default class Layouts {
 
@@ -133,6 +135,12 @@ export default class Layouts {
             case 'news':
                 module = NewsModule;
                 break;
+            case 'vod':
+                module = ProgramModule;
+                break;
+            case 'market':
+                module = MarketModule;
+                break;
         }
         if (!module)
             return;
@@ -143,7 +151,7 @@ export default class Layouts {
     }
 
     public prepareUnloadModule(moduleInstance?) {
-        const exitParams = {key: 'module.exit', title: 'بازگشت به منو', icon: 'refresh', button: true};
+        const exitParams = {key: 'module.exit', title: 'بازگشت به فهرست', icon: 'refresh', button: true};
         const self = this;
         const module = typeof moduleInstance !== 'undefined' ? moduleInstance : this.currentModuleInstance;
         this.input.addEvent('back,backspace', true, exitParams, () => {
