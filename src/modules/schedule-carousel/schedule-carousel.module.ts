@@ -12,6 +12,10 @@ export default class ScheduleCarouselModule {
     private template;
     private $el = $('#content');
     private currentDate;
+    private layoutInstance;
+    private scripts = [
+        "assets/js/vendor/video.min.js"
+    ];
 
     constructor(config?, layoutInstance?) {
 
@@ -22,11 +26,11 @@ export default class ScheduleCarouselModule {
         this.template = TemplateHelper.instance;
         this.input = Inputs.instance;
         this.service = ScheduleService.instance;
+        this.layoutInstance = layoutInstance;
+
         const self = this;
 
-        this.load(this.currentDate, (c) => {
-            // self.registerEvents();
-        });
+        this.load(this.currentDate);
 
         return this;
     }
@@ -39,17 +43,8 @@ export default class ScheduleCarouselModule {
             self.render(data, (data: Schedule[]) => {
                 self.template.loading(false);
                 self.initializeSlider();
-                // $('.schedule-items').scrollTop(0);
-                // if ($('.schedule-items li.current').length) {
-                //     setTimeout(() => {
-                //         $('.schedule-items').animate({
-                //             scrollTop: $('.schedule-items li.current').offset().top - 100
-                //         });
-                //     }, 500);
-                // } else {
-                //     $('.schedule-items li').first().addClass('active');
-                // }
-                // $('.schedule-items').on('')
+                if (typeof callback === 'function')
+                    callback(data);
             });
         });
     }
@@ -60,22 +55,25 @@ export default class ScheduleCarouselModule {
         const slidesToShow = 5;
         if (!$el.is(':visible'))
             $el.show(1);
-        // $el.on('init.slick', () => {
-        //     console.log('init called');
-        //     setTimeout(() => {
-        //     }, 0);
-        // });
+        $el.on('afterChange', () => {
+            self.input.removeEvent('enter', {key: 'schedule.enter'});
+            setTimeout(() => {
+                if ($('.slick-center').find('li.video').length) {
+                    const enterParams = {key: 'schedule.enter', title: 'پخش ویدیو', icon: 'enter', button: true};
+                    self.input.addEvent('enter', false, enterParams, () => {
+                        self.playVideo($el);
+                    });
+                } else {
+                    self.input.removeEvent('enter', {key: 'schedule.enter'});
+                }
+            }, 100);
+        });
         $el.slick({
             slidesToShow: slidesToShow,
             slidesToScroll: 1,
             vertical: true,
             centerMode: true,
             lazyLoad: 'ondemand',
-            // focusOnSelect: true,
-            // infinite: false,
-            // speed: self.config.transitionSpeed,
-            // useCSS: false,
-            // useTransform: false
         });
         this.goToCurrent($el);
         this.registerKeyboardInputs($el);
@@ -129,11 +127,10 @@ export default class ScheduleCarouselModule {
     }
 
     getMediaUrl(items: Schedule[]): Schedule[] {
-        // https://cdn.iktv.ir/mediaimages/69707.jpg
-        // https://cdn.iktv.ir/videos/20190216/69707_whq.mp4
         items.forEach((item) => {
-            if (item.hasVideo) {
+            if (item.hasVideo && item.episodeThumbnail) {
                 item.episodeMedia = item.episodeThumbnail.replace('.jpg', '_whq.mp4');
+                console.log(item.episodeMedia);
             }
         });
         return items;
@@ -147,25 +144,6 @@ export default class ScheduleCarouselModule {
         self.input.removeEvent('right', {key: 'schedule.right'});
         self.input.removeEvent('enter', {key: 'schedule.enter'});
         return true;
-    }
-
-    setActive(which: string): void {
-        const $current = $('.schedule-items li.active');
-        if (which === 'next') {
-            if ($current.next('li').length) {
-                $current.next('li').addClass('active');
-                $current.removeClass('active');
-            }
-        } else {
-            if ($current.prev('li').length) {
-                $current.prev('li').addClass('active');
-                $current.removeClass('active');
-            }
-        }
-        const $activeElement = $('.schedule-items li.active');
-        $('.schedule-items').animate({
-            scrollTop: $activeElement.position().top + $('.schedule-items').scrollTop() - 100
-        });
     }
 
     registerKeyboardInputs($carousel?): void {
@@ -182,25 +160,15 @@ export default class ScheduleCarouselModule {
             // Next Program
             $carousel.slick('slickNext');
         });
-
-        const enterParams = {key: 'schedule.enter', title: 'نمایش برنامه', icon: 'enter', button: true};
-        this.input.addEvent('enter', false, enterParams, () => {
-            self.loadDetails($carousel);
-        });
     }
 
-    loadDetails($carousel, $item?): void {
+    playVideo($carousel): void {
         const self = this;
-        const $current = $carousel.find('.slick-current.slick-center');
-        // Load item details
-        // const templatePromise = this.template.load('modules', 'news-details');
-        // this.template.render(templatePromise, {data: item}, $('#news-details'), 'html', function () {
-        //     self.showDetails();
-        // });
-
+        const $current = $carousel.find('.slick-current.slick-center li');
+        if (!$current.hasClass('video'))
+            return;
+        // const
+        // TODO
     }
 
-    showDetails(): void {
-
-    }
 }
