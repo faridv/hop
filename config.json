@@ -11,9 +11,9 @@
     "hd": true,
     "resolution": "720",
     "verbose": false,
-    "log": true,
+    "log": false,
     "autostart": false,
-    "streamMode": true,
+    "streamMode": false,
     "streamUrl": "http://test.livemedia.irib.ir/mdash/irankala-1m.stream/manifest.m3u8",
     "exitMethod": "destroy",
     "api": {
@@ -24,8 +24,13 @@
             "weather": "http://77.36.163.194/weather.php",
             "log": "/misc/log.php",
             "schedule": "https://services.iktv.ir/pl/frontend.svc/schedule/",
-            "programs.latest": "https://services.iktv.ir/pl/app.svc/programs/list/1,2,3,4/20/published%20desc/1",
-            "news": "https://iktv.ir/services/pl/app.svc/contents/list/"
+            "program.latest": "https://services.iktv.ir/pl/app.svc/programs/list/1,2,3,4/50/published%20desc/1",
+            "program.list": "https://iktv.ir/services/pl/app.svc/programs/list/{programType}/20/Title/1",
+            "program.episodes": "https://services.iktv.ir/pl/app.svc/programs/episodes/{programId}/20/published%20desc",
+            "news": "https://services.iktv.ir/pl/app.svc/contents/list/",
+            "episode": "https://services.iktv.ir/pl/programs.svc/episode",
+            "market.labels": "http://au.iktv.ir/services/api/economy/tree",
+            "market.data": "http://au.iktv.ir/services/api/economy/data"
         }
     },
 	"applications": [
