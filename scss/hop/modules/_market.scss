@@ -1,0 +1,31 @@
+.module.market {
+    height: 100%; max-height: 100%; overflow: hidden; background: rgba(0, 0, 0, 0.8); color: #fff;
+    //display: flex;
+    .market-items {
+        list-style: none; margin: 0; padding: 0;
+        li {
+            background: #333; padding: 8px 16px; margin-bottom: 2px; position: relative; height: 40px;
+            &.active { border-right: 4px solid #2cb379; }
+            &.current {
+                background: #666;
+                &:before {
+                    display: block; content: ''; position: absolute; left: -20px; top: 50%; width: 0; height: 0; transform: translateY(-50%);
+                    border-right: 20px solid #666; border-bottom: 20px solid transparent; border-top: 20px solid transparent;
+                }
+            }
+        }
+    }
+    .ltr { direction: ltr; }
+    .unit { font-size: 12px; }
+    .card { margin-bottom: 8px; }
+    .card-header { padding-top: 0.25rem; padding-bottom: 0.25rem; /*font-size: 14px;*/ }
+    //.card-title { margin-bottom: 0; }
+    .card-body { padding: 0.35rem 0.5rem 0; }
+
+    #market-details {
+        .row { margin-left: -4px; margin-right: -4px; }
+        [class*='col'] { padding-right: 4px; padding-left: 4px; }
+
+        .page-2 { display: none; }
+    }
+}
