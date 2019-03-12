@@ -36,9 +36,9 @@
 	"applications": [
         {
             "button": {
-                "key": "blue,b",
-                "image": "assets/img/bluebutton.png",
-                "position": "top: 30px; right: 60px;"
+                "key": "red,r",
+                "image": "assets/img/redbutton.png",
+                "position": "bottom: 30px; right: 60px;"
             },
             "hasHub": true,
             "clock": true,
@@ -85,45 +85,6 @@
                     "title": "اخبار",
                     "type": "news",
                     "icon": "newspaper"
-                }
-            ]
-        },
-        {
-            "button": {
-                "key": "red,r",
-                "image": "assets/img/redbutton.png",
-                "position": "bottom: 30px; right: 60px;"
-            },
-            "hasHub": true,
-            "clock": true,
-            "connectionStatus": true,
-            "theme": "default",
-            "layout": "carousel",
-            "modules": [
-                {
-                    "title": "آب و هوا",
-                    "type": "weather",
-                    "icon": "sun"
-                },
-                {
-                    "title": "اوقات شرعی",
-                    "type": "prayer-times",
-                    "icon": "sunrise"
-                },
-                {
-                    "title": "جدول پخش",
-                    "type": "schedule",
-                    "icon": "view_day"
-                },
-                {
-                    "title": "بازی‌ها",
-                    "type": "games",
-                    "icon": "gamepad"
-                },
-                {
-                    "title": "درباره برنامه",
-                    "type": "info",
-                    "icon": "info_outline"
                 }
             ]
         }
