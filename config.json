@@ -8,12 +8,13 @@
     "transitionSpeed": 0,
     "clockUpdateInterval": 600000,
     "theme": "default",
+    "mediaPlayer": "videojs",
     "hd": true,
     "resolution": "720",
     "verbose": false,
     "log": false,
     "autostart": false,
-    "streamMode": false,
+    "streamMode": true,
     "streamUrl": "http://test.livemedia.irib.ir/mdash/irankala-1m.stream/manifest.m3u8",
     "exitMethod": "destroy",
     "api": {
@@ -38,7 +39,7 @@
             "button": {
                 "key": "red,r",
                 "image": "assets/img/redbutton.png",
-                "position": "bottom: 30px; right: 60px;"
+                "position": "bottom: 120px; right: 60px;"
             },
             "hasHub": true,
             "clock": true,

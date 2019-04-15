@@ -239,6 +239,12 @@ export default class ProgramModule {
         });
     }
 
+    getMediaUrl($carousel): string {
+        const $current = $carousel.find('.slick-current.slick-center li');
+        const mediaUrl = $current.find('img:first').attr('src').replace('.jpg', '_whq.mp4');
+        return mediaUrl;
+    }
+
     unloadEpisodes() {
         const self = this;
 
@@ -283,11 +289,10 @@ export default class ProgramModule {
 
     playVideo($carousel): void {
         const self = this;
-        const $current = $carousel.find('.slick-current.slick-center li');
         if (this.template.hasClass('player-mode'))
             return;
 
-        const mediaUrl = $current.find('img:first').attr('src').replace('.jpg', '_whq.mp4');
+        const mediaUrl = this.getMediaUrl($carousel);
 
         this.template.addClass('player-mode');
         this.handleStreamAudio();
