@@ -1,14 +1,14 @@
 import {ConfigHelper} from './config.helper';
 import {ScriptLoaderService} from '../_services/script-loader.service';
 
-export class PlayerHelper {
+export class PlayerService {
 
-    // public static _instance: PlayerHelper;
+    // public static _instance: PlayerService;
     private scriptLoader;
     private scripts = [
         "assets/js/vendor/video.min.js"
     ];
-    private id: string;
+    // private id: string;
     private type: string;
     private options: any;
     private container: string;
@@ -17,15 +17,16 @@ export class PlayerHelper {
         autoplay: true
     };
 
-    constructor(id: string, container: string, options: any, type: string = 'videojs') {
+    constructor(/*id: string, */container: string, options: any, type: string = 'videojs') {
         this.scriptLoader = ScriptLoaderService.instance;
         this.type = type;
-        this.id = id;
+        // this.id = id;
         this.options = $.extend(true, {}, this.defaultOptions, options);
         this.container = container;
         this.init();
     }
 
+    // load the player script if it's not loaded yet and call render()
     private init() {
         const self = this;
 
@@ -42,6 +43,10 @@ export class PlayerHelper {
         return this.instance;
     }
 
+    public createElement() {
+
+    }
+
     public render() {
         const self = this;
         $('#' + self.container).on('loadedmetadata', () => {
@@ -49,8 +54,9 @@ export class PlayerHelper {
                 if (videojs(self.container).isPaused)
                     videojs(self.container).play();
             } else {
-                if (document.getElementById(self.container).isPaused)
-                    document.getElementById(self.container).play();
+                const videoElement = <HTMLVideoElement>document.getElementById(self.container);
+                if (videoElement.paused)
+                    videoElement.play();
             }
         });
 
@@ -91,6 +97,8 @@ export class PlayerHelper {
         }
     }
 
+
+    // control functions
     public play() {
         const instance = this.getInstance();
         this.setPlaybackSpeed(1);

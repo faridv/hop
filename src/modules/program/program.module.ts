@@ -4,6 +4,7 @@ import Layouts from '../../app/layouts';
 import {ProgramService} from './program.service';
 import {Program, ProgramEpisode} from './program.model';
 import {ScriptLoaderService} from '../../_services/script-loader.service';
+import {PlayerService} from '../../_helpers/player.helper';
 
 export default class ProgramModule {
 
@@ -14,6 +15,8 @@ export default class ProgramModule {
     private data;
     private layoutInstance: Layouts;
     private $el = $('#content');
+    private playerService;
+    private playerInstance;
 
     private scriptLoader;
     private scripts = [
@@ -28,6 +31,7 @@ export default class ProgramModule {
         this.config = config;
         this.layoutInstance = layoutInstance;
         this.scriptLoader = ScriptLoaderService.instance;
+        this.playerService = PlayerService;
 
         this.load();
 
@@ -289,23 +293,24 @@ export default class ProgramModule {
 
     playVideo($carousel): void {
         const self = this;
-        if (this.template.hasClass('player-mode'))
-            return;
-
-        const mediaUrl = this.getMediaUrl($carousel);
-
-        this.template.addClass('player-mode');
-        this.handleStreamAudio();
-        $('#mediaplayer').html('<video id="episode-player" class="video-js" preload="auto" autoplay width="1280" height="720"></video>');
-        if (typeof videojs !== 'undefined') {
-            self.initPlayer('episode-player', mediaUrl);
-        } else {
-            this.scripts.forEach((script) => {
-                self.scriptLoader.loadScript('head', script, true).then(() => {
-                    self.initPlayer('episode-player', mediaUrl);
-                });
-            });
-        }
+        this.playerInstance = new this.playerService('mediaplayer')
+        // if (this.template.hasClass('player-mode'))
+        //     return;
+        //
+        // const mediaUrl = this.getMediaUrl($carousel);
+        //
+        // this.template.addClass('player-mode');
+        // this.handleStreamAudio();
+        // $('#mediaplayer').html('<video id="episode-player" class="video-js" preload="auto" autoplay width="1280" height="720"></video>');
+        // if (typeof videojs !== 'undefined') {
+        //     self.initPlayer('episode-player', mediaUrl);
+        // } else {
+        //     this.scripts.forEach((script) => {
+        //         self.scriptLoader.loadScript('head', script, true).then(() => {
+        //             self.initPlayer('episode-player', mediaUrl);
+        //         });
+        //     });
+        // }
     }
 
     initPlayer(container: string, src: string): void {
