@@ -17,6 +17,10 @@ export class ScheduleService {
         return this.http.get(ApiHelper.get('schedule'), {date: date});
     }
 
+    getMedia(mediaId) {
+        return this.http.get(ApiHelper.get('media', mediaId));
+    }
+
     public static get instance() {
         return this._instance || (this._instance = new this());
     }
