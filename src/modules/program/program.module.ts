@@ -3,7 +3,6 @@ import Inputs from '../../app/inputs';
 import Layouts from '../../app/layouts';
 import {ProgramService} from './program.service';
 import {Program, ProgramEpisode} from './program.model';
-import {ScriptLoaderService} from '../../_services/script-loader.service';
 import {PlayerService} from '../../_helpers/player.helper';
 
 export default class ProgramModule {
@@ -18,11 +17,6 @@ export default class ProgramModule {
     private playerService;
     private playerInstance;
 
-    private scriptLoader;
-    private scripts = [
-        "assets/js/vendor/video.min.js"
-    ];
-
     constructor(config?, layoutInstance?) {
 
         this.template = TemplateHelper.instance;
@@ -30,7 +24,6 @@ export default class ProgramModule {
         this.service = ProgramService.instance;
         this.config = config;
         this.layoutInstance = layoutInstance;
-        this.scriptLoader = ScriptLoaderService.instance;
         this.playerService = PlayerService;
 
         this.load();
@@ -88,7 +81,7 @@ export default class ProgramModule {
         self.input.removeEvent('enter', {key: 'program.right'});
         self.input.removeEvent('up', {key: 'program.up'});
         self.input.removeEvent('down', {key: 'program.down'});
-        self.input.removeEvent('p,play', {key: 'program.play'});
+        self.input.removeEvent('enter', {key: 'program.play'});
         return true;
     }
 
@@ -140,7 +133,7 @@ export default class ProgramModule {
 
         self.input.removeEvent('up', {key: 'program.up'});
         self.input.removeEvent('down', {key: 'program.down'});
-        self.input.removeEvent('p,play', {key: 'program.play'});
+        self.input.removeEvent('enter', {key: 'program.play'});
 
         this.template.loading();
         this.service.getEpisodes(programId).done((data: ProgramEpisode[]) => {
@@ -176,13 +169,13 @@ export default class ProgramModule {
         if (!$el.is(':visible'))
             $el.show(1);
         $el.on('afterChange', () => {
-            self.input.removeEvent('p,play', {key: 'program.play'});
+            self.input.removeEvent('enter', {key: 'program.play'});
             setTimeout(() => {
-                const enterParams = {key: 'program.play', title: 'پخش ویدیو', icon: 'play', button: true};
-                self.input.addEvent('p,play', false, enterParams, () => {
+                const enterParams = {key: 'program.play', title: 'پخش ویدیو', icon: 'enter', button: true};
+                self.input.addEvent('enter', false, enterParams, () => {
                     self.playVideo($el);
                 });
-            }, 100);
+            }, 500);
         });
         $el.slick({
             slidesToShow: slidesToShow,
@@ -194,7 +187,7 @@ export default class ProgramModule {
         this.registerEpisodesKeyboardInputs($el);
     }
 
-    registerEpisodesKeyboardInputs($carousel): void {
+    registerEpisodesKeyboardInputs($carousel = $("ul.episode-items")): void {
         const self = this;
 
         this.input.removeEvent('back,backspace', {key: 'module.exit'});
@@ -215,38 +208,30 @@ export default class ProgramModule {
             $carousel.slick('slickPrev');
         });
 
-        const enterParams = {key: 'program.play', title: 'پخش ویدیو', icon: 'play', button: true};
-        self.input.addEvent('p,play', false, enterParams, () => {
-            self.playVideo($carousel);
-        });
-
-        // $(document).on('click', "ul.news-items li", (e) => {
-        //     self.showEpisodes($carousel, $(this));
-        // });
+        setTimeout(() => {
+            const enterParams = {key: 'program.play', title: 'پخش ویدیو', icon: 'enter', button: true};
+            self.input.addEvent('enter', false, enterParams, () => {
+                self.playVideo($carousel);
+            });
+        }, 200);
     }
 
-    registerPlayerKeyboardInputs(): void {
+    removeProgramsKeyboardEvents(): void {
         const self = this;
-        this.input.removeEvent('p,play', {key: 'program.play'});
+        this.input.removeEvent('enter', {key: 'program.play'});
         this.input.removeEvent('up', {key: 'program.up'});
         this.input.removeEvent('down', {key: 'program.down'});
         this.input.removeEvent('back,backspace', {key: 'program.back'});
-
-        const pauseParams = {key: 'program.pause', title: 'متوقف', icon: 'pause', button: true};
-        self.input.addEvent('p,pause', false, pauseParams, () => {
-            self.pausePlayer();
-        });
-
-        const stopParams = {key: 'program.stop', title: 'بازگشت', icon: 'stop', button: true};
-        self.input.addEvent('s,stop', false, stopParams, () => {
-            self.unloadVideoPlayer();
-        });
     }
 
     getMediaUrl($carousel): string {
         const $current = $carousel.find('.slick-current.slick-center li');
-        const mediaUrl = $current.find('img:first').attr('src').replace('.jpg', '_whq.mp4');
-        return mediaUrl;
+        return $current.find('img:first').attr('src').replace('.jpg', '_whq.mp4');
+    }
+
+    getPoster($carousel): string {
+        const $current = $carousel.find('.slick-current.slick-center li');
+        return $current.find('img:first').attr('src');
     }
 
     unloadEpisodes() {
@@ -256,7 +241,7 @@ export default class ProgramModule {
 
         this.input.removeEvent('up', {key: 'program.up'});
         this.input.removeEvent('down', {key: 'program.down'});
-        this.input.removeEvent('p,play', {key: 'program.play'});
+        this.input.removeEvent('enter', {key: 'program.play'});
         this.input.removeEvent('back,backspace', {key: 'program.back'});
 
         this.registerKeyboardInputs($("ul.program-items"));
@@ -265,106 +250,24 @@ export default class ProgramModule {
         }, 500);
     }
 
-    pausePlayer(): void {
-        const self = this;
-        const $player = videojs('episode-player');
-        $player.pause();
-        setTimeout(() => {
-            this.input.removeEvent('p,pause', {key: 'program.pause'});
-            const playParams = {key: 'program.play', title: 'ادامه پخش', icon: 'play', button: true};
-            this.input.addEvent('p,play', false, playParams, () => {
-                self.playPlayer();
-            });
-        }, 200);
-    }
-
-    playPlayer(): void {
-        const self = this;
-        const $player = videojs('episode-player');
-        $player.play();
-        setTimeout(() => {
-            this.input.removeEvent('p,play', {key: 'program.play'});
-            const pauseParams = {key: 'program.pause', title: 'متوقف', icon: 'pause', button: true};
-            this.input.addEvent('p,pause', false, pauseParams, () => {
-                self.pausePlayer();
-            });
-        }, 200);
-    }
-
     playVideo($carousel): void {
-        const self = this;
-        this.playerInstance = new this.playerService('mediaplayer')
-        // if (this.template.hasClass('player-mode'))
-        //     return;
-        //
-        // const mediaUrl = this.getMediaUrl($carousel);
-        //
-        // this.template.addClass('player-mode');
-        // this.handleStreamAudio();
-        // $('#mediaplayer').html('<video id="episode-player" class="video-js" preload="auto" autoplay width="1280" height="720"></video>');
-        // if (typeof videojs !== 'undefined') {
-        //     self.initPlayer('episode-player', mediaUrl);
-        // } else {
-        //     this.scripts.forEach((script) => {
-        //         self.scriptLoader.loadScript('head', script, true).then(() => {
-        //             self.initPlayer('episode-player', mediaUrl);
-        //         });
-        //     });
-        // }
-    }
+        if (this.template.hasClass('player-mode'))
+            return;
 
-    initPlayer(container: string, src: string): void {
-        $('#' + container).on('loadedmetadata', () => {
-            if (videojs(container).isPaused)
-                videojs(container).play();
-        });
-        videojs(container, {
-            autoplay: true,
+        const self = this;
+        const playerParams = {
+            unloadMethod: () => {
+                setTimeout(() => {
+                    self.registerEpisodesKeyboardInputs();
+                }, 200);
+            },
             sources: [{
-                src: src,
+                src: self.getMediaUrl($carousel),
+                poster: self.getPoster($carousel),
                 type: 'video/mp4'
             }]
-        });
-        this.registerPlayerKeyboardInputs();
+        };
+        this.playerInstance = new this.playerService('mediaplayer', playerParams);
+        this.removeProgramsKeyboardEvents();
     }
-
-    unloadVideoPlayer(): void {
-        const self = this
-        videojs(document.getElementById('episode-player')).dispose();
-        $('#mediaplayer').empty();
-        this.template.removeClass('player-mode');
-        this.input.removeEvent('p,pause', {key: 'program.pause'});
-        this.input.removeEvent('p,play', {key: 'program.play'});
-        this.input.removeEvent('s,stop', {key: 'program.stop'});
-        setTimeout(() => {
-            self.registerEpisodesKeyboardInputs($("ul.episode-items"));
-        }, 200);
-
-    }
-
-    handleStreamAudio(mute: boolean = true) {
-        // const $tv = <HTMLVideoElement> $('#broadcast video:first')[0];
-        const $tv = <any> document.getElementById('broadcastvideo');
-        if (mute) {
-            try {
-                $tv.stop();
-            } catch (e) {
-                // cannot stop tv stream, let's try to mute it
-                try {
-                    $tv.muted = true;
-                } catch (e) {
-                    // ignore
-                }
-            }
-        } else {
-            try {
-                $tv.muted = false;
-                $tv.release();
-            } catch (e) {
-                // ignore
-            }
-        }
-
-    }
-
 }
