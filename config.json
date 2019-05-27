@@ -30,6 +30,7 @@
             "program.episodes": "https://services.iktv.ir/pl/app.svc/programs/episodes/{programId}/20/published%20desc",
             "news": "https://services.iktv.ir/pl/app.svc/contents/list/",
             "episode": "https://services.iktv.ir/pl/programs.svc/episode",
+            "media": "https://au.iktv.ir/services/api/media",
             "market.labels": "http://au.iktv.ir/services/api/economy/tree",
             "market.data": "http://au.iktv.ir/services/api/economy/data"
         }
@@ -47,6 +48,11 @@
             "theme": "default",
             "layout": "iktv",
             "modules": [
+                {
+                    "title": "برنامه‌ها",
+                    "type": "vod",
+                    "icon": "tv"
+                },
                 {
                     "title": "آب و هوا",
                     "type": "weather",
@@ -76,11 +82,6 @@
                     "title": "بازار",
                     "type": "market",
                     "icon": "line-graph"
-                },
-                {
-                    "title": "برنامه‌ها",
-                    "type": "vod",
-                    "icon": "tv"
                 },
                 {
                     "title": "اخبار",
