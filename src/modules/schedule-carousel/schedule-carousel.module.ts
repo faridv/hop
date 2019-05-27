@@ -3,6 +3,7 @@ import TemplateHelper from "../../_helpers/template.helper";
 import Inputs from "../../app/inputs";
 import {ScheduleService} from "./../schedule/schedule.service";
 import {Schedule} from "../../_models/schedule.model";
+import {PlayerService} from '../../_helpers/player.helper';
 
 export default class ScheduleCarouselModule {
 
@@ -13,6 +14,8 @@ export default class ScheduleCarouselModule {
     private $el = $('#content');
     private currentDate;
     private layoutInstance;
+    private playerService;
+    private playerInstance
     private scripts = [
         "assets/js/vendor/video.min.js"
     ];
@@ -27,6 +30,7 @@ export default class ScheduleCarouselModule {
         this.input = Inputs.instance;
         this.service = ScheduleService.instance;
         this.layoutInstance = layoutInstance;
+        this.playerService = PlayerService;
 
         const self = this;
 
@@ -119,34 +123,36 @@ export default class ScheduleCarouselModule {
         const self = this;
         const templatePromise = this.template.load('modules', 'schedule-carousel');
         items = self.findCurrent(items);
-        items = self.getMediaUrl(items);
+        // items = self.getMediaUrl(items);
         this.template.render(templatePromise, {items: items}, this.$el, 'html', function () {
             if (typeof callback === 'function')
                 callback(items);
         });
     }
 
-    getMediaUrl(items: Schedule[]): Schedule[] {
-        items.forEach((item) => {
-            if (item.hasVideo && item.episodeThumbnail) {
-                item.episodeMedia = item.episodeThumbnail.replace('.jpg', '_whq.mp4');
-                console.log(item.episodeMedia);
-            }
-        });
-        return items;
-    }
+    // getMediaUrl(items: Schedule[]): Schedule[] {
+    //     items.forEach((item) => {
+    //         if (item.hasVideo && item.episodeThumbnail) {
+    //             item.episodeMedia = item.episodeThumbnail.replace('.jpg', '_whq.mp4');
+    //             console.log(item.episodeMedia);
+    //         }
+    //     });
+    //     return items;
+    // }
 
     destroy(instance?: ScheduleCarouselModule): boolean {
         const self = typeof instance !== 'undefined' ? instance : this;
         self.input.removeEvent('up', {key: 'schedule.prev'});
         self.input.removeEvent('down', {key: 'schedule.next'});
-        self.input.removeEvent('left', {key: 'schedule.left'});
-        self.input.removeEvent('right', {key: 'schedule.right'});
+        self.input.removeEvent('down', {key: 'schedule.next'});
+        // self.input.removeEvent('left', {key: 'schedule.left'});
+        // self.input.removeEvent('right', {key: 'schedule.right'});
         self.input.removeEvent('enter', {key: 'schedule.enter'});
+        self.input.removeEvent('back,backspace', {key: 'module.exit'});
         return true;
     }
 
-    registerKeyboardInputs($carousel?): void {
+    registerKeyboardInputs($carousel = $("ul.schedule-items")): void {
         const self = this;
 
         const upParams = {key: 'schedule.prev', title: 'برنامه قبلی', icon: 'up', button: true};
@@ -162,13 +168,47 @@ export default class ScheduleCarouselModule {
         });
     }
 
+    getMediaUrl($element): void {
+        const self = this;
+        const id = $element.data('id');
+        this.template.loading();
+        this.service.getMedia(id).done((data: any) => {
+            // End loading
+            const item = data[0];
+            self.template.loading(false);
+            self.initPlayback(item.Thumbnail, item.Thumbnail.replace('.jpg', '_lq.mp4'));
+        });
+    }
+
+    initPlayback(poster: string, src: string) {
+        const self = this;
+        const playerParams = {
+            unloadMethod: () => {
+                setTimeout(() => {
+                    self.registerKeyboardInputs();
+                    setTimeout(() => {
+                        self.layoutInstance.prepareUnloadModule();
+                    }, 500);
+                }, 200);
+            },
+            sources: [{
+                src: src,
+                poster: poster,
+                type: 'video/mp4'
+            }]
+        };
+        this.playerInstance = new this.playerService('mediaplayer', playerParams);
+        this.destroy();
+    }
+
     playVideo($carousel): void {
         const self = this;
+        if (this.template.hasClass('player-mode'))
+            return;
         const $current = $carousel.find('.slick-current.slick-center li');
         if (!$current.hasClass('video'))
             return;
-        // const
-        // TODO
+        this.getMediaUrl($current);
     }
 
 }
