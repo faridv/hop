@@ -1,6 +1,7 @@
 import * as $ from 'jquery';
 import jqXHR = JQuery.jqXHR;
 import * as Handlebars from 'handlebars';
+// import * as Template7 from './template7.js';
 
 export default class TemplateHelper {
 
