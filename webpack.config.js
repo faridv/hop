@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const DashboardPlugin = require('webpack-dashboard/plugin');
 const nodeEnv = process.env.NODE_ENV || 'development';
 const isProd = nodeEnv === 'production';
 // const package = require('./package.json');
@@ -10,6 +11,7 @@ const buildDate = new Date().toGMTString().slice(0, 25);
 const buildHash = (+new Date() / 1000).toFixed(0);
 
 const plugins = [
+    new DashboardPlugin(),
     new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /fa/),
     new webpack.DefinePlugin({
         'process.env': {
@@ -91,7 +93,8 @@ var config = {
     resolve: {
         extensions: ['.ts', '.js'],
         alias: {
-            handlebars: 'handlebars/dist/handlebars.min.js'
+            handlebars: 'handlebars/dist/handlebars.min.js',
+            "handlebars/runtime": 'handlebars/dist/handlebars.runtime.min.js'
         }
     },
     plugins: plugins,

@@ -4,8 +4,10 @@
     "main": "src/index.ts",
     "scripts": {
         "start": "npm run server:dev",
+        "start:dashboard": "npm run server:dashboard",
         "server": "npm run server:dev",
         "server:dev": "webpack-dev-server --mode development --config ./webpack.config.js --hot --inline --progress --watch",
+        "server:dashboard": "webpack-dashboard -- webpack-dev-server --mode development --config ./webpack.config.js --hot --inline --progress --watch",
         "server:prod": "cross-env NODE_ENV=production webpack-dev-server  --mode production --config ./webpack.config.js --port 3000 --host 127.0.0.1 --hot --inline --progress  --watch --open --content-base dist/",
         "build": "npm run build:prod",
         "build:dev": "webpack --mode development --config ./webpack.config.js --progress --color --display-error-details",
@@ -17,7 +19,7 @@
     "devDependencies": {
         "@types/jasmine": "^2.8.16",
         "@types/jquery": "^3.3.1",
-        "@types/node": "^10.14.7",
+        "@types/node": "^10.14.8",
         "@types/slick-carousel": "^1.6.33",
         "awesome-typescript-loader": "^5.2.0",
         "copy-webpack-plugin": "^4.6.0",
@@ -41,12 +43,12 @@
         "rimraf": "^2.6.1",
         "source-map-loader": "^0.2.1",
         "style-loader": "^0.22.1",
-        "tslint": "^5.16.0",
+        "tslint": "^5.17.0",
         "tslint-loader": "^3.6.0",
-        "typescript": "^3.4.5",
+        "typescript": "^3.5.1",
         "webpack": "^4.32.2",
         "webpack-cli": "^3.3.2",
-        "webpack-dev-server": "^3.4.1"
+        "webpack-dev-server": "^3.5.1"
     },
     "dependencies": {
         "handlebars": "^4.1.2",
@@ -54,6 +56,7 @@
         "logrocket": "^0.6.21",
         "moment-jalaali": "^0.7.4",
         "prayer-times": "^0.1.0",
-        "slick-carousel": "^1.8.1"
+        "slick-carousel": "^1.8.1",
+        "webpack-dashboard": "^3.0.7"
     }
 }
