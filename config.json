@@ -1,5 +1,5 @@
 {
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"title": "HOP: HbbTV Open Platform",
     "container": "#app",
     "locale": "fa",
@@ -18,21 +18,21 @@
     "streamUrl": "http://test.livemedia.irib.ir/mdash/irankala-1m.stream/manifest.m3u8",
     "exitMethod": "destroy",
     "api": {
-        "url": "http://77.36.163.194/proxy.php?csurl=",
+        "url": "http://77.36.163.196/",
         "api_guide": "https://services.iktv.ir/config/app.json",
         "services": {
             "ipg": "http://www.pooyatv.ir/ipg",
-            "weather": "http://77.36.163.194/weather.php",
+            "weather": "weather",
             "log": "/misc/log.php",
-            "schedule": "https://services.iktv.ir/pl/frontend.svc/schedule/",
-            "program.latest": "https://services.iktv.ir/pl/app.svc/programs/list/1,2,3,4/50/published%20desc/1",
-            "program.list": "https://iktv.ir/services/pl/app.svc/programs/list/{programType}/20/Title/1",
-            "program.episodes": "https://services.iktv.ir/pl/app.svc/programs/episodes/{programId}/20/published%20desc",
-            "news": "https://services.iktv.ir/pl/app.svc/contents/list/",
-            "episode": "https://services.iktv.ir/pl/programs.svc/episode",
-            "media": "https://au.iktv.ir/services/api/media",
-            "market.labels": "http://au.iktv.ir/services/api/economy/tree",
-            "market.data": "http://au.iktv.ir/services/api/economy/data"
+            "schedule": "schedule",
+            "program.latest": "programs",
+            "program.list": "programs/type/{programType}",
+            "program.episodes": "programs/{programId}",
+            "news": "news",
+            "media": "media",
+            "market.labels": "market/labels",
+            "market.data": "market/data",
+            "quran": "quran"
         }
     },
 	"applications": [
