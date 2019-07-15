@@ -161,16 +161,25 @@ export default class TemplateHelper {
         this[method]('loading', '#app');
     }
 
-    public render(template: jqXHR, data: any, $container: any, mode: string = 'html', callback?: any): void {
-        template.done(function (tmpl: string) {
-            const HandlebarsTemplate = Handlebars.compile(tmpl);
-            const output = HandlebarsTemplate(data);
-            if (mode === 'html')
-                $container.empty();
-            $container[mode](output).promise().done(function ($parent) {
-                if (typeof callback === 'function')
-                    callback($parent);
+    public render(template: any, data: any, $container: any, mode: string = 'html', callback?: any): void {
+        const self = this;
+        if (typeof template === 'string') {
+            this.generateOutput(template, data, $container, mode, callback);
+        } else {
+            template.done(function (tmpl: string) {
+                self.generateOutput(tmpl, data, $container, mode, callback);
             });
+        }
+    }
+
+    private generateOutput(template: string, data: any, $container: any, mode: string = 'html', callback?: any) {
+        const HandlebarsTemplate = Handlebars.compile(template);
+        const output = HandlebarsTemplate(data);
+        if (mode === 'html')
+            $container.empty();
+        $container[mode](output).promise().done(function ($parent) {
+            if (typeof callback === 'function')
+                callback($parent);
         });
     }
 
