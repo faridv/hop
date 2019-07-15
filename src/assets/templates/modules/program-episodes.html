@@ -3,29 +3,32 @@
         <div class="row">
             <div class="col-3">
                 <div class="program-details">
-                    <h2>{{items.program.Title}}</h2>
+                    <h2>{{items.program.title}}</h2>
                     <figure>
-                        <img src="https://cdn.iktv.ir/videos/{{items.program.Image}}" alt="{{items.program.Introtext}}"/>
+                        <img src="{{items.program.image}}" alt="{{items.program.title}}"/>
                     </figure>
-                    <div class="desc">{{{items.program.FullText}}}</div>
+                    <div class="desc">
+                        {{#if items.program.schedule}}{{items.program.schedule}}{{/if}}
+                        {{#if items.program.director}}<strong>کارگردان</strong> {{items.program.director}}{{/if}}
+                        <hr />
+                        {{{items.program.description}}}
+                    </div>
                 </div>
             </div>
             <div class="col-9">
                 <ul class="episode-items">
                     {{#each items.items}}
-                    {{#if IsPublished}}
-                    <li data-id="{{Id}}">
+                    <li data-id="{{id}}" data-media="{{video}}">
                         <figure>
-                            <img src="https://cdn.iktv.ir/videos/{{Image}}" alt="{{Introtext}}">
+                            <img src="{{image}}" alt="{{summary}}">
                         </figure>
                         <div class="desc">
                             <h3>
-                                <span class="title">{{Title}}</span>
+                                <span class="title">{{title}}</span>
                             </h3>
-                            <p class="summary">{{Introtext}}</p>
+                            <p class="summary"><ins>قسمت {{part}} - </ins>{{summary}}</p>
                         </div>
                     </li>
-                    {{/if}}
                     {{/each}}
                 </ul>
             </div>

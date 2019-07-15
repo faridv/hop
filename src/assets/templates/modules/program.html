@@ -3,20 +3,18 @@
     <div>
         <ul class="program-items">
             {{#each items}}
-            {{#if IsPublished}}
-            <li data-id="{{Id}}">
+            <li data-id="{{id}}">
                 <figure>
-                    <img src="https://cdn.iktv.ir/videos/{{Image}}" alt="{{IntroText}}">
+                    <img src="{{image}}" alt="{{title}}">
                 </figure>
                 <div class="desc">
                     <h3>
-                        <span class="title">{{Title}}</span>
+                        <span class="title">{{title}}</span>
                         <!--<span class="badge badge-info">تعداد قسمت: {{EpisodesCount}}</span>-->
                     </h3>
-                    <p class="summary">{{IntroText}}</p>
+                    <p class="summary">{{summary}}</p>
                 </div>
             </li>
-            {{/if}}
             {{/each}}
         </ul>
     </div>

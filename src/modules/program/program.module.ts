@@ -34,11 +34,11 @@ export default class ProgramModule {
     load(callback?: any) {
         const self = this;
         this.template.loading();
-        this.service.getLatest().done((data: Program[]) => {
+        this.service.getLatest().done((data: any) => {
             // End loading
-            self.data = data;
+            self.data = data.data;
             self.template.loading(false);
-            self.render(data, (data: Program[]) => {
+            self.render(self.data, (data: Program[]) => {
                 self.initializeSlider();
             });
         });
@@ -120,7 +120,7 @@ export default class ProgramModule {
         }
         if (id > 0) {
             this.data.forEach((program) => {
-                if (program.Id === id) {
+                if (program.id === id) {
                     item = program;
                 }
             });
@@ -136,11 +136,11 @@ export default class ProgramModule {
         self.input.removeEvent('enter', {key: 'program.play'});
 
         this.template.loading();
-        this.service.getEpisodes(programId).done((data: ProgramEpisode[]) => {
+        this.service.getEpisodes(programId).done((data: any) => {
             // End loading
             self.template.loading(false);
             const episodeData = {
-                items: data,
+                items: data.data,
                 program: currentProgram
             };
             self.renderEpisodes(episodeData, (data: ProgramEpisode[]) => {
@@ -226,7 +226,8 @@ export default class ProgramModule {
 
     getMediaUrl($carousel): string {
         const $current = $carousel.find('.slick-current.slick-center li');
-        return $current.find('img:first').attr('src').replace('.jpg', '_whq.mp4');
+        return $current.attr('data-media');
+        // return $current.find('img:first').attr('src').replace('.jpg', '_whq.mp4');
     }
 
     getPoster($carousel): string {
