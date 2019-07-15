@@ -51,23 +51,25 @@ export default class WeatherModule {
             const momentDate = moment(forecast.date.toString().split(' ')[0], 'YYYY-MM-DD ', false);
             forecast['fdate'] = momentDate.isSame(moment(), 'day') ? 'امشب' : momentDate.format('dddd jM/jD');
         });
-        console.log(weather);
         return weather;
     }
 
     render(data, callback): void {
-        const self = this;
-        const templatePromise = this.template.load('modules', 'weather');
-        this.template.render(templatePromise, data, this.$el, 'html', function () {
+        // const self = this;
+        const template = require('./weather.html');
+        // console.log(template);
+        // const templatePromise = this.template.load('modules', 'weather');
+        this.template.render(template, data, this.$el, 'html', function () {
             if (typeof callback === 'function')
                 callback(data);
         });
     }
 
     renderDetails(data, callback?): void {
-        const self = this;
-        const templatePromise = this.template.load('modules', 'weather-details');
-        this.template.render(templatePromise, data, $('#weather-details'), 'html', function () {
+        // const self = this;
+        const template = require('./weather-details.html');
+        // const templatePromise = this.template.load('modules', 'weather-details');
+        this.template.render(template, data, $('#weather-details'), 'html', function () {
             if (typeof callback === 'function')
                 callback(data);
         });
