@@ -4,8 +4,9 @@ import TemplateHelper from "../_helpers/template.helper";
 import Layouts from "./layouts";
 import Bootstrap from "./bootstrap";
 import {ScriptLoaderService} from "../_services/script-loader.service";
-import '../_declarations/videojs.declaration';
 import LogHelper from '../_helpers/log.helper';
+
+declare var videojs: any;
 
 export default class AppManager {
 
