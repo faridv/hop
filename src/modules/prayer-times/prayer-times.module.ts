@@ -1,7 +1,7 @@
 import Store from "../../_utilities/storage.utility";
 import * as PrayerTimes from 'prayer-times';
 import * as $ from 'jquery';
-import {Prayers} from "../../_models/prayers.model";
+import {Prayers} from "./prayers.model";
 import TemplateHelper from "../../_helpers/template.helper";
 import Inputs from "../../app/inputs";
 

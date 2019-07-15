@@ -2,7 +2,7 @@ import * as moment from 'moment-jalaali';
 import TemplateHelper from "../../_helpers/template.helper";
 import Inputs from "../../app/inputs";
 import {ScheduleService} from "./../schedule/schedule.service";
-import {Schedule} from "../../_models/schedule.model";
+import {Schedule} from "../schedule/schedule.model";
 import {PlayerService} from '../../_helpers/player.helper';
 
 export default class ScheduleCarouselModule {

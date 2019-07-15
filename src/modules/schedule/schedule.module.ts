@@ -2,7 +2,7 @@ import * as moment from 'moment-jalaali';
 import TemplateHelper from "../../_helpers/template.helper";
 import Inputs from "../../app/inputs";
 import {ScheduleService} from "./schedule.service";
-import {IPGs} from "../../_models/schedule.model";
+import {IPGs} from "./schedule.model";
 
 export default class ScheduleModule {
 
