@@ -10,7 +10,7 @@ export class NewsService {
     }
 
     getLatest() {
-        return this.http.get(ApiHelper.get('news'), {Categories: '-1', count: 20, ordering: 'Published desc'});
+        return this.http.get(ApiHelper.get('news'));
     }
 
     public static get instance() {

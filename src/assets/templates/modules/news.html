@@ -3,28 +3,22 @@
     <div>
         <ul class="news-items">
             {{#each items}}
-            {{#if IsPublished}}
-            <li data-id="{{Id}}">
+            <li data-id="{{id}}">
                 <figure>
-                    {{#each Repositories}}
-                    {{#if @first}}
-                    <img src="{{Thumbnail}}" alt="{{Description}}">
-                    {{/if}}
-                    {{/each}}
+                    <img src="{{thumbnail.url}}" alt="{{thumbnail.desc}}">
                 </figure>
                 <div class="desc">
                     <h3>
-                        <span class="title">{{ShortTitle}}</span>
-                        {{#each Categories}}
+                        <span class="title">{{shortTitle}}</span>
+                        {{#each categories}}
                         {{#if @first}}
-                        <span class="badge badge-secondary"><i class="icon-hashtag"></i> {{Title}}</span>
+                        <span class="badge badge-secondary"><i class="icon-hashtag"></i> {{this}}</span>
                         {{/if}}
                         {{/each}}
                     </h3>
-                    <p class="summary">{{Introtext}}</p>
+                    <p class="summary">{{summary}}</p>
                 </div>
             </li>
-            {{/if}}
             {{/each}}
         </ul>
     </div>

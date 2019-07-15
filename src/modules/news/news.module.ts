@@ -1,7 +1,7 @@
 import TemplateHelper from '../../_helpers/template.helper';
 import Inputs from '../../app/inputs';
 import {NewsService} from './news.service';
-import {News} from '../../_models/news.model';
+import {News} from './news.model';
 import Layouts from '../../app/layouts';
 
 export default class NewsModule {
@@ -30,11 +30,11 @@ export default class NewsModule {
     load(callback?: any) {
         const self = this;
         this.template.loading();
-        this.service.getLatest().done((data: News[]) => {
+        this.service.getLatest().done((data: any) => {
             // End loading
-            self.data = data;
+            self.data = data.data;
             self.template.loading(false);
-            self.render(data, (data: News[]) => {
+            self.render(self.data, (data: News[]) => {
                 self.initializeSlider();
             });
         });
@@ -113,7 +113,7 @@ export default class NewsModule {
             id = ~~$carousel.find('.slick-current.slick-center li').attr('data-id');
         }
         this.data.forEach((news) => {
-            if (news.Id === id) {
+            if (news.id === id) {
                 item = news;
             }
         });
