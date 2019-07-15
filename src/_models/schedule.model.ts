@@ -22,20 +22,12 @@ export class IPGs extends Array<IPG> {
 }
 
 export interface Schedule {
-    MediaId: number;
+    mediaId: number;
     description: string;
-    duration: string;
-    episodeId: number;
-    episodeLink: string;
-    episodeTitle: string;
-    episodeThumbnail: string;
-    hasVideo: boolean;
-    isCurrent: boolean;
-    programId: number;
-    programLink: string;
-    programTitle: string;
     start: string;
+    duration: string;
+    episodeTitle: string;
+    programTitle: string;
     thumbnail: string;
-
-    episodeMedia?: string;
+    hasVideo: boolean;
 }

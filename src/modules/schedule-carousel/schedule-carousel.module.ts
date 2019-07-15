@@ -15,10 +15,7 @@ export default class ScheduleCarouselModule {
     private currentDate;
     private layoutInstance;
     private playerService;
-    private playerInstance
-    private scripts = [
-        "assets/js/vendor/video.min.js"
-    ];
+    private playerInstance;
 
     constructor(config?, layoutInstance?) {
 
@@ -42,9 +39,9 @@ export default class ScheduleCarouselModule {
     load(date, callback?: any) {
         const self = this;
         this.template.loading();
-        this.service.getDate(date.format('YYYY-MM-DD')).done((data: Schedule[]) => {
+        this.service.getDate(date.format('YYYY-MM-DD')).done((data: any) => {
             // End loading
-            self.render(data, (data: Schedule[]) => {
+            self.render(data.data, (data: Schedule[]) => {
                 self.template.loading(false);
                 self.initializeSlider();
                 if (typeof callback === 'function')
@@ -174,9 +171,9 @@ export default class ScheduleCarouselModule {
         this.template.loading();
         this.service.getMedia(id).done((data: any) => {
             // End loading
-            const item = data[0];
+            const item = data.data;
             self.template.loading(false);
-            self.initPlayback(item.Thumbnail, item.Thumbnail.replace('.jpg', '_lq.mp4'));
+            self.initPlayback(item.thumbnail, item.video);
         });
     }
 
