@@ -37,10 +37,8 @@ export default class WeatherModule {
         this.service.getCity(coordinations.toString()).done((data) => {
             // End loading
             self.template.loading(false);
-            data = self.prepareData(data);
-            self.renderDetails(data, (data: any) => {
-
-            });
+            data = self.prepareData(data.data);
+            self.renderDetails(data);
         });
     }
 
@@ -66,7 +64,7 @@ export default class WeatherModule {
         });
     }
 
-    renderDetails(data, callback): void {
+    renderDetails(data, callback?): void {
         const self = this;
         const templatePromise = this.template.load('modules', 'weather-details');
         this.template.render(templatePromise, data, $('#weather-details'), 'html', function () {
