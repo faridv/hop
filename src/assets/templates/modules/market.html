@@ -5,11 +5,9 @@
             <div class="col-3">
                 <ul class="market-items">
                     {{#each items}}
-                    {{#if State}}
-                    <li data-id="{{Id}}" data-ref="{{Ref}}" data-unit="{{Unit}}" {{#if @first}}class="current active"{{/if}}>
-                        {{Title}}{{#if Ref}}&nbsp;({{Ref}}){{/if}}
+                    <li data-id="{{id}}" data-ref="{{ref}}" data-unit="{{unit}}" {{#if @first}}class="current active"{{/if}}>
+                    {{title}}{{#if ref}}&nbsp;({{ref}}){{/if}}
                     </li>
-                    {{/if}}
                     {{/each}}
                 </ul>
             </div>

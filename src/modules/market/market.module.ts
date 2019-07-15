@@ -30,11 +30,11 @@ export default class MarketModule {
     load(callback?: any) {
         const self = this;
         this.template.loading();
-        this.service.getLabels().done((data: Market[]) => {
+        this.service.getLabels().done((data: any) => {
             // End loading
-            self.data = data;
+            self.data = data.data;
             self.template.loading(false);
-            self.render(data, (data: Market[]) => {
+            self.render(self.data, (data: Market[]) => {
                 // self.initializeSlider();
                 this.loadDetails();
                 this.registerKeyboardInputs($("ul.market-items"));
@@ -55,8 +55,7 @@ export default class MarketModule {
         }
     }
 
-    render(data: Market[], callback): void {
-        const self = this;
+    render(data: Market[], callback?): void {
         const templatePromise = this.template.load('modules', 'market');
         this.template.render(templatePromise, {items: data}, this.$el, 'html', function () {
             if (typeof callback === 'function')
@@ -122,12 +121,12 @@ export default class MarketModule {
         const self = this;
         const pid = $item.attr('data-id');
         this.template.loading();
-        this.service.getData(pid).done((data: Market[]) => {
+        this.service.getData(pid).done((data: any) => {
             // End loading
             self.template.loading(false);
             // Load item details
             const templatePromise = this.template.load('modules', 'market-details');
-            const items = self.handleDetails(data);
+            const items = self.handleDetails(data.data);
             const reference = $('ul.market-items li.current').attr('data-ref');
             this.template.render(templatePromise, {items: items, reference: reference}, $('#market-details'), 'html', () => {
                 if ($('#market-details').find('.page-2').length) {
@@ -144,7 +143,7 @@ export default class MarketModule {
 
     handleDetails(items: Market[]): Market[] {
         items.forEach((item, index) => {
-            item.difference = ~~item.Value - ~~item.Last_Value;
+            item.difference = ~~item.value - ~~item.lastValue;
             item.up = item.down = false;
             if (item.difference > 0) {
                 item.up = true;
@@ -153,8 +152,8 @@ export default class MarketModule {
             if (item.difference < 0) {
                 item.down = true;
             }
-            if (!item.State)
-                items.splice(index, 1);
+            // if (!item.State)
+            //     items.splice(index, 1);
         });
         items.forEach((item, index) => {
             item.difference = (typeof item.difference === 'undefined' || item.difference.length < 1) ? '0' : item.difference;

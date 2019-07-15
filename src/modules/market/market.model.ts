@@ -1,18 +1,10 @@
 export class Market {
-    Id: number;
-    Tree_Id: number;
-    Value: string;
-    Datetime: string;
-    Last_Datetime: string;
-    UserId: number;
-    Last_Value: string;
-    Title: string;
-    Unit: string;
-    Ref: string;
-    UserText: string;
-    State: number;
-    Sort: number;
-    Pid: number;
+    id: number;
+    title: string;
+    unit: string;
+    ref: string;
+    value: string;
+    lastValue: string;
 
     difference?: any;
     up?: boolean;

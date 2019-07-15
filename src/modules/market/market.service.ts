@@ -10,11 +10,11 @@ export class MarketService {
     }
 
     getLabels(parentId: number = 1) {
-        return this.http.get(ApiHelper.get('market.labels'), {pid: parentId});
+        return this.http.get(ApiHelper.get('market.labels', <string><any>parentId));
     }
 
     getData(parentId: number) {
-        return this.http.get(ApiHelper.get('market.data'), {pid: parentId});
+        return this.http.get(ApiHelper.get('market.data', <string><any>parentId));
     }
 
     public static get instance() {
