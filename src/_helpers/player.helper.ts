@@ -2,6 +2,8 @@ import {ScriptLoaderService} from '../_services/script-loader.service';
 import TemplateHelper from './template.helper';
 import Inputs from '../app/inputs';
 
+declare var videojs: any;
+
 export class PlayerService {
 
     private scriptLoader;
