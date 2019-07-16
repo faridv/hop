@@ -87,6 +87,11 @@
                     "title": "اخبار",
                     "type": "news",
                     "icon": "newspaper"
+                },
+                {
+                    "title": "قرآن",
+                    "type": "quran",
+                    "icon": "newspaper"
                 }
             ]
         }
