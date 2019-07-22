@@ -18,6 +18,7 @@ import IKTVLayout from './layouts/iktv.layout';
 import NewsModule from '../modules/news/news.module';
 import ProgramModule from '../modules/program/program.module';
 import MarketModule from '../modules/market/market.module';
+import QuranModule from '../modules/quran/quran.module';
 
 export default class Layouts {
 
@@ -140,6 +141,9 @@ export default class Layouts {
                 break;
             case 'market':
                 module = MarketModule;
+                break;
+            case 'quran':
+                module = QuranModule;
                 break;
         }
         if (!module)
