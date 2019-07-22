@@ -1,0 +1,16 @@
+<section class="module quran">
+    <header><h2>قرآن کریم</h2></header>
+    <div>
+        <ul>
+            {{#each []}}
+            <li data-id="{{id}}" class="">
+                <h3 class="font-qurani">{{title}}</h3>
+                <div class="meta">
+                    <p>تعداد آیات: <span>{{verses}}</span></p>
+                    <p>{{#ifCond type '==' 'Meccan'}}مکی{{else}}مدنی{{/ifCond}}</p>
+                </div>
+            </li>
+            {{/each}}
+        </ul>
+    </div>
+</section>
