@@ -31,7 +31,7 @@ export default class WeatherModule {
         return this;
     }
 
-    load(coordinations, callback?: any) {
+    load(coordinations, callback?: any): void {
         const self = this;
         this.template.loading();
         this.service.getCity(coordinations.toString()).done((data) => {
