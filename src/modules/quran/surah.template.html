@@ -1,0 +1,13 @@
+{{#each []}}
+<div class="edition{{#if @first}} active{{/if}}">
+    <div class="surah-header">
+        <h2>{{name}}</h2>
+        <div class="bismillah">﻿بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+    </div>
+    <div class="surah-body">
+        {{#each ayahs}}
+        {{text}}﴿{{number}}﴾
+        {{/each}}
+    </div>
+</div>
+{{/each}}

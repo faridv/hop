@@ -13,7 +13,7 @@ export class QuranService {
     }
 
     getSurah(surahId: number) {
-        return this.http.get(ApiHelper.get('quran', 'surah/${surahId}'));
+        return this.http.get(ApiHelper.get('quran', 'surah/' + surahId));
     }
 
     public static get instance() {

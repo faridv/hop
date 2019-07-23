@@ -1,7 +1,7 @@
 <section class="module quran">
     <header><h2>قرآن کریم</h2></header>
     <div>
-        <ul>
+        <ul id="surah-list">
             {{#each []}}
             <li data-id="{{id}}" class="">
                 <h3 class="font-qurani">{{title}}</h3>
@@ -13,4 +13,5 @@
             {{/each}}
         </ul>
     </div>
+    <div id="surah"></div>
 </section>
