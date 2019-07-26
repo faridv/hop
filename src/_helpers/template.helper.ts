@@ -221,4 +221,9 @@ export default class TemplateHelper {
         $(element).removeClass().addClass(newClassList.join(" "));
     }
 
+    public isOverflown($element) {
+        const element = $element[0];
+        return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
+    }
+
 }
