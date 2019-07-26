@@ -4,10 +4,10 @@
         <ul id="surah-list">
             {{#each []}}
             <li data-id="{{id}}" class="">
-                <h3 class="font-qurani">{{title}}</h3>
+                <h3 class="font-qurani"><span>{{id}}.</span>&nbsp;{{title}}</h3>
                 <div class="meta">
-                    <p>تعداد آیات: <span>{{verses}}</span></p>
                     <p>{{#ifCond type '==' 'Meccan'}}مکی{{else}}مدنی{{/ifCond}}</p>
+                    <p>تعداد آیات: <span>{{verses}}</span></p>
                 </div>
             </li>
             {{/each}}

@@ -1,12 +1,14 @@
 {{#each []}}
 <div class="edition{{#if @first}} active{{/if}}">
     <div class="surah-header">
-        <h2>{{name}}</h2>
+        <h2 class="font-qurani">{{name}}</h2>
+        {{#ifCond number '!=' 9}}
         <div class="bismillah">﻿بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+        {{/ifCond}}
     </div>
     <div class="surah-body">
         {{#each ayahs}}
-        {{text}}﴿{{number}}﴾
+        {{text}}<span>{{number}}</span>
         {{/each}}
     </div>
 </div>

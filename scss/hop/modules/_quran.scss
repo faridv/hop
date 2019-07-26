@@ -28,19 +28,23 @@
 
 .font-qurani { font-family: 'Scheherazade', 'Quran', 'Uthmani', serif; }
 .module.quran {
-    height: 100%; background: rgba(0, 0, 0, 0.8); max-height: 100%; overflow: hidden; display: flex; flex-direction: column;
+    height: 100%; background: rgba(0, 0, 0, 0.8); max-height: 100%; overflow: hidden; display: flex; flex-direction: column; padding: 40px;
     > header { color: #fff; }
-    > div { padding-bottom: 30px; overflow: hidden; }
+    > div { margin-bottom: 30px; overflow: hidden; }
     ul {
         background: #fff; list-style: none; margin: 0; padding: 0;
         li {
-            border: 0 none;
-            margin: 0; padding: $grid-gutter-width; height: 80px;
-            h3 { margin-left: 150px; float: right; font-size: 2rem; margin-bottom: 0; line-height: 40px; font-weight: bold; }
-            .meta { float: left; width: 150px; }
+            border: 0 none; height: 60px; border-bottom: 1px solid #ddd;
+            margin: 0; padding: $grid-gutter-width / 2; padding-left: 50px;
+            h3 {
+                float: right; font-size: 1.75rem; margin-bottom: 0; line-height: 30px; font-weight: bold;
+                span { font-family: $font-family-sans-serif; font-weight: normal; font-size: 1rem; color: #888; }
+            }
+            .meta { float: left; width: 320px; font-size: 0.85rem; color: #888; }
             p {
-                margin-bottom: 0; line-height: 20px;
+                margin-bottom: 0; line-height: 30px; float: right;
                 span { font-weight: bold; }
+                & + p { float: left; }
             }
         }
         .slick-current li, .slick-center li { border-right: 5px solid #2cb379; background: $gray-200; }
@@ -48,16 +52,28 @@
 }
 #surah {
     transition: 0.3s all; opacity: 1; visibility: visible; font-size: 1.5rem;
-    width: 100%; height: 100%; position: fixed; top: 0; left: 0; background: #f7fce3; padding: 30px;
+    width: 100%; height: 100%; position: fixed; top: 0; left: 0; background: #f7fce3; padding: 30px; padding-bottom: 55px;
     &:empty { opacity: 0; visibility: hidden; }
     font-family: 'Scheherazade', 'Quran', 'Uthmani', serif;
     .surah-header {
         h2 { font-weight: bold; }
     }
+    .surah-body {
+        font-size: 2rem; line-height: 3rem; text-align: justify;
+        span {
+            display: inline-block; padding: 0 10px; font-family: $font-family-sans-serif; font-size: 1.25rem;
+            &:before, &:after { font-family: 'Scheherazade', 'Quran', 'Uthmani', serif; font-size: 2rem;  }
+            &:before { content: '﴿'; }
+            &:after { content: '﴾'; }
+        }
+    }
 
-    .bismillah { margin-top: 20px; font-size: 2rem; text-align: center; }
+    .bismillah {
+        margin-top: 20px; font-size: 2.25rem; text-align: center;font-weight: bold; border-bottom: 1px solid #efefef; display: inline-block;
+        position: relative; right: 50%; transform: translateX(50%); padding: 20px 40px; margin-bottom: 30px;
+    }
     .edition {
-        max-height: 100%; overflow: hidden; overflow-y: auto; visibility: hidden; opacity: 0; transition: 0.2s all;
-        &.active { opacity: 1; visibility: visible; }
+        max-height: 100%; overflow: hidden; overflow-y: auto; visibility: hidden; opacity: 0; transition: 0.2s all; height: 0;
+        &.active { opacity: 1; visibility: visible; height: auto; padding-bottom: 30px; }
     }
 }

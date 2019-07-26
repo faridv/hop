@@ -1,22 +1,17 @@
-import httpHelper from "../../_helpers/http.helper";
-import {ApiHelper} from "../../_helpers/api.helper";
+import {Service} from "../../libs";
 
-export class QuranService {
-    private static _instance: QuranService;
-    private http = httpHelper;
+export class QuranService extends Service {
 
     constructor() {
+        super();
     }
 
     getSurahList() {
-        return this.http.get(ApiHelper.get('quran', 'surah'));
+        return this.http.get(this.api.get('quran', 'surah'));
     }
 
     getSurah(surahId: number) {
-        return this.http.get(ApiHelper.get('quran', 'surah/' + surahId));
+        return this.http.get(this.api.get('quran', 'surah/' + surahId));
     }
 
-    public static get instance() {
-        return this._instance || (this._instance = new this());
-    }
 }
