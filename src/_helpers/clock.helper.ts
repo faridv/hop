@@ -1,20 +1,18 @@
+import {ApiHelper} from './api.helper';
+import {httpHelper} from './http.helper';
 import * as moment from 'moment-jalaali';
-import * as $ from 'jquery';
 import jqXHR = JQuery.jqXHR;
 
 declare let window: any;
 
 export default class ClockHelper {
 
-    locale: string;
+    config;
     clockTimer: number;
-    updateInterval: number;
     $el;
 
-
     constructor(config, $container) {
-        this.updateInterval = config.clockUpdateInterval;
-        this.locale = config.locale;
+        this.config = config;
         this.$el = $container;
 
         this.initClock();
@@ -22,39 +20,28 @@ export default class ClockHelper {
         window.clearInterval(window.clockUpdateInterval);
         window.clockUpdateInterval = setInterval(() => {
             this.initClock();
-        }, this.updateInterval);
+        }, config.clockUpdateInterval);
     }
 
     initClock(): void {
         const self = this;
-        $.when(this.getClock()).then(
-            function (data, textStatus, request) {
-                self.processDate(request.getResponseHeader('Date'));
-            },
-            function (xmlhttprequest, textstatus, message) {
-                self.processDate(xmlhttprequest.getResponseHeader('Date'));
-            }
-        );
+        this.getClock().done((data: any) => {
+            self.processDate(data.clock);
+        });
     }
 
     getClock(): jqXHR {
-        return $.ajax({
-            type: 'HEAD',
-            url: ''
-        });
+        return httpHelper.get(ApiHelper.get('clock'), {tz: this.config.timezone});
     }
 
     render(formattedClock): void {
         this.$el.text(formattedClock);
     }
 
-    processDate(dateTime): void {
-        moment.locale(this.locale);
+    processDate(dateTime: string): void {
+        moment.locale(this.config.locale);
         // to fix response latency
-        // const serverDate = (moment(dateTime).isValid()) ? moment(dateTime).utcOffset(3.5).add(1, 'seconds') : moment();
-        const serverDate = (moment(dateTime).isValid()) ? moment(dateTime).utcOffset(
-            moment(dateTime).isDST() ? '4.5' : '3.5'
-        ) : moment();
+        const serverDate = (moment(dateTime).isValid()) ? moment(dateTime).add(1, 'seconds') : moment();
         this.render(serverDate.format('HH:mm:ss'));
         this.updateTime(serverDate);
     }
