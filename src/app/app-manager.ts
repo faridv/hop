@@ -46,7 +46,7 @@ export default class AppManager {
     showButton(appData): boolean {
         const self = this;
 
-        if (this.config.autostart) {
+        if (this.config.autoStart) {
             self.initializeApplication(appData);
             return true;
         }

@@ -14,7 +14,7 @@
     "resolution": "720",
     "verbose": false,
     "log": false,
-    "autostart": true,
+    "autoStart": false,
     "streamMode": false,
     "streamUrl": "http://test.livemedia.irib.ir/mdash/irankala-1m.stream/manifest.m3u8",
     "exitMethod": "destroy",
