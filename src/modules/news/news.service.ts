@@ -1,19 +1,13 @@
-import httpHelper from "../../_helpers/http.helper";
-import {ApiHelper} from "../../_helpers/api.helper";
+import {Service} from '../../libs/service';
 
-export class NewsService {
-
-    private static _instance: NewsService;
-    private http = httpHelper;
+export class NewsService extends Service {
 
     constructor() {
+        super();
     }
 
     getLatest() {
-        return this.http.get(ApiHelper.get('news'));
+        return this.http.get(this.api.get('news'));
     }
 
-    public static get instance() {
-        return this._instance || (this._instance = new this());
-    }
 }

@@ -1,27 +1,21 @@
-import httpHelper from "../../_helpers/http.helper";
-import {ApiHelper} from "../../_helpers/api.helper";
+import {Service} from '../../libs/service';
 
-export class ScheduleService {
-
-    private static _instance: ScheduleService;
-    private http = httpHelper;
+export class ScheduleService extends Service {
 
     constructor() {
+        super();
     }
 
     getIPG(date) {
-        return this.http.get(ApiHelper.get('ipg'), {date: date});
+        return this.http.get(this.api.get('ipg'), {date: date});
     }
 
     getDate(date) {
-        return this.http.get(ApiHelper.get('schedule'), {date: date});
+        return this.http.get(this.api.get('schedule'), {date: date});
     }
 
     getMedia(mediaId) {
-        return this.http.get(ApiHelper.get('media', mediaId));
+        return this.http.get(this.api.get('media', mediaId));
     }
 
-    public static get instance() {
-        return this._instance || (this._instance = new this());
-    }
 }

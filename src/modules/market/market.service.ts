@@ -1,23 +1,17 @@
-import httpHelper from "../../_helpers/http.helper";
-import {ApiHelper} from "../../_helpers/api.helper";
+import {Service} from '../../libs/service';
 
-export class MarketService {
-
-    private static _instance: MarketService;
-    private http = httpHelper;
+export class MarketService extends Service {
 
     constructor() {
+        super();
     }
 
     getLabels(parentId: number = 1) {
-        return this.http.get(ApiHelper.get('market.labels', <string><any>parentId));
+        return this.http.get(this.api.get('market.labels', <string><any>parentId));
     }
 
     getData(parentId: number) {
-        return this.http.get(ApiHelper.get('market.data', <string><any>parentId));
+        return this.http.get(this.api.get('market.data', <string><any>parentId));
     }
 
-    public static get instance() {
-        return this._instance || (this._instance = new this());
-    }
 }

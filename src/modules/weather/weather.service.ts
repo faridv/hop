@@ -1,18 +1,13 @@
-import httpHelper from "../../_helpers/http.helper";
-import {ApiHelper} from "../../_helpers/api.helper";
+import {Service} from '../../libs/service';
 
-export class WeatherService {
-    private static _instance: WeatherService;
-    private http = httpHelper;
+export class WeatherService extends Service {
 
     constructor() {
+        super();
     }
 
     getCity(coordinates) {
-        return this.http.get(ApiHelper.get('weather'), { lon: coordinates.split(',')[1], lat: coordinates.split(',')[0] });
+        return this.http.get(this.api.get('weather'), {lon: coordinates.split(',')[1], lat: coordinates.split(',')[0]});
     }
 
-    public static get instance() {
-        return this._instance || (this._instance = new this());
-    }
 }
