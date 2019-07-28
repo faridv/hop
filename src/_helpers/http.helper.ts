@@ -1,17 +1,17 @@
 import * as $ from "jquery";
 import jqXHR = JQuery.jqXHR;
 
-export default class httpHelper {
+export class httpHelper {
 
     public static get(url: string, data: object = {}, dataType: string = 'json'): jqXHR {
         return $.get(url, data, (d) => {
-            return d
+            return d;
         }, dataType);
     }
 
     public static post(url: string, data: object = {}, dataType: string = 'json'): jqXHR {
         return $.post(url, data, (d) => {
-            return d
+            return d;
         }, dataType);
     }
 
