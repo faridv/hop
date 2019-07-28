@@ -19,7 +19,7 @@ export class Module {
         this.layoutInstance = layoutInstance;
     }
 
-    load(...args: any): void {
+    load(...args: any[]): void {
 
     }
 
