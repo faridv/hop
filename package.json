@@ -12,6 +12,7 @@
         "build": "npm run build:prod",
         "build:dev": "webpack --mode development --config ./webpack.config.js --progress --color --display-error-details",
         "build:prod": "cross-env NODE_ENV=production webpack --mode production --config ./webpack.config.js  --progress  --color --display-error-details --bail",
+        "cypress:open": "cypress open",
         "clean": "npm cache clear && rimraf -- dist",
         "test": "karma start",
         "refresh": "rm -rf ./node_modules ./package-lock.json && npm install"
@@ -52,6 +53,7 @@
         "webpack-dev-server": "^3.7.2"
     },
     "dependencies": {
+        "cypress": "^3.4.1",
         "handlebars": "^4.1.2",
         "jquery": "^3.4.1",
         "logrocket": "^0.6.21",
