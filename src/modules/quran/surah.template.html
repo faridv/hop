@@ -7,9 +7,12 @@
         {{/ifCond}}
     </div>
     <div class="surah-body">
-        {{#each ayahs}}
-        {{text}}<span>{{number}}</span>
-        {{/each}}
+        <div class="surah-text">
+            {{#each ayahs}}
+            {{text}}<span>{{number}}</span>
+            {{/each}}
+        </div>
     </div>
+    <div class="active-line"></div>
 </div>
 {{/each}}

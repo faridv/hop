@@ -83,6 +83,7 @@ export default class QuranModule extends Module {
             self.renderSurah(self.currentSurah, (data: any) => {
                 self.template.loading(false);
                 self.registerSurahKeyboardInputs();
+                self.initLineHighlighter();
             });
         });
     }
@@ -108,12 +109,23 @@ export default class QuranModule extends Module {
                 $('.edition').toggleClass('active');
             });
             this.input.addEvent('up', false, this.events['quran.up'], () => {
-                $('.edition.active').animate({scrollTop: '-=150'}, 300);
+                $('.edition.active').animate({scrollTop: '-=' + self.getAyahLineHeight()}, 300);
             });
             this.input.addEvent('down', false, this.events['quran.down'], () => {
-                $('.edition.active').animate({scrollTop: '+=150'}, 300);
+                $('.edition.active').animate({scrollTop: '+=' + self.getAyahLineHeight()}, 300);
             });
         }
+    }
+
+    initLineHighlighter(): void {
+        const $highlight = $('.active-line:first');
+        const $surahBody = $('.surah-body');
+        if ($('.surah-header').offset().top > 30)
+            $highlight.animate({'top': $surahBody.offset().top});
+    }
+
+    getAyahLineHeight(): string {
+        return $('.edition.active').find('.surah-body').css('line-height');
     }
 
     unloadSurah(): void {
