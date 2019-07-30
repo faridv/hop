@@ -125,7 +125,7 @@ export default class QuranModule extends Module {
     }
 
     getAyahLineHeight(): string {
-        return $('.edition.active').find('.surah-body').css('line-height');
+        return $('.edition.active').find('.surah-body').css('line-height') + 2;
     }
 
     unloadSurah(): void {
