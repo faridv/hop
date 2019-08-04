@@ -21,7 +21,7 @@
     "devDependencies": {
         "@types/jasmine": "^2.8.16",
         "@types/jquery": "^3.3.30",
-        "@types/node": "^10.14.13",
+        "@types/node": "^10.14.14",
         "@types/slick-carousel": "^1.6.33",
         "awesome-typescript-loader": "^5.2.0",
         "copy-webpack-plugin": "^4.6.0",
@@ -48,7 +48,7 @@
         "tslint": "^5.18.0",
         "tslint-loader": "^3.6.0",
         "typescript": "^3.5.3",
-        "webpack": "^4.37.0",
+        "webpack": "^4.39.1",
         "webpack-cli": "^3.3.6",
         "webpack-dev-server": "^3.7.2"
     },
