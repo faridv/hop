@@ -17,7 +17,7 @@
     "autoStart": false,
     "streamMode": false,
     "streamUrl": "http://test.livemedia.irib.ir/mdash/irankala-1m.stream/manifest.m3u8",
-    "exitMethod": "destroy",
+    "exitMethod": "hide",
     "api": {
         "url": "http://77.36.163.196/",
         "api_guide": "https://services.iktv.ir/config/app.json",
@@ -25,7 +25,7 @@
             "ipg": "http://www.pooyatv.ir/ipg",
             "clock": "clock.php",
             "weather": "weather",
-            "log": "/misc/log.php",
+            "log": "/log.php",
             "schedule": "schedule",
             "program.latest": "programs",
             "program.list": "programs/type/{programType}",
