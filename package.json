@@ -20,7 +20,7 @@
     "license": "MIT",
     "devDependencies": {
         "@types/jasmine": "^2.8.16",
-        "@types/jquery": "^3.3.30",
+        "@types/jquery": "^3.3.31",
         "@types/node": "^10.14.14",
         "@types/slick-carousel": "^1.6.33",
         "awesome-typescript-loader": "^5.2.0",
