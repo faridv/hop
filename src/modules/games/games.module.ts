@@ -1,82 +1,70 @@
 import * as GamesConfig from './games.config.json';
-import TemplateHelper from "../../_helpers/template.helper";
-import Inputs from "../../app/inputs";
 import Game2048 from './2048/2048.game';
 import BlockrainGame from "./blockrain/blockrain.game";
+import {Module} from '../../libs/module';
+import {ModuleLoader} from '../../_helpers/module.laoder';
 
-export default class GamesModule {
+@ModuleLoader()
+export default class GamesModule extends Module {
 
-    private input;
-    private template;
-    private $el = $('#content');
+    protected template = './games.template.html';
+    protected events = {
+        'games.prev': {control: 'up', key: 'games.prev', title: 'بازی قبلی', icon: 'up', button: true},
+        'games.next': {control: 'down', key: 'games.next', title: 'بازی بعدی', icon: 'bottom', button: true},
+        'games.enter': {control: 'enter', key: 'games.enter', title: 'انتخاب', icon: 'enter', button: true}
+    };
 
     constructor(config?, layoutInstance?) {
-        this.template = TemplateHelper.instance;
-        this.input = Inputs.instance;
+        super(config, layoutInstance);
         const self = this;
-
-        this.registerKeyboardInputs();
-        this.renderList(GamesConfig);
-
+        this.render(GamesConfig, () => {
+            self.registerKeyboardInputs();
+        });
+        this.loadTemplate();
         return this;
     }
 
     reInit() {
         this.registerKeyboardInputs();
-        this.renderList(GamesConfig);
+        this.render(GamesConfig);
     }
 
-    renderList(games, callback?) {
-        const self = this;
-        const templatePromise = this.template.load('modules', 'games');
-        this.template.render(templatePromise, {items: games}, this.$el, 'html', function () {
+    render(games, callback?) {
+        const template = require('./games.template.html');
+        this.templateHelper.render(template, {items: games}, this.$el, 'html', function () {
             if (typeof callback === 'function')
                 callback(games);
         });
     }
 
-    destroy(instance?: GamesModule): boolean {
-        const self = typeof instance !== 'undefined' ? instance : this;
-        self.input.removeEvent('up', {key: 'games.prev'});
-        self.input.removeEvent('down', {key: 'games.next'});
-        self.input.removeEvent('enter', {key: 'games.enter'});
-        return true;
-    }
-
     setActive(which: string): void {
         const $current = $('.game-items li.active');
         let $el;
-        this.template.removeClass('active', $current);
-        // $current.removeClass('active');
+        this.templateHelper.removeClass('active', $current);
         if (which === 'next') {
             if ($current.next().length) {
                 $el = $current.next();
-                // $current.next().addClass('active');
             } else {
                 $el = $current.parents('ul:first').find('li:first');
-                // $current.parents('ul:first').find('li:first').addClass('active');
             }
         } else {
             if ($current.prev().length) {
                 $el = $current.prev();
-                // $current.prev().addClass('active');
             } else {
                 $el = $current.parents('ul:first').find('li:last');
-                // $current.parents('ul:first').find('li:last').addClass('active');
             }
         }
-        this.template.addClass('active', $el);
-        // const $activeElement = $('.game-items li.active');
+        this.templateHelper.addClass('active', $el);
     }
 
     loadGame() {
         const $current = $('.game-items li.active');
-        if ($('.game-items li.active').length < 1) {
+        if ($current.length < 1) {
             return false;
         }
         const game = $current.attr('data-game').toString();
         let gameObject: any = null;
-        switch(game) {
+        switch (game) {
             case '2048':
                 gameObject = Game2048;
                 break;
@@ -84,29 +72,20 @@ export default class GamesModule {
                 gameObject = BlockrainGame;
                 break;
         }
-        const loadedGame = new gameObject(this);
+        new gameObject(this);
     }
 
     registerKeyboardInputs() {
         const self = this;
-
-        const upParams = {key: 'games.prev', title: 'بازی قبلی', icon: 'up', button: true};
-        this.input.addEvent('up', false, upParams, () => {
-            // Prev Program
+        this.input.addEvent('up', false, this.events['games.prev'], () => {
             self.setActive('prev');
         });
-
-        const downParams = {key: 'games.next', title: 'بازی بعدی', icon: 'bottom', button: true};
-        this.input.addEvent('down', false, downParams, () => {
-            // Next Program
+        this.input.addEvent('down', false, this.events['games.next'], () => {
             self.setActive('next');
         });
-
-        const enterParams = {key: 'games.enter', title: 'انتخاب', icon: 'enter', button: true};
-        this.input.addEvent('enter', false, enterParams, () => {
-            // Next Day
+        this.input.addEvent('enter', false, this.events['games.enter'], () => {
             self.loadGame();
         });
-
     }
+
 }
