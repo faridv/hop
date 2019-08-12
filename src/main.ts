@@ -1,13 +1,25 @@
 import * as Config from './../config.json';
 import App from './app/bootstrap';
 
-import * as LogRocket from 'logrocket';
-LogRocket.init('pdu5s5/hop');
-LogRocket.identify('1', {
-    name: 'Farid Rn',
-    email: 'faridv@gmail.com',
-    type: 'admin'
-});
+import Developer from './_helpers/developer';
+
+// import * as LogRocket from 'logrocket';
+// LogRocket.init('pdu5s5/hop');
+// LogRocket.identify('1', {
+//     name: 'Farid Rn',
+//     email: 'faridv@gmail.com',
+//     type: 'admin'
+// });
+
+// new Developer({
+//     debug: true,
+//     active: true,
+//     console: null
+// });
 
 // Bootstrap AppManager
-new App(Config);
+try {
+    new App(Config);
+} catch (error) {
+    console.error(error);
+}
