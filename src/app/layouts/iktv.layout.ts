@@ -77,20 +77,20 @@ export default class IKTVLayout {
         });
     }
 
-    public static destroy($carousel, config, callback): void {
+    public static async destroy($carousel, config): Promise<void> {
         const self = this;
         $carousel.fadeOut(config.transitionSpeed, () => {
             self.unsetKeys();
             $carousel.slick('destroy');
-            if (typeof callback === 'function') {
-                callback();
-            }
+            // if (typeof callback === 'function') {
+            //     callback();
+            // }
         });
     }
 
     public static loadModule($carousel, config, LayoutInstance): void {
         const $currentSlide = $carousel.find('.slick-current').find('li:first');
-        IKTVLayout.destroy($carousel, config, () => {
+        IKTVLayout.destroy($carousel, config).then(() => {
             LayoutInstance.loadModule($currentSlide.data('type'), config);
         });
     }
@@ -108,6 +108,7 @@ export default class IKTVLayout {
     }
 
     public static unsetKeys(): void {
+
         const input = Inputs.instance;
         input.removeEvent('left', {key: 'carousel.left'});
         input.removeEvent('right', {key: 'carousel.right'});
