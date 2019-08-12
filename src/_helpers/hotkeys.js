@@ -283,13 +283,13 @@
     }
 
     // Unbind a range of shortcuts
-    function unbind(key, scope) {
+    function unbind(key, scope, data) {
         var multipleKeys = getKeys(key);
         var keys = void 0;
         var mods = [];
         var obj = void 0;
 
-        console.warn('unbind', key, JSON.stringify(getKeys(key)));
+        console.warn('unbind', key, JSON.stringify(getKeys(key)), data.key);
 
         for (var i = 0; i < multipleKeys.length; i++) {
             // Split the combined shortcut into an array
@@ -398,7 +398,7 @@
         }
     }
 
-    function hotkeys(key, option, method) {
+    function hotkeys(key, option, method, data) {
         var keys = getKeys(key); // List of shortcut keys to process
         var mods = [];
         var scope = 'all'; // Scope defaults to all, all ranges are valid
@@ -451,7 +451,8 @@
             });
         }
 
-        console.warn('bind', key, JSON.stringify(keys));
+        // console.log(data);
+        console.warn('bind', key, JSON.stringify(keys), data.key);
     }
 
     var _api = {
