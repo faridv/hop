@@ -200,7 +200,7 @@ export default class Layouts {
         });
         if (oEvent.initKeyboardEvent) {
             // @ts-ignore
-            oEvent.initKeyboardEvent('keydown', true, true, document.defaultView, false, false, false, false, key, key);
+            oEvent.initKeyboardEvent('keydown', true, true, document.defaultView, false, false, false, false, key);
         } else {
             // @ts-ignore
             oEvent.initKeyEvent('keydown', true, true, document.defaultView, false, false, false, false, key, 0);
