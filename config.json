@@ -25,7 +25,7 @@
             "ipg": "http://www.pooyatv.ir/ipg",
             "clock": "clock.php",
             "weather": "weather",
-            "log": "/misc/log.php",
+            "log": "/log.php",
             "schedule": "schedule",
             "program.latest": "programs",
             "program.list": "programs/type/{programType}",
