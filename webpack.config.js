@@ -64,6 +64,9 @@ var config = {
         // vendor: Object.keys(package.dependencies),
         app: './main.ts'
     },
+    node: {
+        __filename: true
+    },
     output: {
         path: path.resolve('./dist'),
         filename: '[name].bundle.js'
