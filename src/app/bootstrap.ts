@@ -20,7 +20,6 @@ export default class Bootstrap {
     deviceParams: DeviceConfig = new DeviceConfig();
 
     constructor(config) {
-
         window.$ = $;
 
         this.config = config;
@@ -49,7 +48,7 @@ export default class Bootstrap {
 
         // Verbose events
         if (this.config.verbose) {
-            $("body").append('<div id="logs"></div>');
+            $("body").append('<div id="logs" />');
             $(document).on('keydown', function (e) {
                 if ($('#logs p').length > 19) {
                     $('#logs p:first').remove();
