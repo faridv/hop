@@ -26,12 +26,12 @@ export default class QuranModule extends Module {
 
     load(): void {
         const self = this;
-        this.template.loading();
+        this.templateHelper.loading();
         this.service.getSurahList().done((data: DefaultResponse) => {
             // End loading
             self.data = data.data;
             self.render(self.data, () => {
-                self.template.loading(false);
+                self.templateHelper.loading(false);
                 self.initializeSurahListSlider();
             });
         });
@@ -40,7 +40,7 @@ export default class QuranModule extends Module {
     render(data: SurahList, callback): void {
         const self = this;
         const template = require('./quran.template.html');
-        this.template.render(template, data, this.$el, 'html', function () {
+        this.templateHelper.render(template, data, this.$el, 'html', function () {
             if (typeof callback === 'function')
                 callback();
         });
@@ -77,11 +77,11 @@ export default class QuranModule extends Module {
 
     loadSurah(surahId: number): void {
         const self = this;
-        this.template.loading();
+        this.templateHelper.loading();
         this.service.getSurah(surahId).done((data: DefaultResponse) => {
             self.currentSurah = data.data;
             self.renderSurah(self.currentSurah, (data: any) => {
-                self.template.loading(false);
+                self.templateHelper.loading(false);
                 self.registerSurahKeyboardInputs();
                 self.initLineHighlighter();
             });
@@ -91,7 +91,7 @@ export default class QuranModule extends Module {
     renderSurah(data: Surah, callback?): void {
         const self = this;
         const template = require('./surah.template.html');
-        this.template.render(template, data, $('#surah'), 'html', function () {
+        this.templateHelper.render(template, data, $('#surah'), 'html', function () {
             if (typeof callback === 'function')
                 callback(data);
         });

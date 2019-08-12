@@ -2,11 +2,12 @@ import Inputs from '../app/inputs';
 import TemplateHelper from '../_helpers/template.helper';
 import Layouts from '../app/layouts';
 
-export class Module {
+export abstract class Module {
 
     protected service;
     protected config;
-    protected template: TemplateHelper;
+    protected template;
+    protected templateHelper: TemplateHelper;
     protected input: Inputs;
     protected $el = $('#content');
     protected events = {};
@@ -14,9 +15,13 @@ export class Module {
 
     constructor(config?, layoutInstance?) {
         this.config = config;
-        this.template = TemplateHelper.instance;
+        this.templateHelper = TemplateHelper.instance;
         this.input = Inputs.instance;
         this.layoutInstance = layoutInstance;
+    }
+
+    loadTemplate() {
+        console.log(__filename, __dirname, this.template, typeof this.template);
     }
 
     load(...args: any[]): void {

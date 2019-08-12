@@ -22,7 +22,7 @@ export default class WeatherModule {
         const self = this;
 
         this.coordinations = this.store.get('location') ? this.store.get('location').coordinations : [35.6961, 51.4231]; // Tehran
-        // Load weather template
+        // Load weather templateHelper
         this.render({location: this.coordinations.join(',')}, () => {
             self.registerEvents();
             this.load(this.coordinations);
@@ -57,8 +57,8 @@ export default class WeatherModule {
     render(data, callback): void {
         // const self = this;
         const template = require('./weather.html');
-        // console.log(template);
-        // const templatePromise = this.template.load('modules', 'weather');
+        // console.log(templateHelper);
+        // const templatePromise = this.templateHelper.load('modules', 'weather');
         this.template.render(template, data, this.$el, 'html', function () {
             if (typeof callback === 'function')
                 callback(data);
@@ -68,7 +68,7 @@ export default class WeatherModule {
     renderDetails(data, callback?): void {
         // const self = this;
         const template = require('./weather-details.html');
-        // const templatePromise = this.template.load('modules', 'weather-details');
+        // const templatePromise = this.templateHelper.load('modules', 'weather-details');
         this.template.render(template, data, $('#weather-details'), 'html', function () {
             if (typeof callback === 'function')
                 callback(data);
