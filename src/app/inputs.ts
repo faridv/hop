@@ -29,7 +29,7 @@ export default class Inputs {
                 self.off(key, eventData);
             }
             return false;
-        });
+        }, undefined, eventData);
     }
 
     public removeEvent(key, eventData = {}): void {
@@ -38,7 +38,7 @@ export default class Inputs {
 
     private off(key, eventData = {}): void {
         if (this.checkKeyRegistration(key)) {
-            hotkeys.unbind(key);
+            hotkeys.unbind(key, undefined, eventData);
             this.purgeEvent(key, eventData);
         }
     }
