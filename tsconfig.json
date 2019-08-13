@@ -1,10 +1,11 @@
 {
     "compilerOptions": {
-        "target": "es5",
+        "target": "ESNext",
         "module": "commonjs",
         "declaration": false,
         "sourceMap": false,
         "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
         "moduleResolution": "node",
         "outDir": "dist",
         "lib": [
