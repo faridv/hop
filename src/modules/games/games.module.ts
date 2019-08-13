@@ -2,9 +2,11 @@ import * as GamesConfig from './games.config.json';
 import Game2048 from './2048/2048.game';
 import BlockrainGame from "./blockrain/blockrain.game";
 import {Module} from '../../libs/module';
-import {ModuleLoader} from '../../_helpers/module.laoder';
+import {MyComponent} from '../../_helpers/module.loader';
 
-@ModuleLoader()
+@MyComponent({
+    template: './games.template.html'
+})
 export default class GamesModule extends Module {
 
     protected template = './games.template.html';
