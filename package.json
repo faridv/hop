@@ -49,15 +49,15 @@
         "tslint-loader": "^3.6.0",
         "typescript": "^3.5.3",
         "webpack": "^4.39.2",
-        "webpack-cli": "^3.3.6",
+        "webpack-cli": "^3.3.7",
         "webpack-dev-server": "^3.8.0"
     },
     "dependencies": {
         "cypress": "^3.4.1",
         "handlebars": "^4.1.2",
         "jquery": "^3.4.1",
-        "logrocket": "^0.6.21",
-        "moment-jalaali": "^0.7.4",
+        "logrocket": "^1.0.3",
+        "moment-jalaali": "^0.8.3",
         "prayer-times": "^0.1.0",
         "reflect-metadata": "^0.1.13",
         "slick-carousel": "^1.8.1",
