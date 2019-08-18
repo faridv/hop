@@ -1,4 +1,5 @@
-# HOP
+<h1 align="center">HbbTV Open Platform</h1>
+<h3 align="center">A TypeScript platform for creating fast and optimized HbbTV apps</h3>
 
 [![Build Status](https://travis-ci.org/faridv/hop.svg?branch=master)](https://travis-ci.org/faridv/hop)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/7d4955cc21e2453388e1fef337a24056)](https://app.codacy.com/app/faridv/hop?utm_source=github.com&utm_medium=referral&utm_content=faridv/hop&utm_campaign=Badge_Grade_Dashboard)
@@ -6,16 +7,8 @@
 [![Dependencies](https://david-dm.org/faridv/hop/status.svg)](https://david-dm.org/faridv/hop)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/faridv/hop/raw/master/LICENSE)
 
-<h3 align="center">
-HbbTV Open Platform - A TypeScript platform for creating fast and optimized HbbTV apps
-</h3>
-
-
-
 #### Important note
 Currently, HOP is highly under development and some features might change in future releases. Make sure that your code won't break after update.
-
-
 
 ### Roadmap
 You can check out the project [roadmap](https://github.com/faridv/hop/wiki/Roadmap). We happily welcome any suggestions or requests.
