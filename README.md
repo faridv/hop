@@ -1,4 +1,7 @@
 # HOP
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/7d4955cc21e2453388e1fef337a24056)](https://app.codacy.com/app/faridv/hop?utm_source=github.com&utm_medium=referral&utm_content=faridv/hop&utm_campaign=Badge_Grade_Dashboard)
+
 HbbTV Open Platform - A TypeScript platform for creating fast and optimized HbbTV apps
 
 ## To install
