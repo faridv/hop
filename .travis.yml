@@ -5,16 +5,19 @@ node_js:
   # Node 10.3+ includes npm@6 which has good "npm ci" command
   - 10.8
 
-before_install:
- - export DISPLAY=:99.0
- - sh -e /etc/init.d/xvfb start
- - sleep 3 # give xvfb some time to start
-
+sudo: required
+services:
+  - xvfb
 addons:
   chrome: stable
   apt:
     packages:
     - libgconf-2-4
+before_script:
+ - export DISPLAY=:99.0
+install:
+ - npm set progress=false
+ - npm install
 
 cache:
   # cache both npm modules and Cypress binary
@@ -26,11 +29,15 @@ cache:
     - npm ci
 #    - npm run cy:verify
 
-defaults: &defaults
-  script:
-    #   ## print all Travis environment variables for debugging
-    - $(npm bin)/print-env TRAVIS
-    - npm run build:prod
-    # after all tests finish running we need
-    # to kill all background jobs (like "npm start &")
-    - kill $(jobs -p) || true
+script:
+  - npm run test
+  - npm run build
+
+#defaults: &defaults
+#  script:
+#    #   ## print all Travis environment variables for debugging
+#    - $(npm bin)/print-env TRAVIS
+#    - npm run build:prod
+#    # after all tests finish running we need
+#    # to kill all background jobs (like "npm start &")
+#    - kill $(jobs -p) || true
