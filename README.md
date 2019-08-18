@@ -10,24 +10,30 @@
 HbbTV Open Platform - A TypeScript platform for creating fast and optimized HbbTV apps
 </h3>
 
-### Important note
+
+
+#### Important note
 Currently, HOP is highly under development and some features might change in future releases. Make sure that your code won't break after update.
 
-## Roadmap
-You can check out the roadmap here. We happily welcome any suggestions or requests.
+
+
+### Roadmap
+You can check out the project [roadmap](https://github.com/faridv/hop/wiki/Roadmap). We happily welcome any suggestions or requests.
+
+### Contribution
 Please refer to [contribution documentation](https://github.com/faridv/hop/blob/master/.github/CONTRIBUTING.md) if you want to provide a fix or create a pull request.
 
-## To install
+### To install
 clone the repo and simply run `npm install`.
 
-## To run
+### To run
 For development, run `npm run start` and then open `localhost:3000`. You can use [FireFox add-on](https://addons.mozilla.org/en-US/firefox/addon/hybridtvviewer/) or any other tools to preview and debug your application.
 For production, run `npm run build:prod` and copy the contents of `dist` folder to your web server.
 
-## Tests
+### Tests
 Test are being done using both Karma+Jasmine and Cypress. Currently I've added Cypress as a dependency in `package.json` thus installing the application might take a while, since Cypress will download and install its binaries. You can remove Cypress from dependencies if it takes to long to install the application.
 
-### Browser Tests
+#### Browser Tests
 This application is being tested using BrowserStack.
 
 <a href="https://www.browserstack.com" target="_blank" title="BrowserStack">
