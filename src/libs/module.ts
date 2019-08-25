@@ -1,27 +1,46 @@
 import Inputs from '../app/inputs';
 import TemplateHelper from '../_helpers/template.helper';
 import Layouts from '../app/layouts';
+import Store from '../_utilities/storage.utility';
+import {PlayerService} from '../_helpers/player.helper';
 
-export abstract class Module {
+interface IModule {
+}
+
+export abstract class Module implements IModule {
 
     protected service;
     protected config;
     protected template;
+    protected store;
     protected templateHelper: TemplateHelper;
     protected input: Inputs;
     protected $el = $('#content');
-    protected events = {};
+    protected events: any;
     protected layoutInstance: Layouts;
+    protected playerService;
+    protected playerInstance;
 
-    constructor(config?, layoutInstance?) {
+    constructor(config, layoutInstance) {
         this.config = config;
-        this.templateHelper = TemplateHelper.instance;
-        this.input = Inputs.instance;
         this.layoutInstance = layoutInstance;
+        this.templateHelper = TemplateHelper.instance;
+        this.playerService = PlayerService;
+        this.input = Inputs.instance;
+        this.store = Store;
     }
 
-    loadTemplate() {
-        console.log(__filename, __dirname, this.template, typeof this.template);
+    prepareControls(): any {
+        let events = this.events;
+        for (let key in events) {
+            if (typeof events[key]['key'] === 'undefined')
+                events[key]['key'] = key;
+            if (typeof events[key]['button'] === 'undefined')
+                events[key]['button'] = true;
+            if (typeof this.events[key]['icon'] === 'undefined')
+                events[key]['icon'] = key.indexOf('.') !== -1 ? key.split('.')[2] : key;
+        }
+        return events;
     }
 
     load(...args: any[]): void {
