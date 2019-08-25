@@ -4,10 +4,10 @@
         <div class="card text-white bg-dark page-{{page}}">
             <div class="card-header bg-primary">{{title}}</div>
             <div class="card-body {{#if up}}bg-success{{/if}}{{#if down}}bg-danger{{/if}}">
-                <h4 class="card-title text-center">{{value}}</h4>
+                <h4 class="card-title text-center">{{addComma value}}</h4>
                 <div class="row card-text">
                     <div class="col unit">{{unit}}</div>
-                    <div class="col ltr text-left">{{difference}}</div>
+                    <div class="col ltr text-left">{{addComma difference}}</div>
                 </div>
             </div>
         </div>
