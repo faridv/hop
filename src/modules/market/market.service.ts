@@ -2,10 +2,6 @@ import {Service} from '../../libs/service';
 
 export class MarketService extends Service {
 
-    constructor() {
-        super();
-    }
-
     getLabels(parentId: number = 1) {
         return this.http.get(this.api.get('market.labels', <string><any>parentId));
     }
