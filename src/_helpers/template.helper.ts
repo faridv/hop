@@ -33,6 +33,17 @@ export default class TemplateHelper {
                 "%": lvalue % rvalue
             }[operator];
         });
+        Handlebars.registerHelper("addComma", function (value, options) {
+            value += '';
+            let x = value.split('.');
+            let x1 = x[0];
+            let x2 = x.length > 1 ? '.' + x[1] : '';
+            let rgx = /(\d+)(\d{3})/;
+            while (rgx.test(x1)) {
+                x1 = x1.replace(rgx, '$1' + ',' + '$2');
+            }
+            return x1 + x2;
+        });
         Handlebars.registerHelper('times', function (n, block) {
             // Loop a block starting at 0
             let accum = '';
@@ -195,7 +206,7 @@ export default class TemplateHelper {
         $element.addClass(classToAdd);
     }
 
-    public hasClass(classToCheck: string, element: any): boolean {
+    public hasClass(classToCheck: string, element?: any): boolean {
         const $element = this.getElement(element);
         return $element.hasClass(classToCheck);
     }
