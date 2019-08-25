@@ -1,28 +1,25 @@
-import Store from "../../_utilities/storage.utility";
 import * as PrayerTimes from 'prayer-times';
 import * as $ from 'jquery';
 import {Prayers} from "./prayers.model";
-import TemplateHelper from "../../_helpers/template.helper";
-import Inputs from "../../app/inputs";
+import {Module} from '../../libs/module';
 
 // declare let PrayerTimes: any;
 
-export default class PrayerTimesModule {
-
-    private store;
-    private coordinations;
-    private template;
+export default class PrayerTimesModule extends Module {
+    
     private prayTimes;
-    private input;
-    private $el = $('#content');
+    private coordinations;
+    protected template = './prayer-times.template.html';
+    protected events = {
+        'location.prev': {'control': 'up', key: 'location.prev', title: 'شهر قبلی', icon: 'up', button: true},
+        'location.next': {'control': 'down', key: 'location.next', title: 'شهر بعدی', icon: 'bottom', button: true},
+    };
 
     constructor(config?, layoutInstance?) {
-
-        this.store = Store;
-        this.template = TemplateHelper.instance;
+        super(config, layoutInstance);
         this.prayTimes = new PrayerTimes();
         this.prayTimes.setMethod('Tehran');
-        this.input = Inputs.instance;
+        this.events = this.prepareControls();
 
         const self = this;
 
@@ -32,20 +29,6 @@ export default class PrayerTimesModule {
         });
 
         return this;
-    }
-
-
-    destroy (instance?: PrayerTimesModule): boolean {
-        const self = typeof instance !== 'undefined' ? instance : this;
-        $('#location-select').off('change');
-        // for (let i:number = 0; i < self.events.length; i++) {
-        //     self.input.off(self.events[i]['key'], self.events);
-        // }
-        // self.events = [];
-        self.input.removeEvent('up', {key: 'location.prev'});
-        self.input.removeEvent('down', {key: 'location.next'});
-
-        return true;
     }
 
     registerEvents() {
@@ -67,31 +50,28 @@ export default class PrayerTimesModule {
     registerKeyboardInputs($select) {
         const self = this;
 
-        const upParams = {key: 'location.prev', title: 'شهر قبلی', icon: 'up', button: true};
-        this.input.addEvent('up', false, upParams, () => {
-            if ($select.find('option:selected').prev().is('option')) {
-                let $current = $select.find('option:selected');
-                $current.prev().prop('selected', 'selected');
-                $current.removeProp('selected');
-                $select.trigger('change');
-            }
+        this.input.addEvent('up', false, this.events['location.prev'], () => {
+            self.changeCity($select, 'prev');
         });
 
-        const downParams = {key: 'location.next', title: 'شهر بعدی', icon: 'bottom', button: true};
-        this.input.addEvent('down', false, downParams, () => {
-            if ($select.find('option:selected').next().is('option')) {
-                let $current = $select.find('option:selected');
-                $current.next().prop('selected', 'selected');
-                $current.removeProp('selected');
-                $select.trigger('change');
-            }
+        this.input.addEvent('down', false, this.events['location.next'], () => {
+            self.changeCity($select, 'next');
         });
     }
 
+    changeCity($select, dir): void {
+        if ($select.find('option:selected')[dir]().is('option')) {
+            let $current = $select.find('option:selected');
+            $current[dir]().prop('selected', 'selected');
+            $current.removeProp('selected');
+            $select.trigger('change');
+        }
+    }
+
     showPrayers(coordinations, callback) {
-        const templatePromise = this.template.load('modules', 'prayer-times');
+        const template = require(`${this.template}`);
         const data = {prayers: this.getPrayers(coordinations), location: coordinations.join(',')};
-        this.template.render(templatePromise, data, this.$el, 'html', function () {
+        this.templateHelper.render(template, data, this.$el, 'html', function () {
             if (typeof callback === 'function')
                 callback(data);
         });

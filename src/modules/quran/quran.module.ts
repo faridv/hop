@@ -7,19 +7,24 @@ export default class QuranModule extends Module {
 
     private data: SurahList;
     private currentSurah: Surah;
+    protected template = {
+        'quran': './quran.template.html',
+        'surah': './surah.template.html',
+    };
     protected events = {
-        'quran.prev': {control: 'up', key: 'quran.prev', title: 'سوره قبلی', icon: 'up', button: true},
-        'quran.next': {control: 'down', key: 'quran.next', title: 'سوره بعدی', icon: 'bottom', button: true},
-        'quran.enter': {control: 'enter', key: 'quran.enter', title: 'نمایش متن', icon: 'enter', button: true},
-        'quran.toggle': {control: 'right', key: 'quran.toggle', title: 'نمایش ترجمه', icon: 'right', button: true},
-        'quran.up': {control: 'up', key: 'quran.up', title: 'اسکرول بالا', icon: 'up', button: false},
-        'quran.down': {control: 'down', key: 'quran.down', title: 'اسکرول پایین', icon: 'bottom', button: false},
-        'quran.back': {control: 'back,backspace', key: 'quran.back', title: 'بازگشت به سوره‌ها', icon: 'refresh', button: true}
+        'quran.prev': {control: 'up', title: 'سوره قبلی', icon: 'up'},
+        'quran.next': {control: 'down', title: 'سوره بعدی', icon: 'bottom'},
+        'quran.enter': {control: 'enter', title: 'نمایش متن', icon: 'enter'},
+        'quran.toggle': {control: 'right', title: 'نمایش ترجمه', icon: 'right'},
+        'quran.up': {control: 'up', title: 'اسکرول بالا', icon: 'up', button: false},
+        'quran.down': {control: 'down', title: 'اسکرول پایین', icon: 'bottom', button: false},
+        'quran.back': {control: 'back,backspace', title: 'بازگشت به سوره‌ها', icon: 'refresh'},
     };
 
     constructor(config?, layoutInstance?) {
         super(config, layoutInstance);
         this.service = QuranService.instance;
+        this.events = this.prepareControls();
         this.load();
         return this;
     }
@@ -38,8 +43,7 @@ export default class QuranModule extends Module {
     }
 
     render(data: SurahList, callback): void {
-        const self = this;
-        const template = require('./quran.template.html');
+        const template = require(`${this.template.quran}`);
         this.templateHelper.render(template, data, this.$el, 'html', function () {
             if (typeof callback === 'function')
                 callback();
@@ -89,8 +93,7 @@ export default class QuranModule extends Module {
     }
 
     renderSurah(data: Surah, callback?): void {
-        const self = this;
-        const template = require('./surah.template.html');
+        const template = require(`${this.template.surah}`);
         this.templateHelper.render(template, data, $('#surah'), 'html', function () {
             if (typeof callback === 'function')
                 callback(data);

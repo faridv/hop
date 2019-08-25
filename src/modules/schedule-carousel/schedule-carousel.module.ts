@@ -1,36 +1,25 @@
 import * as moment from 'moment-jalaali';
-import TemplateHelper from "../../_helpers/template.helper";
-import Inputs from "../../app/inputs";
-import {ScheduleService} from "./../schedule/schedule.service";
+import {ScheduleService} from "../schedule/schedule.service";
 import {Schedule} from "../schedule/schedule.model";
-import {PlayerService} from '../../_helpers/player.helper';
+import {Module} from '../../libs/module';
 
-export default class ScheduleCarouselModule {
+export default class ScheduleCarouselModule extends Module {
 
-    private service;
-    private input;
-    private config;
-    private template;
-    private $el = $('#content');
     private currentDate;
-    private layoutInstance;
-    private playerService;
-    private playerInstance;
+    protected template = './schedule-carousel.template.html';
+    protected events = {
+        'schedule.prev': {'control': 'up', title: 'برنامه قبلی', icon: 'up'},
+        'schedule.next': {'control': 'down', title: 'برنامه بعدی', icon: 'bottom'},
+        'schedule.enter': {'control': 'enter', title: 'پخش ویدیو', icon: 'enter'},
+    };
 
     constructor(config?, layoutInstance?) {
+        super(config, layoutInstance);
 
         moment.locale('en');
         this.currentDate = moment();
-
-        this.config = config;
-        this.template = TemplateHelper.instance;
-        this.input = Inputs.instance;
         this.service = ScheduleService.instance;
-        this.layoutInstance = layoutInstance;
-        this.playerService = PlayerService;
-
-        const self = this;
-
+        this.events = this.prepareControls();
         this.load(this.currentDate);
 
         return this;
@@ -38,12 +27,18 @@ export default class ScheduleCarouselModule {
 
     load(date, callback?: any) {
         const self = this;
-        this.template.loading();
+        this.templateHelper.loading();
+        console.time('loading data');
         this.service.getDate(date.format('YYYY-MM-DD')).done((data: any) => {
             // End loading
+            console.timeEnd('loading data');
+            console.time('rendering');
             self.render(data.data, (data: Schedule[]) => {
-                self.template.loading(false);
+                console.timeEnd('rendering');
+                console.time('slider');
                 self.initializeSlider();
+                self.templateHelper.loading(false);
+                console.timeEnd('slider');
                 if (typeof callback === 'function')
                     callback(data);
             });
@@ -57,15 +52,14 @@ export default class ScheduleCarouselModule {
         if (!$el.is(':visible'))
             $el.show(1);
         $el.on('afterChange', () => {
-            self.input.removeEvent('enter', {key: 'schedule.enter'});
+            self.input.removeEvent('enter', self.events['schedule.enter']);
             setTimeout(() => {
                 if ($('.slick-center').find('li.video').length) {
-                    const enterParams = {key: 'schedule.enter', title: 'پخش ویدیو', icon: 'enter', button: true};
-                    self.input.addEvent('enter', false, enterParams, () => {
+                    self.input.addEvent('enter', false, self.events['schedule.enter'], () => {
                         self.playVideo($el);
                     });
                 } else {
-                    self.input.removeEvent('enter', {key: 'schedule.enter'});
+                    self.input.removeEvent('enter', self.events['schedule.enter']);
                 }
             }, 100);
         });
@@ -118,48 +112,20 @@ export default class ScheduleCarouselModule {
 
     render(items: Schedule[], callback): void {
         const self = this;
-        const templatePromise = this.template.load('modules', 'schedule-carousel');
+        const template = require(`${this.template}`);
         items = self.findCurrent(items);
-        // items = self.getMediaUrl(items);
-        this.template.render(templatePromise, {items: items}, this.$el, 'html', function () {
+        this.templateHelper.render(template, {items: items}, this.$el, 'html', function () {
             if (typeof callback === 'function')
                 callback(items);
         });
     }
 
-    // getMediaUrl(items: Schedule[]): Schedule[] {
-    //     items.forEach((item) => {
-    //         if (item.hasVideo && item.episodeThumbnail) {
-    //             item.episodeMedia = item.episodeThumbnail.replace('.jpg', '_whq.mp4');
-    //             console.log(item.episodeMedia);
-    //         }
-    //     });
-    //     return items;
-    // }
-
-    destroy(instance?: ScheduleCarouselModule): boolean {
-        const self = typeof instance !== 'undefined' ? instance : this;
-        self.input.removeEvent('up', {key: 'schedule.prev'});
-        self.input.removeEvent('down', {key: 'schedule.next'});
-        self.input.removeEvent('down', {key: 'schedule.next'});
-        // self.input.removeEvent('left', {key: 'schedule.left'});
-        // self.input.removeEvent('right', {key: 'schedule.right'});
-        self.input.removeEvent('enter', {key: 'schedule.enter'});
-        self.input.removeEvent('back,backspace', {key: 'module.exit'});
-        return true;
-    }
-
     registerKeyboardInputs($carousel = $("ul.schedule-items")): void {
-        const self = this;
-
-        const upParams = {key: 'schedule.prev', title: 'برنامه قبلی', icon: 'up', button: true};
-        this.input.addEvent('up', false, upParams, () => {
+        this.input.addEvent('up', false, this.events['schedule.prev'], () => {
             // Prev Program
             $carousel.slick('slickPrev');
         });
-
-        const downParams = {key: 'schedule.next', title: 'برنامه بعدی', icon: 'bottom', button: true};
-        this.input.addEvent('down', false, downParams, () => {
+        this.input.addEvent('down', false, this.events['schedule.next'], () => {
             // Next Program
             $carousel.slick('slickNext');
         });
@@ -168,11 +134,11 @@ export default class ScheduleCarouselModule {
     getMediaUrl($element): void {
         const self = this;
         const id = $element.data('id');
-        this.template.loading();
+        this.templateHelper.loading();
         this.service.getMedia(id).done((data: any) => {
             // End loading
             const item = data.data;
-            self.template.loading(false);
+            self.templateHelper.loading(false);
             self.initPlayback(item.thumbnail, item.video);
         });
     }
@@ -183,9 +149,9 @@ export default class ScheduleCarouselModule {
             unloadMethod: () => {
                 setTimeout(() => {
                     self.registerKeyboardInputs();
-                    setTimeout(() => {
-                        self.layoutInstance.prepareUnloadModule();
-                    }, 500);
+                    // setTimeout(() => {
+                        // self.layoutInstance.prepareUnloadModule();
+                    // }, 500);
                 }, 200);
             },
             sources: [{
@@ -199,8 +165,7 @@ export default class ScheduleCarouselModule {
     }
 
     playVideo($carousel): void {
-        const self = this;
-        if (this.template.hasClass('player-mode'))
+        if (this.templateHelper.hasClass('player-mode'))
             return;
         const $current = $carousel.find('.slick-current.slick-center li');
         if (!$current.hasClass('video'))

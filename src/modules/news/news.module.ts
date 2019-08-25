@@ -1,40 +1,36 @@
-import TemplateHelper from '../../_helpers/template.helper';
-import Inputs from '../../app/inputs';
 import {NewsService} from './news.service';
 import {News} from './news.model';
-import Layouts from '../../app/layouts';
+import {Module} from '../../libs/module';
 
-export default class NewsModule {
+export default class NewsModule extends Module {
 
-    private service;
-    private input;
-    private template;
-    private config;
     private data;
-    private layoutInstance: Layouts;
-    private $el = $('#content');
+    protected template = {
+        'news': './news.template.html',
+        'details': './news-details.template.html',
+    };
+    protected events = {
+        'news.next': {control: 'right', title: 'خبر بعدی', icon: 'right'},
+        'news.prev': {control: 'left', title: 'خبر قبلی', icon: 'left'},
+        'news.enter': {control: 'enter', title: 'نمایش خبر', icon: 'enter'},
+        'news.back': {control: 'back,backspace', title: 'بازگشت به اخبار', icon: 'refresh'},
+    };
 
     constructor(config?, layoutInstance?) {
-
-        this.template = TemplateHelper.instance;
-        this.input = Inputs.instance;
+        super(config, layoutInstance);
         this.service = NewsService.instance;
-        this.config = config;
-        this.layoutInstance = layoutInstance;
-
         this.load();
-
         return this;
     }
 
     load(callback?: any) {
         const self = this;
-        this.template.loading();
+        this.templateHelper.loading();
         this.service.getLatest().done((data: any) => {
-            // End loading
             self.data = data.data;
-            self.template.loading(false);
             self.render(self.data, (data: News[]) => {
+                // End loading
+                self.templateHelper.loading(false);
                 self.initializeSlider();
             });
         });
@@ -62,39 +58,27 @@ export default class NewsModule {
     }
 
     render(data: News[], callback): void {
-        const self = this;
-        const templatePromise = this.template.load('modules', 'news');
-        this.template.render(templatePromise, {items: data}, this.$el, 'html', function () {
+        const template = require(`${this.template.news}`);
+        this.templateHelper.render(template, {items: data}, this.$el, 'html', function () {
             if (typeof callback === 'function')
                 callback(data);
         });
     }
 
-    destroy(instance?: NewsModule): boolean {
-        const self = typeof instance !== 'undefined' ? instance : this;
-        self.input.removeEvent('right', {key: 'news.right'});
-        self.input.removeEvent('left', {key: 'news.left'});
-        self.input.removeEvent('enter', {key: 'news.enter'});
-        return true;
-    }
-
     registerKeyboardInputs($carousel): void {
         const self = this;
 
-        const downParams = {key: 'news.right', title: 'خبر بعدی', icon: 'right', button: true};
-        this.input.addEvent('right', false, downParams, () => {
+        this.input.addEvent('right', false, this.events['news.next'], () => {
             // Next News
             $carousel.slick('slickPrev');
         });
 
-        const upParams = {key: 'news.left', title: 'خبر قبلی', icon: 'left', button: true};
-        this.input.addEvent('left', false, upParams, () => {
+        this.input.addEvent('left', false, this.events['news.prev'], () => {
             // Prev News
             $carousel.slick('slickNext');
         });
 
-        const enterParams = {key: 'news.enter', title: 'نمایش خبر', icon: 'enter', button: true};
-        this.input.addEvent('enter', false, enterParams, () => {
+        this.input.addEvent('enter', false, this.events['news.enter'], () => {
             self.loadDetails($carousel);
         });
         $(document).on('click', "ul.news-items li", (e) => {
@@ -119,8 +103,8 @@ export default class NewsModule {
         });
 
         // Load item details
-        const templatePromise = this.template.load('modules', 'news-details');
-        this.template.render(templatePromise, {data: item}, $('#news-details'), 'html', function () {
+        const template = require(`${this.template.details}`);
+        this.templateHelper.render(template, {data: item}, $('#news-details'), 'html', function () {
             self.showDetails();
         });
     }
@@ -130,8 +114,7 @@ export default class NewsModule {
         const self = this;
 
         this.input.removeEvent('back,backspace', {key: 'module.exit'});
-        const backParams = {key: 'news.back', title: 'بازگشت به اخبار', icon: 'refresh', button: true};
-        this.input.addEvent('back,backspace', false, backParams, () => {
+        this.input.addEvent('back,backspace', false, this.events['news.back'], () => {
             // Return to news list
             self.hideDetails();
         });
@@ -142,7 +125,6 @@ export default class NewsModule {
 
         $('#news-details').fadeOut();
         this.input.removeEvent('back,backspace', {key: 'news.back'});
-        // this.layoutInstance.prepareUnloadModule();
         setTimeout(() => {
             self.layoutInstance.prepareUnloadModule();
         }, 500);

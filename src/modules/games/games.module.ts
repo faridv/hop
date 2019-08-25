@@ -2,27 +2,23 @@ import * as GamesConfig from './games.config.json';
 import Game2048 from './2048/2048.game';
 import BlockrainGame from "./blockrain/blockrain.game";
 import {Module} from '../../libs/module';
-import {MyComponent} from '../../_helpers/module.loader';
 
-@MyComponent({
-    template: './games.template.html'
-})
 export default class GamesModule extends Module {
 
     protected template = './games.template.html';
     protected events = {
-        'games.prev': {control: 'up', key: 'games.prev', title: 'بازی قبلی', icon: 'up', button: true},
-        'games.next': {control: 'down', key: 'games.next', title: 'بازی بعدی', icon: 'bottom', button: true},
-        'games.enter': {control: 'enter', key: 'games.enter', title: 'انتخاب', icon: 'enter', button: true}
+        'games.prev': {control: 'up', title: 'بازی قبلی', icon: 'up'},
+        'games.next': {control: 'down', title: 'بازی بعدی', icon: 'bottom'},
+        'games.enter': {control: 'enter', title: 'انتخاب', icon: 'enter'},
     };
 
     constructor(config?, layoutInstance?) {
         super(config, layoutInstance);
         const self = this;
+        this.events = this.prepareControls();
         this.render(GamesConfig, () => {
             self.registerKeyboardInputs();
         });
-        this.loadTemplate();
         return this;
     }
 
