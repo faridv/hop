@@ -17,7 +17,13 @@ export class PlayerService {
     private container: string;
     private instance: any;
     private playerId: string = 'vod-player';
-
+    private events = {
+        'player.play': {key: 'player.play', title: 'ادامه پخش', icon: 'play', button: true},
+        'player.pause': {key: 'player.pause', title: 'توقف', icon: 'pause', button: true},
+        'player.ffw': {key: 'player.ffw', title: 'جلو', icon: 'forward', button: true},
+        'player.rewind': {key: 'player.ffw', title: 'جلو', icon: 'forward', button: true},
+        'player.stop': {key: 'player.stop', title: 'بازگشت', icon: 'stop', button: true},
+    };
     private defaultOptions = {
         autoplay: true,
         controls: true,
@@ -91,24 +97,26 @@ export class PlayerService {
             self.template.loading(false);
             self.play(true);
             self.template.addClass('player-mode');
+            self.disableBroadcast();
         });
         self.instance = videojs(this.playerId, this.options);
         this.registerEventsListeners();
     }
 
     public unload() {
-        this.input.removeEvent('p,pause', {key: 'player.pause'});
-        this.input.removeEvent('f,fast_fwd', {key: 'player.ffw'});
-        this.input.removeEvent('d,rewind', {key: 'player.rewind'});
-        this.input.removeEvent('p,play', {key: 'player.play'});
-        this.input.removeEvent('s,stop', {key: 'player.stop'});
+        this.input.removeEvent('p,pause', this.events['player.pause']);
+        this.input.removeEvent('f,fast_fwd', this.events['player.ffw'])
+        this.input.removeEvent('d,rewind', this.events['player.rewind']);
+        this.input.removeEvent('p,play', this.events['player.play']);
+        this.input.removeEvent('s,stop', this.events['player.stop']);
         if (this.type === 'videojs') {
             videojs(document.getElementById(this.playerId)).dispose();
         }
         $('#' + this.container).empty();
         this.status = 'inactive';
         this.template.removeClass('player-mode');
-
+        this.reInitBroadcast();
+        return;
         if (typeof this.options.unloadMethod === 'function') {
             setTimeout(() => {
                 console.log('calling parent unload()');
@@ -117,30 +125,47 @@ export class PlayerService {
         }
     }
 
-    public handleBroadcastAudio(mute: boolean = true) {
-        const $tv = <any> document.getElementById('broadcastvideo');
-        if (mute) {
+    public reInitBroadcast() {
+        const $tv = this.getBroadcastVideo();
+        try {
+            $tv.muted = false;
+        } catch (e) {
             try {
-                $tv.muted = true;
+                $tv.play();
             } catch (e) {
-                // cannot mute tv stream, let's try to stop it
+                // ignore
+                console.log('cannot start tv', e);
                 try {
-                    $tv.stop();
+                    $tv.bindToCurrentChannel();
                 } catch (e) {
                     // ignore
                 }
             }
-        } else {
+        }
+    }
+
+    protected getBroadcastVideo() {
+        const $tv = <any> $('#broadcastvideo');
+        const $broadcastVideo = ($tv.find('video').length) ? $tv.find('video:first')[0] : $tv[0];
+        return $broadcastVideo;
+    }
+
+    public disableBroadcast() {
+        const $tv = this.getBroadcastVideo();
+        try {
+            $tv.muted = true;
+        } catch (e) {
+            console.error('cannot mute', e);
+            // cannot mute tv stream, let's try to stop it
             try {
-                $tv.bindToCurrentChannel();
+                $tv.stop();
             } catch (e) {
-                // ignore
-            }
-            try {
-                $tv.muted = false;
-                // $tv.release();
-            } catch (e) {
-                // ignore
+                console.error('cannot stop', e);
+                try {
+                    $tv.release();
+                } catch (e) {
+                    console.error('cannot release', e);
+                }
             }
         }
     }
@@ -167,11 +192,9 @@ export class PlayerService {
 
         this.instance.userActive(false);
 
-        // self.input.removeEvent('p,pause', {key: 'player.pause'});
         setTimeout(() => {
-            self.input.removeEvent('p,play', {key: 'player.play'});
-            const pauseParams = {key: 'player.pause', title: 'توقف', icon: 'pause', button: true};
-            self.input.addEvent('p,pause', false, pauseParams, () => {
+            self.input.removeEvent('p,play', self.events['player.play']);
+            self.input.addEvent('p,pause', false, self.events['player.pause'], () => {
                 self.pause();
             });
         }, 200);
@@ -187,11 +210,10 @@ export class PlayerService {
         this.status = 'paused';
         this.instance.userActive(true);
 
-        // self.input.removeEvent('p,play', {key: 'player.play'});
         setTimeout(() => {
-            self.input.removeEvent('p,pause', {key: 'player.pause'});
-            const playParams = {key: 'player.play', title: 'ادامه پخش', icon: 'play', button: true};
-            self.input.addEvent('p,play', false, playParams, () => {
+            self.input.removeEvent('p,pause', self.events['player.pause']);
+            // const playParams = {key: 'player.play', title: 'ادامه پخش', icon: 'play', button: true};
+            self.input.addEvent('p,play', false, self.events['player.play'], () => {
                 self.play();
             });
         }, 200);
@@ -199,17 +221,18 @@ export class PlayerService {
 
     public stop() {
         this.status = 'deactivating';
-        this.handleBroadcastAudio(false);
         this.unload();
     }
 
     public ffw() {
         const self = this;
         setTimeout(() => {
-            self.input.removeEvent('p,play', {key: 'player.play'});
-            self.input.removeEvent('p,pause', {key: 'player.pause'});
+            self.input.removeEvent('p,play', self.events['player.play']);
+            self.input.removeEvent('p,pause', self.events['player.pause']);
+            // self.input.removeEvent('p,play', {key: 'player.play'});
+            // self.input.removeEvent('p,pause', {key: 'player.pause'});
             const playParams = {key: 'player.play', title: 'ادامه پخش', icon: 'play', button: true};
-            self.input.addEvent('p,play', false, playParams, () => {
+            self.input.addEvent('p,play', false, self.events['player.play'], () => {
                 self.play();
             });
         }, 200);
@@ -236,8 +259,9 @@ export class PlayerService {
             }
         }, 333);
         setTimeout(() => {
-            self.input.removeEvent('p,pause', {key: 'player.pause'});
-            const playParams = {key: 'player.play', title: 'ادامه پخش', icon: 'play', button: true};
+            // self.input.removeEvent('p,pause', {key: 'player.pause'});
+            self.input.removeEvent('p,pause', self.events['player.pause']);
+            const playParams = {key: 'player.play', title: 'ادامه پخش', icon: self.events['player.play'], button: true};
             self.input.addEvent('p,play', false, playParams, () => {
                 clearInterval(rewindInterval);
                 self.play();
@@ -251,19 +275,13 @@ export class PlayerService {
 
     public registerEventsListeners() {
         const self = this;
-
-        const stopParams = {key: 'player.stop', title: 'بازگشت', icon: 'stop', button: true};
-        self.input.addEvent('s,stop', false, stopParams, () => {
+        this.input.addEvent('s,stop', false, this.events['player.stop'], () => {
             self.stop();
         });
-
-        const ffwParams = {key: 'player.ffw', title: 'جلو', icon: 'forward', button: true};
-        self.input.addEvent('f,fast_fwd', false, ffwParams, () => {
+        this.input.addEvent('f,fast_fwd', false, this.events['player.ffw'], () => {
             self.ffw();
         });
-
-        const rewindParams = {key: 'player.rewind', title: 'عقب', icon: 'backward', button: true};
-        self.input.addEvent('d,rewind', false, rewindParams, () => {
+        this.input.addEvent('d,rewind', false, this.events['player.rewind'], () => {
             self.rewind();
         });
     }
