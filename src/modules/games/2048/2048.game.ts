@@ -7,7 +7,8 @@ export default class Game2048 {
 
     private gamesModule: GamesModule;
     private scriptLoader;
-    private template;
+    private templateHelper;
+    private template = './2048.template.html';
     private input;
     private $el = $('#fullscreen');
     private scripts = [
@@ -28,7 +29,7 @@ export default class Game2048 {
         const self = this;
 
         this.scriptLoader = ScriptLoaderService.instance;
-        this.template = TemplateHelper.instance;
+        this.templateHelper = TemplateHelper.instance;
         this.input = Inputs.instance;
         this.gamesModule = module;
 
@@ -41,8 +42,8 @@ export default class Game2048 {
 
     private render(callback?): void {
         const self = this;
-        const templatePromise = this.template.load('games', '2048');
-        this.template.render(templatePromise, {}, this.$el, 'html', function () {
+        const template = require(`${this.template}`);
+        this.templateHelper.render(template, {}, this.$el, 'html', function () {
             self.$el.fadeIn(100);
             if (typeof callback === 'function')
                 callback();

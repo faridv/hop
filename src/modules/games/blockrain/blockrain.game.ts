@@ -7,7 +7,8 @@ export default class BlockrainGame {
 
     private gamesModule: GamesModule;
     private scriptLoader;
-    private template;
+    private templateHelper;
+    private template = './blockrain.template.html';
     private input;
     private $game;
     private $el = $('#fullscreen');
@@ -21,7 +22,7 @@ export default class BlockrainGame {
         const self = this;
 
         this.scriptLoader = ScriptLoaderService.instance;
-        this.template = TemplateHelper.instance;
+        this.templateHelper = TemplateHelper.instance;
         this.input = Inputs.instance;
         this.gamesModule = module;
 
@@ -43,14 +44,13 @@ export default class BlockrainGame {
             scoreText: 'امتیاز',
             theme: 'retro'
         });
-        // this.$game.blockrain('theme', 'custom');
         this.$game.blockrain('start');
     }
 
     private render(callback?): void {
         const self = this;
-        const templatePromise = this.template.load('games', 'blockrain');
-        this.template.render(templatePromise, {}, this.$el, 'html', function () {
+        const template = require(`${this.template}`);
+        this.templateHelper.render(template, {}, this.$el, 'html', function () {
             self.$el.fadeIn(100);
             if (typeof callback === 'function')
                 callback();
