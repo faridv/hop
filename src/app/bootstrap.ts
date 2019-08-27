@@ -3,27 +3,27 @@ import * as $ from 'jquery';
 import { DeviceConfig } from "../_models/device-config.model";
 import Application from "./app-manager";
 import LogHelper from '../_helpers/log.helper';
+import {Registry} from '../libs/registry';
 
 declare let window: any;
 
 export default class Bootstrap {
 
-    config;
-    store;
+    public log: LogHelper;
+    private config;
+    private store;
+    protected broadcastVideo: any;
+    protected appManager: any;
+    protected configObject: any;
+    protected moduleRegistry;
+    protected deviceParams: DeviceConfig = new DeviceConfig();
 
-    broadcastVideo: any;
-    appManager: any;
-    // hbbApp: any;
-    configObject: any;
-    log: LogHelper;
-
-    deviceParams: DeviceConfig = new DeviceConfig();
-
-    constructor(config) {
+    constructor(config, modules) {
         window.$ = $;
 
         this.config = config;
         this.store = Store;
+        this.moduleRegistry = new Registry(modules);
         this.log = new LogHelper(config);
 
         const self = this;
@@ -42,6 +42,13 @@ export default class Bootstrap {
         }
     }
 
+    handleModules(modules: any[]): any[] {
+        modules.forEach((item) => {
+            item['_constructor'] = this.moduleRegistry.getItem(item.type);
+        });
+        return modules;
+    }
+
     prepareApps(): void {
         const applications = this.config.applications;
         const self = this;
@@ -58,6 +65,7 @@ export default class Bootstrap {
         }
 
         for (let i in applications) {
+            applications[i].modules = this.handleModules(applications[i].modules);
             self.initializeApp(applications[i]);
         }
     }

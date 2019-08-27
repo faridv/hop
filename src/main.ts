@@ -1,7 +1,8 @@
 import * as Config from './../config.json';
-import App from './app/bootstrap';
+import App from './app/bootstrap';``
 
 import Developer from './_helpers/developer';
+import {modules} from './modules';
 
 // import * as LogRocket from 'logrocket';
 // LogRocket.init('pdu5s5/hop');
@@ -19,7 +20,7 @@ import Developer from './_helpers/developer';
 
 // Bootstrap AppManager
 try {
-    new App(Config);
+    new App(Config, modules);
 } catch (error) {
     console.error(error);
 }

@@ -83,7 +83,6 @@ export default class AppManager {
         const templatePromise = this.template.load('layouts', layout);
         const modules = {items: appData.modules};
 
-
         this._bootstrapInstance.setKeySet(0x1 + 0x2 + 0x4 + 0x8 + 0x10 + 0x20 + 0x40 + 0x80); // All Keys
 
         this.template.render(templatePromise, modules, this.$el, 'html', function () {

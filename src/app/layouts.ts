@@ -3,22 +3,10 @@ import Inputs from "./inputs";
 import TemplateHelper from "../_helpers/template.helper";
 import CarouselLayout from "./layouts/carousel.layout";
 import GridLayout from "./layouts/grid.layout";
-
-import PrayerTimesModule from '../modules/prayer-times/prayer-times.module';
-import ScheduleModule from "../modules/schedule/schedule.module";
-import GamesModule from "../modules/games/games.module";
-import WeatherModule from "../modules/weather/weather.module";
 import ClockHelper from "../_helpers/clock.helper";
 import ConnectionHelper from "../_helpers/connection.helper";
 import ScreenLayout from "./layouts/screen.layout";
-import StreamModule from "../modules/stream/stream.module";
-import InfoModule from "../modules/info/info.module";
-import ScheduleCarouselModule from '../modules/schedule-carousel/schedule-carousel.module';
 import IKTVLayout from './layouts/iktv.layout';
-import NewsModule from '../modules/news/news.module';
-import ProgramModule from '../modules/program/program.module';
-import MarketModule from '../modules/market/market.module';
-import QuranModule from '../modules/quran/quran.module';
 
 export default class Layouts {
 
@@ -109,43 +97,14 @@ export default class Layouts {
         this.renderFooter();
     }
 
-    public loadModule(moduleTitle: string, config: object = {}, skipUnload: boolean = false) {
+    public loadModule(moduleType: string, config: object = {}, skipUnload: boolean = false) {
         let module: any = null;
-        switch (moduleTitle) {
-            case 'prayer-times':
-                module = PrayerTimesModule;
-                break;
-            case 'weather':
-                module = WeatherModule;
-                break;
-            case 'schedule':
-                module = ScheduleModule;
-                break;
-            case 'schedule-carousel':
-                module = ScheduleCarouselModule;
-                break;
-            case 'games':
-                module = GamesModule;
-                break;
-            case 'stream':
-                module = StreamModule;
-                break;
-            case 'info':
-                module = InfoModule;
-                break;
-            case 'news':
-                module = NewsModule;
-                break;
-            case 'vod':
-                module = ProgramModule;
-                break;
-            case 'market':
-                module = MarketModule;
-                break;
-            case 'quran':
-                module = QuranModule;
-                break;
-        }
+        this.appData.modules.forEach((item) => {
+            if (typeof item !== 'undefined') {
+                if (item.type === moduleType)
+                    module = item._constructor;
+            }
+        });
         if (!module)
             return;
 
