@@ -17,6 +17,7 @@ export default class AppManager {
     private template;
     private _bootstrapInstance: Bootstrap;
     private scriptLoader;
+    private buttonTemplate = `<div class="app-initializer fade button-{{button.key}}" style="{{button.position}}"><img src="{{button.image}}" alt="{{button.key}}" /></div>`;
     private log: LogHelper;
     private scripts = [
         "assets/js/vendor/video.min.js"
@@ -45,16 +46,14 @@ export default class AppManager {
 
     showButton(appData): boolean {
         const self = this;
-
         if (this.config.autoStart) {
             self.initializeApplication(appData);
             return true;
         }
-
         const controlType = (appData.hasHub) ? 'button' : appData.layout;
-        const templatePromise = this.template.load('controls', controlType);
+        const template = (appData.hasHub) ? this.buttonTemplate : this.template.load('controls', controlType);
         const button = appData.button;
-        this.template.render(templatePromise, appData, this.$el, 'append', (element) => {
+        this.template.render(template, appData, this.$el, 'append', (element) => {
             // Show button after intentional delay time
             setTimeout(() => {
                 const $buttonElement = $(element).find('[class*="button-"]');
