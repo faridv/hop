@@ -116,7 +116,7 @@ export class PlayerService {
         this.status = 'inactive';
         this.template.removeClass('player-mode');
         this.reInitBroadcast();
-        return;
+
         if (typeof this.options.unloadMethod === 'function') {
             setTimeout(() => {
                 console.log('calling parent unload()');
