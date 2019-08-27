@@ -17,6 +17,14 @@ export default class Layouts {
     private input;
     private currentModuleInstance;
     private cachedFooterElements: string;
+    private footerTemplate = `<ul class="footer-items">
+    {{#each items}}
+    <li data-scope="{{key}}" class="{{eventKey}}">
+        <i class="icon-{{#if icon}}{{icon}}{{else}}square{{/if}}"></i>
+        {{title}}
+    </li>
+    {{/each}}
+</ul>`;
 
     constructor(layout: string = 'carousel', Config, appData) {
 
@@ -70,9 +78,9 @@ export default class Layouts {
         const self = this;
         let items = this.getFooterItems();
         if (JSON.stringify(items) !== this.cachedFooterElements) {
-            const templatePromise = this.template.load('controls', 'footer');
+            const template = this.footerTemplate;
             const $footer = $('#footer');
-            this.template.render(templatePromise, {items: items}, $footer, 'html', () => {
+            this.template.render(template, {items: items}, $footer, 'html', () => {
                 self.addFooterItemsClickListener();
             });
             this.cachedFooterElements = JSON.stringify(items);
