@@ -1,5 +1,5 @@
 import * as Config from './../config.json';
-import App from './app/bootstrap';``
+import App from './app/bootstrap';
 
 import Developer from './_helpers/developer';
 import {modules} from './modules';
