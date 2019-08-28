@@ -4,6 +4,7 @@ import { DeviceConfig } from "../_models/device-config.model";
 import Application from "./app-manager";
 import LogHelper from '../_helpers/log.helper';
 import {Registry} from '../libs/registry';
+import {ConfigHelper} from '../_helpers/config.helper';
 
 declare let window: any;
 
@@ -35,6 +36,7 @@ export default class Bootstrap {
     }
 
     cacheConfig(config): void {
+        config = ConfigHelper.prepare(config);
         try {
             Store.set('config', config);
         } catch (e) {
