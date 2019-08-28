@@ -162,6 +162,7 @@ export default class Layouts {
                 return this.keyCodeVal;
             }
         });
+        // @ts-ignore
         if (oEvent.initKeyboardEvent) {
             // @ts-ignore
             oEvent.initKeyboardEvent('keydown', true, true, document.defaultView, false, false, false, false, key);
