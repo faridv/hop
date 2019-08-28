@@ -5,7 +5,6 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const DashboardPlugin = require('webpack-dashboard/plugin');
 const nodeEnv = process.env.NODE_ENV || 'development';
 const isProd = nodeEnv === 'production';
-// const package = require('./package.json');
 
 const buildDate = new Date().toGMTString().slice(0, 25);
 const buildHash = (+new Date() / 1000).toFixed(0);
@@ -30,17 +29,7 @@ const plugins = [
         buildHash: buildHash,
         hash: true,
         inject: 'head',
-        // minify: true,
         cache: false
-        // , meta: {
-        //     "description": "HbbTV Open Platform built to run on HbbTV-ready TV sets.",
-        //     "viewport": "width=device-width, initial-scale=1.0",
-        //     "content-type": "Content-Type: application/vnd.hbbtv.xhtml+xml; charset=UTF-8",
-        //     "expires": "Tue, 01 Jan 1980 1:00:00 GMT",
-        //     "pragma": "no-cache",
-        //     "last-modified": buildDate,
-        //     "cache-control": "no-cache, must-revalidate"
-        // }
     }),
     new webpack.LoaderOptionsPlugin({
         options: {
@@ -57,7 +46,6 @@ const plugins = [
 ];
 
 var config = {
-    // devtool: isProd ? 'hidden-source-map' : 'source-map',
     devtool: isProd ? '' : 'source-map',
     context: path.resolve('./src'),
     entry: {
