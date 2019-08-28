@@ -46,9 +46,6 @@ export default class Layouts {
 
     private buttonsChangeListener(): void {
         const self = this;
-        // $('body').on('event-change', (e) => {
-        //     self.updateFooter();
-        // });
         setInterval(() => {
             self.updateFooter();
         }, 500);
