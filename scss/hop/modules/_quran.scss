@@ -32,22 +32,27 @@
     > header { color: #fff; }
     > div { margin-bottom: 30px; overflow: hidden; }
     ul {
-        background: #fff; list-style: none; margin: 0; padding: 0;
+        margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; max-height: 100%; overflow: hidden;
         li {
-            border: 0 none; height: 60px; border-bottom: 1px solid #ddd;
-            margin: 0; padding: $grid-gutter-width / 2; padding-left: 50px;
+            max-width: 25%; padding: $grid-gutter-width / 4; flex: 0 0 25%;
+            &:nth-child(4n+1) { clear: right; }
+            .desc { background: rgba(255, 255, 255, 0.85); padding: $grid-gutter-width / 2; border: 5px solid transparent; padding-bottom: 0; }
             h3 {
-                float: right; font-size: 1.75rem; margin-bottom: 0; line-height: 30px; font-weight: bold;
+                float: none;font-size: 1.75rem; margin-bottom: 0; line-height: 30px; font-weight: bold;
                 span { font-family: $font-family-sans-serif; font-weight: normal; font-size: 1rem; color: #888; }
             }
-            .meta { float: left; width: 320px; font-size: 0.85rem; color: #888; }
-            p {
-                margin-bottom: 0; line-height: 30px; float: right;
-                span { font-weight: bold; }
-                & + p { float: left; }
+            .meta {
+                font-size: 0.85rem; color: #888;
+                display: flex; flex-direction: row; flex-wrap: wrap;
             }
+            p {
+                margin-bottom: 0; line-height: 30px; flex: 0 0 50%; max-width: 50%;
+                span { font-weight: bold; }
+                & + p { text-align: left; }
+            }
+            &.active .desc { border: 5px solid #2cb379; background: #fff; }
         }
-        .slick-current li, .slick-center li { border-right: 5px solid #2cb379; background: $gray-200; }
+
     }
 }
 #surah {
