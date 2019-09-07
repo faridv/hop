@@ -48,11 +48,11 @@
         "tslint-loader": "^3.6.0",
         "typescript": "^3.6.2",
         "webpack": "^4.39.3",
-        "webpack-cli": "^3.3.7",
+        "webpack-cli": "^3.3.8",
         "webpack-dev-server": "^3.8.0"
     },
     "dependencies": {
-        "handlebars": "^4.1.2",
+        "handlebars": "^4.2.0",
         "jquery": "^3.4.1",
         "moment-jalaali": "^0.8.3",
         "prayer-times": "^0.1.0",
