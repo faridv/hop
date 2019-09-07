@@ -1,6 +1,5 @@
 import PrayerTimesModule from './modules/prayer-times/prayer-times.module';
 import WeatherModule from './modules/weather/weather.module';
-import ScheduleModule from './modules/schedule/schedule.module';
 import ScheduleCarouselModule from './modules/schedule-carousel/schedule-carousel.module';
 import GamesModule from './modules/games/games.module';
 import StreamModule from './modules/stream/stream.module';
@@ -13,7 +12,6 @@ import QuranModule from './modules/quran/quran.module';
 export const modules = {
     'prayer-times': PrayerTimesModule,
     'weather': WeatherModule,
-    'schedule': ScheduleModule,
     'schedule-carousel': ScheduleCarouselModule,
     'games': GamesModule,
     'stream': StreamModule,

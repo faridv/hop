@@ -20,9 +20,7 @@
     "exitMethod": "hide",
     "api": {
         "url": "http://77.36.163.196/",
-        "api_guide": "https://services.iktv.ir/config/app.json",
         "services": {
-            "ipg": "http://www.pooyatv.ir/ipg",
             "clock": "clock.php",
             "weather": "weather",
             "log": "/log.php",
