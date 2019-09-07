@@ -12,10 +12,12 @@ export default class QuranModule extends Module {
         'surah': './surah.template.html',
     };
     protected events = {
-        'quran.prev': {control: 'up', title: 'سوره قبلی', icon: 'up'},
-        'quran.next': {control: 'down', title: 'سوره بعدی', icon: 'bottom'},
+        'quran.top': {control: 'up', title: 'بالا', icon: 'up', button: false},
+        'quran.bottom': {control: 'down', title: 'پایین', icon: 'bottom', button: false},
+        'quran.left': {control: 'left', title: 'چپ', icon: 'left', button: false},
+        'quran.right': {control: 'right', title: 'راست', icon: 'right', button: false},
         'quran.enter': {control: 'enter', title: 'نمایش متن', icon: 'enter'},
-        'quran.toggle': {control: 'right', title: 'نمایش ترجمه', icon: 'right'},
+        'quran.toggle': {control: 'blue,b', title: 'نمایش ترجمه'},
         'quran.up': {control: 'up', title: 'اسکرول بالا', icon: 'up', button: false},
         'quran.down': {control: 'down', title: 'اسکرول پایین', icon: 'bottom', button: false},
         'quran.back': {control: 'back,backspace', title: 'بازگشت به سوره‌ها', icon: 'refresh'},
@@ -51,31 +53,38 @@ export default class QuranModule extends Module {
     }
 
     initializeSurahListSlider(): void {
-        const self = this;
         const $el = $("#surah-list");
-        const slidesToShow = 9;
-        if (!$el.is(':visible'))
-            $el.show(1);
-        $el.slick({
-            slidesToShow: slidesToShow,
-            slidesToScroll: 1,
-            vertical: true,
-            // centerMode: true,
-            lazyLoad: 'ondemand',
-        });
         this.registerKeyboardInputs($el);
     }
 
-    registerKeyboardInputs($carousel = $("#surah-list")): void {
+    navigateSurahList(index: number, $el = $("#surah-list")): void {
+        const $current = $('li.active');
+        const $next = $el.find('li').eq($current.index() + index);
+        if ($next.length) {
+            $current.removeClass('active');
+            $next.addClass('active');
+            const distance = $next.offset().top - $("#surah-list").offset().top;
+            console.log(distance);
+            $el.animate({'scrollTop': distance});
+        }
+    }
+
+    registerKeyboardInputs($el = $("#surah-list")): void {
         const self = this;
-        this.input.addEvent('up', false, this.events['quran.prev'], () => {
-            $carousel.slick('slickPrev');
+        this.input.addEvent('up', false, this.events['quran.top'], () => {
+            self.navigateSurahList(-4);
         });
-        this.input.addEvent('down', false, this.events['quran.next'], () => {
-            $carousel.slick('slickNext');
+        this.input.addEvent('down', false, this.events['quran.bottom'], () => {
+            self.navigateSurahList(4);
+        });
+        this.input.addEvent('left', false, this.events['quran.left'], () => {
+            self.navigateSurahList(1);
+        });
+        this.input.addEvent('right', false, this.events['quran.right'], () => {
+            self.navigateSurahList(-1);
         });
         self.input.addEvent('enter', false, this.events['quran.enter'], () => {
-            self.loadSurah(~~$carousel.find('.slick-current li').data('id'));
+            self.loadSurah(~~$el.find('li.active').data('id'));
         });
     }
 
@@ -108,7 +117,7 @@ export default class QuranModule extends Module {
             this.input.addEvent('back,backspace', false, this.events['quran.back'], () => {
                 self.unloadSurah();
             });
-            this.input.addEvent('right', false, this.events['quran.toggle'], () => {
+            this.input.addEvent('blue,b', false, this.events['quran.toggle'], () => {
                 $('.edition').toggleClass('active');
             });
             this.input.addEvent('up', false, this.events['quran.up'], () => {
@@ -137,7 +146,7 @@ export default class QuranModule extends Module {
         this.input.removeEvent('back,backspace', {key: 'quran.back'});
         this.input.removeEvent('up', {key: 'quran.up'});
         this.input.removeEvent('down', {key: 'quran.down'});
-        this.input.removeEvent('right', {key: 'quran.toggle'});
+        this.input.removeEvent('blue,b', {key: 'quran.toggle'});
         this.registerKeyboardInputs();
         setTimeout(() => {
             self.layoutInstance.prepareUnloadModule();

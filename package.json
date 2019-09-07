@@ -19,11 +19,11 @@
     "devDependencies": {
         "@types/jasmine": "^2.8.16",
         "@types/jquery": "^3.3.31",
-        "@types/node": "^10.14.16",
+        "@types/node": "^10.14.17",
         "@types/slick-carousel": "^1.6.33",
         "awesome-typescript-loader": "^5.2.0",
         "copy-webpack-plugin": "^4.6.0",
-        "cross-env": "^5.0.1",
+        "cross-env": "^5.2.1",
         "css-loader": "^1.0.1",
         "cypress": "^3.4.1",
         "ejs-loader": "^0.3.3",
@@ -46,7 +46,7 @@
         "style-loader": "^0.22.1",
         "tslint": "^5.19.0",
         "tslint-loader": "^3.6.0",
-        "typescript": "^3.5.3",
+        "typescript": "^3.6.2",
         "webpack": "^4.39.3",
         "webpack-cli": "^3.3.7",
         "webpack-dev-server": "^3.8.0"
