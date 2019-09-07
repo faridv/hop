@@ -1,6 +1,6 @@
 import * as moment from 'moment-jalaali';
-import {ScheduleService} from "../schedule/schedule.service";
-import {Schedule} from "../schedule/schedule.model";
+import {ScheduleService} from "./schedule.service";
+import {Schedule} from "./schedule.model";
 import {Module} from '../../libs/module';
 
 export default class ScheduleCarouselModule extends Module {
@@ -149,9 +149,6 @@ export default class ScheduleCarouselModule extends Module {
             unloadMethod: () => {
                 setTimeout(() => {
                     self.registerKeyboardInputs();
-                    // setTimeout(() => {
-                        // self.layoutInstance.prepareUnloadModule();
-                    // }, 500);
                 }, 200);
             },
             sources: [{
