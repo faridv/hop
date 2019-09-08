@@ -60,12 +60,16 @@ export default class QuranModule extends Module {
     navigateSurahList(index: number, $el = $("#surah-list")): void {
         const $current = $('li.active');
         const $next = $el.find('li').eq($current.index() + index);
+        $current.removeClass('active');
         if ($next.length) {
-            $current.removeClass('active');
             $next.addClass('active');
-            const distance = $next.offset().top - $("#surah-list").offset().top;
-            console.log(distance);
-            $el.animate({'scrollTop': distance});
+            const distance = $next.offset().top - $el.offset().top + $el.scrollTop();
+            if (~~$el.scrollTop() !== ~~distance)
+                $el.animate({'scrollTop': ~~distance});
+        } else {
+            const $first = $el.find('li').eq(0);
+            $first.addClass('active');
+            $el.animate({'scrollTop': 0});
         }
     }
 
