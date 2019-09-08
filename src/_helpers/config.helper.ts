@@ -1,7 +1,7 @@
 import Store from "../_utilities/storage.utility";
 
 interface IConfig {
-    version: string;
+    // version: string;
     title: string;
     container: string;
     locale: string;
@@ -27,7 +27,7 @@ interface IConfig {
 export class ConfigHelper {
 
     public static defaultConfig: IConfig = {
-        version: "0.0.0",
+        // version: "0.0.0",
         title: "HOP: HbbTV Open Platform",
         container: "#app",
         locale: "fa",
