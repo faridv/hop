@@ -54,16 +54,17 @@ export default class AppManager {
         const template = (appData.hasHub) ? this.buttonTemplate : this.template.load('controls', controlType);
         const button = appData.button;
         this.template.render(template, appData, this.$el, 'append', (element) => {
+
+            // Add application initialization key event
+            const inputParams = {key: 'app.' + button.key, title: 'init'};
+            self.input.addEvent(button.key, true, inputParams, () => {
+                self.initializeApplication(appData);
+            });
+
             // Show button after intentional delay time
             setTimeout(() => {
                 const $buttonElement = $(element).find('[class*="button-"]');
                 self.template.addClass('show', $buttonElement);
-
-                // Add application initialization key event
-                const inputParams = {key: 'app.' + button.key, title: 'init'};
-                self.input.addEvent(button.key, true, inputParams, () => {
-                    self.initializeApplication(appData);
-                });
 
                 // Hide button after the configured time
                 setTimeout(() => {
