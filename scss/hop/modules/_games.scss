@@ -1,7 +1,7 @@
 .module.games {
-    max-height: 100%; overflow: hidden;
+    height: 100%; max-height: 100%; overflow: hidden; display: flex;
     ul {
-        list-style: none; padding: 0; height: 100%; overflow: hidden; overflow-y: auto;
+        list-style: none; padding: 0; height: 100%; overflow: hidden; // overflow-y: auto;
         li {
             @include clearfix;
             height: 160px; clear: both;
