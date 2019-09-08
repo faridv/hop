@@ -1,3 +1,5 @@
 .app-initializer {
-    position: absolute;
+    position: absolute; transition: 0.35s all;
+    &.fade { visibility: hidden; opacity: 0; }
+    &.show { visibility: visible !important; opacity: 1 !important; }
 }
