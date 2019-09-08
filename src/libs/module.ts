@@ -60,6 +60,7 @@ export abstract class Module implements IModule {
 
     destroy(instance?: any): boolean {
         const self = typeof instance !== 'undefined' ? instance : this;
+        this.templateHelper.loading(false);
         return this.destroyEvents(self);
     }
 
