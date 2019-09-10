@@ -127,6 +127,9 @@ export class PlayerService {
 
     public reInitBroadcast() {
         const $tv = this.getBroadcastVideo();
+        if (typeof videojs('tv-stream') !== 'undefined') {
+            videojs('tv-stream').muted(false);
+        }
         try {
             $tv.muted = false;
         } catch (e) {
@@ -152,6 +155,9 @@ export class PlayerService {
 
     public disableBroadcast() {
         const $tv = this.getBroadcastVideo();
+        if (typeof videojs('tv-stream') !== 'undefined') {
+            videojs('tv-stream').muted(true);
+        }
         try {
             $tv.muted = true;
         } catch (e) {
