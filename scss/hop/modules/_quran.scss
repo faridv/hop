@@ -57,7 +57,7 @@
 }
 #surah {
     transition: 0.3s all; opacity: 1; visibility: visible; font-size: 1.5rem;
-    width: 100%; height: 100%; position: fixed; top: 0; left: 0; background: #f7fce3; padding: 50px 50px 55px;
+    width: 100%; height: 100%; position: fixed; top: 0; left: 0; background: #f7fce3; border: 50px solid #f7fce3; border-bottom-width: 55px;
     &:empty { opacity: 0; visibility: hidden; }
     font-family: 'Scheherazade', 'Quran', 'Uthmani', serif;
     .surah-header {
@@ -67,7 +67,7 @@
 
     $line-height: 72px;
 
-    .active-line { position: fixed; top: 235px; width: 100%; height: $line-height; background: darken(#f7fce3, 5%); left: 0; z-index: 1; }
+    .active-line { position: fixed; top: 0px; width: 100%; height: $line-height; background: darken(#f7fce3, 5%); left: 0; z-index: 1; }
     .surah-body {
         font-size: 48px; line-height: $line-height; text-align: justify; position: relative; z-index: 20;
         span {
@@ -83,7 +83,7 @@
         position: relative; right: 50%; transform: translateX(50%); padding: 20px 40px; margin-bottom: 30px;
     }
     .edition {
-        max-height: 100%; overflow: hidden; visibility: hidden; opacity: 0; transition: 0.2s all; height: 0;
+        max-height: 100%; overflow: scroll; visibility: hidden; opacity: 0; transition: 0.2s all; height: 0;
         position: relative;
         &.active { opacity: 1; visibility: visible; height: auto; padding-bottom: 30px; }
     }

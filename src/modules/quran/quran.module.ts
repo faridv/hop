@@ -65,11 +65,11 @@ export default class QuranModule extends Module {
             $next.addClass('active');
             const distance = $next.offset().top - $el.offset().top + $el.scrollTop();
             if (~~$el.scrollTop() !== ~~distance)
-                $el.animate({'scrollTop': ~~distance});
+                $el.stop().animate({'scrollTop': ~~distance});
         } else {
             const $first = $el.find('li').eq(0);
             $first.addClass('active');
-            $el.animate({'scrollTop': 0});
+            $el.stop().animate({'scrollTop': 0});
         }
     }
 
@@ -125,10 +125,16 @@ export default class QuranModule extends Module {
                 $('.edition').toggleClass('active');
             });
             this.input.addEvent('up', false, this.events['quran.up'], () => {
-                $('.edition.active').animate({scrollTop: '-=' + self.getAyahLineHeight()}, 300);
+                const position = $('.edition.active').scrollTop() - self.getAyahLineHeight();
+                console.log($('.edition.active').scrollTop(), self.getAyahLineHeight(), position);
+                $('.edition.active').animate({
+                    scrollTop: position <= 0 ? 0 : position
+                }, 300);
             });
             this.input.addEvent('down', false, this.events['quran.down'], () => {
-                $('.edition.active').animate({scrollTop: '+=' + self.getAyahLineHeight()}, 300);
+                const position = $('.edition.active').scrollTop() + self.getAyahLineHeight();
+                console.log($('.edition.active').scrollTop(), self.getAyahLineHeight(), position);
+                $('.edition.active').animate({scrollTop: position}, 300);
             });
         }
     }
@@ -137,11 +143,11 @@ export default class QuranModule extends Module {
         const $highlight = $('.active-line:first');
         const $surahBody = $('.surah-body');
         if ($('.surah-header').offset().top > 30)
-            $highlight.animate({'top': $surahBody.offset().top});
+            $highlight.css({'top': $surahBody.offset().top});
     }
 
-    getAyahLineHeight(): string {
-        return $('.edition.active').find('.surah-body').css('line-height') + 2;
+    getAyahLineHeight(): number {
+        return parseInt($('.edition.active').find('.surah-body').css('line-height'));
     }
 
     unloadSurah(): void {
