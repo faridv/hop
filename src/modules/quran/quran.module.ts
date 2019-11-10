@@ -125,16 +125,18 @@ export default class QuranModule extends Module {
                 $('.edition').toggleClass('active');
             });
             this.input.addEvent('up', false, this.events['quran.up'], () => {
-                const position = $('.edition.active').scrollTop() - self.getAyahLineHeight();
-                console.log($('.edition.active').scrollTop(), self.getAyahLineHeight(), position);
-                $('.edition.active').animate({
+                const $edition = $('.edition.active');
+                const position = $edition.scrollTop() - self.getAyahLineHeight();
+                console.log($edition.scrollTop(), self.getAyahLineHeight(), position);
+                $edition.animate({
                     scrollTop: position <= 0 ? 0 : position
                 }, 300);
             });
             this.input.addEvent('down', false, this.events['quran.down'], () => {
-                const position = $('.edition.active').scrollTop() + self.getAyahLineHeight();
-                console.log($('.edition.active').scrollTop(), self.getAyahLineHeight(), position);
-                $('.edition.active').animate({scrollTop: position}, 300);
+                const $edition = $('.edition.active');
+                const position = $edition.scrollTop() + self.getAyahLineHeight();
+                console.log($edition.scrollTop(), self.getAyahLineHeight(), position);
+                $edition.animate({scrollTop: position}, 300);
             });
         }
     }
