@@ -1,6 +1,6 @@
 import Store from "../_utilities/storage.utility";
 import * as $ from 'jquery';
-import { DeviceConfig } from "../_models/device-config.model";
+import {DeviceConfig} from "../_models/device-config.model";
 import Application from "./app-manager";
 import LogHelper from '../_helpers/log.helper';
 import {Registry} from '../libs/registry';
@@ -114,23 +114,23 @@ export default class Bootstrap {
                 // console.error('Problem initializing application', error);
             }
 
-            if ($$video.currentChannel) {
-                try {
-                    $$video.setFullScreen(true);
-                } catch (e) {
-                    // console.error('Error switching to fullscreen', e);
-                    // self.log.error('Cannot switch to fullscreen');
-                }
-                try {
-                    $$video.bindToCurrentChannel();
-                } catch (e) {
-                    self.log.error('cannot bind to current channel');
-                    // console.error('Error bind element to current channel', e);
-                }
-            } else {
-                self.log.error('cannot determine current channel');
-                // console.error('Cannot determine current channel.');
+            // if ($$video.currentChannel) {
+            try {
+                $$video.setFullScreen(true);
+            } catch (e) {
+                // console.error('Error switching to fullscreen', e);
+                // self.log.error('Cannot switch to fullscreen');
             }
+            try {
+                $$video.bindToCurrentChannel();
+            } catch (e) {
+                self.log.error('cannot bind to current channel');
+                // console.error('Error bind element to current channel', e);
+            }
+            // } else {
+            //     self.log.error('cannot determine current channel');
+            //     // console.error('Cannot determine current channel.');
+            // }
 
             self.setKeySet(0x1 + 0x2 + 0x4 + 0x8); // Colors
             callback();
