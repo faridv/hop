@@ -1,9 +1,22 @@
-# <Files "index.html">
+<Files "index.html">
+	Header set X-Powered-By "HOP"
+	RewriteCond %{HTTP_USER_AGENT} (HbbTV) [NC]  
+	RewriteRule ^.*$ - [ENV=HBBTV:Yes]
+
+	<If "%{HTTP_USER_AGENT} =~ /(HbbTV)/">
+		Header set Content-Type 'application/vnd.hbbtv.xhtml+xml; charset=UTF-8'
+		ForceType 'application/vnd.hbbtv.xhtml+xml; charset=UTF-8'
+		Header set X-Powered-By "HOP for TV"
+	</If>
+</Files>
+
 # ForceType 'application/vnd.hbbtv.xhtml+xml; charset=UTF-8'
-# </Files>
-Header unset X-Powered-By
+# Header unset X-Powered-By
+
 AddDefaultCharset utf-8
 SetEnv TZ Asia/Tehran
+
+Header unset Server
 ServerSignature Off
 
 # ----------------------------------------------------------------------
