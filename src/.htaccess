@@ -1,3 +1,7 @@
+# ----------------------------------------------------------------------
+# Proper content type for HbbTV receivers
+# ----------------------------------------------------------------------
+# If user agent contains "HbbTV" keyword, senf vnd.hbbtv content type
 <Files "index.html">
 	Header set X-Powered-By "HOP"
 	RewriteCond %{HTTP_USER_AGENT} (HbbTV) [NC]  
