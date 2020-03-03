@@ -104,7 +104,7 @@
     };
 
     var KeyEvent = typeof window['KeyEvent'] !== 'undefined' ? window['KeyEvent'] : {};
-
+/*
     KeyEvent.VK_ENTER = KeyEvent.VK_ENTER || 13;
     KeyEvent.VK_BACK = KeyEvent.VK_BACK || 461;
 
@@ -137,11 +137,12 @@
     KeyEvent.VK_TOEND = KeyEvent.VK_TOEND || 425;
     KeyEvent.VK_FAST_FWD = KeyEvent.VK_FAST_FWD || 417;
     KeyEvent.VK_REWIND = KeyEvent.VK_REWIND || 412;
+    */
     var _HbbTVEvents = {
-        red: KeyEvent.VK_RED || 116,
-        green: KeyEvent.VK_GREEN || 117,
-        yellow: KeyEvent.VK_YELLOW || 118,
-        blue: KeyEvent.VK_BLUE || 119,
+        red: KeyEvent.VK_RED || 403, // 116
+        green: KeyEvent.VK_GREEN || 404, // 117
+        yellow: KeyEvent.VK_YELLOW || 405, // 118
+        blue: KeyEvent.VK_BLUE || 406, // 119
 
         left: KeyEvent.VK_LEFT || 37,
         up: KeyEvent.VK_UP || 38,
