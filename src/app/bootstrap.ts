@@ -107,7 +107,7 @@ export default class Bootstrap {
                     self.log.info('application activate()');
                 } catch (error) {
                     /* this is for HbbTV 0.5 backwards-compliance. It will throw an ignored exception on HbbTV 1.x devices, which is fine */
-                    // ignore
+                    // self.log.error('application activate() for HbbTV 0.5 failed');
                 }
             } catch (error) {
                 self.log.error('problem initializing application');
@@ -119,7 +119,7 @@ export default class Bootstrap {
                 $$video.setFullScreen(true);
             } catch (e) {
                 // console.error('Error switching to fullscreen', e);
-                // self.log.error('Cannot switch to fullscreen');
+                self.log.error('Cannot switch to fullscreen');
             }
             try {
                 $$video.bindToCurrentChannel();
