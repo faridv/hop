@@ -8,6 +8,7 @@ import NewsModule from './modules/news/news.module';
 import ProgramModule from './modules/program/program.module';
 import MarketModule from './modules/market/market.module';
 import QuranModule from './modules/quran/quran.module';
+import TehranAirModule from "./modules/tehran-air/tehran-air.module";
 
 export const modules = {
     'prayer-times': PrayerTimesModule,
@@ -20,4 +21,5 @@ export const modules = {
     'vod': ProgramModule,
     'market': MarketModule,
     'quran': QuranModule,
+    'tehran-air': TehranAirModule,
 };

@@ -18,11 +18,11 @@
     "license": "MIT",
     "devDependencies": {
         "@types/jasmine": "^2.8.16",
-        "@types/jquery": "^3.3.31",
         "@types/node": "^10.17.14",
+        "@types/jquery": "^3.3.33",
         "@types/slick-carousel": "^1.6.34",
         "awesome-typescript-loader": "^5.2.0",
-        "copy-webpack-plugin": "^4.6.0",
+        "copy-webpack-plugin": "^5.1.1",
         "cross-env": "^5.2.1",
         "css-loader": "^1.0.1",
         "cypress": "^3.8.3",
@@ -52,9 +52,10 @@
         "webpack-dev-server": "^3.10.2"
     },
     "dependencies": {
-        "handlebars": "^4.7.2",
+		"handlebars": "^4.7.3",
         "jquery": "^3.4.1",
-        "moment-jalaali": "^0.8.3",
+        "logrocket": "^1.0.6",
+        "moment-jalaali": "^0.9.1",
         "prayer-times": "^0.1.0",
         "slick-carousel": "^1.8.1"
     }

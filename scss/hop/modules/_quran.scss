@@ -83,7 +83,7 @@
         position: relative; right: 50%; transform: translateX(50%); padding: 20px 40px; margin-bottom: 30px;
     }
     .edition {
-        max-height: 100%; overflow: scroll; visibility: hidden; opacity: 0; transition: 0.2s all; height: 0;
+        max-height: 100%; overflow: hidden; visibility: hidden; opacity: 0; transition: 0.2s all; height: 0;
         position: relative;
         &.active { opacity: 1; visibility: visible; height: auto; padding-bottom: 30px; }
     }

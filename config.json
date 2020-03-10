@@ -1,5 +1,5 @@
 {
-	"title": "HOP: HbbTV Open Platform",
+    "title": "HOP: HbbTV Open Platform",
     "container": "#app",
     "locale": "fa",
     "timezone": "Asia/Tehran",
@@ -31,10 +31,11 @@
             "media": "media",
             "market.labels": "market/labels",
             "market.data": "market/data",
-            "quran": "quran"
+            "quran": "quran",
+			"tehran-air": "tehran-air/{type}"
         }
     },
-	"applications": [
+    "applications": [
         {
             "button": {
                 "key": "red,r",
@@ -47,6 +48,11 @@
             "theme": "default",
             "layout": "iktv",
             "modules": [
+                {
+                    "title": "کیفیت هوای تهران",
+                    "type": "tehran-air",
+                    "icon": "dust"
+                },
                 {
                     "title": "برنامه‌ها",
                     "type": "vod",
@@ -94,5 +100,5 @@
                 }
             ]
         }
-	]
+    ]
 }
