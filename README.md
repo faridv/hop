@@ -30,8 +30,8 @@ For production, run `npm run build:prod` and copy the contents of `dist` folder 
 Test are being done using both Karma+Jasmine and Cypress. Currently I've added Cypress as a dependency in `package.json` thus installing the application might take a while, since Cypress will download and install its binaries. You can remove Cypress from dependencies if it takes to long to install the application.
 
 ### Browser Tests
-This application is being tested using BrowserStack.
+This application is being cross-browser tested using BrowserStack.
 
 <a href="https://www.browserstack.com" target="_blank" title="BrowserStack">
-	<img width="250" src="https://p14.zdusercontent.com/attachment/1015988/T9xPfWK3jeCpq4jAw3Eb0xo66?token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..SmZuUZvaL7M8qtX6AXUc9g.ScXz5PUZKRwpR2qogyEEjMSHtqCIH0iXktOC5_D4qSrkGBHj1p-wjy0xvs9eB7jpF3-S9w5d8rKo6BR2GIpQG_r9h9WK7UTrl3xT51eHDeXyVFL3TdpMRgIpFkceZzs2drLBJN8C2ubHhU0t2F9i2rJPuCXOoVTjIT9rXbGbLd5DiHcOjrG20hV_vY1e6QSJa5hDx5fniFfMKpchGtssdMg4zVIsyHBFdvBiAlQhmRBQD31FmkMK2ESOm0-qGcfRdQTTyq8N8L5bWAD7epPZCbWxMp3aGdt0fyr0TBYEzv4.tJM-NnNqZx0tewAF6cC1tA" />
+	<img width="200" src="https://p14.zdusercontent.com/attachment/1015988/T9xPfWK3jeCpq4jAw3Eb0xo66?token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..SmZuUZvaL7M8qtX6AXUc9g.ScXz5PUZKRwpR2qogyEEjMSHtqCIH0iXktOC5_D4qSrkGBHj1p-wjy0xvs9eB7jpF3-S9w5d8rKo6BR2GIpQG_r9h9WK7UTrl3xT51eHDeXyVFL3TdpMRgIpFkceZzs2drLBJN8C2ubHhU0t2F9i2rJPuCXOoVTjIT9rXbGbLd5DiHcOjrG20hV_vY1e6QSJa5hDx5fniFfMKpchGtssdMg4zVIsyHBFdvBiAlQhmRBQD31FmkMK2ESOm0-qGcfRdQTTyq8N8L5bWAD7epPZCbWxMp3aGdt0fyr0TBYEzv4.tJM-NnNqZx0tewAF6cC1tA" />
 </a>
