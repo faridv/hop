@@ -21,7 +21,7 @@ export class PlayerService {
         'player.play': {key: 'player.play', title: 'ادامه پخش', icon: 'play', button: true},
         'player.pause': {key: 'player.pause', title: 'توقف', icon: 'pause', button: true},
         'player.ffw': {key: 'player.ffw', title: 'جلو', icon: 'forward', button: true},
-        'player.rewind': {key: 'player.ffw', title: 'جلو', icon: 'forward', button: true},
+        'player.rewind': {key: 'player.rewind', title: 'عقب', icon: 'backward', button: true},
         'player.stop': {key: 'player.stop', title: 'بازگشت', icon: 'stop', button: true},
     };
     private defaultOptions = {
