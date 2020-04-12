@@ -7,6 +7,7 @@ import ClockHelper from "../_helpers/clock.helper";
 import ConnectionHelper from "../_helpers/connection.helper";
 import ScreenLayout from "./layouts/screen.layout";
 import IKTVLayout from './layouts/iktv.layout';
+import PollLayout from './layouts/poll.layout';
 
 export default class Layouts {
 
@@ -65,6 +66,10 @@ export default class Layouts {
 
     private screen(): void {
         ScreenLayout.init(this.config, this.appData, this);
+    }
+
+    private poll(): void {
+        PollLayout.init(this.config, this.appData, this);
     }
 
     private getFooterItems() {
