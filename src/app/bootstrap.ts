@@ -67,8 +67,10 @@ export default class Bootstrap {
         }
 
         for (let i in applications) {
-            applications[i].modules = this.handleModules(applications[i].modules);
-            self.initializeApp(applications[i]);
+            if (typeof applications.hasOwnProperty(i) !== 'undefined') {
+                applications[i].modules = this.handleModules(applications[i].modules);
+                self.initializeApp(applications[i]);
+            }
         }
     }
 
