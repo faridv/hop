@@ -127,7 +127,6 @@ export default class QuranModule extends Module {
             this.input.addEvent('up', false, this.events['quran.up'], () => {
                 const $edition = $('.edition.active');
                 const position = $edition.scrollTop() - self.getAyahLineHeight();
-                console.log($edition.scrollTop(), self.getAyahLineHeight(), position);
                 $edition.animate({
                     scrollTop: position <= 0 ? 0 : position
                 }, 300);
@@ -135,7 +134,6 @@ export default class QuranModule extends Module {
             this.input.addEvent('down', false, this.events['quran.down'], () => {
                 const $edition = $('.edition.active');
                 const position = $edition.scrollTop() + self.getAyahLineHeight();
-                console.log($edition.scrollTop(), self.getAyahLineHeight(), position);
                 $edition.animate({scrollTop: position}, 300);
             });
         }
