@@ -11,7 +11,7 @@ declare let window: any;
 export default class Bootstrap {
 
     public log: LogHelper;
-    private config;
+    readonly config;
     private store;
     protected broadcastVideo: any;
     protected appManager: any;

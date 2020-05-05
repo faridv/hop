@@ -13,8 +13,8 @@
     "resolution": "720",
     "verbose": false,
     "log": false,
-    "autoStart": false,
-    "streamMode": false,
+    "autoStart": true,
+    "streamMode": true,
     "streamUrl": "http://test.livemedia.irib.ir/mdash/irankala-1m.stream/manifest.m3u8",
     "exitMethod": "hide",
     "api": {
@@ -33,7 +33,8 @@
             "market.data": "market/data",
             "quran": "quran",
 			"tehran-air": "tehran-air/{type}"
-        }
+        },
+		"pusher": "http://localhost:8080"
     },
     "applications": [
         {
@@ -42,61 +43,16 @@
                 "image": "assets/img/redbutton.png",
                 "position": "bottom: 120px; right: 60px;"
             },
-            "hasHub": true,
-            "clock": true,
-            "connectionStatus": true,
+            "hasHub": false,
+            "clock": false,
+            "connectionStatus": false,
             "theme": "default",
-            "layout": "iktv",
+            "layout": "poll",
             "modules": [
                 {
-                    "title": "کیفیت هوای تهران",
-                    "type": "tehran-air",
-                    "icon": "dust"
-                },
-                {
-                    "title": "برنامه‌ها",
-                    "type": "vod",
-                    "icon": "tv"
-                },
-                {
-                    "title": "آب و هوا",
-                    "type": "weather",
-                    "icon": "sun"
-                },
-                {
-                    "title": "اوقات شرعی",
-                    "type": "prayer-times",
-                    "icon": "sunrise"
-                },
-                {
-                    "title": "جدول پخش",
-                    "type": "schedule-carousel",
-                    "icon": "view_day"
-                },
-                {
-                    "title": "بازی‌ها",
-                    "type": "games",
-                    "icon": "gamepad"
-                },
-                {
-                    "title": "درباره برنامه",
-                    "type": "info",
-                    "icon": "info_outline"
-                },
-                {
-                    "title": "بازار",
-                    "type": "market",
-                    "icon": "line-graph"
-                },
-                {
-                    "title": "اخبار",
-                    "type": "news",
+                    "title": "نظرسنجی",
+                    "type": "poll",
                     "icon": "newspaper"
-                },
-                {
-                    "title": "قرآن کریم",
-                    "type": "quran",
-                    "icon": "book"
                 }
             ]
         }
