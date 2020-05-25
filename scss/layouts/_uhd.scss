@@ -1,0 +1,94 @@
+.layout-uhd {
+    transform: none !important;
+    #menu {
+        position: absolute; bottom: 50px; width: 100%;
+        ul {
+            margin: 0; padding: 0; list-style: none;
+            li {
+                width: 160px; height: 180px; text-align: center; background: #292940; padding: 30px 10px 0; color: #fff;
+                position: relative; z-index: 12; transition: 0.2s all;
+
+                h3 { font-size: 1.3rem; }
+                a { text-decoration: none; color: #fff; display: inline-block; }
+                .glyphicon { font-size: 42px; }
+
+                &:before, &:after {
+                    display: block; content: ''; width: 0; height: 200%; border: 180px solid transparent; transition: 0.2s all;
+                    position: absolute; top: 0; right: -39px; border-left-width: 0; border-right-width: 40px; z-index: 800;
+                }
+                &:after { right: auto; left: -39px; border-left-width: 40px; border-right-width: 0; border-top-width: 0; top: -100%; }
+
+                &[data-type="weather"] {
+                    background: #CC0000;
+                    &:before { border-top-color: #CC0000; }
+                    &:after { border-bottom-color: #CC0000; }
+                }
+
+                &[data-type="prayer-times"] {
+                    background: #FF8800;
+                    &:before { border-top-color: #FF8800; }
+                    &:after { border-bottom-color: #FF8800; }
+                }
+
+                &[data-type="games"] {
+                    background: #9933CC;
+                    &:before { border-top-color: #9933CC; }
+                    &:after { border-bottom-color: #9933CC; }
+                }
+
+                &[data-type="news"] {
+                    background: #0d47a1;
+                    &:before { border-top-color: #0d47a1; }
+                    &:after { border-bottom-color: #0d47a1; }
+                }
+
+                &[data-type="quran"] {
+                    background: #007E33;
+                    &:before { border-top-color: #007E33; }
+                    &:after { border-bottom-color: #007E33; }
+                }
+
+                &[data-type="market"] {
+                    background: #0099CC;
+                    &:before { border-top-color: #0099CC; }
+                    &:after { border-bottom-color: #0099CC; }
+                }
+
+                &[data-type="info"] {
+                    background: #292940;
+                    &:before { border-top-color: #292940; }
+                    &:after { border-bottom-color: #292940; }
+                }
+            }
+        }
+        .slick-list {
+            overflow: visible;
+        }
+        .slick-slide {
+            //> div { padding: 10px; }
+            margin-left: 40px;
+        }
+        .slick-current {
+            &.slick-active {
+                li {
+                    //background: #c10c08;
+                    transform: scale(1.1); z-index: 80;
+                }
+            }
+        }
+        .slick-arrow { display: none !important; }
+
+        &.out { display: none; }
+    }
+    #content {
+        background: transparent;
+        width: 100%; height: 100%; position: absolute; top: 0; left: 0;
+        transition: 0.5s all; margin-top: 0; opacity: 1; visibility: visible;
+        &:empty { margin-top: 100px; opacity: 0; visibility: hidden; }
+        &.fullscreen { padding: 0; width: 100%; height: 100%; }
+        &.half { width: 45%; left: 25%; height: 45%; }
+
+    }
+    .module { background: rgba(255, 255, 255, 0.8); padding: $grid-gutter-width * 2; }
+    .slick-list { overflow: hidden; }
+}

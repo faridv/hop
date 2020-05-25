@@ -8,6 +8,7 @@ import ConnectionHelper from "../_helpers/connection.helper";
 import ScreenLayout from "./layouts/screen.layout";
 import IKTVLayout from './layouts/iktv.layout';
 import PollLayout from './layouts/poll.layout';
+import UHDLayout from './layouts/uhd.layout';
 
 export default class Layouts {
 
@@ -54,6 +55,10 @@ export default class Layouts {
 
     private iktv(): void {
         IKTVLayout.init(this.config, this.appData, this);
+    }
+
+    private uhd(): void {
+        UHDLayout.init(this.config, this.appData, this);
     }
 
     private carousel(): void {

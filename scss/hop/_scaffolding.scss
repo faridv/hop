@@ -2,6 +2,7 @@ html { overflow: hidden; }
 
 body {
     overflow: hidden; // transition: $transition-default;
+    transform: none !important;
     &.rtl {
         direction: rtl; text-align: right;
     }

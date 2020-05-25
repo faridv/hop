@@ -10,11 +10,11 @@
     "theme": "default",
     "mediaPlayer": "videojs",
     "hd": true,
-    "resolution": "720",
+    "resolution": "2160",
     "verbose": false,
     "log": false,
-    "autoStart": true,
-    "streamMode": true,
+    "autoStart": false,
+    "streamMode": false,
     "streamUrl": "http://test.livemedia.irib.ir/mdash/irankala-1m.stream/manifest.m3u8",
     "exitMethod": "hide",
     "api": {
@@ -40,19 +40,49 @@
         {
             "button": {
                 "key": "red,r",
-                "image": "assets/img/redbutton.png",
+                "image": "assets/img/redbutton_sm.png",
                 "position": "bottom: 120px; right: 60px;"
             },
-            "hasHub": false,
-            "clock": false,
-            "connectionStatus": false,
+            "hasHub": true,
+            "clock": true,
+            "connectionStatus": true,
             "theme": "default",
-            "layout": "poll",
+            "layout": "uhd",
             "modules": [
                 {
-                    "title": "نظرسنجی",
-                    "type": "poll",
+                    "title": "آب و هوا",
+                    "type": "weather",
+                    "icon": "sun"
+                },
+                {
+                    "title": "اوقات شرعی",
+                    "type": "prayer-times",
+                    "icon": "sunrise"
+                },
+                {
+                    "title": "بازی‌ها",
+                    "type": "games",
+                    "icon": "gamepad"
+                },
+                {
+                    "title": "درباره برنامه",
+                    "type": "info",
+                    "icon": "info_outline"
+                },
+                {
+                    "title": "بازار",
+                    "type": "market",
+                    "icon": "line-graph"
+                },
+                {
+                    "title": "اخبار",
+                    "type": "news",
                     "icon": "newspaper"
+                },
+                {
+                    "title": "قرآن کریم",
+                    "type": "quran",
+                    "icon": "book"
                 }
             ]
         }
