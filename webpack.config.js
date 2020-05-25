@@ -37,10 +37,12 @@ const plugins = [
             }
         }
     }),
-    new CopyWebpackPlugin([
-        {from: './assets', to: 'assets/'},
-        {from: '.htaccess'}
-    ])
+    new CopyWebpackPlugin({
+        patterns: [
+            {from: './assets', to: 'assets/'},
+            {from: '.htaccess'}
+        ]
+    })
 ];
 
 var config = {
