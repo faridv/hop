@@ -78,7 +78,7 @@ export default class BlockrainGame {
     private destroy(): void {
         const self = this;
         this.unloadDependencies();
-        this.input.removeEvent('stop,s', {key: '2048.stop'});
+        this.input.removeEvent('stop,s', {key: 'blockrain.exit'});
         this.$el.fadeOut(100, () => {
             self.$el.empty();
             self.gamesModule.reInit();

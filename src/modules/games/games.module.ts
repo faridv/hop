@@ -1,8 +1,8 @@
 import * as GamesConfig from './games.config.json';
+import {Module} from '../../libs/module';
 import Game2048 from './2048/2048.game';
 import BlockrainGame from "./blockrain/blockrain.game";
-import {Module} from '../../libs/module';
-import MazeGame from './maze/maze.game';
+import TowerGame from './tower/tower.game';
 
 export default class GamesModule extends Module {
 
@@ -70,8 +70,8 @@ export default class GamesModule extends Module {
             case 'blockrain':
                 gameObject = BlockrainGame;
                 break;
-            case 'maze':
-                gameObject = MazeGame;
+            case 'tower':
+                gameObject = TowerGame;
         }
         new gameObject(this);
     }

@@ -73,7 +73,7 @@ var config = {
                     loader: 'istanbul-instrumenter-loader',
                     exclude: [/\/node_modules\//],
                     query: {
-                        esModules: true
+                        esModules: false
                     }
                 }
                 : null,
