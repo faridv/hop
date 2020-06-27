@@ -290,7 +290,7 @@
         var mods = [];
         var obj = void 0;
 
-        console.warn('unbind', key, JSON.stringify(getKeys(key)), data.key);
+        console.log('unbind', key, JSON.stringify(getKeys(key)), data.key);
 
         for (var i = 0; i < multipleKeys.length; i++) {
             // Split the combined shortcut into an array
@@ -453,7 +453,7 @@
         }
 
         // console.log(data);
-        console.warn('bind', key, JSON.stringify(keys), data.key);
+        console.log('bind', key, JSON.stringify(keys), data.key);
     }
 
     var _api = {
