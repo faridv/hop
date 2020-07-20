@@ -10,7 +10,7 @@
     "theme": "default",
     "mediaPlayer": "videojs",
     "hd": true,
-    "resolution": "2160",
+    "resolution": "720",
     "verbose": false,
     "log": false,
     "autoStart": false,

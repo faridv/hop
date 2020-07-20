@@ -3,6 +3,7 @@ import {Module} from '../../libs/module';
 import Game2048 from './2048/2048.game';
 import BlockrainGame from "./blockrain/blockrain.game";
 import TowerGame from './tower/tower.game';
+import * as $ from 'jquery';
 
 export default class GamesModule extends Module {
 
@@ -24,20 +25,21 @@ export default class GamesModule extends Module {
     }
 
     reInit() {
+        this.layoutInstance.prepareUnloadModule(this);
         this.registerKeyboardInputs();
         this.render(GamesConfig);
     }
 
     render(games, callback?) {
         const template = require('./games.template.html');
-        this.templateHelper.render(template, {items: games}, this.$el, 'html', function () {
+        this.templateHelper.render(template, {items: games}, this.$el, 'html', () => {
             if (typeof callback === 'function')
                 callback(games);
         });
     }
 
     setActive(which: string): void {
-        const $current = $('.game-items li.active');
+        const $current = $('.game-items').find('li.active').length ? $('.game-items li.active') : $('.game-items li:first');
         let $el;
         this.templateHelper.removeClass('active', $current);
         if (which === 'next') {
@@ -74,6 +76,7 @@ export default class GamesModule extends Module {
                 gameObject = TowerGame;
         }
         new gameObject(this);
+        this.input.removeEvent('back,backspace', {key: 'module.exit'});
     }
 
     registerKeyboardInputs() {
