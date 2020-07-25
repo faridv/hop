@@ -6,6 +6,7 @@ export class News {
     text: string;
     categories?: any;
     thumbnail: NewsMedia[];
+    media: string;
 }
 
 export class NewsMedia {

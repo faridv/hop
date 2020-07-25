@@ -1,4 +1,4 @@
-<div class="inner">
+<div class="news-details inner" data-media="{{data.media}}">
     <h3>{{data.title}}</h3>
     <figure>
         <img src="{{data.thumbnail.url}}" alt="{{data.thumbnail.desc}}">
@@ -9,4 +9,5 @@
         {{/each}}
     </div>
     {{{data.text}}}
+    <div id="mediaplayer"></div>
 </div>
