@@ -24,4 +24,7 @@ export const modules = {
     'quran': QuranModule,
     'tehran-air': TehranAirModule,
     'poll': PollModule,
+    'news-teaching': NewsModule,
+    'tourism': NewsModule,
+    'news-multimedia': NewsModule,
 };
