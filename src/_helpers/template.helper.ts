@@ -1,6 +1,6 @@
 import * as $ from 'jquery';
-import jqXHR = JQuery.jqXHR;
 import * as Handlebars from 'handlebars';
+import jqXHR = JQuery.jqXHR;
 // import * as Template7 from './template7.js';
 
 export default class TemplateHelper {
@@ -186,6 +186,8 @@ export default class TemplateHelper {
     private generateOutput(template: string, data: any, $container: any, mode: string = 'html', callback?: any) {
         const HandlebarsTemplate = Handlebars.compile(template);
         const output = HandlebarsTemplate(data);
+        if (!($container instanceof $))
+            $container = $($container[0]);
         if (mode === 'html')
             $container.empty();
         $container[mode](output).promise().done(function ($parent) {
