@@ -28,7 +28,7 @@ export default class IKTVLayout {
 
     public static initialize(config, $el, LayoutInstance: Layouts): void {
         IKTVLayout.handleEvents($el, config, LayoutInstance);
-        let slidesToShow = 5;
+        let slidesToShow = 7;
         if (!$el.is(':visible'))
             $el.show(1);
         if ($el.find('> li').length <= slidesToShow) {
