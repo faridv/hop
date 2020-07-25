@@ -19,18 +19,15 @@ export class ScriptLoaderService {
      * @param loadOnce
      * @returns {Promise<any[]>}
      */
-    loadScripts(tag, scripts, loadOnce?: boolean): Promise<any> {
+    public loadScripts(tag, scripts, loadOnce?: boolean): Promise<any> {
         loadOnce = loadOnce || false;
-
         scripts.forEach((script: string) => {
             if (!this._scripts[script]) {
                 this._scripts[script] = {src: script, loaded: false};
             }
         });
-
         let promises: any[] = [];
-        scripts.forEach(
-            (script) => promises.push(this.loadScript(tag, script, loadOnce)));
+        scripts.forEach((script) => promises.push(this.loadScript(tag, script, loadOnce)));
 
         return Promise.all(promises);
     }
@@ -42,34 +39,30 @@ export class ScriptLoaderService {
      * @param loadOnce
      * @returns {Promise<any>}
      */
-    loadScript(tag, src: string, loadOnce?: boolean): Promise<any> {
+    public loadScript(tag, src: string, loadOnce?: boolean): Promise<any> {
         loadOnce = loadOnce || false;
-
         if (!this._scripts[src]) {
             this._scripts[src] = {src: src, loaded: false};
         }
-
         return new Promise((resolve, reject) => {
             // resolve if already loaded
             if (this._scripts[src].loaded && loadOnce) {
                 resolve({src: src, loaded: true});
-            }
-            else {
+            } else {
                 // load script tag
                 let scriptTag = $('<script/>').attr('type', 'text/javascript').attr('src', this._scripts[src].src);
-
                 $(tag).append(scriptTag);
-
                 this._scripts[src] = {src: src, loaded: true};
                 resolve({src: src, loaded: true});
             }
         });
     }
 
-    unloadScript(tag: string, src: string): Promise<any> {
+    public unloadScript(tag: string, src: string): Promise<any> {
         return new Promise((resolve, reject) => {
             if (this._scripts[src]) {
-                $(tag).find('script[src="' + src + '"]');
+                const $tag = $(tag).find('script[src="' + src + '"]');
+                $tag.remove();
                 delete this._scripts[src];
                 resolve({src: src, loaded: false});
             } else {
