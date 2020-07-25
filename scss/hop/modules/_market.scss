@@ -3,11 +3,18 @@
     //display: flex;
     .market-items {
         list-style: none; margin: 0; padding: 0;
-        li {
-            background: #333; padding: 8px 16px; margin-bottom: 2px; position: relative; height: 40px;
-            &.active { border-right: 4px solid #2cb379; }
-            &.current {
+        .slick-list {
+            padding: 0 !important; max-height: 630px;
+        }
+        .slick-slide {
+        //li {
+            background: #333; padding: 8px 16px; margin-bottom: 2px; position: relative; height: 40px; overflow: visible;
+            //&.active { border-right: 4px solid #2cb379; }
+            //&.slick-active { border-right: 4px solid #2cb379; }
+            //&.current {
+            &.slick-current {
                 background: #666;
+                border-right: 4px solid #2cb379;
                 &:before {
                     display: block; content: ''; position: absolute; left: -20px; top: 50%; width: 0; height: 0; transform: translateY(-50%);
                     border-right: 20px solid #666; border-bottom: 20px solid transparent; border-top: 20px solid transparent;

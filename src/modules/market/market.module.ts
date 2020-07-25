@@ -16,87 +16,82 @@ export default class MarketModule extends Module {
         'market.more': {control: 'blue,b', title: 'ادامه'},
     };
 
-    constructor(config?, layoutInstance?) {
-        super(config, layoutInstance);
+    constructor(config?, layoutInstance?, moduleType?: string) {
+        super(config, layoutInstance, moduleType);
         this.service = MarketService.instance;
         this.events = this.prepareControls();
         this.load();
         return this;
     }
 
-    load(callback?: any) {
+    public load(callback?: any) {
         const self = this;
         this.templateHelper.loading();
         this.service.getLabels().done((data: any) => {
             self.data = data.data;
-            self.render(self.data, (data: Market[]) => {
+            self.render(self.data, ($carousel) => {
                 this.loadDetails();
-                this.registerKeyboardInputs();
+                this.registerKeyboardInputs($carousel);
                 // End loading
                 self.templateHelper.loading(false);
             });
         });
     }
 
-    render(data: Market[], callback?): void {
+    public render(data: Market[], callback?): void {
         const template = require(`${this.template.markets}`);
-        this.templateHelper.render(template, {items: data}, this.$el, 'html', function () {
+        this.templateHelper.render(template, {items: data}, this.$el, 'html', () => {
+            const $el = $('.market-items');
+            $el.slick({
+                slidesToShow: 14,
+                slidesToScroll: 1,
+                vertical: true,
+                centerMode: true,
+                lazyLoad: 'ondemand',
+            });
             if (typeof callback === 'function')
-                callback(data);
+                callback($el);
         });
     }
 
-    setActive(which: string): void {
-        const $current = $('ul.market-items li.active');
-        if (which === 'next') {
-            if ($current.next('li').length) {
-                this.templateHelper.addClass('active', $current.next('li'));
-                this.templateHelper.removeClass('active', $current);
-            }
-        } else {
-            if ($current.prev('li').length) {
-                this.templateHelper.addClass('active', $current.prev('li'));
-                this.templateHelper.removeClass('active', $current);
-            }
-        }
-    }
-
-    setCurrent($el: any = $('ul.market-items li.active')): void {
-        this.templateHelper.removeClass('current', $('ul.market-items li'));
-        this.templateHelper.addClass('current', $el);
+    private setCurrent($el: any = $('ul.market-items .slick-current')): void {
         this.loadDetails($el);
     }
 
-    registerKeyboardInputs(): void {
+    private registerKeyboardInputs($carousel): void {
         const self = this;
 
         this.input.addEvent('up', false, this.events['market.prev'], () => {
-            self.setActive('prev');
+            $carousel.slick('slickPrev');
         });
 
         this.input.addEvent('down', false, this.events['market.next'], () => {
-            self.setActive('next');
+            $carousel.slick('slickNext');
         });
 
         this.input.addEvent('enter', false, this.events['market.enter'], () => {
             self.setCurrent();
         });
-        $(document).on('click', "ul.market-items li", (e) => {
-            self.templateHelper.removeClass('active', $('ul.market-items li.active'));
-            this.templateHelper.addClass('active', $(e.target));
+        $(document).on('click', "ul.market-items .slick-slide", (e) => {
             self.setCurrent($(e.target));
         });
     }
 
-    loadDetails($item = $('ul.market-items li:first')): void {
+    private loadDetails($item?: any): void {
+        $item = typeof $item !== 'undefined' ? $item
+            : $('ul.market-items .slick-current').length
+                ? $('ul.market-items .slick-current')
+                : $('ul.market-items li:first');
         const self = this;
-        const pid = $item.attr('data-id');
+        const $li = $item.is('li') ? $item : $item.find('li');
+        const pid = $li.attr('data-id');
+
         this.templateHelper.loading();
         this.service.getData(pid).done((data: any) => {
             // Load item details
             const template = require(`${this.template['details']}`);
             const items = self.handleDetails(data.data);
-            const reference = $('ul.market-items li.current').attr('data-ref');
+            const reference = $li.attr('data-ref');
             this.templateHelper.render(template, {items: items, reference: reference}, $('#market-details'), 'html', () => {
                 //  End loading
                 self.templateHelper.loading(false);
@@ -111,7 +106,7 @@ export default class MarketModule extends Module {
         });
     }
 
-    handleDetails(items: Market[]): Market[] {
+    private handleDetails(items: Market[]): Market[] {
         items.forEach((item, index) => {
             item.difference = ~~item.value - ~~item.lastValue;
             item.up = item.down = false;
@@ -130,7 +125,7 @@ export default class MarketModule extends Module {
         return items;
     }
 
-    handleMore(): void {
+    private handleMore(): void {
         if ($('.page-2').length) {
             if ($('.page-2:first').is(':visible')) {
                 $('.page-2').hide(200, () => {
