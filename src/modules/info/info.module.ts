@@ -4,8 +4,8 @@ export default class InfoModule extends Module {
 
     template = './info.template.html';
 
-    constructor(config: object = {}, layoutInstance?) {
-        super(config, layoutInstance);
+    constructor(config: object = {}, layoutInstance?, moduleType?: string) {
+        super(config, layoutInstance, moduleType);
         this.render();
         return this;
     }

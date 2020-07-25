@@ -14,7 +14,7 @@ export default class WeatherModule {
     private $el = $('#content');
     private currentDate = moment();
 
-    constructor(config?, layoutInstance?) {
+    constructor(config?, layoutInstance?, moduleType?: string) {
         this.store = Store;
         this.template = TemplateHelper.instance;
         this.input = Inputs.instance;

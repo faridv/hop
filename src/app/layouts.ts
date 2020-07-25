@@ -114,7 +114,7 @@ export default class Layouts {
 
     public loadModule(moduleType: string, config: object = {}, skipUnload: boolean = false) {
         let module: any = null;
-        this.appData.modules.forEach((item) => {
+        this.appData.modules.forEach(item => {
             if (typeof item !== 'undefined') {
                 if (item.type === moduleType)
                     module = item._constructor;
@@ -123,7 +123,7 @@ export default class Layouts {
         if (!module)
             return;
 
-        const moduleInstance = this.currentModuleInstance = new module(config, this);
+        const moduleInstance = this.currentModuleInstance = new module(config, this, moduleType);
         if (!skipUnload)
             this.prepareUnloadModule(moduleInstance);
     }

@@ -23,8 +23,8 @@ export default class QuranModule extends Module {
         'quran.back': {control: 'back,backspace', title: 'بازگشت به سوره‌ها', icon: 'refresh'},
     };
 
-    constructor(config?, layoutInstance?) {
-        super(config, layoutInstance);
+    constructor(config?, layoutInstance?, moduleType?: string) {
+        super(config, layoutInstance, moduleType);
         this.service = QuranService.instance;
         this.events = this.prepareControls();
         this.load();

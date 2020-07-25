@@ -20,8 +20,8 @@ export default class ProgramModule extends Module {
         'program.enter': {'control': 'enter', title: 'نمایش قسمت‌ها', icon: 'enter'},
     };
 
-    constructor(config?, layoutInstance?) {
-        super(config, layoutInstance);
+    constructor(config?, layoutInstance?, moduleType?: string) {
+        super(config, layoutInstance, moduleType);
         this.service = ProgramService.instance;
         this.events = this.prepareControls();
         this.load();
@@ -31,18 +31,12 @@ export default class ProgramModule extends Module {
     load(callback?: any) {
         const self = this;
         this.templateHelper.loading();
-        console.time('fetching-programs');
         this.service.getLatest().done((data: DefaultResponse) => {
-            console.timeEnd('fetching-programs');
             self.data = data.data;
-            console.time('rendering-programs');
             self.render(self.data, (data: Program[]) => {
                 // End loading
-                console.timeEnd('rendering-programs');
                 self.templateHelper.loading(false);
-                console.time('init-slider');
                 self.initializeSlider();
-                console.timeEnd('init-slider');
             });
         });
     }
@@ -134,7 +128,6 @@ export default class ProgramModule extends Module {
     }
 
     removeProgramKeyboardEvents(callback?): void {
-        console.log('removing program events');
         this.input.removeEvent('enter', this.events['program.enter']);
         this.input.removeEvent('left', this.events['program.right']);
         this.input.removeEvent('right', this.events['program.left']);
@@ -196,7 +189,6 @@ export default class ProgramModule extends Module {
     }
 
     removeEpisodeKeyboardEvents(callback?, handleReturn: boolean = true): void {
-        console.log('removing episode events');
         this.input.removeEvent('up', this.events['program.up']);
         this.input.removeEvent('down', this.events['program.down']);
         this.input.removeEvent('enter', this.events['program.play']);

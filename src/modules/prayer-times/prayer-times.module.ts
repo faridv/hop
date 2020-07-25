@@ -15,8 +15,8 @@ export default class PrayerTimesModule extends Module {
         'location.next': {'control': 'down', key: 'location.next', title: 'شهر بعدی', icon: 'bottom', button: true},
     };
 
-    constructor(config?, layoutInstance?) {
-        super(config, layoutInstance);
+    constructor(config?, layoutInstance?, moduleType?: string) {
+        super(config, layoutInstance, moduleType);
         this.prayTimes = new PrayerTimes();
         this.prayTimes.setMethod('Tehran');
         this.events = this.prepareControls();

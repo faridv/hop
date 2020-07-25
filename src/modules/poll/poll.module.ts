@@ -17,8 +17,8 @@ export default class PollModule extends Module {
         'poll.4': {control: '4', title: '4'},
     };
 
-    constructor(config?, layoutInstance?) {
-        super(config, layoutInstance);
+    constructor(config?, layoutInstance?, moduleType?: string) {
+        super(config, layoutInstance, moduleType);
         this.declareSocket();
         this.listenForMessages();
         // this.registerKeyboardInputs();

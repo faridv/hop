@@ -13,8 +13,8 @@ export default class ScheduleCarouselModule extends Module {
         'schedule.enter': {'control': 'enter', title: 'پخش ویدیو', icon: 'enter'},
     };
 
-    constructor(config?, layoutInstance?) {
-        super(config, layoutInstance);
+    constructor(config?, layoutInstance?, moduleType?: string) {
+        super(config, layoutInstance, moduleType);
 
         moment.locale('en');
         this.currentDate = moment();

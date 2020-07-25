@@ -20,17 +20,19 @@ export abstract class Module implements IModule {
     protected layoutInstance: Layouts;
     protected playerService;
     protected playerInstance;
+    protected moduleType: string;
 
-    constructor(config, layoutInstance) {
+    constructor(config, layoutInstance, moduleType?: string) {
         this.config = config;
         this.layoutInstance = layoutInstance;
         this.templateHelper = TemplateHelper.instance;
         this.playerService = PlayerService;
         this.input = Inputs.instance;
         this.store = Store;
+        this.moduleType = typeof moduleType !== 'undefined' ? moduleType : null;
     }
 
-    prepareControls(): any {
+    public prepareControls(): any {
         let events = this.events;
         for (let key in events) {
             if (typeof events[key]['key'] === 'undefined')
@@ -43,22 +45,22 @@ export abstract class Module implements IModule {
         return events;
     }
 
-    load(...args: any[]): void {
+    public load(...args: any[]): void {
 
     }
 
-    render(data: any, callback?: any): void {
+    public render(data: any, callback?: any): void {
 
     }
 
-    destroyEvents(instance: any): boolean {
+    public destroyEvents(instance: any): boolean {
         for (let item in this.events) {
             instance.input.removeEvent(this.events[item]['control'], {key: item});
         }
         return true;
     }
 
-    destroy(instance?: any): boolean {
+    public destroy(instance?: any): boolean {
         const self = typeof instance !== 'undefined' ? instance : this;
         this.templateHelper.loading(false);
         return this.destroyEvents(self);
