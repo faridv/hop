@@ -5,8 +5,9 @@
             margin: 0; padding: 0; list-style: none;
             li {
                 a { text-decoration: none; color: #fff; display: inline-block; }
-                width: 160px; height: 180px; text-align: center; background: #292940; padding: 30px 10px 0; color: #fff;
-                .glyphicon { font-size: 48px; }
+                width: 150px; height: 140px; text-align: center; background: #292940; padding: 30px 10px 0; color: #fff;
+                .glyphicon { font-size: 42px; }
+                h3 { font-size: 1rem; }
             }
         }
         .slick-slide {
