@@ -14,8 +14,8 @@ export default class GamesModule extends Module {
         'games.enter': {control: 'enter', title: 'انتخاب', icon: 'enter'},
     };
 
-    constructor(config?, layoutInstance?) {
-        super(config, layoutInstance);
+    constructor(config?, layoutInstance?, moduleType?: string) {
+        super(config, layoutInstance, moduleType);
         const self = this;
         this.events = this.prepareControls();
         this.render(GamesConfig, () => {

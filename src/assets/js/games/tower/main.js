@@ -987,7 +987,7 @@
                 }), !1), document.addEventListener("touchmove", (function (t) {
                     f.touchMoveListener(t)
                 }), !1)) : (document.addEventListener("keydown", (function (t) {
-                    13 === t.which && f.touchStartListener(t)
+                    document.querySelector('#tower-game') && 13 === t.which && f.touchStartListener(t)
                 }), !1), document.addEventListener("mousedown", (function (t) {
                     f.touchStartListener(t)
                 }), !1), document.addEventListener("mouseup", (function (t) {
@@ -1484,7 +1484,7 @@
     }, X = function (t, e) {
         "ROTATE_LEFT" === t.status ? t.y - t.width >= e.height && (t.visible = !1, t.status = A, C(e)) : t.y >= e.height && (t.visible = !1, t.status = A, C(e))
     }, $ = function (t, e, n) {
-        var i = t, r = e.getVariable("ROPE_HEIGHT");
+        var i = t, r = typeof e !== 'undefined' ? e.getVariable("ROPE_HEIGHT") : 0;
         if (i.visible) {
             i.ready || (i.ready = !0, i.status = "SWING", t.updateWidth(e.getVariable("BLOCK_WIDTH")), t.updateHeight(e.getVariable("BLOCK_HEIGHT")), t.x = e.width / 2, t.y = -1.5 * r);
             var a = e.getInstance("line");

@@ -17,9 +17,7 @@ export default class TowerGame {
     private gameInstance: any;
 
     constructor(module: GamesModule) {
-
         const self = this;
-
         this.template = './tower.template.html';
         this.scriptLoader = ScriptLoaderService.instance;
         this.templateHelper = TemplateHelper.instance;
@@ -44,8 +42,8 @@ export default class TowerGame {
         let domReady = true;
         let canvasReady = false;
         // init window height and width
-        let gameWidth = window.innerWidth;
-        let gameHeight = window.innerHeight;
+        let gameWidth = $('#app').width();
+        let gameHeight = $('#app').height();
         if (gameHeight / gameWidth < ratio) {
             gameWidth = Math.ceil(gameHeight / ratio);
         }
@@ -118,7 +116,7 @@ export default class TowerGame {
         // game init with option
         function gameReady() {
             // @ts-ignore
-            const game = self.gameInstance = TowerGameJS(option);
+            game = self.gameInstance = TowerGameJS(option);
             game.load(function () {
                 game.playBgm();
                 game.init();
@@ -201,8 +199,8 @@ export default class TowerGame {
     private destroy(): void {
         const self = this;
         this.gameInstance.pauseBgm();
-        this.unloadDependencies();
         this.input.removeEvent('stop,s', {key: 'tower.exit'});
+        this.unloadDependencies();
         this.$el.fadeOut(100, () => {
             self.$el.empty();
             self.gamesModule.reInit();
