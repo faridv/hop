@@ -3,6 +3,7 @@
         "target": "es5",
         "module": "commonjs",
         "declaration": false,
+        "downlevelIteration": true,
         "sourceMap": false,
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
@@ -20,9 +21,6 @@
             "node_modules/@types"
         ]
     },
-    "include": [
-        "./node_modules/hbbtv-typings"
-    ],
     "exclude": [
         "node_modules",
         "dist"
