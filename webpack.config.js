@@ -27,7 +27,9 @@ const plugins = [
         buildHash: buildHash,
         hash: true,
         inject: 'head',
-        cache: false
+        cache: false,
+        pretty: true,
+        minify: false
     }),
     new webpack.LoaderOptionsPlugin({
         options: {
@@ -49,7 +51,6 @@ var config = {
     devtool: isProd ? '' : 'source-map',
     context: path.resolve('./src'),
     entry: {
-        // vendor: Object.keys(package.dependencies),
         app: './main.ts'
     },
     node: {
@@ -77,7 +78,12 @@ var config = {
                     }
                 }
                 : null,
-            {test: /\.html$/, loader: 'html-loader'},
+            {
+                test: /\.html$/, loader: 'html-loader', options: {
+                    minimize: false
+                }
+            },
+            {test: /\.js$/i, loader: 'babel-loader'},
             {test: /\.css$/, loaders: ['style-loader', 'css-loader']}
         ].filter(Boolean)
     },
@@ -91,7 +97,7 @@ var config = {
     plugins: plugins,
     devServer: {
         contentBase: path.join(__dirname, 'dist/'),
-        compress: true,
+        compress: false,
         port: 3000,
         hot: true
     }
