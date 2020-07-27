@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const nodeEnv = process.env.NODE_ENV || 'development';
 const isProd = nodeEnv === 'production';
 
@@ -10,6 +11,7 @@ const buildHash = (+new Date() / 1000).toFixed(0);
 
 const plugins = [
     new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /fa/),
+    new CleanWebpackPlugin(),
     new webpack.DefinePlugin({
         'process.env': {
             NODE_ENV: JSON.stringify(nodeEnv)
@@ -31,14 +33,14 @@ const plugins = [
         pretty: true,
         minify: false
     }),
-    new webpack.LoaderOptionsPlugin({
-        options: {
-            tslint: {
-                emitErrors: true,
-                failOnHint: true
-            }
-        }
-    }),
+    // new webpack.LoaderOptionsPlugin({
+    //     options: {
+    //         tslint: {
+    //             emitErrors: true,
+    //             failOnHint: true
+    //         }
+    //     }
+    // }),
     new CopyWebpackPlugin({
         patterns: [
             {from: './assets', to: 'assets/'},
@@ -83,7 +85,11 @@ var config = {
                     minimize: false
                 }
             },
-            {test: /\.js$/i, loader: 'babel-loader'},
+            {
+                test: /\.js$/i, loader: 'babel-loader', options: {
+                    sourceType: "unambiguous",
+                }
+            },
             {test: /\.css$/, loaders: ['style-loader', 'css-loader']}
         ].filter(Boolean)
     },

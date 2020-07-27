@@ -5,13 +5,21 @@
             {
                 "targets": {
                     "edge": "17",
-                    "firefox": "60",
-                    "chrome": "67",
-                    "safari": "11.1"
+                    "ie": "9",
+                    "firefox": "40",
+                    "chrome": "45",
+                    "opera": "20"
                 },
+                "modules": "commonjs",
                 "useBuiltIns": "usage",
-                "corejs": "3.6.4"
+                "corejs": "3.6.5"
             }
         ]
+    ],
+    "plugins": [
+        "@babel/plugin-transform-runtime",
+        "@babel/plugin-proposal-class-properties",
+        "@babel/plugin-transform-async-to-generator",
+        "@babel/plugin-transform-arrow-functions"
     ]
 }

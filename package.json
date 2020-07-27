@@ -18,6 +18,10 @@
     "license": "MIT",
     "devDependencies": {
         "@babel/core": "^7.10.5",
+        "@babel/plugin-proposal-class-properties": "^7.10.4",
+        "@babel/plugin-transform-arrow-functions": "^7.10.4",
+        "@babel/plugin-transform-async-to-generator": "^7.10.4",
+        "@babel/plugin-transform-runtime": "^7.10.5",
         "@babel/preset-env": "^7.10.4",
         "@babel/preset-typescript": "^7.10.4",
         "@types/jasmine": "^3.5.11",
@@ -26,6 +30,7 @@
         "@types/slick-carousel": "^1.6.34",
         "awesome-typescript-loader": "^5.2.1",
         "babel-loader": "^8.1.0",
+        "clean-webpack-plugin": "^3.0.0",
         "copy-webpack-plugin": "^6.0.3",
         "cross-env": "^7.0.2",
         "css-loader": "^3.6.0",
