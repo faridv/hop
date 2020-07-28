@@ -81,12 +81,16 @@ var config = {
                 }
                 : null,
             {
-                test: /\.html$/, loader: 'html-loader', options: {
+                test: /\.html$/,
+                loader: 'html-loader',
+                options: {
                     minimize: false
                 }
             },
             {
-                test: /\.js$/i, loader: 'babel-loader', options: {
+                test: /\.js$/i,
+                loader: 'babel-loader',
+                options: {
                     sourceType: "unambiguous",
                 }
             },
