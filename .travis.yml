@@ -12,12 +12,12 @@ addons:
   chrome: stable
   apt:
     packages:
-    - libgconf-2-4
+      - libgconf-2-4
 before_script:
- - export DISPLAY=:99.0
+  - export DISPLAY=:99.0
 install:
- - npm set progress=false
- - npm install
+  - npm set progress=false
+  - npm install
 
 cache:
   # cache both npm modules and Cypress binary
