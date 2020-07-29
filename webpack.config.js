@@ -94,7 +94,10 @@ var config = {
                     sourceType: "unambiguous",
                 }
             },
-            {test: /\.css$/, loaders: ['style-loader', 'css-loader']}
+            {
+                test: /\.css$/,
+                loaders: ['style-loader', 'css-loader']
+            }
         ].filter(Boolean)
     },
     resolve: {
