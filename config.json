@@ -32,15 +32,15 @@
             "market.labels": "market/labels",
             "market.data": "market/data",
             "quran": "quran",
-			"tehran-air": "tehran-air/{type}"
+            "tehran-air": "tehran-air/{type}"
         },
-		"pusher": "http://localhost:8080"
+        "pusher": "http://localhost:8080"
     },
     "applications": [
         {
             "button": {
                 "key": "red,r",
-                "image": "assets/img/redbutton_sm.png",
+                "image": "assets/img/redbutton.png",
                 "position": "bottom: 120px; right: 60px;"
             },
             "hasHub": true,
@@ -81,8 +81,9 @@
                 },
                 {
                     "title": "چندرسانه‌ای",
-                    "type": "news-multimedia",
-                    "icon": "movie_filter"
+                    "type": "url",
+                    "icon": "basket",
+                    "url": "http://homeport.ir/"
                 },
                 {
                     "title": "کیفیت هوای تهران",
