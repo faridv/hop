@@ -6,7 +6,7 @@
                 <ul class="market-items">
                     {{#each items}}
                     <li data-id="{{id}}" data-ref="{{ref}}" data-unit="{{unit}}" {{#if @first}}class="current active"{{/if}}>
-                    {{title}}{{#if ref}}&nbsp;({{ref}}){{/if}}
+                    {{title}}{{#if ref}} ({{ref}}){{/if}}
                     </li>
                     {{/each}}
                 </ul>

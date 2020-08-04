@@ -5,7 +5,7 @@
             {{#each []}}
             <li data-id="{{id}}" {{#if @first}}class="active"{{/if}}>
                 <div class="desc">
-                    <h3 class="font-qurani"><span>{{id}}.</span>&nbsp;{{title}}</h3>
+                    <h3 class="font-qurani"><span>{{id}}.</span> {{title}}</h3>
                     <div class="meta">
                         <p>{{#ifCond type '==' 'Meccan'}}مکی{{else}}مدنی{{/ifCond}}</p>
                         <p>تعداد آیات: <span>{{verses}}</span></p>
