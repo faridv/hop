@@ -29,15 +29,12 @@ export default class Layouts {
 </ul>`;
 
     constructor(layout: string = 'carousel', Config, appData) {
-
         this.buttonsChangeListener();
-
         this.layout = layout;
         this.config = Config;
         this.appData = appData;
         this.input = Inputs.instance;
         this.template = TemplateHelper.instance;
-
         try {
             this[this.layout]();
             this.renderFooter();
@@ -112,7 +109,12 @@ export default class Layouts {
         this.renderFooter();
     }
 
-    public loadModule(moduleType: string, config: object = {}, skipUnload: boolean = false) {
+    public loadModule(moduleType: string, config: object = {}, skipUnload: boolean = false, url: string = null): void {
+        if (moduleType === 'url' && url) {
+            const win = window.open(url, '_blank');
+            win.focus();
+            return;
+        }
         let module: any = null;
         this.appData.modules.forEach(item => {
             if (typeof item !== 'undefined') {
@@ -120,15 +122,17 @@ export default class Layouts {
                     module = item._constructor;
             }
         });
-        if (!module)
+        if (!module) {
             return;
+        }
 
         const moduleInstance = this.currentModuleInstance = new module(config, this, moduleType);
-        if (!skipUnload)
+        if (!skipUnload) {
             this.prepareUnloadModule(moduleInstance);
+        }
     }
 
-    public prepareUnloadModule(moduleInstance?) {
+    public prepareUnloadModule(moduleInstance?): void {
         const exitParams = {key: 'module.exit', title: 'بازگشت به فهرست', icon: 'refresh', button: true};
         const self = this;
         const module = typeof moduleInstance !== 'undefined' ? moduleInstance : this.currentModuleInstance;
@@ -141,7 +145,7 @@ export default class Layouts {
         });
     }
 
-    private cleanUpPage(callback?) {
+    private cleanUpPage(callback?): void {
         $('#content').empty().promise().done(() => {
             if (typeof callback !== 'undefined')
                 callback();
@@ -160,7 +164,7 @@ export default class Layouts {
     }
 
     // Dirty key-press simulator, just for handling footer items
-    private doKeyPress(key) {
+    private doKeyPress(key): void {
         let oEvent = document.createEvent('KeyboardEvent');
         Object.defineProperty(oEvent, 'keyCode', { // for Chrome based browser
             get: function () {

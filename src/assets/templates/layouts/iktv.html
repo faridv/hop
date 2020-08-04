@@ -8,7 +8,7 @@
 <div id="menu">
     <ul>
         {{#each items}}
-        <li data-type="{{type}}">
+        <li data-type="{{type}}"{{#if url}} data-url="{{url}}"{{/if}}>
             <a>
                 <span class="glyphicon">
                     <i class="icon-{{icon}}"></i>

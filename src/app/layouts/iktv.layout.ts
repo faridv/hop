@@ -82,16 +82,16 @@ export default class IKTVLayout {
         $carousel.fadeOut(config.transitionSpeed, () => {
             self.unsetKeys();
             $carousel.slick('destroy');
-            // if (typeof callback === 'function') {
-            //     callback();
-            // }
         });
     }
 
     public static loadModule($carousel, config, LayoutInstance): void {
         const $currentSlide = $carousel.find('.slick-current').find('li:first');
         IKTVLayout.destroy($carousel, config).then(() => {
-            LayoutInstance.loadModule($currentSlide.data('type'), config);
+            const url = typeof $currentSlide.data('url') !== 'undefined' && $currentSlide.data('url')
+                ? $currentSlide.data('url')
+                : null;
+            LayoutInstance.loadModule($currentSlide.data('type'), config, false, url);
         });
     }
 
