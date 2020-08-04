@@ -179,7 +179,6 @@ export default class TemplateHelper {
         } else {
             try {
                 template.done(function (tmpl: string) {
-                    console.log('loading template separately');
                     self.generateOutput(tmpl, data, $container, mode, callback);
                 });
             } catch (error) {
@@ -191,14 +190,15 @@ export default class TemplateHelper {
     private generateOutput(template: string, data: any, $container: any, mode: string = 'html', callback?: any) {
         const HandlebarsTemplate = Handlebars.compile(template);
         const output = HandlebarsTemplate(data);
-        if (!($container instanceof $))
+        if (!($container instanceof $)) {
             $container = $($container[0]);
+        }
         if (mode === 'html') {
             $container.empty();
             // mode = 'append';
         }
         try {
-            $container[mode](output).promise().done($parent => {
+            $container[mode](output).promise().done(($parent) => {
                 if (typeof callback === 'function')
                     callback($parent);
             });

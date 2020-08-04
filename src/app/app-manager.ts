@@ -38,13 +38,11 @@ export default class AppManager {
             this.handleStreamMode();
         }
 
-        // $(function () {
         self.$el = $(self.container);
         self.showButton(appData);
-        // });
     }
 
-    showButton(appData): boolean {
+    private showButton(appData): boolean {
         const self = this;
         if (this.config.autoStart) {
             self.initializeApplication(appData);
@@ -77,7 +75,7 @@ export default class AppManager {
         return true;
     }
 
-    initializeApplication(appData) {
+    private initializeApplication(appData): void {
         const self = this;
         const layout = appData.layout;
         const templatePromise = this.template.load('layouts', layout);
@@ -109,7 +107,7 @@ export default class AppManager {
         });
     }
 
-    handleStreamMode(): void {
+    private handleStreamMode(): void {
         const self = this;
         if (this.template.hasClass('stream-mode'))
             return;

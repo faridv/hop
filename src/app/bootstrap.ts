@@ -35,7 +35,7 @@ export default class Bootstrap {
         });
     }
 
-    cacheConfig(config): void {
+    private cacheConfig(config): void {
         config = ConfigHelper.prepare(config);
         try {
             Store.set('config', config);
@@ -44,14 +44,14 @@ export default class Bootstrap {
         }
     }
 
-    handleModules(modules: any[]): any[] {
+    private handleModules(modules: any[]): any[] {
         modules.forEach((item) => {
             item['_constructor'] = this.moduleRegistry.getItem(item.type);
         });
         return modules;
     }
 
-    prepareApps(): void {
+    private prepareApps(): void {
         const applications = this.config.applications;
         const self = this;
 
@@ -74,17 +74,17 @@ export default class Bootstrap {
         }
     }
 
-    initializeApp(app: object): void {
+    private initializeApp(app: object): void {
         new Application(app, this.config, this);
     }
 
-    handleBody(): void {
+    private handleBody(): void {
         const self = this;
         const bodyClass: string = (self.config.hd ? 'hd-' : 'sd-') + self.config.resolution;
         $("body").addClass(bodyClass);
     }
 
-    preFlight(callback): void {
+    private preFlight(callback): void {
         const self = this;
         window.onload = (function () {
             const $$video: any = self.broadcastVideo = document.getElementById("broadcastvideo");
@@ -139,7 +139,7 @@ export default class Bootstrap {
         });
     }
 
-    setKeySet(mask): void {
+    public setKeySet(mask): void {
         let elemcfg, app;
 
         try {
@@ -200,11 +200,11 @@ export default class Bootstrap {
         this.storeDeviceParams(this.deviceParams);
     }
 
-    storeDeviceParams(deviceParams): void {
+    private storeDeviceParams(deviceParams): void {
         Store.set('params', deviceParams);
     }
 
-    destroy(layout?: string): void {
+    public destroy(layout?: string): void {
         if (this.config.exitMethod === 'hide') {
             try {
                 this.appManager.hide();
