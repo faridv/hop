@@ -1,6 +1,6 @@
 import * as $ from 'jquery';
-import * as Handlebars from 'handlebars';
 import jqXHR = JQuery.jqXHR;
+import * as Handlebars from 'handlebars';
 // import * as Template7 from './template7.js';
 
 export default class TemplateHelper {
@@ -177,9 +177,14 @@ export default class TemplateHelper {
         if (typeof template === 'string') {
             this.generateOutput(template, data, $container, mode, callback);
         } else {
-            template.done(function (tmpl: string) {
-                self.generateOutput(tmpl, data, $container, mode, callback);
-            });
+            try {
+                template.done(function (tmpl: string) {
+                    console.log('loading template separately');
+                    self.generateOutput(tmpl, data, $container, mode, callback);
+                });
+            } catch (error) {
+                console.error('failed loading template', error);
+            }
         }
     }
 
@@ -188,12 +193,18 @@ export default class TemplateHelper {
         const output = HandlebarsTemplate(data);
         if (!($container instanceof $))
             $container = $($container[0]);
-        if (mode === 'html')
+        if (mode === 'html') {
             $container.empty();
-        $container[mode](output).promise().done(function ($parent) {
-            if (typeof callback === 'function')
-                callback($parent);
-        });
+            // mode = 'append';
+        }
+        try {
+            $container[mode](output).promise().done($parent => {
+                if (typeof callback === 'function')
+                    callback($parent);
+            });
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     /*

@@ -19,7 +19,7 @@ export default class TehranAirModule extends Module {
         const template = require(`${this.template}`);
         this.templateHelper.loading();
         let templateData: any = {};
-        this.templateHelper.render(template, templateData, this.$el, 'html', function () {
+        this.templateHelper.render(template, templateData, this.$el, 'html', () => {
             self.templateHelper.loading(false);
             if (typeof callback === 'function')
                 callback();
