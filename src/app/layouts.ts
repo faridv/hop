@@ -111,7 +111,7 @@ export default class Layouts {
 
     public loadModule(moduleType: string, config: object = {}, skipUnload: boolean = false, url: string = null): void {
         if (moduleType === 'url' && url) {
-            const win = window.open(url, '_blank');
+            const win = window.open(url);
             win.focus();
             return;
         }
