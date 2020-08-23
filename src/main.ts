@@ -4,13 +4,13 @@ import App from './app/bootstrap';
 // import Developer from './_helpers/developer';
 import {modules} from './modules';
 
-import * as LogRocket from 'logrocket';
-LogRocket.init('pdu5s5/hop');
-LogRocket.identify('1', {
-    name: 'Farid Rn',
-    email: 'faridv@gmail.com',
-    type: 'admin'
-});
+// import * as LogRocket from 'logrocket';
+// LogRocket.init('pdu5s5/hop');
+// LogRocket.identify('1', {
+//     name: 'Farid Rn',
+//     email: 'faridv@gmail.com',
+//     type: 'admin'
+// });
 
 // new Developer({
 //     debug: true,
