@@ -12,10 +12,10 @@ export default class TemplateHelper {
     }
 
     private zeroFill(num, size = 2): string {
-        let number = num.toString();
-        while (number.length < size)
-            number = "0" + number;
-        return number;
+        let output = num.toString();
+        while (output.length < size)
+            output = "0" + output;
+        return output;
     }
 
     private addHelpers(): void {
@@ -125,6 +125,7 @@ export default class TemplateHelper {
             let found = false;
             if (haystack.length) {
                 for (let i in haystack)
+                    // tslint:disable-next-line:triple-equals
                     if (needle == haystack[i])
                         found = true;
             }
@@ -133,6 +134,13 @@ export default class TemplateHelper {
         Handlebars.registerHelper('br', function (text) {
             text = Handlebars.Utils.escapeExpression(text);
             text = text.replace(/(\r\n|\n|\r)/gm, '<br />');
+            return new Handlebars.SafeString(text);
+        });
+        Handlebars.registerHelper('safe', function (text) {
+            text = text
+                .replace(/&nbsp;|\u00a0/gm, ' ')
+                .replace(/&zwnj;|\u200C/gm, '‌')
+                .replace(/(\r\n|\n|\r)/gm, '<br />');
             return new Handlebars.SafeString(text);
         });
         Handlebars.registerHelper('sec2time', function (value, options) {
@@ -190,6 +198,8 @@ export default class TemplateHelper {
     private generateOutput(template: string, data: any, $container: any, mode: string = 'html', callback?: any) {
         const HandlebarsTemplate = Handlebars.compile(template);
         const output = HandlebarsTemplate(data);
+        // const output = new Handlebars.SafeString(Handlebars.escapeExpression(HandlebarsTemplate(data)));
+        // console.warn(output);
         if (!($container instanceof $)) {
             $container = $($container[0]);
         }

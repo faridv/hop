@@ -41,8 +41,8 @@ export default class MarketModule extends Module {
     public render(data: Market[], callback?): void {
         const template = require(`${this.template.markets}`);
         this.templateHelper.render(template, {items: data}, this.$el, 'html', () => {
-            const $el = $('.market-items');
-            $el.slick({
+            const $verticalCarousel = $('.market-items');
+            $verticalCarousel.slick({
                 slidesToShow: 14,
                 slidesToScroll: 1,
                 vertical: true,
@@ -50,7 +50,7 @@ export default class MarketModule extends Module {
                 lazyLoad: 'ondemand',
             });
             if (typeof callback === 'function')
-                callback($el);
+                callback($verticalCarousel);
         });
     }
 

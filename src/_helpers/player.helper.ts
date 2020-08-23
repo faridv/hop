@@ -84,8 +84,10 @@ export class PlayerService {
 
     public createElement(callback) {
         $('#' + this.container).html('<video id="' + this.playerId + '" class="video-js" preload="auto" autoplay width="1280" height="720"></video>');
-        this.instance = <HTMLVideoElement>document.getElementById(this.playerId);
-        callback();
+        this.instance = document.getElementById(this.playerId) as HTMLVideoElement;
+        if (typeof callback === 'function') {
+            callback();
+        }
     }
 
     public render() {
@@ -105,7 +107,7 @@ export class PlayerService {
 
     public unload() {
         this.input.removeEvent('p,pause', this.events['player.pause']);
-        this.input.removeEvent('f,fast_fwd', this.events['player.ffw'])
+        this.input.removeEvent('f,fast_fwd', this.events['player.ffw']);
         this.input.removeEvent('d,rewind', this.events['player.rewind']);
         this.input.removeEvent('p,play', this.events['player.play']);
         this.input.removeEvent('s,stop', this.events['player.stop']);
@@ -150,8 +152,7 @@ export class PlayerService {
 
     protected getBroadcastVideo() {
         const $tv = <any>$('#broadcastvideo');
-        const $broadcastVideo = ($tv.find('video').length) ? $tv.find('video:first')[0] : $tv[0];
-        return $broadcastVideo;
+        return ($tv.find('video').length) ? $tv.find('video:first')[0] : $tv[0];
     }
 
     public disableBroadcast() {

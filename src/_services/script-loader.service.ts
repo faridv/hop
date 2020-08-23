@@ -50,8 +50,10 @@ export class ScriptLoaderService {
                 resolve({src: src, loaded: true});
             } else {
                 // load script tag
-                let scriptTag = $('<script/>').attr('type', 'text/javascript').attr('src', this._scripts[src].src);
-                $(tag).append(scriptTag);
+                const script = document.createElement('script');
+                $(script).attr('type', 'text/javascript')
+                    .attr('src', this._scripts[src].src);
+                $(script).appendTo(tag);
                 this._scripts[src] = {src: src, loaded: true};
                 resolve({src: src, loaded: true});
             }

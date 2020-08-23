@@ -5,14 +5,13 @@
             {{#each items}}
             <li data-id="{{id}}">
                 <figure>
-                    <img src="{{image}}" alt="{{title}}">
+                    <img src="{{image}}" alt="{{title}}" />
                 </figure>
                 <div class="desc">
                     <h3>
-                        <span class="title">{{title}}</span>
-                        <!--<span class="badge badge-info">تعداد قسمت: {{EpisodesCount}}</span>-->
+                        <span class="title">{{safe title}}</span>
                     </h3>
-                    <p class="summary">{{summary}}</p>
+                    <p class="summary">{{safe summary}}</p>
                 </div>
             </li>
             {{/each}}

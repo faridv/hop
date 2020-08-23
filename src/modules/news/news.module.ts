@@ -30,13 +30,11 @@ export default class NewsModule extends Module {
 
     public load(callback?: any) {
         const self = this;
-        let serviceMethod = 'getLatest';
         let id: string = null;
 
         this.templateHelper.loading();
 
         if (typeof this.moduleType !== 'undefined' && this.moduleType) {
-            serviceMethod = 'getByCategory';
             switch (this.moduleType) {
                 case 'news-teaching':
                     this.pageTitle = 'آموزش کسب و کار';
@@ -52,7 +50,7 @@ export default class NewsModule extends Module {
                     break;
             }
         }
-        this.service[serviceMethod](id).done((data: any) => {
+        this.service.getByCategory(id).done((data: any) => {
             self.data = data.data;
             self.render(self.data, (data: News[]) => {
                 // End loading
@@ -64,7 +62,7 @@ export default class NewsModule extends Module {
 
     public render(data: News[], callback): void {
         const template = require(`${this.template.news}`);
-        this.templateHelper.render(template, {items: data, pageTitle: this.pageTitle}, this.$el, 'html', function () {
+        this.templateHelper.render(template, {items: data, pageTitle: this.pageTitle}, this.$el, 'html', () => {
             if (typeof callback === 'function')
                 callback(data);
         });
@@ -113,25 +111,16 @@ export default class NewsModule extends Module {
     }
 
     private loadDetails($carousel, $item?): void {
-        let id: number;
-        let item: News;
         const self = this;
-
-        if (typeof $item !== 'undefined' && typeof $item.attr('data-id') !== 'undefined' && $item.attr('data-id')) {
-            id = ~~$item.attr('data-id')
-        } else {
-            id = ~~$carousel.find('.slick-current.slick-center li').attr('data-id');
-        }
-        this.data.forEach((news) => {
-            if (news.id === id) {
-                item = news;
-            }
-        });
-
-
+        const id = (typeof $item !== 'undefined'
+            && typeof $item.attr('data-id') !== 'undefined'
+            && $item.attr('data-id'))
+            ? ~~$item.attr('data-id')
+            : ~~$carousel.find('.slick-current.slick-center li').attr('data-id');
+        const item = this.data.find(news => news.id === id);
         // Load item details
         const template = require(`${this.template.details}`);
-        this.templateHelper.render(template, {data: item}, $('#news-details'), 'html', function () {
+        this.templateHelper.render(template, {data: item}, $('#news-details'), 'html', () => {
             self.showDetails(!!item.media);
         });
     }

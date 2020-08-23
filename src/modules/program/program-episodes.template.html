@@ -3,15 +3,15 @@
         <div class="row">
             <div class="col-3">
                 <div class="program-details">
-                    <h2>{{items.program.title}}</h2>
+                    <h2>{{safe items.program.title}}</h2>
                     <figure>
-                        <img src="{{items.program.image}}" alt="{{items.program.title}}"/>
+                        <img src="{{items.program.image}}" alt=""/>
                     </figure>
                     <div class="desc">
-                        {{#if items.program.schedule}}{{items.program.schedule}}{{/if}}
-                        {{#if items.program.director}}<strong>کارگردان</strong> {{items.program.director}}{{/if}}
+                        {{#if items.program.schedule}}{{safe items.program.schedule}}{{/if}}
+                        {{#if items.program.director}}<strong>کارگردان</strong> {{safe items.program.director}}{{/if}}
                         <hr />
-                        {{{items.program.description}}}
+                        {{safe items.program.description}}
                     </div>
                 </div>
             </div>
@@ -20,13 +20,13 @@
                     {{#each items.items}}
                     <li data-id="{{id}}" data-media="{{video}}">
                         <figure>
-                            <img src="{{image}}" alt="{{summary}}">
+                            <img src="{{image}}" alt="" />
                         </figure>
                         <div class="desc">
                             <h3>
-                                <span class="title">{{title}}</span>
+                                <span class="title">{{safe title}}</span>
                             </h3>
-                            <p class="summary"><ins>قسمت {{part}} - </ins>{{summary}}</p>
+                            <p class="summary"><ins>قسمت {{part}} - </ins>{{safe summary}}</p>
                         </div>
                     </li>
                     {{/each}}

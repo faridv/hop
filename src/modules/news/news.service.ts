@@ -6,8 +6,8 @@ export class NewsService extends Service {
         return this.http.get(this.api.get('news'));
     }
 
-    getByCategory(categoryId: string) {
-        return this.http.get(this.api.get('news', categoryId));
+    getByCategory(categoryId: string = null) {
+        return categoryId ? this.http.get(this.api.get('news', categoryId)) : this.getLatest();
     }
 
 }
