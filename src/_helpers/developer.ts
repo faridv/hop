@@ -300,6 +300,7 @@ export default class Developer {
     }
 
     deactivate() {
+        return null;
         alert('deactivate');
         this.isActive = false;
         this.pressCount = 0;
@@ -310,6 +311,7 @@ export default class Developer {
     toggle() {
         alert('toggle: ' + this.isActive);
         if (this.isActive) {
+            return null;
             this.deactivate();
         } else {
             this.activate();
@@ -483,6 +485,7 @@ export default class Developer {
      * @private
      */
     hideUI() {
+        return null;
         alert('hideUI');
         if (this.$el) {
             this.$el.hide().empty();
