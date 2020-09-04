@@ -5,6 +5,7 @@ import Application from "./app-manager";
 import LogHelper from '../_helpers/log.helper';
 import {Registry} from '../libs/registry';
 import {ConfigHelper} from '../_helpers/config.helper';
+import {runPolyfills} from '../libs/runPolyfills';
 
 declare let window: any;
 
@@ -21,6 +22,8 @@ export default class Bootstrap {
 
     constructor(config, modules) {
         window.$ = $;
+
+        runPolyfills();
 
         this.config = config;
         this.store = Store;
