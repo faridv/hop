@@ -128,7 +128,7 @@ export default class NewsModule extends Module {
     private showDetails(hasVideo: boolean = false): void {
         $('#news-details').fadeIn();
         const self = this;
-        const $newsDetails = $('#news-details .inner');
+        const $newsDetails = $('#news-details .inner .news-body');
         $newsDetails.css('top', '0');
         if (hasVideo) {
             this.input.addEvent('blue,b', false, this.events['news.play'], () => {
@@ -142,7 +142,7 @@ export default class NewsModule extends Module {
         });
         this.input.addEvent('up', false, this.events['news.scroll-up'], () => {
             const scrollValue = parseInt($newsDetails.css('top').replace('px', '')) + 100;
-            if (scrollValue < 0)
+            if (scrollValue <= 0)
                 $newsDetails.css('top', scrollValue.toString() + 'px');
         });
         this.input.removeEvent('back,backspace', {key: 'module.exit'});
