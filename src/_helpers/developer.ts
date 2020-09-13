@@ -126,7 +126,7 @@ export default class Developer {
         if (this.config.debug) {
             this.on('beforekey', this.onKeyDown, this);
             if (this.config.active) {
-                $(function() {
+                $(function () {
                     scope.activate();
                 });
             }
@@ -192,7 +192,7 @@ export default class Developer {
             if (scope.canAccessError) {
                 let stack = new Error().stack, allFiles = (stack ? stack.match(new RegExp("[_a-zA-Z0-9]*.js[^)]*", "g")) : []);
                 let file = "";
-                if (allFiles && allFiles.length >= 1 && typeof(allFiles[1]) !== "undefined") {
+                if (allFiles && allFiles.length >= 1 && typeof (allFiles[1]) !== "undefined") {
                     // only file + line number
                     file = allFiles[1].replace(new RegExp("(.*[/])([^:]+):([^:]+)(.*)", "g"), "$2 $3"); // first is console, second is a file
                     // remove part after ?
@@ -259,8 +259,7 @@ export default class Developer {
         try {
             const obj = new Error(), stack = obj.stack;
             return true;
-        }
-        catch (err) {
+        } catch (err) {
             return false;
         }
     }
@@ -295,7 +294,7 @@ export default class Developer {
         const self = this;
         this.isActive = true;
         // window.setTimeout(() => {
-            self.showUI();
+        self.showUI();
         // }, 2000);
     }
 
@@ -309,7 +308,7 @@ export default class Developer {
     }
 
     toggle() {
-        alert('toggle: ' + this.isActive);
+        // alert('toggle: ' + this.isActive);
         if (this.isActive) {
             return null;
             this.deactivate();
@@ -443,7 +442,7 @@ export default class Developer {
      *
      * @private
      */
-        showUI() {
+    showUI() {
         const scope = this;
         if (!$("#developer-ui").length) {
             $('#developer').append('<div id="developer-ui"></div>');
@@ -536,8 +535,7 @@ export default class Developer {
             if (typeof args[i] === 'object') {
                 try {
                     args[i] = JSON.stringify(args[i]); // fix problems with jquery objects in console.log (cyclic structures)
-                }
-                catch (error) {
+                } catch (error) {
                     args[i] = "";
                 }
             }
@@ -687,7 +685,7 @@ color: #fff;\
 background: green;\
 }\
 ";
-        if (typeof(s.textContent) !== "undefined") {
+        if (typeof (s.textContent) !== "undefined") {
             s.textContent = cssText;  // new style
         } else {
             s.innerText = cssText;   // old style - not supported by Firefox
