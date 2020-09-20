@@ -15,8 +15,9 @@
                 &:before, &:after {
                     display: block; content: ''; width: 0; height: 200%; border: 180px solid transparent; transition: 0.2s all;
                     position: absolute; top: 0; right: -39px; border-left-width: 0; border-right-width: 40px; z-index: 800;
+                    border-top-color: #292940;
                 }
-                &:after { right: auto; left: -39px; border-left-width: 40px; border-right-width: 0; border-top-width: 0; top: -100%; }
+                &:after { right: auto; left: -39px; border-left-width: 40px; border-right-width: 0; border-top-width: 0; top: -100%; border-top-color: transparent; border-bottom-color: #292940; }
 
                 &[data-type="weather"] {
                     background: #CC0000;
