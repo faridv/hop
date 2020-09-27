@@ -9,6 +9,7 @@ import ProgramModule from './modules/program/program.module';
 import MarketModule from './modules/market/market.module';
 import QuranModule from './modules/quran/quran.module';
 import TehranAirModule from "./modules/tehran-air/tehran-air.module";
+import AboutChannelModule from './modules/about-channel/about-channel.module';
 // import PollModule from './modules/poll/poll.module';
 
 export const modules = {
@@ -27,4 +28,5 @@ export const modules = {
     'news-teaching': NewsModule,
     'tourism': NewsModule,
     'news-multimedia': NewsModule,
+    'about-channel': AboutChannelModule,
 };

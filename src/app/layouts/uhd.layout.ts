@@ -62,12 +62,6 @@ export default class UHDLayout {
 
     public static handleEvents($carousel, config, LayoutInstance: Layouts): void {
         const input = Inputs.instance;
-
-        // $carousel.on('init afterChange', (e) => {
-        //     const $currentSlide = $carousel.find('.slick-current').find('li:first a');
-        //     $currentSlide.trigger('focus');
-        // });
-
         $(document).on('click', "#menu ul li a", (e) => {
             UHDLayout.loadModule($carousel, config, LayoutInstance);
         });
@@ -82,9 +76,6 @@ export default class UHDLayout {
         $carousel.fadeOut(config.transitionSpeed, () => {
             self.unsetKeys();
             $carousel.slick('destroy');
-            // if (typeof callback === 'function') {
-            //     callback();
-            // }
         });
     }
 
@@ -108,7 +99,6 @@ export default class UHDLayout {
     }
 
     public static unsetKeys(): void {
-
         const input = Inputs.instance;
         input.removeEvent('left', {key: 'carousel.left'});
         input.removeEvent('right', {key: 'carousel.right'});

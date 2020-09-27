@@ -42,8 +42,9 @@ export default class MarketModule extends Module {
         const template = require(`${this.template.markets}`);
         this.templateHelper.render(template, {items: data}, this.$el, 'html', () => {
             const $verticalCarousel = $('.market-items');
+            const itemsCount = $verticalCarousel.children().length;
             $verticalCarousel.slick({
-                slidesToShow: 14,
+                slidesToShow: itemsCount < 14 ? itemsCount : 14,
                 slidesToScroll: 1,
                 vertical: true,
                 centerMode: true,

@@ -60,6 +60,12 @@
                     &:before { border-top-color: #292940; }
                     &:after { border-bottom-color: #292940; }
                 }
+
+                &[data-type="about-channel"] {
+                    background: #303F9F;
+                    &:before { border-top-color: #303F9F; }
+                    &:after { border-bottom-color: #303F9F; }
+                }
             }
         }
         .slick-list {
@@ -90,6 +96,25 @@
         &.half { width: 45%; left: 25%; height: 45%; }
 
     }
-    .module { background: rgba(255, 255, 255, 0.8); padding: $grid-gutter-width * 2; }
+    .module {
+        background: rgba(255, 255, 255, 0.8); padding: $grid-gutter-width * 2;
+        .summary {
+            clear: both;
+            .figure {
+                float: left; margin-right: 20px; width: 200px; display: block;
+                img { display: block; width: 100%; height: auto; }
+            }
+        }
+    }
     .slick-list { overflow: hidden; }
+
+    #app {
+        #connection-status { top: 70px !important; }
+        #time { top: 70px !important; }
+    }
+
+    #qr-holder {
+        margin-top: 50px; text-align: center;
+        img { display: block; width: 55%; height: auto; margin: 0 auto 20px; }
+    }
 }
