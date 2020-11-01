@@ -52,12 +52,12 @@ export class PlayerService {
     // load the player script if it's not loaded yet and call render()
     private init() {
         const self = this;
-        if (typeof videojs === 'undefined') {
-            this.scripts.forEach((script) => {
-                self.scriptLoader.loadScript('head', script, true).then(() => {
+        if (this.type === 'videojs' && typeof videojs === 'undefined') {
+            for (let i = 0; i < this.scripts.length; i++) {
+                self.scriptLoader.loadScript('head', this.scripts[i], true).then(() => {
                     self.prepareRender();
                 });
-            });
+            }
         } else {
             self.prepareRender();
         }
@@ -75,7 +75,7 @@ export class PlayerService {
     }
 
     private elementExists() {
-        return $('#' + this.playerId).length;
+        return !!$('#' + this.playerId).length;
     }
 
     public getInstance() {
@@ -83,25 +83,40 @@ export class PlayerService {
     }
 
     public createElement(callback) {
-        $('#' + this.container).html('<video id="' + this.playerId + '" class="video-js" preload="auto" autoplay width="1280" height="720"></video>');
-        this.instance = document.getElementById(this.playerId) as HTMLVideoElement;
-        if (typeof callback === 'function') {
-            callback();
+        try {
+            const html = '<video id="' + this.playerId + '" class="video-js" preload="auto" autoplay width="1280" height="720"></video>';
+            $('#' + this.container).html(html);
+            this.instance = document.getElementById(this.playerId) as HTMLVideoElement;
+        } catch (e) {
+            const container = document.getElementById(this.container);
+            const video = document.createElement('video');
+            video.setAttribute('id', this.playerId);
+            video.setAttribute('class', 'video-js');
+            video.setAttribute('preload', 'auto');
+            video.setAttribute('autoplay', 'true');
+            video.setAttribute('width', '1280');
+            video.setAttribute('height', '720');
+            container.appendChild(video);
+        } finally {
+            if (typeof callback === 'function') {
+                callback();
+            }
         }
     }
 
     public render() {
         const self = this;
+        const $player = $('#' + this.playerId);
         this.template.loading();
         this.status = 'loading';
-        $('#' + this.playerId).on('loadedmetadata', () => {
+        $player.on('loadedmetadata', () => {
             this.status = 'preparing';
             self.template.loading(false);
             self.play(true);
             self.template.addClass('player-mode');
             self.disableBroadcast();
         });
-        self.instance = videojs(this.playerId, this.options);
+        self.instance = this.type === 'videojs' ? videojs(this.playerId, this.options) : $player;
         this.registerEventsListeners();
     }
 
@@ -121,7 +136,6 @@ export class PlayerService {
 
         if (typeof this.options.unloadMethod === 'function') {
             setTimeout(() => {
-                console.log('calling parent unload()');
                 this.options.unloadMethod();
             }, 200);
         }
@@ -252,7 +266,7 @@ export class PlayerService {
 
     public rewind() {
         const self = this;
-        const player = videojs(this.playerId);
+        const player = this.type === 'videojs' ? videojs(this.playerId) : this.instance[0];
         this.instance.userActive(true);
         const rewindInterval = setInterval(() => {
             let currentTime = player.currentTime();
