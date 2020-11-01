@@ -451,12 +451,11 @@ export default class Developer {
 
         this.$el = $("#developer-ui");
         this.$el.show();
-        console.log(this.$el);
-        this.$el.html('<div id="developer-ui-content" /><ul>'
+        this.$el.html('<div id="developer-ui-content" />'/*<ul>
             + '<li data-dev-action="toggle">[0] Hide</li>'
             + '<li data-dev-action="uiToggleConsole">[2] Console <span class="developer-ui-errors" /></li>'
             + '<li data-dev-action="reload">[5] Reload</li>'
-            + '</ul>');
+            + '</ul>'*/);
 
         this.$elContent = this.$el.find('#developer-ui-content');
         this.$elErrors = this.$el.find('.developer-ui-errors');
@@ -543,7 +542,7 @@ export default class Developer {
 
         t = new Date();
         line = $('<div class="line"><span class="t">' + (('0' + t.getHours()).slice(-2) + ':' + ('0' + t.getMinutes()).slice(-2) + ':' + ('0' + t.getSeconds()).slice(-2)) + '</span>'
-            + Array.prototype.slice.apply(args).join((type == 'error' ? '\n' : '')).replace(/\&/g, '&amp;') + '</div>');
+            + Array.prototype.slice.apply(args).join((type === 'error' ? '\n' : '')).replace(/\&/g, '&amp;') + '</div>');
 
         if (type === 'warn') {
             line.css('color', 'yellow');
