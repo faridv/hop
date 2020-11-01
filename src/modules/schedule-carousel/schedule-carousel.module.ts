@@ -80,7 +80,6 @@ export default class ScheduleCarouselModule extends Module {
             const $current = $carousel.find('li.current').parents('.slick-slide:first');
             $carousel.slick('slickGoTo', $current.attr('data-slick-index'), true);
         } catch (e) {
-            console.log(e);
             setTimeout(() => {
                 self.goToCurrent($carousel);
             }, 200);
