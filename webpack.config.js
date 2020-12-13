@@ -17,11 +17,14 @@ const plugins = [
             NODE_ENV: JSON.stringify(nodeEnv)
         }
     }),
+    new webpack.ProvidePlugin({
+        buildHash: buildHash
+    }),
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
         title: 'HOP: The HbbTV Open Platform',
         description: 'HbbTV Open Platform built to run on HbbTV-ready TV sets.',
-        template: '!!ejs-loader!src/index.html',
+        template: '!!cjs-loader!src/index.html',
         direction: 'rtl',
         language: 'fa-IR',
         languageCode: 'fa',
@@ -33,14 +36,6 @@ const plugins = [
         pretty: true,
         minify: false
     }),
-    // new webpack.LoaderOptionsPlugin({
-    //     options: {
-    //         tslint: {
-    //             emitErrors: true,
-    //             failOnHint: true
-    //         }
-    //     }
-    // }),
     new CopyWebpackPlugin({
         patterns: [
             {from: './assets', to: 'assets/'},
@@ -51,6 +46,7 @@ const plugins = [
 
 var config = {
     devtool: isProd ? '' : 'source-map',
+    // watch: !isProd,
     context: path.resolve('./src'),
     entry: {
         app: './main.ts'
@@ -59,8 +55,9 @@ var config = {
         __filename: true
     },
     output: {
-        path: path.resolve('./dist'),
-        filename: '[name].bundle.js'
+        filename: '[name].bundle.js',
+        path: path.resolve(__dirname, './dist'),
+        publicPath: '/'
     },
     module: {
         rules: [
@@ -74,10 +71,7 @@ var config = {
                 ? {
                     test: /\.(js|ts)$/,
                     loader: 'istanbul-instrumenter-loader',
-                    exclude: [/\/node_modules\//],
-                    query: {
-                        esModules: false
-                    }
+                    exclude: [/\/node_modules\//]
                 }
                 : null,
             {
@@ -96,7 +90,8 @@ var config = {
             },
             {
                 test: /\.css$/,
-                loaders: ['style-loader', 'css-loader']
+                // loaders: ['style-loader', 'css-loader']
+                loader: 'css-loader'
             }
         ].filter(Boolean)
     },
@@ -112,7 +107,8 @@ var config = {
         contentBase: path.join(__dirname, 'dist/'),
         compress: false,
         port: 3000,
-        hot: true
+        hot: true,
+        inline: false,
     }
 };
 
