@@ -1,0 +1,22 @@
+<section class="module faq">
+    <header><h2>سوالات متداول</h2></header>
+    <div>
+        <ul class="schedule-items">
+            {{#each items}}
+            <li class="{{#if isCurrent}}current{{/if}}">
+                <div class="desc">
+                    <h3>
+                        {{title}}
+                        <i class="icon-arrow-{{#if isCurrent}}up{{else}}down{{/if}}"></i>
+                    </h3>
+                    <p class="summary">
+                        {{{introtext}}}
+                        {{{fulltext}}}
+                    </p>
+                </div>
+            </li>
+            {{/each}}
+        </ul>
+        <div id="mediaplayer"></div>
+    </div>
+</section>

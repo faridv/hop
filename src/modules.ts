@@ -11,6 +11,7 @@ import QuranModule from './modules/quran/quran.module';
 import TehranAirModule from "./modules/tehran-air/tehran-air.module";
 import AboutChannelModule from './modules/about-channel/about-channel.module';
 // import PollModule from './modules/poll/poll.module';
+import FaqModule from "./modules/faq/faq.module";
 
 export const modules = {
     'prayer-times': PrayerTimesModule,
@@ -29,4 +30,5 @@ export const modules = {
     'tourism': NewsModule,
     'news-multimedia': NewsModule,
     'about-channel': AboutChannelModule,
+    'faq': FaqModule,
 };

@@ -5,7 +5,7 @@ import Application from "./app-manager";
 import LogHelper from '../_helpers/log.helper';
 import {Registry} from '../libs/registry';
 import {ConfigHelper} from '../_helpers/config.helper';
-import {runPolyfills} from '../libs/runPolyfills';
+import {runPolyfills} from '../libs/run-polyfills';
 
 declare let window: any;
 
