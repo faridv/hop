@@ -17,19 +17,16 @@ const plugins = [
             NODE_ENV: JSON.stringify(nodeEnv)
         }
     }),
-    new webpack.ProvidePlugin({
-        buildHash: buildHash
-    }),
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
         title: 'HOP: The HbbTV Open Platform',
         description: 'HbbTV Open Platform built to run on HbbTV-ready TV sets.',
-        template: '!!cjs-loader!src/index.html',
+        template: '!!ejs-loader?variable=havij!./src/index.html',
         direction: 'rtl',
         language: 'fa-IR',
         languageCode: 'fa',
         modified: buildDate,
-        buildHash: buildHash,
+        // buildHash: buildHash,
         hash: true,
         inject: 'head',
         cache: false,
