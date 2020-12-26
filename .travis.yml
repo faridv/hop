@@ -30,7 +30,7 @@ cache:
 #    - npm run cy:verify
 
 script:
-  - npm run test
+#  - npm run test
   - npm run build
 
 #defaults: &defaults
