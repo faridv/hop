@@ -21,12 +21,12 @@ const plugins = [
     new HtmlWebpackPlugin({
         title: 'HOP: The HbbTV Open Platform',
         description: 'HbbTV Open Platform built to run on HbbTV-ready TV sets.',
-        template: '!!ejs-loader?variable=havij!./src/index.html',
+        template: '!!ejs-loader!src/index.html',
         direction: 'rtl',
         language: 'fa-IR',
         languageCode: 'fa',
         modified: buildDate,
-        // buildHash: buildHash,
+        buildHash: buildHash,
         hash: true,
         inject: 'head',
         cache: false,
@@ -105,7 +105,7 @@ var config = {
         compress: false,
         port: 3000,
         hot: true,
-        inline: false,
+        inline: true
     }
 };
 
