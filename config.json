@@ -32,7 +32,8 @@
 			"market.labels": "market/labels",
 			"market.data": "market/data",
 			"quran": "quran",
-			"tehran-air": "tehran-air/{type}"
+			"tehran-air": "tehran-air/{type}",
+			"items": "items"
 		},
 		"pusher": "http://localhost:8080"
 	},

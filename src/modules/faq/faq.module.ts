@@ -1,6 +1,7 @@
 import {Module} from '../../libs';
 import {Item} from '../../_models/item.model';
-import {ItemsService} from '../../_services/items.service';
+import {FaqService} from './faq.service';
+import {DefaultResponse} from '../../_models';
 
 export default class FaqModule extends Module {
 
@@ -14,7 +15,7 @@ export default class FaqModule extends Module {
 
     constructor(config: any = {}, layoutInstance?) {
         super(config, layoutInstance);
-        this.service = ItemsService.instance;
+        this.service = FaqService.instance;
         this.events = this.prepareControls();
         this.load();
         return this;
@@ -27,8 +28,12 @@ export default class FaqModule extends Module {
 
     public load(callback?: any) {
         const self = this;
-        this.templateHelper.loading();
-        this.render([]);
+        this.service.getItemsByCategory(3).done((items: DefaultResponse) => {
+            console.log(items.data);
+            this.render(items.data, () => {
+                self.templateHelper.loading();
+            });
+        });
     }
 
 }

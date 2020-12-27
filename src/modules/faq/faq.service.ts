@@ -1,6 +1,6 @@
-import {Service} from '../libs';
+import {Service} from '../../libs';
 
-export class ItemsService extends Service {
+export class FaqService extends Service {
 
     public getItems() {
         return this.http.get(this.api.get('items'));
