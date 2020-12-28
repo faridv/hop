@@ -1,0 +1,17 @@
+.module.faq {
+    height: 100%;
+    .faq-items {
+        list-style: none; margin: 0; padding: 0;
+        li {
+            background: $gray-100; box-shadow: 0 0 3px rgba(0, 0, 0, 0.35); margin-bottom: 10px; padding: 5px 10px;
+            h3 { font-size: 1rem; margin: 0; }
+            .desc {
+                max-height: 0; overflow: hidden; transition: 0.2s all; padding-top: 0; font-size: 0.9rem;
+                p { margin-bottom: 0; }
+            }
+            &.active {
+                .desc { max-height: none; padding-top: 10px; }
+            }
+        }
+    }
+}

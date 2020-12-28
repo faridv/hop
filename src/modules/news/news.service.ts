@@ -1,12 +1,16 @@
-import {Service} from '../../libs/service';
+import {Service} from '../../libs';
 
 export class NewsService extends Service {
 
-    getLatest() {
+    public getLatest() {
         return this.http.get(this.api.get('news'));
     }
 
-    getByCategory(categoryId: string = null) {
+    public getUhdItems(categoryId: string) {
+        return this.http.get(this.api.get('items') + `?catid=${categoryId}`);
+    }
+
+    public getByCategory(categoryId: string = null) {
         return categoryId ? this.http.get(this.api.get('news', categoryId)) : this.getLatest();
     }
 

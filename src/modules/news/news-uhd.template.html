@@ -1,0 +1,22 @@
+<section class="module news">
+    <header><h2>{{pageTitle}}</h2></header>
+    <div>
+        <ul class="news-items">
+            {{#each items}}
+            <li data-id="{{id}}">
+                <figure>
+                    <img src="{{img}}" alt="{{title}}" />
+                </figure>
+                <div class="desc">
+                    <h3>
+                        <span class="title">{{title}}</span>
+                        <span class="badge badge-secondary"><i class="icon-hashtag"></i> {{category}}</span>
+                    </h3>
+                    <p class="summary">{{br introtext}}</p>
+                </div>
+            </li>
+            {{/each}}
+        </ul>
+    </div>
+    <div id="news-details"></div>
+</section>

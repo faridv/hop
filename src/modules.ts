@@ -29,6 +29,7 @@ export const modules = {
     'news-teaching': NewsModule,
     'tourism': NewsModule,
     'news-multimedia': NewsModule,
+    'uhd-programs': NewsModule,
     'about-channel': AboutChannelModule,
     'faq': FaqModule,
 };

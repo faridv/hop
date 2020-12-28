@@ -1,0 +1,14 @@
+<div class="news-details inner" data-media="{{data.media}}">
+    <div class="news-body" style="position: absolute; top: 0; right: 0; width: 100%; padding: 20px;">
+        <h3>{{data.title}}</h3>
+        <figure>
+            <img src="{{data.img}}" alt="{{data.title}}"/>
+        </figure>
+        <div class="categories">
+            <span class="badge badge-secondary"><i class="icon-hashtag"></i> {{data.category}}</span>
+        </div>
+        {{data.introtext}}
+        {{{data.fulltext}}}
+    </div>
+    <div id="mediaplayer"></div>
+</div>

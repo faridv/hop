@@ -43,6 +43,12 @@
                     &:after { border-bottom-color: #0d47a1; }
                 }
 
+                &[data-type="uhd-programs"] {
+                    background: #e64a19;
+                    &:before { border-top-color: #e64a19; }
+                    &:after { border-bottom-color: #e64a19; }
+                }
+
                 &[data-type="quran"] {
                     background: #007E33;
                     &:before { border-top-color: #007E33; }
@@ -65,6 +71,12 @@
                     background: #303F9F;
                     &:before { border-top-color: #303F9F; }
                     &:after { border-bottom-color: #303F9F; }
+                }
+
+                &[data-type="faq"] {
+                    background: #1a237e;
+                    &:before { border-top-color: #1a237e; }
+                    &:after { border-bottom-color: #1a237e; }
                 }
             }
         }

@@ -27,7 +27,7 @@
 			"program.latest": "programs",
 			"program.list": "programs/type/{programType}",
 			"program.episodes": "programs/{programId}",
-			"news": "news",
+			"news": "items?catid=1",
 			"media": "media",
 			"market.labels": "market/labels",
 			"market.data": "market/data",
@@ -56,9 +56,24 @@
 					"icon": "tv"
 				},
 				{
+					"title": "برنامه‌ها",
+					"type": "uhd-programs",
+					"icon": "tv1"
+				},
+				{
+					"title": "اخبار",
+					"type": "news",
+					"icon": "newspaper"
+				},
+				{
 					"title": "بازار",
 					"type": "market",
 					"icon": "line-graph"
+				},
+				{
+					"title": "اخبار",
+					"type": "news",
+					"icon": "newspaper"
 				},
 				{
 					"title": "کیفیت هوای تهران",
@@ -93,7 +108,7 @@
 				{
 					"title": "سوالات متداول",
 					"type": "faq",
-					"icon": "square"
+					"icon": "tag"
 				}
 			]
 		}

@@ -2,6 +2,7 @@ import {Module} from '../../libs';
 import {Item} from '../../_models/item.model';
 import {FaqService} from './faq.service';
 import {DefaultResponse} from '../../_models';
+import * as $ from 'jquery';
 
 export default class FaqModule extends Module {
 
@@ -23,16 +24,39 @@ export default class FaqModule extends Module {
 
     public render(items: Item[], callback?): void {
         const template = require(`${this.template}`);
-        this.templateHelper.render(template, items, this.$el, 'html');
+        items = items.reverse();
+        items[0].collapsed = true;
+        this.templateHelper.render(template, items, this.$el, 'html', () => {
+            this.registerKeyboardInputs();
+        });
     }
 
     public load(callback?: any) {
         const self = this;
-        this.service.getItemsByCategory(3).done((items: DefaultResponse) => {
-            console.log(items.data);
-            this.render(items.data, () => {
+        this.service.getItemsByCategory(3).done((response: DefaultResponse) => {
+            this.data = response;
+            this.render(response.data, () => {
                 self.templateHelper.loading();
             });
+        });
+    }
+
+    private registerKeyboardInputs(): void {
+        const self = this;
+        const $rows = $('.faq-items');
+        this.input.addEvent('up', false, this.events['faq.up'], () => {
+            const $currentActive = $rows.find('li.active');
+            if ($currentActive.length && $currentActive.prev().is('li')) {
+                $rows.find('li').removeClass('active');
+                $currentActive.prev().addClass('active');
+            }
+        });
+        this.input.addEvent('down', false, this.events['faq.down'], () => {
+            const $currentActive = $rows.find('li.active');
+            if ($currentActive.length && $currentActive.next().is('li')) {
+                $rows.find('li').removeClass('active');
+                $currentActive.next().addClass('active');
+            }
         });
     }
 

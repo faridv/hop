@@ -8,8 +8,8 @@ export default class NewsModule extends Module {
     private pageTitle = 'آخرین اخبار';
     protected playerInstance;
     protected template = {
-        'news': './news.template.html',
-        'details': './news-details.template.html',
+        news: './news.template.html',
+        details: './news-details.template.html',
     };
     protected events = {
         'news.next': {control: 'right', title: 'خبر بعدی', icon: 'right'},
@@ -23,6 +23,10 @@ export default class NewsModule extends Module {
 
     constructor(config?, layoutInstance?, moduleType?: string) {
         super(config, layoutInstance, moduleType);
+        if (layoutInstance.layout === 'uhd') {
+            this.template.news = './news-uhd.template.html';
+            this.template.details = './news-uhd-details.template.html';
+        }
         this.service = NewsService.instance;
         this.load();
         return this;
@@ -31,11 +35,17 @@ export default class NewsModule extends Module {
     public load(callback?: any) {
         const self = this;
         let id: string = null;
+        let service = 'getByCategory';
 
         this.templateHelper.loading();
 
         if (typeof this.moduleType !== 'undefined' && this.moduleType) {
             switch (this.moduleType) {
+                case 'uhd-programs':
+                    service = 'getUhdItems';
+                    this.pageTitle = 'برنامه‌ها';
+                    id = '4';
+                    break;
                 case 'news-teaching':
                     this.pageTitle = 'آموزش کسب و کار';
                     id = '85';
@@ -50,7 +60,7 @@ export default class NewsModule extends Module {
                     break;
             }
         }
-        this.service.getByCategory(id).done((data: any) => {
+        this.service[service](id).done((data: any) => {
             self.data = data.data;
             self.render(self.data, (data: News[]) => {
                 // End loading
@@ -59,6 +69,7 @@ export default class NewsModule extends Module {
             });
         });
     }
+
 
     public render(data: News[], callback): void {
         const template = require(`${this.template.news}`);
