@@ -1,0 +1,116 @@
+{
+	"title": "HOP: IRIB UHD HbbTV Application",
+	"container": "#app",
+	"locale": "fa",
+	"timezone": "Asia/Tehran",
+	"delay": 500,
+	"timeout": 60000,
+	"transitionSpeed": 0,
+	"clockUpdateInterval": 600000,
+	"theme": "default",
+	"mediaPlayer": "videojs",
+	"hd": true,
+	"resolution": "720",
+	"verbose": false,
+	"log": false,
+	"autoStart": false,
+	"streamMode": false,
+	"streamUrl": "http://test.livemedia.irib.ir/mdash/irankala-1m.stream/manifest.m3u8",
+	"exitMethod": "hide",
+	"api": {
+		"url": "http://77.36.163.196/",
+		"services": {
+			"clock": "clock.php",
+			"weather": "weather",
+			"log": "/log.php",
+			"schedule": "schedule",
+			"program.latest": "programs",
+			"program.list": "programs/type/{programType}",
+			"program.episodes": "programs/{programId}",
+			"news": "items?catid=1",
+			"media": "media",
+			"market.labels": "market/labels",
+			"market.data": "market/data",
+			"quran": "quran",
+			"tehran-air": "tehran-air/{type}",
+			"items": "items"
+		},
+		"pusher": "http://localhost:8080"
+	},
+	"applications": [
+		{
+			"button": {
+				"key": "red,r",
+				"image": "assets/img/redbutton3.png",
+				"position": "bottom: 40px; right: 40px;"
+			},
+			"hasHub": true,
+			"clock": true,
+			"connectionStatus": true,
+			"theme": "default",
+			"layout": "uhd",
+			"modules": [
+				{
+					"title": "درباره شبکه",
+					"type": "about-channel",
+					"icon": "tv"
+				},
+				{
+					"title": "برنامه‌ها",
+					"type": "uhd-programs",
+					"icon": "tv1"
+				},
+				{
+					"title": "اخبار",
+					"type": "news",
+					"icon": "newspaper"
+				},
+				{
+					"title": "بازار",
+					"type": "market",
+					"icon": "line-graph"
+				},
+				{
+					"title": "اخبار",
+					"type": "news",
+					"icon": "newspaper"
+				},
+				{
+					"title": "کیفیت هوای تهران",
+					"type": "tehran-air",
+					"icon": "dust"
+				},
+				{
+					"title": "آب و هوا",
+					"type": "weather",
+					"icon": "sun"
+				},
+				{
+					"title": "قرآن کریم",
+					"type": "quran",
+					"icon": "book"
+				},
+				{
+					"title": "اوقات شرعی",
+					"type": "prayer-times",
+					"icon": "sunrise"
+				},
+				{
+					"title": "بازی‌ها",
+					"type": "games",
+					"icon": "gamepad"
+				},
+				{
+					"title": "درباره برنامه",
+					"type": "info",
+					"icon": "info_outline"
+				},
+				{
+					"title": "سوالات متداول",
+					"type": "faq",
+					"icon": "tag"
+				}
+			]
+		}
+	]
+}
