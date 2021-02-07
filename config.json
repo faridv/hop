@@ -13,7 +13,7 @@
     "resolution": "720",
     "verbose": false,
     "log": false,
-    "autoStart": false,
+    "autoStart": true,
     "streamMode": false,
     "streamUrl": "http://test.livemedia.irib.ir/mdash/irankala-1m.stream/manifest.m3u8",
     "exitMethod": "hide",
@@ -119,6 +119,11 @@
                     "title": "درباره برنامه",
                     "type": "info",
                     "icon": "info_outline"
+                },
+                {
+                    "title": "sepehr",
+                    "type": "sepehr",
+                    "icon": "square"
                 }
             ]
         }
