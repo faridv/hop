@@ -13,6 +13,7 @@ import AboutChannelModule from './modules/about-channel/about-channel.module';
 // import PollModule from './modules/poll/poll.module';
 import FaqModule from "./modules/faq/faq.module";
 import UnderConstructionModule from './modules/under-construction/under-construction.module';
+import SepehrModule from "./modules/sepehr/sepehr.module";
 
 export const modules = {
     'prayer-times': PrayerTimesModule,
@@ -34,4 +35,5 @@ export const modules = {
     'about-channel': AboutChannelModule,
     'faq': FaqModule,
     'under-construction': UnderConstructionModule,
+	'sepehr': SepehrModule,
 };
