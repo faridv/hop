@@ -1,6 +1,6 @@
 import {NewsService} from './news.service';
 import {News} from './news.model';
-import {Module} from '../../libs/module';
+import {Module} from '../../libs';
 
 export default class NewsModule extends Module {
 

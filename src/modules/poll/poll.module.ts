@@ -1,5 +1,5 @@
 import {Module} from '../../libs';
-import * as io from 'socket.io-client'
+import { io } from 'socket.io-client'
 import {ConfigHelper} from '../../_helpers';
 
 export default class PollModule extends Module {
