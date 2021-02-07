@@ -1,18 +1,14 @@
-@charset "UTF-8";
-
-// Default Variables
-
 // Slick icon entity codes outputs the following
-// "\2190" outputs ascii character "←"
-// "\2192" outputs ascii character "→"
-// "\2022" outputs ascii character "•"
-$slick-loader-path: "./" !default;
+// '\2190' outputs ascii character '←'
+// '\2192' outputs ascii character '→'
+// '\2022' outputs ascii character '•'
+$slick-loader-path: './' !default;
 $slick-arrow-color: $gray-800 !default;
 $slick-dot-color: $gray-800 !default;
 $slick-dot-color-active: $slick-dot-color !default;
-$slick-prev-character: "\e801" !default;
-$slick-next-character: "\e802" !default;
-$slick-dot-character: "\2022" !default;
+$slick-prev-character: '\e801' !default;
+$slick-next-character: '\e802' !default;
+$slick-dot-character: '\2022' !default;
 $slick-dot-size: 6px !default;
 $slick-opacity-default: 0.75 !default;
 $slick-opacity-on-hover: 1 !default;
@@ -28,7 +24,7 @@ $slick-opacity-not-active: 0.25 !default;
     //overflow: hidden;
     &:focus { outline: none; }
     &.dragging { cursor: pointer; cursor: hand; }
-    .slick-loading & { background:  url("../img/ajax-loader.gif") center center no-repeat #fff; }
+    .slick-loading & { background: url('assets/img/ajax-loader.gif') center center no-repeat #fff; }
 }
 .slick-track {
     position: relative; top: 0; left: 0; display: block;
@@ -46,11 +42,10 @@ $slick-opacity-not-active: 0.25 !default;
     .slick-loading & { visibility: hidden; }
     .slick-vertical & { display: block; height: auto; border: 1px solid transparent; }
 }
-.slick-arrow{
+.slick-arrow {
     font-family: $font-family-icons;
     .slick-hidden { display: none; }
 }
-
 
 
 /* Arrows */
