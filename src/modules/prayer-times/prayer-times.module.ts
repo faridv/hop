@@ -1,14 +1,12 @@
 import * as PrayerTimes from 'prayer-times';
 import * as $ from 'jquery';
 import {Prayers} from "./prayers.model";
-import {Module} from '../../libs/module';
-
-// declare let PrayerTimes: any;
+import {Module} from '../../libs';
 
 export default class PrayerTimesModule extends Module {
-    
+
     private prayTimes;
-    private coordinations;
+    readonly coordination;
     protected template = './prayer-times.template.html';
     protected events = {
         'location.prev': {'control': 'up', key: 'location.prev', title: 'شهر قبلی', icon: 'up', button: true},
@@ -23,8 +21,8 @@ export default class PrayerTimesModule extends Module {
 
         const self = this;
 
-        this.coordinations = this.store.get('location') ? this.store.get('location').coordinations : [35.6961, 51.4231]; // Tehran
-        this.showPrayers(this.coordinations, (prayerTimes) => {
+        this.coordination = this.store.get('location') ? this.store.get('location').coordination : [35.6961, 51.4231]; // Tehran
+        this.showPrayers(this.coordination, () => {
             self.registerEvents();
         });
 
@@ -35,7 +33,7 @@ export default class PrayerTimesModule extends Module {
         const self = this;
         const $locationSelect = $('#location-select');
         this.registerKeyboardInputs($locationSelect);
-        $locationSelect.on('change', function(e) {
+        $locationSelect.on('change', function (e) {
             const $select = $(e.target);
             const location = {
                 coordinations: $select.val().toString().split(','),
@@ -60,10 +58,10 @@ export default class PrayerTimesModule extends Module {
     }
 
     changeCity($select, dir): void {
-        if ($select.find('option:selected')[dir]().is('option')) {
-            let $current = $select.find('option:selected');
-            $current[dir]().prop('selected', 'selected');
-            $current.removeProp('selected');
+        const $selectedOption = $select.find('option:selected');
+        if ($selectedOption[dir]().is('option')) {
+            $selectedOption[dir]().prop('selected', 'selected');
+            $selectedOption.removeProp('selected');
             $select.trigger('change');
         }
     }
@@ -84,7 +82,9 @@ export default class PrayerTimesModule extends Module {
     updateValues(coordinations) {
         const times: Prayers = this.getPrayers(coordinations);
         for (let timeTitle in times) {
-            $('[data-type="' + timeTitle + '"] .time').text(times[timeTitle]);
+            if (times.hasOwnProperty(timeTitle)) {
+                $('[data-type="' + timeTitle + '"] .time').text(times[timeTitle]);
+            }
         }
     }
 
