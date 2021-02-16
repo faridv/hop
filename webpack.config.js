@@ -19,7 +19,7 @@ module.exports = {
         hot: true,
         inline: true
     },
-    devtool: isProd ? '' : 'source-map',
+    devtool: isProd ? false : 'source-map',
     // watch: !isProd,
     context: path.resolve('./src'),
     entry: [
@@ -93,7 +93,8 @@ module.exports = {
     output: {
         filename: '[name].[fullhash].bundle.js',
         path: path.resolve(__dirname, './dist'),
-        publicPath: ''
+        publicPath: '',
+
     },
     plugins: [
         // moment loads all locales by default ant it takes so much space
@@ -124,7 +125,7 @@ module.exports = {
             inject: 'head',
             cache: false,
             // pretty: true,
-            // minify: false
+            minify: true
         }),
         new MiniCssExtractPlugin({
             filename: '[name].[fullhash].css',
