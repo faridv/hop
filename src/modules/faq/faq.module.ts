@@ -3,6 +3,9 @@ import {Item} from '../../_models/item.model';
 import {FaqService} from './faq.service';
 import {DefaultResponse} from '../../_models';
 import * as $ from 'jquery';
+import 'reflect-metadata';
+
+import template from './faq.template.html';
 
 export default class FaqModule extends Module {
 
@@ -23,7 +26,6 @@ export default class FaqModule extends Module {
     }
 
     public render(items: Item[], callback?): void {
-        const template = require(`${this.template}`);
         items = items.reverse();
         items[0].collapsed = true;
         this.templateHelper.render(template, items, this.$el, 'html', () => {
@@ -42,7 +44,6 @@ export default class FaqModule extends Module {
     }
 
     private registerKeyboardInputs(): void {
-        const self = this;
         const $rows = $('.faq-items');
         this.input.addEvent('up', false, this.events['faq.up'], () => {
             const $currentActive = $rows.find('li.active');
