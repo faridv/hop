@@ -33,7 +33,13 @@ module.exports = {
                 enforce: 'pre',
                 test: /\.ts?$/,
                 exclude: [/\/node_modules\//],
-                use: ['awesome-typescript-loader', 'source-map-loader']
+                // use: ['awesome-typescript-loader', 'source-map-loader']
+                use: {
+                    loader: 'ts-loader',
+                    options: {
+                        configFile: 'tsconfig.json',
+                    },
+                },
             },
             !isProd
                 ? {
@@ -49,9 +55,10 @@ module.exports = {
                 use: {
                     loader: 'html-loader',
                     options: {
-                        minimize: false
-                    }
-                }
+                        minimize: false,
+                        sources: false,
+                    },
+                },
             },
             {
                 test: /\.js$/i,
