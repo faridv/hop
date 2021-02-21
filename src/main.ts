@@ -1,4 +1,4 @@
-import * as Config from './../config.json';
+import * as Config from '../config.json';
 import App from './app/bootstrap';
 
 // import Developer from './_helpers/developer';
