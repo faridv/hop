@@ -83,8 +83,8 @@ $t: $transition-default;
 
 // Header
 $header-bg: #fff;
-$header-bg-dark: url('../img/header-bg.png') no-repeat center bottom #404040;
-$header-inner-dark: url('../img/header-bg.png') repeat 0 0 #fff;
+$header-bg-dark: url('assets/img/header-bg.png') no-repeat center bottom #404040;
+$header-inner-dark: url('assets/img/header-bg.png') repeat 0 0 #fff;
 $header-text-color: $text-color;
 $header-height: 110px;
 $header-link-color:  $text-color;
@@ -111,8 +111,8 @@ $archive-filters-height: 45px;
 
 $logo-width: 386px;
 $logo-height: 60px;
-$logo-img: url('../img/logo.png');
-$logo-img-en: url('../img/logo-en.png');
+$logo-img: url('assets/img/logo.png');
+$logo-img-en: url('assets/img/logo-en.png');
 $logo-bg: $logo-img no-repeat right 0 transparent;
 
 // Search
