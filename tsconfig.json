@@ -10,7 +10,7 @@
         "moduleResolution": "node",
         "outDir": "dist",
         "lib": [
-            "es2017",
+            "es5",
             "dom"
         ],
         "noImplicitAny": false,

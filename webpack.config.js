@@ -22,6 +22,7 @@ module.exports = {
     devtool: isProd ? false : 'source-map',
     // watch: !isProd,
     context: path.resolve('./src'),
+    target: 'es5',
     entry: [
         // app: './main.ts'
         './main.ts',
@@ -67,7 +68,7 @@ module.exports = {
                     loader: 'babel-loader',
                     options: {
                         sourceType: "unambiguous",
-                        compact: true,
+                        compact: true
                     },
                 },
             },
