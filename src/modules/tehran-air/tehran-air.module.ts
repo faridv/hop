@@ -1,9 +1,8 @@
-import {Module} from '../../libs/module';
+import {Module} from '../../libs';
 import {TehranAirService} from './tehran-air.service';
+import template from './tehran-air.template.html';
 
 export default class TehranAirModule extends Module {
-
-    template = './tehran-air.template.html';
 
     constructor(config: any = {}, layoutInstance?, moduleType?: string) {
         super(config, layoutInstance, moduleType);
@@ -16,7 +15,6 @@ export default class TehranAirModule extends Module {
 
     render(callback?): void {
         const self = this;
-        const template = require(`${this.template}`);
         this.templateHelper.loading();
         let templateData: any = {};
         this.templateHelper.render(template, templateData, this.$el, 'html', () => {

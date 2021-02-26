@@ -1,5 +1,6 @@
 import Inputs from "../../app/inputs";
 import TemplateHelper from "../../_helpers/template.helper";
+import template from './stream.html';
 
 export default class StreamModule {
 
@@ -27,16 +28,16 @@ export default class StreamModule {
     render(config, callback?): void {
         this.template.loading();
         const self = this;
-        const templatePromise = this.template.load('modules', 'stream');
-        this.template.render(templatePromise, config, this.$el, 'html', function () {
+        // const templatePromise = this.template.load('modules', 'stream');
+        this.template.render(template, config, this.$el, 'html', function () {
             if (typeof callback === 'function')
                 callback();
         });
     }
 
     muteStream(flag: boolean = true) {
-        const $tv = <HTMLVideoElement> $('#broadcast video:first')[0];
-        const $stream = <HTMLVideoElement> $('#content video:first')[0];
+        const $tv = <HTMLVideoElement>$('#broadcast video:first')[0];
+        const $stream = <HTMLVideoElement>$('#content video:first')[0];
         $tv.muted = !flag;
         $stream.muted = flag;
     }

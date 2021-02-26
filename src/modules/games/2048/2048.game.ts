@@ -2,13 +2,13 @@ import {ScriptLoaderService} from "../../../_services/script-loader.service";
 import TemplateHelper from "../../../_helpers/template.helper";
 import GamesModule from "../games.module";
 import Inputs from "../../../app/inputs";
+import template from './2048.template.html';
 
 export default class Game2048 {
 
     private gamesModule: GamesModule;
     private scriptLoader;
     private templateHelper;
-    private template = './2048.template.html';
     private input;
     private $el = $('#fullscreen');
     private scripts = [
@@ -42,7 +42,6 @@ export default class Game2048 {
 
     private render(callback?): void {
         const self = this;
-        const template = require(`${this.template}`);
         this.templateHelper.render(template, {}, this.$el, 'html', function () {
             self.$el.fadeIn(100);
             if (typeof callback === 'function')

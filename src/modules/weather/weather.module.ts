@@ -3,6 +3,8 @@ import TemplateHelper from "../../_helpers/template.helper";
 import Inputs from "../../app/inputs";
 import {WeatherService} from "./weather.service";
 import Store from "../../_utilities/storage.utility";
+import template from  './weather.html';
+import detailsTemplate from  './weather-details.html';
 
 export default class WeatherModule {
 
@@ -55,10 +57,6 @@ export default class WeatherModule {
     }
 
     render(data, callback): void {
-        // const self = this;
-        const template = require('./weather.html');
-        // console.log(templateHelper);
-        // const templatePromise = this.templateHelper.load('modules', 'weather');
         this.template.render(template, data, this.$el, 'html', function () {
             if (typeof callback === 'function')
                 callback(data);
@@ -66,10 +64,7 @@ export default class WeatherModule {
     }
 
     renderDetails(data, callback?): void {
-        // const self = this;
-        const template = require('./weather-details.html');
-        // const templatePromise = this.templateHelper.load('modules', 'weather-details');
-        this.template.render(template, data, $('#weather-details'), 'html', function () {
+        this.template.render(detailsTemplate, data, $('#weather-details'), 'html', function () {
             if (typeof callback === 'function')
                 callback(data);
         });

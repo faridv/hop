@@ -1,15 +1,13 @@
 import {Program, ProgramEpisode} from './program.model';
 import {ProgramService} from './program.service';
-import {Module} from '../../libs/module';
-import {DefaultResponse} from '../../_models/default-response.model';
+import {Module} from '../../libs';
+import {DefaultResponse} from '../../_models';
+import programTemplate from './program.template.html';
+import episodeTemplate from './program-episodes.template.html';
 
 export default class ProgramModule extends Module {
 
     private data;
-    protected template = {
-        'program': './program.template.html',
-        'episode': './program-episodes.template.html',
-    };
     protected events = {
         'program.play': {'control': 'enter', title: 'پخش ویدیو', icon: 'enter'},
         'program.back': {'control': 'back,backspace', title: 'بازگشت به برنامه‌ها', icon: 'refresh'},
@@ -63,8 +61,7 @@ export default class ProgramModule extends Module {
     }
 
     render(data: Program[], callback): void {
-        const template = require(`${this.template.program}`);
-        this.templateHelper.render(template, {items: data}, this.$el, 'html', function () {
+        this.templateHelper.render(programTemplate, {items: data}, this.$el, 'html', function () {
             if (typeof callback === 'function')
                 callback(data);
         });
@@ -136,8 +133,7 @@ export default class ProgramModule extends Module {
     }
 
     renderEpisodes(data, callback): void {
-        const template = require(`${this.template.episode}`);
-        this.templateHelper.render(template, {items: data}, $('#program-episodes'), 'html', function () {
+        this.templateHelper.render(episodeTemplate, {items: data}, $('#program-episodes'), 'html', function () {
             if (typeof callback === 'function')
                 callback(data);
         });

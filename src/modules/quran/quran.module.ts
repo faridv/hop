@@ -2,15 +2,13 @@ import {QuranService} from './quran.service';
 import {DefaultResponse} from '../../_models';
 import {Surah, SurahList} from './quran.model';
 import {Module} from '../../libs';
+import quranTemplate from './quran.template.html';
+import surahTemplate from './surah.template.html';
 
 export default class QuranModule extends Module {
 
     private data: SurahList;
     private currentSurah: Surah;
-    protected template = {
-        'quran': './quran.template.html',
-        'surah': './surah.template.html',
-    };
     protected events = {
         'quran.top': {control: 'up', title: 'بالا', icon: 'up', button: false},
         'quran.bottom': {control: 'down', title: 'پایین', icon: 'bottom', button: false},
@@ -45,8 +43,7 @@ export default class QuranModule extends Module {
     }
 
     render(data: SurahList, callback): void {
-        const template = require(`${this.template.quran}`);
-        this.templateHelper.render(template, data, this.$el, 'html', function () {
+        this.templateHelper.render(quranTemplate, data, this.$el, 'html', function () {
             if (typeof callback === 'function')
                 callback();
         });
@@ -65,11 +62,11 @@ export default class QuranModule extends Module {
             $next.addClass('active');
             const distance = $next.offset().top - $el.offset().top + $el.scrollTop();
             if (~~$el.scrollTop() !== ~~distance)
-                $el.stop().animate({'scrollTop': ~~distance});
+                $el.animate({'scrollTop': ~~distance});
         } else {
             const $first = $el.find('li').eq(0);
             $first.addClass('active');
-            $el.stop().animate({'scrollTop': 0});
+            $el.animate({'scrollTop': 0});
         }
     }
 
@@ -106,8 +103,7 @@ export default class QuranModule extends Module {
     }
 
     renderSurah(data: Surah, callback?): void {
-        const template = require(`${this.template.surah}`);
-        this.templateHelper.render(template, data, $('#surah'), 'html', function () {
+        this.templateHelper.render(surahTemplate, data, $('#surah'), 'html', function () {
             if (typeof callback === 'function')
                 callback(data);
         });

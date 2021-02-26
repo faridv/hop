@@ -4,10 +4,10 @@ import Game2048 from './2048/2048.game';
 import BlockrainGame from "./blockrain/blockrain.game";
 import TowerGame from './tower/tower.game';
 import * as $ from 'jquery';
+import template from './games.template.html';
 
 export default class GamesModule extends Module {
 
-    protected template = './games.template.html';
     protected events = {
         'games.prev': {control: 'up', title: 'بازی قبلی', icon: 'up'},
         'games.next': {control: 'down', title: 'بازی بعدی', icon: 'bottom'},
@@ -31,7 +31,6 @@ export default class GamesModule extends Module {
     }
 
     render(games, callback?) {
-        const template = require('./games.template.html');
         this.templateHelper.render(template, {items: games}, this.$el, 'html', () => {
             if (typeof callback === 'function')
                 callback(games);

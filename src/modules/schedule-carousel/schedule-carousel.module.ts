@@ -1,12 +1,12 @@
 import * as moment from 'moment-jalaali';
 import {ScheduleService} from "./schedule.service";
 import {Schedule} from "./schedule.model";
-import {Module} from '../../libs/module';
+import {Module} from '../../libs';
+import template from './schedule-carousel.template.html';
 
 export default class ScheduleCarouselModule extends Module {
 
     private currentDate;
-    protected template = './schedule-carousel.template.html';
     protected events = {
         'schedule.prev': {'control': 'up', title: 'برنامه قبلی', icon: 'up'},
         'schedule.next': {'control': 'down', title: 'برنامه بعدی', icon: 'bottom'},
@@ -111,7 +111,6 @@ export default class ScheduleCarouselModule extends Module {
 
     render(items: Schedule[], callback): void {
         const self = this;
-        const template = require(`${this.template}`);
         items = self.findCurrent(items);
         this.templateHelper.render(template, {items: items}, this.$el, 'html', function () {
             if (typeof callback === 'function')

@@ -1,14 +1,12 @@
 import {MarketService} from './market.service';
 import {Market} from './market.model';
-import {Module} from '../../libs/module';
+import {Module} from '../../libs';
+import marketsTemplate from './market.template.html';
+import detailsTemplate from './market-details.template.html';
 
 export default class MarketModule extends Module {
 
     private data;
-    protected template = {
-        'markets': './market.template.html',
-        'details': './market-details.template.html',
-    };
     protected events = {
         'market.prev': {control: 'up', title: 'گروه قبلی', icon: 'up'},
         'market.next': {control: 'down', title: 'گروه بعدی', icon: 'bottom'},
@@ -39,8 +37,7 @@ export default class MarketModule extends Module {
     }
 
     public render(data: Market[], callback?): void {
-        const template = require(`${this.template.markets}`);
-        this.templateHelper.render(template, {items: data}, this.$el, 'html', () => {
+        this.templateHelper.render(marketsTemplate, {items: data}, this.$el, 'html', () => {
             const $verticalCarousel = $('.market-items');
             const itemsCount = $verticalCarousel.children().length - 1;
             $verticalCarousel.slick({
@@ -90,10 +87,9 @@ export default class MarketModule extends Module {
         this.templateHelper.loading();
         this.service.getData(pid).done((data: any) => {
             // Load item details
-            const template = require(`${this.template['details']}`);
             const items = self.handleDetails(data.data);
             const reference = $li.attr('data-ref');
-            this.templateHelper.render(template, {items: items, reference: reference}, $('#market-details'), 'html', () => {
+            this.templateHelper.render(detailsTemplate, {items: items, reference: reference}, $('#market-details'), 'html', () => {
                 //  End loading
                 self.templateHelper.loading(false);
                 if ($('#market-details').find('.page-2').length) {

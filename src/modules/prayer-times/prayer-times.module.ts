@@ -2,12 +2,12 @@ import * as PrayerTimes from 'prayer-times';
 import * as $ from 'jquery';
 import {Prayers} from "./prayers.model";
 import {Module} from '../../libs';
+import template from './prayer-times.template.html';
 
 export default class PrayerTimesModule extends Module {
 
     private prayTimes;
     readonly coordination;
-    protected template = './prayer-times.template.html';
     protected events = {
         'location.prev': {'control': 'up', key: 'location.prev', title: 'شهر قبلی', icon: 'up', button: true},
         'location.next': {'control': 'down', key: 'location.next', title: 'شهر بعدی', icon: 'bottom', button: true},
@@ -67,7 +67,6 @@ export default class PrayerTimesModule extends Module {
     }
 
     showPrayers(coordinations, callback) {
-        const template = require(`${this.template}`);
         const data = {prayers: this.getPrayers(coordinations), location: coordinations.join(',')};
         this.templateHelper.render(template, data, this.$el, 'html', function () {
             if (typeof callback === 'function')

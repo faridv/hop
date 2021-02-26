@@ -10,7 +10,6 @@ import template from './faq.template.html';
 export default class FaqModule extends Module {
 
     private data = null;
-    protected template = './faq.template.html';
     protected events = {
         'faq.down': {'control': 'down', title: 'آیتم بعدی', icon: 'bottom'},
         'faq.up': {'control': 'up', title: 'آیتم قبلی', icon: 'up'},

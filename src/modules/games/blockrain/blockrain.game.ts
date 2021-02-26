@@ -2,13 +2,14 @@ import GamesModule from "../games.module";
 import {ScriptLoaderService} from "../../../_services/script-loader.service";
 import TemplateHelper from "../../../_helpers/template.helper";
 import Inputs from "../../../app/inputs";
+import template from './blockrain.template.html';
 
 export default class BlockrainGame {
 
     private gamesModule: GamesModule;
     private scriptLoader;
     private templateHelper;
-    private template = './blockrain.template.html';
+    // private template = './blockrain.template.html';
     private input;
     private $game;
     private $el = $('#fullscreen');
@@ -49,7 +50,6 @@ export default class BlockrainGame {
 
     private render(callback?): void {
         const self = this;
-        const template = require(`${this.template}`);
         this.templateHelper.render(template, {}, this.$el, 'html', function () {
             self.$el.fadeIn(100);
             if (typeof callback === 'function')

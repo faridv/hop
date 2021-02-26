@@ -2,6 +2,7 @@ import GamesModule from '../games.module';
 import {ScriptLoaderService} from '../../../_services/script-loader.service';
 import TemplateHelper from '../../../_helpers/template.helper';
 import Inputs from '../../../app/inputs';
+import template from './tower.template.html';
 
 export default class TowerGame {
     private gamesModule: GamesModule;
@@ -18,7 +19,6 @@ export default class TowerGame {
 
     constructor(module: GamesModule) {
         const self = this;
-        this.template = './tower.template.html';
         this.scriptLoader = ScriptLoaderService.instance;
         this.templateHelper = TemplateHelper.instance;
         this.input = Inputs.instance;
@@ -171,7 +171,6 @@ export default class TowerGame {
 
     private render(callback?): void {
         const self = this;
-        const template = require(`${this.template}`);
         this.templateHelper.render(template, {}, this.$el, 'html', () => {
             self.$el.fadeIn(100, () => {
                 if (typeof callback === 'function')

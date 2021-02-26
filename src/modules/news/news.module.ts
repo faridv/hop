@@ -1,16 +1,16 @@
 import {NewsService} from './news.service';
 import {News} from './news.model';
 import {Module} from '../../libs';
+import newsTemplate from './news.template.html';
+import detailsTemplate from './news-details.template.html';
+import uhdNewsTemplate from './news-uhd.template.html';
+import uhdDetailsTemplate from './news-uhd-details.template.html';
 
 export default class NewsModule extends Module {
 
     private data;
     private pageTitle = 'آخرین اخبار';
     protected playerInstance;
-    protected template = {
-        news: './news.template.html',
-        details: './news-details.template.html',
-    };
     protected events = {
         'news.next': {control: 'right', title: 'خبر بعدی', icon: 'right'},
         'news.prev': {control: 'left', title: 'خبر قبلی', icon: 'left'},
@@ -23,10 +23,6 @@ export default class NewsModule extends Module {
 
     constructor(config?, layoutInstance?, moduleType?: string) {
         super(config, layoutInstance, moduleType);
-        if (layoutInstance.layout === 'uhd') {
-            this.template.news = './news-uhd.template.html';
-            this.template.details = './news-uhd-details.template.html';
-        }
         this.service = NewsService.instance;
         this.load();
         return this;
@@ -72,7 +68,8 @@ export default class NewsModule extends Module {
 
 
     public render(data: News[], callback): void {
-        const template = require(`${this.template.news}`);
+        console.log(this.layoutInstance);
+        const template = this.layoutInstance.layout === 'uhd' ? uhdNewsTemplate : newsTemplate;
         this.templateHelper.render(template, {items: data, pageTitle: this.pageTitle}, this.$el, 'html', () => {
             if (typeof callback === 'function')
                 callback(data);
@@ -130,7 +127,7 @@ export default class NewsModule extends Module {
             : ~~$carousel.find('.slick-current.slick-center li').attr('data-id');
         const item = this.data.find(news => news.id === id);
         // Load item details
-        const template = require(`${this.template.details}`);
+        const template = this.layoutInstance.layout === 'uhd' ? uhdDetailsTemplate : detailsTemplate;
         this.templateHelper.render(template, {data: item}, $('#news-details'), 'html', () => {
             self.showDetails(!!item.media);
         });
@@ -179,13 +176,14 @@ export default class NewsModule extends Module {
         const self = this;
         if (this.templateHelper.hasClass('player-mode'))
             return;
+        const $newsDetails = $('.news-details');
         const playerParams = {
             unloadMethod: () => {
                 self.playerInstance.unload();
             },
             sources: [{
-                src: $('.news-details').attr('data-media'),
-                poster: $('.news-details').find('img').attr('src'),
+                src: $newsDetails.attr('data-media'),
+                poster: $newsDetails.find('img').attr('src'),
                 type: 'video/mp4'
             }]
         };

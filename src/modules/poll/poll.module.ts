@@ -1,15 +1,13 @@
 import {Module} from '../../libs';
-import { io } from 'socket.io-client'
+import {io} from 'socket.io-client'
 import {ConfigHelper} from '../../_helpers';
+import pollTemplate from './poll.template.html';
+import itemTemplate from './poll-item.template.html';
 
 export default class PollModule extends Module {
 
     private socket: any;
     private pusherPath = ConfigHelper.get('api').pusher;
-    protected template = {
-        'poll': './poll.template.html',
-        'item': './poll-item.template.html',
-    };
     protected events = {
         'poll.1': {control: '1', title: '1'},
         'poll.2': {control: '2', title: '2'},
@@ -36,8 +34,7 @@ export default class PollModule extends Module {
     }
 
     render(data: any = {}, callback?): void {
-        const template = require(`${this.template.poll}`);
-        this.templateHelper.render(template, {items: data}, this.$el, 'html', function () {
+        this.templateHelper.render(pollTemplate, {items: data}, this.$el, 'html', function () {
             if (typeof callback === 'function')
                 callback(data);
         });
