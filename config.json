@@ -46,7 +46,7 @@
             },
             "hasHub": true,
             "clock": true,
-            "connectionStatus": true,
+            "connectionStatus": false,
             "theme": "default",
             "layout": "uhd",
             "modules": [
