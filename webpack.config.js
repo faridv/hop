@@ -3,7 +3,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const nodeEnv = process.env.NODE_ENV || 'development';
 const isProd = nodeEnv === 'production';
 
@@ -63,7 +63,7 @@ module.exports = {
             },
             {
                 test: /\.js$/i,
-                exclude: /node_modules|assets/,
+                // exclude: /node_modules|assets/,
                 use: {
                     loader: 'babel-loader',
                     options: {
@@ -80,14 +80,15 @@ module.exports = {
             {
                 test: /\.scss$/,
                 use: [
-                    MiniCssExtractPlugin.loader,
+                    'style-loader',
+                    // MiniCssExtractPlugin.loader,
                     {
                         loader: "css-loader",
-                        options: {url: false, importLoaders: 1, esModule:false},
+                        options: {url: false, importLoaders: 1, esModule: false},
                     },
-                    {
-                        loader: 'postcss-loader',
-                    },
+                    // {
+                    //     loader: 'postcss-loader',
+                    // },
                     {
                         loader: 'sass-loader',
                     },
@@ -135,10 +136,10 @@ module.exports = {
             // pretty: true,
             minify: true
         }),
-        new MiniCssExtractPlugin({
-            filename: '[name].[fullhash].css',
-            chunkFilename: '[id].[fullhash].css',
-        }),
+        // new MiniCssExtractPlugin({
+        //     filename: '[name].[fullhash].css',
+        //     chunkFilename: '[id].[fullhash].css',
+        // }),
         // Copy static files directly without any process
         new CopyWebpackPlugin({
             patterns: [
