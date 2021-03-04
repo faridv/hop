@@ -2,8 +2,9 @@ const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
-// const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const nodeEnv = process.env.NODE_ENV || 'development';
 const isProd = nodeEnv === 'production';
 
@@ -79,21 +80,53 @@ module.exports = {
             // }
             {
                 test: /\.scss$/,
+                sideEffects: true,
+                exclude: /node_modules|assets/,
                 use: [
-                    'style-loader',
-                    // MiniCssExtractPlugin.loader,
+
                     {
-                        loader: "css-loader",
-                        options: {url: false, importLoaders: 1, esModule: false},
+                        loader: MiniCssExtractPlugin.loader, // or MiniCssExtractPlugin.loader
+                        options: {
+                            publicPath: '/',
+                            esModule: false,
+                        }
                     },
-                    // {
-                    //     loader: 'postcss-loader',
-                    // },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            url: false,
+                            sourceMap: true,
+                            importLoaders: 1
+                        }
+                    },
                     {
                         loader: 'sass-loader',
+                        options: {
+                            sourceMap: true
+                        }
                     },
                 ],
             },
+            // {
+            //     test: /\.scss$/,
+            //     use: [
+            //         {
+            //             loader: 'style-loader',
+            //             options: { insert: 'head', injectType: '' }
+            //         },
+            //         // MiniCssExtractPlugin.loader,
+            //         {
+            //             loader: "css-loader",
+            //             options: { url: false, importLoaders: 1, esModule: false },
+            //         },
+            //         // {
+            //         //     loader: 'postcss-loader',
+            //         // },
+            //         {
+            //             loader: 'sass-loader',
+            //         },
+            //     ],
+            // },
         ].filter(Boolean)
     },
     node: {
@@ -133,18 +166,20 @@ module.exports = {
             // hash: true,
             inject: 'head',
             cache: false,
+            scriptLoading: 'blocking',
             // pretty: true,
-            minify: true
+            minify: false
         }),
-        // new MiniCssExtractPlugin({
-        //     filename: '[name].[fullhash].css',
-        //     chunkFilename: '[id].[fullhash].css',
-        // }),
+        // new ExtractTextPlugin('[name].css'),
+        new MiniCssExtractPlugin({
+            filename: '[name].[fullhash].css',
+            // chunkFilename: '[id].[fullhash].css',
+        }),
         // Copy static files directly without any process
         new CopyWebpackPlugin({
             patterns: [
-                {from: 'assets', to: 'assets/'},
-                {from: '.htaccess'}
+                { from: 'assets', to: 'assets/' },
+                { from: '.htaccess' }
             ]
         })
     ],
