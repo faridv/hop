@@ -6,13 +6,14 @@
                 "useBuiltIns": "usage",
                 "modules": false,
                 "corejs": "3",
-                "targets": {
-                    "ie": "7"
-                }
+                "targets": "ie 8"
             }
         ]
     ],
     "plugins": [
+        "@babel/plugin-transform-arrow-functions",
+        "@babel/plugin-transform-async-to-generator",
+        "@babel/plugin-transform-runtime",
         [
             "@babel/plugin-proposal-class-properties",
             {

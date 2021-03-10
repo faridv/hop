@@ -2,7 +2,6 @@ const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-// const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const nodeEnv = process.env.NODE_ENV || 'development';
@@ -63,32 +62,18 @@ module.exports = {
                 },
             },
             {
-                test: /\.js$/i,
-                // exclude: /node_modules|assets/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        sourceType: "unambiguous",
-                        compact: true
-                    },
-                },
-            },
-            // {
-            //     test: /\.css$/,
-            //     // loaders: ['style-loader', 'css-loader']
-            //     loader: 'css-loader'
-            // }
-            {
-                test: /\.scss$/,
+                test: /\.(sa|sc|c)ss$/,
                 sideEffects: true,
                 exclude: /node_modules|assets/,
                 use: [
-
                     {
-                        loader: MiniCssExtractPlugin.loader, // or MiniCssExtractPlugin.loader
+                        loader: MiniCssExtractPlugin.loader,
                         options: {
                             publicPath: '/',
                             esModule: false,
+                            modules: {
+                                namedExport: false,
+                            },
                         }
                     },
                     {
@@ -96,7 +81,7 @@ module.exports = {
                         options: {
                             url: false,
                             sourceMap: true,
-                            importLoaders: 1
+                            importLoaders: 1,
                         }
                     },
                     {
@@ -107,26 +92,17 @@ module.exports = {
                     },
                 ],
             },
-            // {
-            //     test: /\.scss$/,
-            //     use: [
-            //         {
-            //             loader: 'style-loader',
-            //             options: { insert: 'head', injectType: '' }
-            //         },
-            //         // MiniCssExtractPlugin.loader,
-            //         {
-            //             loader: "css-loader",
-            //             options: { url: false, importLoaders: 1, esModule: false },
-            //         },
-            //         // {
-            //         //     loader: 'postcss-loader',
-            //         // },
-            //         {
-            //             loader: 'sass-loader',
-            //         },
-            //     ],
-            // },
+            {
+                test: /\.js$/i,
+                // exclude: /node_modules|assets/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        sourceType: "unambiguous",
+                        compact: true
+                    },
+                },
+            },
         ].filter(Boolean)
     },
     node: {
@@ -150,11 +126,9 @@ module.exports = {
                 NODE_ENV: JSON.stringify(nodeEnv)
             }
         }),
-        new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: 'index.html',
-
             // title: 'HOP: The HbbTV Open Platform',
             // description: 'HbbTV Open Platform built to run on HbbTV-ready TV sets.',
             // template: '!!ejs-loader!src/index.html',
@@ -168,12 +142,12 @@ module.exports = {
             cache: false,
             scriptLoading: 'blocking',
             // pretty: true,
-            minify: false
+            minify: false,
+            xhtml: true,
         }),
         // new ExtractTextPlugin('[name].css'),
         new MiniCssExtractPlugin({
             filename: '[name].[fullhash].css',
-            // chunkFilename: '[id].[fullhash].css',
         }),
         // Copy static files directly without any process
         new CopyWebpackPlugin({
@@ -190,6 +164,18 @@ module.exports = {
             // "handlebars/runtime": 'handlebars/dist/handlebars.runtime.min.js'
         }
     },
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                styles: {
+                    name: 'styles',
+                    type: 'css/mini-extract',
+                    // For webpack@4
+                    // test: /\.css$/,
+                    chunks: 'all',
+                    enforce: true,
+                },
+            },
+        },
+    },
 };
-
-// module.exports = config;
