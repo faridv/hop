@@ -3,7 +3,7 @@ git:
   depth: 25
 node_js:
   # Node 10.3+ includes npm@6 which has good "npm ci" command
-  - 10.8
+  - 14.16
 
 sudo: required
 services:
