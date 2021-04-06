@@ -119,11 +119,6 @@
                     "title": "درباره برنامه",
                     "type": "info",
                     "icon": "info_outline"
-                },
-                {
-                    "title": "sepehr",
-                    "type": "sepehr",
-                    "icon": "square"
                 }
             ]
         }

@@ -33,7 +33,8 @@
             "market.data": "market/data",
             "quran": "quran",
             "tehran-air": "tehran-air/{type}",
-            "items": "items"
+            "items": "items",
+            "sepehr": "sepehr"
         },
         "pusher": "http://localhost:8080"
     },
@@ -50,6 +51,11 @@
             "theme": "default",
             "layout": "uhd",
             "modules": [
+                {
+                    "title": "sepehr",
+                    "type": "sepehr",
+                    "icon": "square"
+                },
                 {
                     "title": "درباره شبکه",
                     "type": "about-channel",
