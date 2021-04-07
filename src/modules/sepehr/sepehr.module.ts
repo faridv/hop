@@ -1,10 +1,13 @@
 import * as moment from 'moment-jalaali';
-import { Module } from '../../libs';
+import {Module} from '../../libs';
 import template from './sepehr.template.html';
 import categoriesTemplate from './sepehr-categories.template.html';
 import channelsTemplate from './sepehr-channels.template.html';
 import epgTemplate from './sepehr-epg.template.html';
-import { SepehrService } from './sepehr.service';
+import {SepehrService} from './sepehr.service';
+import {DefaultResponse} from '../../_models';
+import {SepehrCategories} from './sepehr.models';
+import {Schedule} from '../schedule-carousel/schedule.model';
 
 export default class SepehrModule extends Module {
 
@@ -31,15 +34,20 @@ export default class SepehrModule extends Module {
         this.service = SepehrService.instance;
         this.events = this.prepareControls();
 
-        // this.loadCategories();
-        this.render();
-
+        this.loadCategories();
+        // this.render();
+        this.templateHelper.loading();
 
         return this;
     }
 
     loadCategories() {
-
+        const self = this;
+        this.service.getCategories().done((response: DefaultResponse<SepehrCategories[]>) => {
+            this.templateHelper.render(categoriesTemplate, response.data, this.$el, 'html');
+            // self.initializeSlider();
+            self.templateHelper.loading(false);
+        });
     }
 
     render(callback?): void {
