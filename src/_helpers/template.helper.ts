@@ -182,13 +182,13 @@ export default class TemplateHelper {
         this[method]('loading', '#app');
     }
 
-    public render(template: any, data: any, $container: any, mode: string = 'html', callback?: any): void {
+    public render(template: any, data: any, $container: any, mode: string = 'html', callback?: (() => any)): void {
         const self = this;
         if (typeof template === 'string') {
             this.generateOutput(template, data, $container, mode, callback);
         } else {
             try {
-                template.done(function (tmpl: string) {
+                template.done((tmpl: string) => {
                     self.generateOutput(tmpl, data, $container, mode, callback);
                 });
             } catch (error) {

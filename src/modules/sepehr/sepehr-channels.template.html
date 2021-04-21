@@ -1,0 +1,21 @@
+<ul class="sepehr-channels">
+    {{#each []}}
+    <li data-id="{{id}}" data-media="{{stream}}">
+        <figure>
+            <img src="{{#if preview}}{{preview}}{{else}}assets/img/tv_antenna.jpg{{/if}}" alt="{{name}}"/>
+        </figure>
+        <div class="desc">
+            <h3>
+                {{name}}
+                <span class="icon"><img src="{{icon}}" alt="{{name}}"/></span>
+            </h3>
+            <span class="summary">
+                در حال پخش
+                <strong>{{current.title}}</strong>
+                <span>{{current.summary}}</span>
+            </span>
+        </div>
+    </li>
+    {{/each}}
+</ul>
+<div id="mediaplayer"></div>

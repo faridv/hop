@@ -17,12 +17,13 @@ module.exports = {
         compress: false,
         port: 3000,
         hot: true,
-        inline: true
+        watchContentBase: true,
+        inline: true,
     },
     devtool: isProd ? false : 'source-map',
     // watch: !isProd,
     context: path.resolve('./src'),
-    target: 'es5',
+    target: isProd ? 'es5' : 'web',
     entry: [
         // app: './main.ts'
         './main.ts',
@@ -111,8 +112,7 @@ module.exports = {
     output: {
         filename: '[name].[fullhash].bundle.js',
         path: path.resolve(__dirname, './dist'),
-        publicPath: '',
-
+        publicPath: '/',
     },
     plugins: [
         // moment loads all locales by default ant it takes so much space
