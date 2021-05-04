@@ -15,23 +15,25 @@
     "log": false,
     "autoStart": false,
     "streamMode": false,
-    "streamUrl": "http://test.livemedia.irib.ir/mdash/ifilm-1m.stream/manifest.m3u8",
+    "streamUrl": "http://test.livemedia.irib.ir/mdash/irankala-1m.stream/manifest.m3u8",
     "exitMethod": "hide",
     "api": {
-        "url": "http://api.hbbtv.ir/ifilm/",
+        "url": "http://77.36.163.196/",
         "services": {
             "clock": "clock.php",
             "weather": "weather",
-            "log": "../log.php",
+            "log": "/log.php",
             "schedule": "schedule",
-            "program.latest": "series",
-            "program.episodes": "series/{programId}",
-            "news": "news",
-            "news.details": "news/{newsId}",
+            "program.latest": "programs",
+            "program.list": "programs/type/{programType}",
+            "program.episodes": "programs/{programId}",
+            "news": "items?catid=1",
+            "media": "media",
             "market.labels": "market/labels",
             "market.data": "market/data",
             "quran": "quran",
             "tehran-air": "tehran-air/{type}",
+            "items": "items",
             "sepehr": "sepehr"
         },
         "pusher": "http://localhost:8080"
@@ -40,14 +42,14 @@
         {
             "button": {
                 "key": "red,r",
-                "image": "assets/img/redbutton_sm.png",
+                "image": "assets/img/redbutton3.png",
                 "position": "bottom: 40px; right: 40px;"
             },
             "hasHub": true,
-            "clock": false,
+            "clock": true,
             "connectionStatus": false,
             "theme": "default",
-            "layout": "iktv",
+            "layout": "uhd",
             "modules": [
                 {
                     "title": "sepehr",
@@ -61,7 +63,7 @@
                 },
                 {
                     "title": "برنامه‌ها",
-                    "type": "vod",
+                    "type": "uhd-programs",
                     "icon": "tv1"
                 },
                 {

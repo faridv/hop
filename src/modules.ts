@@ -35,5 +35,5 @@ export const modules = {
     'about-channel': AboutChannelModule,
     'faq': FaqModule,
     'under-construction': UnderConstructionModule,
-	'sepehr': SepehrModule,
+    'sepehr': SepehrModule,
 };
