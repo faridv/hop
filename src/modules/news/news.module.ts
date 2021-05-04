@@ -68,7 +68,6 @@ export default class NewsModule extends Module {
 
 
     public render(data: News[], callback): void {
-        console.log(this.layoutInstance);
         const template = this.layoutInstance.layout === 'uhd' ? uhdNewsTemplate : newsTemplate;
         this.templateHelper.render(template, {items: data, pageTitle: this.pageTitle}, this.$el, 'html', () => {
             if (typeof callback === 'function')

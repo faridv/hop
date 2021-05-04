@@ -28,17 +28,11 @@ export default class ScheduleCarouselModule extends Module {
     load(date, callback?: any) {
         const self = this;
         this.templateHelper.loading();
-        console.time('loading data');
         this.service.getDate(date.format('YYYY-MM-DD')).done((data: any) => {
             // End loading
-            console.timeEnd('loading data');
-            console.time('rendering');
             self.render(data.data, (data: Schedule[]) => {
-                console.timeEnd('rendering');
-                console.time('slider');
                 self.initializeSlider();
                 self.templateHelper.loading(false);
-                console.timeEnd('slider');
                 if (typeof callback === 'function')
                     callback(data);
             });
