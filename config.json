@@ -20,19 +20,19 @@
     "api": {
         "url": "http://api.hbbtv.ir/ifilm/",
         "services": {
-            "clock": "clock.php",
-            "weather": "weather",
+            "clock": "../clock.php",
+            "weather": "../weather",
             "log": "../log.php",
             "schedule": "schedule",
             "program.latest": "series",
             "program.episodes": "series/{programId}",
             "news": "news",
             "news.details": "news/{newsId}",
-            "market.labels": "market/labels",
-            "market.data": "market/data",
-            "quran": "quran",
-            "tehran-air": "tehran-air/{type}",
-            "sepehr": "sepehr"
+            "market.labels": "../market/labels",
+            "market.data": "../market/data",
+            "quran": "../quran",
+            "tehran-air": "../tehran-air/{type}",
+            "sepehr": "../sepehr"
         },
         "pusher": "http://localhost:8080"
     },
