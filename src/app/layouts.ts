@@ -9,6 +9,7 @@ import ScreenLayout from "./layouts/screen.layout";
 import IKTVLayout from './layouts/iktv.layout';
 import PollLayout from './layouts/poll.layout';
 import UHDLayout from './layouts/uhd.layout';
+import { IConfig } from '../_helpers';
 
 export default class Layouts {
 
@@ -84,7 +85,7 @@ export default class Layouts {
         if (JSON.stringify(items) !== this.cachedFooterElements) {
             const template = this.footerTemplate;
             const $footer = $('#footer');
-            this.template.render(template, {items: items}, $footer, 'html', () => {
+            this.template.render(template, { items: items }, $footer, 'html', () => {
                 self.addFooterItemsClickListener();
             });
             this.cachedFooterElements = JSON.stringify(items);
@@ -109,7 +110,7 @@ export default class Layouts {
         this.renderFooter();
     }
 
-    public loadModule(moduleType: string, config: object = {}, skipUnload: boolean = false, url: string = null): void {
+    public loadModule(moduleType: string, config: IConfig, skipUnload: boolean = false, url: string = null): void {
         if (moduleType === 'url' && url) {
             const win = window.open(url);
             win.focus();
@@ -133,8 +134,8 @@ export default class Layouts {
     }
 
     public prepareUnloadModule(moduleInstance?): void {
-        const exitParams = {key: 'module.exit', title: 'بازگشت به فهرست', icon: 'refresh', button: true};
         const self = this;
+        const exitParams = { key: 'module.exit', title: 'بازگشت به فهرست', icon: 'refresh', button: true };
         const module = typeof moduleInstance !== 'undefined' ? moduleInstance : this.currentModuleInstance;
         this.input.addEvent('back,backspace', true, exitParams, () => {
             if (module.destroy()) {
