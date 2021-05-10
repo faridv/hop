@@ -1,5 +1,4 @@
 import * as $ from 'jquery';
-import jqXHR = JQuery.jqXHR;
 
 export default class ConnectionHelper {
 

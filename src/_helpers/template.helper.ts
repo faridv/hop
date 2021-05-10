@@ -1,6 +1,6 @@
 import * as $ from 'jquery';
-import jqXHR = JQuery.jqXHR;
 import * as Handlebars from 'handlebars';
+import jqXHR = JQuery.jqXHR;
 // import * as Template7 from './template7.js';
 
 export default class TemplateHelper {
@@ -111,7 +111,7 @@ export default class TemplateHelper {
             let $el = $('<select />').html(options.fn(this));
             if (typeof value === "undefined" || !value || value === "")
                 return $el.html();
-            $el.find('[value="' + value + '"]').attr({'selected': 'selected'});
+            $el.find('[value="' + value + '"]').attr({ 'selected': 'selected' });
             return $el.html();
         });
         Handlebars.registerHelper('replace', function (haystack, needle, replace, options) {

@@ -1,6 +1,6 @@
 import Store from "../_utilities/storage.utility";
 
-interface IConfig {
+export interface IConfig {
     // version: string;
     title: string;
     container: string;

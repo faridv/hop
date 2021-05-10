@@ -1,5 +1,5 @@
 import {ApiHelper} from './api.helper';
-import {httpHelper} from './http.helper';
+import {HttpHelper} from './http.helper';
 import * as moment from 'moment-jalaali';
 import jqXHR = JQuery.jqXHR;
 
@@ -31,7 +31,7 @@ export default class ClockHelper {
     }
 
     getClock(): jqXHR {
-        return httpHelper.get(ApiHelper.get('clock'), {tz: this.config.timezone});
+        return HttpHelper.get(ApiHelper.get('clock'), {tz: this.config.timezone});
     }
 
     render(formattedClock): void {
