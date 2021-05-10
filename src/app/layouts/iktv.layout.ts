@@ -28,6 +28,11 @@ export default class IKTVLayout {
 
     public static initialize(config, $el, LayoutInstance: Layouts): void {
         IKTVLayout.handleEvents($el, config, LayoutInstance);
+
+        // find previous active menu item
+        const previousActiveMenuIndex = $el.find('> li.active').index();
+        $el.find('li').removeClass('active');
+
         let slidesToShow = 7;
         if (!$el.is(':visible'))
             $el.show(1);
@@ -46,6 +51,12 @@ export default class IKTVLayout {
             useCSS: false,
             useTransform: false
         });
+
+        // go to previous active menu if any available
+        if (previousActiveMenuIndex >= 0) {
+            $el.slick('slickGoTo', previousActiveMenuIndex, true);
+        }
+
         IKTVLayout.handleKeys($el);
     }
 
@@ -62,11 +73,6 @@ export default class IKTVLayout {
 
     public static handleEvents($carousel, config, LayoutInstance: Layouts): void {
         const input = Inputs.instance;
-
-        // $carousel.on('init afterChange', (e) => {
-        //     const $currentSlide = $carousel.find('.slick-current').find('li:first a');
-        //     $currentSlide.trigger('focus');
-        // });
 
         $(document).on('click', "#menu ul li a", (e) => {
             IKTVLayout.loadModule($carousel, config, LayoutInstance);
@@ -87,6 +93,7 @@ export default class IKTVLayout {
 
     public static loadModule($carousel, config, LayoutInstance): void {
         const $currentSlide = $carousel.find('.slick-current').find('li:first');
+        $currentSlide.addClass('active');
         IKTVLayout.destroy($carousel, config).then(() => {
             const url = typeof $currentSlide.data('url') !== 'undefined' && $currentSlide.data('url')
                 ? $currentSlide.data('url')
