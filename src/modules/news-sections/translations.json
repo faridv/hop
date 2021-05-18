@@ -1,0 +1,16 @@
+{
+    "fa": {
+        "iran": "ایران",
+        "world": "جهان",
+        "articles": "تحلیل و مقاله",
+        "interview": "گزارش و مصاحبه",
+        "mostviewed": "پربازدید‌ترین‌ها"
+    },
+    "en": {
+        "iran": "Iran",
+        "world": "World",
+        "articles": "Articles",
+        "interview": "Reports & Interviews",
+        "mostviewed": "Most Viewed"
+    }
+}

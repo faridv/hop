@@ -10,7 +10,7 @@
                     <div class="desc">
                         {{#if items.program.schedule}}{{safe items.program.schedule}}{{/if}}
                         {{#if items.program.director}}<strong>کارگردان</strong> {{safe items.program.director}}{{/if}}
-                        <hr />
+                        <hr/>
                         {{safe items.program.description}}
                     </div>
                 </div>
@@ -20,13 +20,20 @@
                     {{#each items.items}}
                     <li data-id="{{id}}" data-media="{{video}}">
                         <figure>
-                            <img src="{{image}}" alt="" />
+                            <span>
+                                <img src="{{image}}" alt=""/>
+                            </span>
                         </figure>
                         <div class="desc">
                             <h3>
                                 <span class="title">{{safe title}}</span>
                             </h3>
-                            <p class="summary"><ins>قسمت {{part}} - </ins>{{safe summary}}</p>
+                            <p class="summary">
+                                <ins>قسمت {{part}}</ins>
+                                {{#if summary}} - 
+                                {{safe summary}}
+                                {{/if}}
+                            </p>
                         </div>
                     </li>
                     {{/each}}

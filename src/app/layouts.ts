@@ -9,6 +9,7 @@ import ScreenLayout from "./layouts/screen.layout";
 import IKTVLayout from './layouts/iktv.layout';
 import PollLayout from './layouts/poll.layout';
 import UHDLayout from './layouts/uhd.layout';
+import IFilmLayout from './layouts/ifilm.layout';
 import { IConfig } from '../_helpers';
 
 export default class Layouts {
@@ -57,6 +58,10 @@ export default class Layouts {
 
     private uhd(): void {
         UHDLayout.init(this.config, this.appData, this);
+    }
+
+    private ifilm(): void {
+        IFilmLayout.init(this.config, this.appData, this);
     }
 
     private carousel(): void {

@@ -14,6 +14,7 @@ import AboutChannelModule from './modules/about-channel/about-channel.module';
 import FaqModule from "./modules/faq/faq.module";
 import UnderConstructionModule from './modules/under-construction/under-construction.module';
 import SepehrModule from "./modules/sepehr/sepehr.module";
+import NewsSectionsModule from './modules/news-sections/news-sections.module';
 
 export const modules = {
     'prayer-times': PrayerTimesModule,
@@ -29,6 +30,7 @@ export const modules = {
     'tehran-air': TehranAirModule,
     // 'poll': PollModule,
     'news-teaching': NewsModule,
+    'news-sections': NewsSectionsModule,
     'tourism': NewsModule,
     'news-multimedia': NewsModule,
     'uhd-programs': NewsModule,

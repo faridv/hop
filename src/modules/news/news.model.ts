@@ -1,4 +1,4 @@
-export class News {
+export interface News {
     id: number;
     shortTitle: string;
     title: string;
@@ -6,10 +6,14 @@ export class News {
     text: string;
     categories?: any;
     thumbnail: NewsMedia[];
-    media: string;
+    media?: string;
 }
 
-export class NewsMedia {
+export interface NewsMedia {
     url: string;
     desc: string;
+}
+
+export interface NewsCategory {
+    [categoryTitle: string]: News[]
 }

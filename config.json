@@ -44,10 +44,10 @@
                 "position": "bottom: 40px; right: 40px;"
             },
             "hasHub": true,
-            "clock": false,
+            "clock": true,
             "connectionStatus": false,
             "theme": "default",
-            "layout": "iktv",
+            "layout": "ifilm",
             "modules": [
                 {
                     "title": "sepehr",
@@ -55,19 +55,19 @@
                     "icon": "square"
                 },
                 {
-                    "title": "درباره شبکه",
-                    "type": "about-channel",
-                    "icon": "tv"
-                },
-                {
-                    "title": "برنامه‌ها",
+                    "title": "سریال‌ها",
                     "type": "vod",
                     "icon": "tv1"
                 },
                 {
                     "title": "اخبار",
-                    "type": "news",
+                    "type": "news-sections",
                     "icon": "newspaper"
+                },
+                {
+                    "title": "جدول پخش",
+                    "type": "schedule-carousel",
+                    "icon": "view_day"
                 },
                 {
                     "title": "بازار",
@@ -103,11 +103,6 @@
                     "title": "درباره برنامه",
                     "type": "info",
                     "icon": "info_outline"
-                },
-                {
-                    "title": "سوالات متداول",
-                    "type": "faq",
-                    "icon": "tag"
                 }
             ]
         }

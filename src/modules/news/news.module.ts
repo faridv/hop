@@ -1,6 +1,6 @@
-import {NewsService} from './news.service';
-import {News} from './news.model';
-import {Module} from '../../libs';
+import { NewsService } from './news.service';
+import { News } from './news.model';
+import { Module } from '../../libs';
 import newsTemplate from './news.template.html';
 import detailsTemplate from './news-details.template.html';
 import uhdNewsTemplate from './news-uhd.template.html';
@@ -12,13 +12,13 @@ export default class NewsModule extends Module {
     private pageTitle = 'آخرین اخبار';
     protected playerInstance;
     protected events = {
-        'news.next': {control: 'right', title: 'خبر بعدی', icon: 'right'},
-        'news.prev': {control: 'left', title: 'خبر قبلی', icon: 'left'},
-        'news.enter': {control: 'enter', title: 'نمایش خبر', icon: 'enter'},
-        'news.back': {control: 'back,backspace', title: 'بازگشت به اخبار', icon: 'refresh'},
-        'news.play': {control: 'blue,b', title: 'نمایش ویدیو', button: true},
-        'news.scroll-up': {control: 'up', title: 'اسکرول بالا'},
-        'news.scroll-down': {control: 'down', title: 'اسکرول پایین'},
+        'news.next': { control: 'right', title: 'خبر بعدی', icon: 'right' },
+        'news.prev': { control: 'left', title: 'خبر قبلی', icon: 'left' },
+        'news.enter': { control: 'enter', title: 'نمایش خبر', icon: 'enter' },
+        'news.back': { control: 'back,backspace', title: 'بازگشت به اخبار', icon: 'refresh' },
+        'news.play': { control: 'blue,b', title: 'نمایش ویدیو', button: true },
+        'news.scroll-up': { control: 'up', title: 'اسکرول بالا' },
+        'news.scroll-down': { control: 'down', title: 'اسکرول پایین' },
     };
 
     constructor(config?, layoutInstance?, moduleType?: string) {
@@ -38,7 +38,7 @@ export default class NewsModule extends Module {
         if (typeof this.moduleType !== 'undefined' && this.moduleType) {
             switch (this.moduleType) {
                 case 'uhd-programs':
-                    service = 'getUhdItems';
+                    service = 'getItemsByCategory';
                     this.pageTitle = 'برنامه‌ها';
                     id = '4';
                     break;
@@ -69,7 +69,7 @@ export default class NewsModule extends Module {
 
     public render(data: News[], callback): void {
         const template = this.layoutInstance.layout === 'uhd' ? uhdNewsTemplate : newsTemplate;
-        this.templateHelper.render(template, {items: data, pageTitle: this.pageTitle}, this.$el, 'html', () => {
+        this.templateHelper.render(template, { items: data, pageTitle: this.pageTitle }, this.$el, 'html', () => {
             if (typeof callback === 'function')
                 callback(data);
         });
@@ -127,7 +127,7 @@ export default class NewsModule extends Module {
         const item = this.data.find(news => news.id === id);
         // Load item details
         const template = this.layoutInstance.layout === 'uhd' ? uhdDetailsTemplate : detailsTemplate;
-        this.templateHelper.render(template, {data: item}, $('#news-details'), 'html', () => {
+        this.templateHelper.render(template, { data: item }, $('#news-details'), 'html', () => {
             self.showDetails(!!item.media);
         });
     }
@@ -152,7 +152,7 @@ export default class NewsModule extends Module {
             if (scrollValue <= 0)
                 $newsDetails.css('top', scrollValue.toString() + 'px');
         });
-        this.input.removeEvent('back,backspace', {key: 'module.exit'});
+        this.input.removeEvent('back,backspace', { key: 'module.exit' });
         this.input.addEvent('back,backspace', false, this.events['news.back'], () => {
             // Return to news list
             self.hideDetails();
@@ -164,8 +164,8 @@ export default class NewsModule extends Module {
         $('#news-details').fadeOut(() => {
             $('#news-details').empty();
         });
-        this.input.removeEvent('blue,b', {key: 'news.play'});
-        this.input.removeEvent('back,backspace', {key: 'news.back'});
+        this.input.removeEvent('blue,b', { key: 'news.play' });
+        this.input.removeEvent('back,backspace', { key: 'news.back' });
         setTimeout(() => {
             self.layoutInstance.prepareUnloadModule();
         }, 500);

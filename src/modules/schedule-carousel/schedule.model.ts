@@ -7,4 +7,5 @@ export interface Schedule {
     programTitle: string;
     thumbnail: string;
     hasVideo: boolean;
+    isCurrent?: boolean;
 }

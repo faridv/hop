@@ -1,0 +1,23 @@
+<div id="header">
+    <div id="time">
+        <i class="icon-clock"></i>
+        <span></span>
+    </div>
+</div>
+<div id="menu">
+    <ul>
+        {{#each items}}
+        <li data-type="{{type}}"{{#if url}} data-url="{{url}}"{{/if}}>
+            <a>
+                <span class="glyphicon">
+                    <i class="icon-{{icon}}"></i>
+                </span>
+                <h3>{{title}}</h3>
+            </a>
+        </li>
+        {{/each}}
+    </ul>
+</div>
+<div id="content"></div>
+<div id="fullscreen"></div>
+<div id="footer"></div>

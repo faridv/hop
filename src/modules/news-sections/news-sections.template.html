@@ -1,0 +1,15 @@
+<section class="module news">
+    <header><h2>{{pageTitle}}</h2></header>
+    <div>
+        <ul class="news-categories">
+            {{#each items}}
+            <li data-group="{{@key}}">
+                <div class="desc">
+                    <h3>{{translate @key}}</h3>
+                </div>
+            </li>
+            {{/each}}
+        </ul>
+    </div>
+    <div id="news-list"></div>
+</section>

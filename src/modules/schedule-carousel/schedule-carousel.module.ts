@@ -1,26 +1,24 @@
 import * as moment from 'moment-jalaali';
-import {ScheduleService} from "./schedule.service";
-import {Schedule} from "./schedule.model";
-import {Module} from '../../libs';
+import { ScheduleService } from "./schedule.service";
+import { Schedule } from "./schedule.model";
+import { Module } from '../../libs';
 import template from './schedule-carousel.template.html';
 
 export default class ScheduleCarouselModule extends Module {
 
-    private currentDate;
     protected events = {
-        'schedule.prev': {'control': 'up', title: 'برنامه قبلی', icon: 'up'},
-        'schedule.next': {'control': 'down', title: 'برنامه بعدی', icon: 'bottom'},
-        'schedule.enter': {'control': 'enter', title: 'پخش ویدیو', icon: 'enter'},
+        'schedule.prev': { 'control': 'up', title: 'برنامه قبلی', icon: 'up' },
+        'schedule.next': { 'control': 'down', title: 'برنامه بعدی', icon: 'bottom' },
+        'schedule.enter': { 'control': 'enter', title: 'پخش ویدیو', icon: 'enter' },
     };
 
     constructor(config?, layoutInstance?, moduleType?: string) {
         super(config, layoutInstance, moduleType);
 
         moment.locale('en');
-        this.currentDate = moment();
         this.service = ScheduleService.instance;
         this.events = this.prepareControls();
-        this.load(this.currentDate);
+        this.load(moment());
 
         return this;
     }
@@ -45,6 +43,11 @@ export default class ScheduleCarouselModule extends Module {
         const slidesToShow = 5;
         if (!$el.is(':visible'))
             $el.show(1);
+        $el.on('init', () => {
+            setTimeout(() => {
+                self.goToCurrent($el);
+            }, 100);
+        });
         $el.on('afterChange', () => {
             self.input.removeEvent('enter', self.events['schedule.enter']);
             setTimeout(() => {
@@ -64,12 +67,12 @@ export default class ScheduleCarouselModule extends Module {
             centerMode: true,
             lazyLoad: 'ondemand',
         });
-        this.goToCurrent($el);
         this.registerKeyboardInputs($el);
     }
 
     goToCurrent($carousel): void {
         const self = this;
+        console.log(this);
         try {
             const $current = $carousel.find('li.current').parents('.slick-slide:first');
             $carousel.slick('slickGoTo', $current.attr('data-slick-index'), true);
@@ -82,23 +85,17 @@ export default class ScheduleCarouselModule extends Module {
     }
 
     findCurrent(list: Schedule[]): Schedule[] {
-        const today = moment();
-        if (this.currentDate.format('YYYY-MM-DD') === today.format('YYYY-MM-DD')) {
-            let currentIndex: number = 9999;
-            for (let index in list) {
-                let momentDate = moment(list[index].start, 'HH:mm:ss')
-                    .set({
-                        'year': today.format('YYYY'),
-                        'month': today.format('MM') - 1,
-                        'date': today.format('DD')
-                    });
-                if (momentDate < today)
-                    currentIndex = ~~index;
+        const rightNow = moment();
+        let currentIndex: number = 9999;
+        list.map(item => item.isCurrent = false);
+        for (let index in list) {
+            const currentItemTime = moment(list[index].start, 'YYYY-MM-DD HH:mm:ss');
+            if (rightNow.isAfter(currentItemTime)) {
+                currentIndex = parseInt(index);
             }
-            if (typeof list[currentIndex] !== 'undefined')
-                list[currentIndex]['isCurrent'] = true;
-        } else {
-            // list[0]['current'] = true;
+        }
+        if (typeof list[currentIndex] !== 'undefined') {
+            list[currentIndex].isCurrent = true;
         }
         return list;
     }
@@ -106,7 +103,7 @@ export default class ScheduleCarouselModule extends Module {
     render(items: Schedule[], callback): void {
         const self = this;
         items = self.findCurrent(items);
-        this.templateHelper.render(template, {items: items}, this.$el, 'html', function () {
+        this.templateHelper.render(template, { items: items }, this.$el, 'html', function () {
             if (typeof callback === 'function')
                 callback(items);
         });
