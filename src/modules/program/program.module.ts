@@ -230,7 +230,7 @@ export default class ProgramModule extends Module {
             sources: [{
                 src: self.getMediaUrl($carousel),
                 poster: self.getPoster($carousel),
-                type: 'video/mp4'
+                type: self.getMediaUrl($carousel).indexOf('.m3u8') !== -1 ? 'application/x-mpegURL' : 'video/mp4'
             }]
         };
         this.playerInstance = new this.playerService('mediaplayer', playerParams);
