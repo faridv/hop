@@ -70,7 +70,7 @@ module.exports = {
                     {
                         loader: MiniCssExtractPlugin.loader,
                         options: {
-                            publicPath: '/',
+                            publicPath: '',
                             esModule: false,
                             modules: {
                                 namedExport: false,
@@ -112,7 +112,7 @@ module.exports = {
     output: {
         filename: '[name].[fullhash].bundle.js',
         path: path.resolve(__dirname, './dist'),
-        publicPath: '/',
+        publicPath: '',
     },
     plugins: [
         // moment loads all locales by default ant it takes so much space
