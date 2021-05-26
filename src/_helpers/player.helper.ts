@@ -1,18 +1,12 @@
-import { ScriptLoaderService } from '../_services/script-loader.service';
 import TemplateHelper from './template.helper';
 import Inputs from '../app/inputs';
-
-declare var videojs: any;
+import videojs from 'video.js';
 
 export class PlayerService {
 
     private readonly type: string;
     private readonly options: any;
     private readonly container: string;
-    private scriptLoader;
-    private scripts = [
-        "assets/js/vendor/video.min.js"
-    ];
     private input;
     private template;
     private instance: any;
@@ -34,12 +28,12 @@ export class PlayerService {
                 'progressControl',
                 'remainingTimeDisplay'
             ]
-        }
+        },
+        limitRenditionByPlayerDimensions: false,
     };
     public status: string = 'inactive';
 
     constructor(container: string, options: any, type: string = 'videojs') {
-        this.scriptLoader = ScriptLoaderService.instance;
         this.template = TemplateHelper.instance;
         this.input = Inputs.instance;
         this.type = type;
@@ -51,18 +45,7 @@ export class PlayerService {
 
     // load the player script if it's not loaded yet and call render()
     private init() {
-        const self = this;
-        if (this.type === 'videojs' && typeof window['videojs'] === 'undefined') {
-            for (let i = 0; i < this.scripts.length; i++) {
-                self.scriptLoader.loadScript('head', this.scripts[i], true)
-                    .then(() => {
-                            self.prepareRender();
-                        }
-                    );
-            }
-        } else {
-            self.prepareRender();
-        }
+        this.prepareRender();
     }
 
     private prepareRender() {
@@ -132,6 +115,7 @@ export class PlayerService {
         this.input.removeEvent('d,rewind', this.events['player.rewind']);
         this.input.removeEvent('p,play', this.events['player.play']);
         this.input.removeEvent('s,stop', this.events['player.stop']);
+        this.template.loading(false);
         if (this.type === 'videojs') {
             videojs(document.getElementById(this.playerId)).dispose();
         }
@@ -155,7 +139,6 @@ export class PlayerService {
         const $tv = this.getBroadcastVideo();
         if ($('#tv-stream').length && typeof videojs('tv-stream') !== 'undefined') {
             try {
-                videojs('tv-stream').muted = false;
                 videojs('tv-stream').muted(false);
             } catch (e) {
                 // ignore
@@ -186,7 +169,6 @@ export class PlayerService {
     public disableBroadcast() {
         const $tv = this.getBroadcastVideo();
         if ($('#tv-stream').length && typeof videojs('tv-stream') !== 'undefined') {
-            videojs('tv-stream').muted = false;
             videojs('tv-stream').muted(true);
         }
         try {
@@ -213,7 +195,7 @@ export class PlayerService {
         this.setPlaybackSpeed(1);
         this.status = 'playing';
         if (initial) {
-            if (videojs(this.playerId).isPaused)
+            if (videojs(this.playerId).paused)
                 self.play();
             else {
                 if (self.instance.paused)
@@ -249,7 +231,6 @@ export class PlayerService {
 
         setTimeout(() => {
             self.input.removeEvent('p,pause', self.events['player.pause']);
-            // const playParams = {key: 'player.play', title: 'ادامه پخش', icon: 'play', button: true};
             self.input.addEvent('p,play', false, self.events['player.play'], () => {
                 self.play();
             });
@@ -266,8 +247,6 @@ export class PlayerService {
         setTimeout(() => {
             self.input.removeEvent('p,play', self.events['player.play']);
             self.input.removeEvent('p,pause', self.events['player.pause']);
-            // self.input.removeEvent('p,play', {key: 'player.play'});
-            // self.input.removeEvent('p,pause', {key: 'player.pause'});
             const playParams = { key: 'player.play', title: 'ادامه پخش', icon: 'play', button: true };
             self.input.addEvent('p,play', false, self.events['player.play'], () => {
                 self.play();
@@ -296,7 +275,7 @@ export class PlayerService {
             }
         }, 333);
         setTimeout(() => {
-            // self.input.removeEvent('p,pause', {key: 'player.pause'});
+            self.input.removeEvent('p,play', self.events['player.play']);
             self.input.removeEvent('p,pause', self.events['player.pause']);
             const playParams = { key: 'player.play', title: 'ادامه پخش', icon: self.events['player.play'], button: true };
             self.input.addEvent('p,play', false, playParams, () => {
