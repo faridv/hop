@@ -1,7 +1,7 @@
-import {Program, ProgramEpisode} from './program.model';
-import {ProgramService} from './program.service';
-import {Module} from '../../libs';
-import {DefaultResponse} from '../../_models';
+import { Program, ProgramEpisode } from './program.model';
+import { ProgramService } from './program.service';
+import { Module } from '../../libs';
+import { DefaultResponse } from '../../_models';
 import programTemplate from './program.template.html';
 import episodeTemplate from './program-episodes.template.html';
 
@@ -9,13 +9,13 @@ export default class ProgramModule extends Module {
 
     private data;
     protected events = {
-        'program.play': {'control': 'enter', title: 'پخش ویدیو', icon: 'enter'},
-        'program.back': {'control': 'back,backspace', title: 'بازگشت به برنامه‌ها', icon: 'refresh'},
-        'program.down': {'control': 'down', title: 'قسمت بعدی', icon: 'bottom'},
-        'program.up': {'control': 'up', title: 'قسمت قبلی', icon: 'up'},
-        'program.right': {'control': 'right', title: 'برنامه بعدی', icon: 'right'},
-        'program.left': {'control': 'left', title: 'برنامه قبلی', icon: 'left'},
-        'program.enter': {'control': 'enter', title: 'نمایش قسمت‌ها', icon: 'enter'},
+        'program.play': { 'control': 'enter', title: 'پخش ویدیو', icon: 'enter' },
+        'program.back': { 'control': 'back,backspace', title: 'بازگشت به برنامه‌ها', icon: 'refresh' },
+        'program.down': { 'control': 'down', title: 'قسمت بعدی', icon: 'bottom' },
+        'program.up': { 'control': 'up', title: 'قسمت قبلی', icon: 'up' },
+        'program.right': { 'control': 'right', title: 'برنامه بعدی', icon: 'right' },
+        'program.left': { 'control': 'left', title: 'برنامه قبلی', icon: 'left' },
+        'program.enter': { 'control': 'enter', title: 'نمایش قسمت‌ها', icon: 'enter' },
     };
 
     constructor(config?, layoutInstance?, moduleType?: string) {
@@ -61,7 +61,7 @@ export default class ProgramModule extends Module {
     }
 
     render(data: Program[], callback): void {
-        this.templateHelper.render(programTemplate, {items: data}, this.$el, 'html', function () {
+        this.templateHelper.render(programTemplate, { items: data }, this.$el, 'html', function () {
             if (typeof callback === 'function')
                 callback(data);
         });
@@ -133,7 +133,7 @@ export default class ProgramModule extends Module {
     }
 
     renderEpisodes(data, callback): void {
-        this.templateHelper.render(episodeTemplate, {items: data}, $('#program-episodes'), 'html', function () {
+        this.templateHelper.render(episodeTemplate, { items: data }, $('#program-episodes'), 'html', function () {
             if (typeof callback === 'function')
                 callback(data);
         });
@@ -165,7 +165,7 @@ export default class ProgramModule extends Module {
 
     registerEpisodesKeyboardInputs($carousel = $("ul.episode-items")): void {
         const self = this;
-        this.input.removeEvent('back,backspace', {key: 'module.exit'});
+        this.input.removeEvent('back,backspace', { key: 'module.exit' });
         this.input.addEvent('back,backspace', false, this.events['program.back'], () => {
             self.unloadEpisodes();
         });
@@ -230,8 +230,16 @@ export default class ProgramModule extends Module {
             sources: [{
                 src: self.getMediaUrl($carousel),
                 poster: self.getPoster($carousel),
-                type: self.getMediaUrl($carousel).indexOf('.m3u8') !== -1 ? 'application/x-mpegURL' : 'video/mp4'
-            }]
+                type: self.getMediaUrl($carousel).indexOf('.m3u8') !== -1 ? 'application/x-mpegURL' : 'video/mp4',
+                overrideNative: true
+            }],
+            html5: {
+                vhs: {
+                    overrideNative: true
+                },
+                nativeAudioTracks: false,
+                nativeVideoTracks: false
+            }
         };
         this.playerInstance = new this.playerService('mediaplayer', playerParams);
         this.removeEpisodeKeyboardEvents();
