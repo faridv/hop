@@ -7,6 +7,7 @@
                 a { text-decoration: none; color: #fff; display: inline-block; }
                 width: 150px; height: 140px; text-align: center; background: #292940; padding: 30px 10px 0; color: #fff;
                 border-radius: 6px 0;
+                box-shadow: 0 0 3pt 2pt transparent;
                 .glyphicon { font-size: 42px; }
                 h3 { font-size: 1rem; }
 
@@ -28,7 +29,7 @@
         }
         .slick-current {
             &.slick-active {
-                li { background: #c10c08; }
+                li { box-shadow: 0 0 3pt 2pt #fff; }
             }
         }
         .slick-arrow { display: none !important; }
