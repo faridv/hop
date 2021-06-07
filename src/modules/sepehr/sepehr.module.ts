@@ -6,13 +6,11 @@ import channelsTemplate from './sepehr-channels.template.html';
 import epgTemplate from './sepehr-epg.template.html';
 import { SepehrService } from './sepehr.service';
 import { DefaultResponse } from '../../_models';
-import { SepehrCategories, SepehrChannel } from './sepehr.models';
+import { SepehrCategories, SepehrChannel, SepehrEpg } from './sepehr.models';
 import * as $ from 'jquery';
 
 export default class SepehrModule extends Module {
 
-    // temp
-    tmp = [categoriesTemplate, channelsTemplate, epgTemplate];
     private readonly currentDate;
     protected events = {
         'sepehr-categories.prev': { control: 'right', title: 'قبلی', icon: 'right' },
@@ -23,7 +21,10 @@ export default class SepehrModule extends Module {
         'sepehr-channels.prev': { control: 'up', title: 'قبلی', icon: 'up' },
         'sepehr-channels.next': { control: 'down', title: 'بعدی', icon: 'bottom' },
         'sepehr-channels.back': { control: 'back,backspace', title: 'بازگشت', icon: 'refresh' },
-        // 'sepehr-channels.enter': {control: 'enter', title: 'انتخاب', icon: 'enter'},
+
+        'sepehr-epg.prev': { control: 'up', title: 'برنامه قبلی', icon: 'up' },
+        'sepehr-epg.next': { control: 'down', title: 'برنامه بعدی', icon: 'bottom' },
+        'sepehr-epg.back': { control: 'back,backspace', title: 'بازگشت', icon: 'refresh' },
 
         'sepehr-live.enter': { control: 'blue,b', title: 'پخش زنده', icon: 'square', button: true },
         'sepehr-epg.enter': { control: 'green,g', title: ' جدول پخش', icon: 'square', button: true },
@@ -231,10 +232,82 @@ export default class SepehrModule extends Module {
 
     // EPG
     private loadEpgByChannelId($carousel): void {
+        moment.locale('en');
         const self = this;
         const $current = $carousel.find('.slick-current.slick-center li');
-        this.service.getEpg($current.data('id'), moment().format('YYYY-MM-DD')).done((response: DefaultResponse<any>) => {
-            console.log(response);
+        this.templateHelper.loading();
+        this.service.getEpg($current.data('id'), moment().format('YYYY-MM-DD')).done((response: DefaultResponse<SepehrEpg[]>) => {
+            self.renderEpg(response.data, () => {
+                self.initializeEpgSlider();
+                self.templateHelper.loading(false);
+                $('.epg').addClass('active');
+            })
         });
+    }
+
+    private renderEpg(items: SepehrEpg[], callback): void {
+        this.templateHelper.render(epgTemplate, { items }, $('.epg'), 'html', () => {
+            if (typeof callback === 'function')
+                callback(items);
+        });
+    }
+
+    private initializeEpgSlider(): void {
+        const self = this;
+        const $el = $("ul.schedule-items");
+        const slidesToShow = 5;
+        if (!$el.is(':visible'))
+            $el.show(1);
+        $el.on('init', () => {
+            setTimeout(() => {
+                self.goToCurrentEpgItem($el);
+            }, 100);
+        });
+        $el.slick({
+            slidesToShow: slidesToShow,
+            slidesToScroll: 1,
+            vertical: true,
+            centerMode: true,
+            lazyLoad: 'ondemand',
+        });
+        this.registerEpgKeyboardInputs($el);
+    }
+
+    private goToCurrentEpgItem($carousel): void {
+        const self = this;
+        try {
+            const $current = $carousel.find('li.current').parents('.slick-slide:first');
+            $carousel.slick('slickGoTo', $current.attr('data-slick-index'), true);
+        } catch (e) {
+            setTimeout(() => {
+                self.goToCurrentEpgItem($carousel);
+            }, 200);
+            return;
+        }
+    }
+
+    private registerEpgKeyboardInputs($carousel = $("ul.schedule-items")): void {
+        const self = this;
+        this.removeChannelKeyInputs();
+        this.input.addEvent('back,backspace', false, this.events['sepehr-epg.back'], () => {
+            $('.epg').empty().removeClass('active');
+            self.removeEpgKeyboardListeners();
+        });
+        this.input.addEvent('up', false, this.events['sepehr-epg.prev'], () => {
+            $carousel.slick('slickPrev');
+        });
+        this.input.addEvent('down', false, this.events['sepehr-epg.next'], () => {
+            $carousel.slick('slickNext');
+        });
+    }
+
+    private removeEpgKeyboardListeners(): void {
+        const self = this;
+        this.input.removeEvent('back,backspace', this.events['sepehr-epg.back']);
+        this.input.removeEvent('up', this.events['sepehr-epg.prev']);
+        this.input.removeEvent('down', this.events['sepehr-epg.next']);
+        setTimeout(() => {
+            self.registerChannelsKeyboardInputs();
+        })
     }
 }

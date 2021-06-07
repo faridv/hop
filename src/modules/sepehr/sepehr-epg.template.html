@@ -1,0 +1,25 @@
+<section class="module schedule schedule-carousel">
+    <header class="d-none"><h2>جدول پخش</h2></header>
+    <div>
+        <ul class="schedule-items">
+            {{#each items}}
+            <li data-id="{{mediaId}}" class="{{#if isCurrent}}current{{/if}} {{#if hasVideo}}video{{/if}}" data-media="">
+                <figure>
+                    <img data-lazy="{{thumbnail}}" alt="{{programTitle}}" />
+                </figure>
+                <div class="desc">
+                    <h3>
+                        {{episodeTitle}}
+                    </h3>
+                    <p class="summary">{{description}}</p>
+                    <time>
+                        {{extractTime start}}
+                        <span>{{min2time duration}}</span>
+                    </time>
+                </div>
+            </li>
+            {{/each}}
+        </ul>
+        <div id="mediaplayer"></div>
+    </div>
+</section>

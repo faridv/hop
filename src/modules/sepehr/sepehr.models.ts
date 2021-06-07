@@ -22,3 +22,15 @@ export interface SepehrChannelCurrentProgram {
     summary: string;
     desc: string;
 }
+
+export interface SepehrEpg {
+    mediaId: number;
+    description: string;
+    start: string;
+    duration: string;
+    episodeTitle: string;
+    programTitle?: string;
+    thumbnail: string;
+    hasVideo?: boolean;
+    isCurrent?: boolean;
+}
