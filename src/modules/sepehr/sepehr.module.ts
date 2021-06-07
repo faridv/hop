@@ -8,7 +8,6 @@ import { SepehrService } from './sepehr.service';
 import { DefaultResponse } from '../../_models';
 import { SepehrCategories, SepehrChannel } from './sepehr.models';
 import * as $ from 'jquery';
-import { VideoJsOptions } from '../../_models/VideoJsOptions';
 
 export default class SepehrModule extends Module {
 
@@ -19,13 +18,15 @@ export default class SepehrModule extends Module {
         'sepehr-categories.prev': { control: 'right', title: 'قبلی', icon: 'right' },
         'sepehr-categories.next': { control: 'left', title: 'بعدی', icon: 'left' },
         'sepehr-categories.enter': { control: 'enter', title: 'انتخاب', icon: 'enter' },
+        'sepehr-categories.back': { control: 'back,backspace', title: 'بازگشت', icon: 'refresh' },
 
         'sepehr-channels.prev': { control: 'up', title: 'قبلی', icon: 'up' },
-        'sepehr-channels.next': { control: 'down', title: 'بعدی', icon: 'down' },
-        'sepehr-channels.back': { control: 'back', title: 'بازگشت', icon: 'back' },
+        'sepehr-channels.next': { control: 'down', title: 'بعدی', icon: 'bottom' },
+        'sepehr-channels.back': { control: 'back,backspace', title: 'بازگشت', icon: 'refresh' },
         // 'sepehr-channels.enter': {control: 'enter', title: 'انتخاب', icon: 'enter'},
 
         'sepehr-live.enter': { control: 'blue,b', title: 'پخش زنده', icon: 'square', button: true },
+        'sepehr-epg.enter': { control: 'green,g', title: ' جدول پخش', icon: 'square', button: true },
     };
 
     constructor(config: any = {}, layoutInstance?) {
@@ -127,9 +128,13 @@ export default class SepehrModule extends Module {
             $el.show(1);
         $el.on('afterChange', () => {
             self.input.removeEvent('blue,b', self.events['sepehr-live.enter']);
+            self.input.removeEvent('green,g', self.events['sepehr-epg.enter']);
             setTimeout(() => {
                 self.input.addEvent('blue,b', false, self.events['sepehr-live.enter'], () => {
                     self.playChannelStream($el);
+                });
+                self.input.addEvent('green,g', false, self.events['sepehr-epg.enter'], () => {
+                    self.loadEpgByChannelId($el);
                 });
             }, 100);
         });
@@ -168,31 +173,36 @@ export default class SepehrModule extends Module {
     private registerChannelsKeyboardInputs($carousel?): void {
         $carousel = typeof $carousel !== 'undefined' && $carousel ? $carousel : $(".channels ul");
         const self = this;
-        this.input.removeEvent('back,backspace', { key: 'sepehr-channels.back' });
-        this.input.addEvent('back,backspace', false, this.events['sepehr-channels.back'], () => {
-            // Return to news list
-            self.hideChannels();
-        });
-        this.input.addEvent('up', false, { key: 'sepehr-channels.prev' }, () => {
+        this.input.removeEvent('back,backspace', this.events['sepehr-categories.back']);
+        setTimeout(() => {
+            self.input.addEvent('back,backspace', false, this.events['sepehr-channels.back'], () => {
+                self.hideChannels();
+            });
+        }, 200);
+        this.input.addEvent('up', false, this.events['sepehr-channels.prev'], () => {
             $carousel.slick('slickPrev');
         });
-        this.input.addEvent('down', false, { key: 'sepehr-channels.next' }, () => {
+        this.input.addEvent('down', false, this.events['sepehr-channels.next'], () => {
             $carousel.slick('slickNext');
         });
     }
 
-    private removeChannelKeyInputs(): void {
+    private removeChannelKeyInputs(backFromVideo: boolean = false): void {
         const self = this;
-        this.input.removeEvent('back,backspace', { key: 'sepehr-channels.back' });
-        this.input.removeEvent('up', { key: 'sepehr-channels.prev' });
-        this.input.removeEvent('down', { key: 'sepehr-channels.next' });
-        this.input.removeEvent('blue,b', { key: 'sepehr-live.enter' });
-        setTimeout(() => {
-            self.layoutInstance.prepareUnloadModule();
-        }, 500);
+        this.input.removeEvent('back,backspace', self.events['sepehr-channels.back']);
+        this.input.removeEvent('up', this.events['sepehr-channels.prev']);
+        this.input.removeEvent('down', this.events['sepehr-channels.next']);
+        this.input.removeEvent('blue,b', this.events['sepehr-live.enter']);
+        this.input.removeEvent('green,g', this.events['sepehr-epg.enter']);
+        if (!backFromVideo) {
+            setTimeout(() => {
+                self.layoutInstance.prepareUnloadModule();
+            }, 500);
+        }
     }
 
     // Live Stream
+
     private playChannelStream($carousel): void {
         const self = this;
         if (this.templateHelper.hasClass('player-mode'))
@@ -200,9 +210,8 @@ export default class SepehrModule extends Module {
         const $current = $carousel.find('.slick-current.slick-center li');
         const playerParams = {
             unloadMethod: () => {
-                alert();
-                self.playerInstance.unload();
                 self.registerChannelsKeyboardInputs();
+                self.playerInstance.unload();
             },
             liveui: true,
             poster: $current.find('figure > img').attr('src'),
@@ -216,9 +225,16 @@ export default class SepehrModule extends Module {
                 }
             }
         };
-        this.input.removeEvent('back,backspace', { key: 'sepehr-channels.back' });
-        this.input.removeEvent('blue,b', self.events['sepehr-live.enter']);
+        this.removeChannelKeyInputs(true);
         this.playerInstance = new this.playerService('mediaplayer', playerParams);
     }
 
+    // EPG
+    private loadEpgByChannelId($carousel): void {
+        const self = this;
+        const $current = $carousel.find('.slick-current.slick-center li');
+        this.service.getEpg($current.data('id'), moment().format('YYYY-MM-DD')).done((response: DefaultResponse<any>) => {
+            console.log(response);
+        });
+    }
 }
