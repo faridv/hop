@@ -1,6 +1,7 @@
 import TemplateHelper from './template.helper';
 import Inputs from '../app/inputs';
 import videojs from 'video.js';
+import { Event } from '../_models';
 
 export class PlayerService {
 
@@ -11,12 +12,12 @@ export class PlayerService {
     private template;
     private instance: any;
     private playerId: string = 'vod-player';
-    private events = {
-        'player.play': { key: 'player.play', title: 'ادامه پخش', icon: 'play', button: true },
-        'player.pause': { key: 'player.pause', title: 'توقف', icon: 'pause', button: true },
-        'player.ffw': { key: 'player.ffw', title: 'جلو', icon: 'forward', button: true },
-        'player.rewind': { key: 'player.rewind', title: 'عقب', icon: 'backward', button: true },
-        'player.stop': { key: 'player.stop', title: 'بازگشت', icon: 'stop', button: true },
+    private events: Event = {
+        'player.play': { control: 'p,play', title: 'ادامه پخش', icon: 'play', button: true },
+        'player.pause': { control: 'p,pause', title: 'توقف', icon: 'pause', button: true },
+        'player.ffw': { control: 'f,fast_fwd', title: 'جلو', icon: 'forward', button: true },
+        'player.rewind': { control: 'd,rewind', title: 'عقب', icon: 'backward', button: true },
+        'player.stop': { control: 's,stop', title: 'بازگشت', icon: 'stop', button: true },
     };
     private defaultOptions = {
         autoplay: true,
@@ -195,11 +196,10 @@ export class PlayerService {
         this.setPlaybackSpeed(1);
         this.status = 'playing';
         if (initial) {
-            if (videojs(this.playerId).paused)
-                self.play();
-            else {
-                if (self.instance.paused)
+            if (!videojs(this.playerId).paused) {
+                if (self.instance.paused) {
                     self.instance.play();
+                }
             }
         } else {
             if (self.type === 'videojs') {
