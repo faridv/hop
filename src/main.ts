@@ -1,7 +1,7 @@
 import * as Config from '../config.json';
 import App from './app/bootstrap';
 
-import {modules} from './modules';
+import { modules } from './modules';
 
 // import Developer from './_helpers/developer';
 // import * as LogRocket from 'logrocket';
