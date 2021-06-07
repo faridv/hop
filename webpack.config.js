@@ -43,7 +43,7 @@ module.exports = {
                     },
                 },
             },
-            !isProd
+            /*!isProd
                 ? {
                     test: /\.(js|ts)$/,
                     exclude: [/\/node_modules\//],
@@ -51,7 +51,7 @@ module.exports = {
                         loader: 'istanbul-instrumenter-loader',
                     },
                 }
-                : null,
+                :*/ null,
             {
                 test: /\.html$/,
                 use: {
