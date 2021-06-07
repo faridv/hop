@@ -149,6 +149,10 @@ export default class TemplateHelper {
             const time = new Date(0, 0, 0, 0, 0, Math.abs(value), 0);
             return self.zeroFill(time.getHours()) + ":" + self.zeroFill(time.getMinutes()) + ":" + self.zeroFill(time.getSeconds());
         });
+        Handlebars.registerHelper('min2time', function (value, options) {
+            const time = new Date(0, 0, 0, 0, Math.abs(value), 0, 0);
+            return self.zeroFill(time.getHours()) + ":" + self.zeroFill(time.getMinutes()) + ":" + self.zeroFill(time.getSeconds());
+        });
         Handlebars.registerHelper('getSeconds', function (value, options) {
             try {
                 const splitter = (value.indexOf('T') !== -1) ? 'T' : ' ';
@@ -157,10 +161,6 @@ export default class TemplateHelper {
             } catch (e) {
                 console.error('cannot convert "' + value + '" to seconds.', e);
             }
-        });
-        Handlebars.registerHelper('min2time', function (value, options) {
-            const time = new Date(0, 0, 0, 0, Math.abs(value), 0, 0);
-            return self.zeroFill(time.getHours()) + ":" + self.zeroFill(time.getMinutes()) + ":" + self.zeroFill(time.getSeconds());
         });
     }
 
