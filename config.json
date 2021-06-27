@@ -50,9 +50,9 @@
             "layout": "ifilm",
             "modules": [
                 {
-                    "title": "sepehr",
+                    "title": "سپهر",
                     "type": "sepehr",
-                    "icon": "square"
+                    "icon": "sepehr"
                 },
                 {
                     "title": "سریال‌ها",
