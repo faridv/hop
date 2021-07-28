@@ -1,3 +1,4 @@
+import * as moment from 'moment-jalaali';
 import * as PrayerTimes from 'prayer-times';
 import * as $ from 'jquery';
 import { Prayers } from "./prayers.model";
@@ -85,7 +86,7 @@ export default class PrayerTimesModule extends Module {
     }
 
     private getPrayers(coordination): Prayers {
-        return this.prayTimes.getTimes(new Date(), coordination, 3.5, this.isDST(new Date()), '24h');
+        return this.prayTimes.getTimes(new Date(), coordination, 3.5, moment().isDST(), '24h');
     }
 
     private updateValues(coordination) {
