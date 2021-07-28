@@ -23,7 +23,9 @@ export default class PrayerTimesModule extends Module {
 
         const self = this;
 
-        this.coordination = this.store.get('location') ? this.store.get('location').coordination : [35.7, 51.42]; // Tehran
+        this.coordination = this.store.get('location') && typeof this.store.get('location').coordination !== 'undefined'
+            ? this.store.get('location').coordination
+            : [35.7, 51.42]; // Tehran
         this.render(this.coordination, () => {
             self.registerEvents();
         });

@@ -26,7 +26,10 @@ export default class WeatherModule extends Module {
         this.service = WeatherService.instance;
         const self = this;
 
-        this.coordination = this.store.get('location') ? this.store.get('location').coordination : [35.7, 51.42]; // Tehran
+        this.coordination = this.store.get('location') && typeof this.store.get('location').coordination !== 'undefined'
+            ? this.store.get('location').coordination
+            : [35.7, 51.42]; // Tehran
+
         // Load weather templateHelper
         this.render({ location: this.coordination.join(',') }, () => {
             self.registerEvents();
