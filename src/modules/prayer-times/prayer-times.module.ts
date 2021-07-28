@@ -1,19 +1,21 @@
 import * as PrayerTimes from 'prayer-times';
 import * as $ from 'jquery';
-import {Prayers} from "./prayers.model";
-import {Module} from '../../libs';
+import { Prayers } from "./prayers.model";
+import { Module } from '../../libs';
 import template from './prayer-times.template.html';
+import { IConfig } from '../../_models/config.model';
 
 export default class PrayerTimesModule extends Module {
 
     private prayTimes;
     readonly coordination;
+
     protected events = {
-        'location.prev': {'control': 'up', key: 'location.prev', title: 'شهر قبلی', icon: 'up', button: true},
-        'location.next': {'control': 'down', key: 'location.next', title: 'شهر بعدی', icon: 'bottom', button: true},
+        'location.prev': { 'control': 'up', key: 'location.prev', title: 'شهر قبلی', icon: 'up', button: true },
+        'location.next': { 'control': 'down', key: 'location.next', title: 'شهر بعدی', icon: 'bottom', button: true },
     };
 
-    constructor(config?, layoutInstance?, moduleType?: string) {
+    constructor(config?: IConfig, layoutInstance?, moduleType?: string) {
         super(config, layoutInstance, moduleType);
         this.prayTimes = new PrayerTimes();
         this.prayTimes.setMethod('Tehran');
@@ -21,31 +23,31 @@ export default class PrayerTimesModule extends Module {
 
         const self = this;
 
-        this.coordination = this.store.get('location') ? this.store.get('location').coordination : [35.6961, 51.4231]; // Tehran
-        this.showPrayers(this.coordination, () => {
+        this.coordination = this.store.get('location') ? this.store.get('location').coordination : [35.7, 51.42]; // Tehran
+        this.render(this.coordination, () => {
             self.registerEvents();
         });
 
         return this;
     }
 
-    registerEvents() {
+    private registerEvents() {
         const self = this;
         const $locationSelect = $('#location-select');
         this.registerKeyboardInputs($locationSelect);
         $locationSelect.on('change', function (e) {
             const $select = $(e.target);
             const location = {
-                coordinations: $select.val().toString().split(','),
+                coordination: $select.val().toString().split(','),
                 city: $select.find('option:selected').text()
             };
             self.store.set('location', location);
-            self.updateValues(location.coordinations);
+            self.updateValues(location.coordination);
         });
         $locationSelect.focus();
     }
 
-    registerKeyboardInputs($select) {
+    private registerKeyboardInputs($select) {
         const self = this;
 
         this.input.addEvent('up', false, this.events['location.prev'], () => {
@@ -57,7 +59,7 @@ export default class PrayerTimesModule extends Module {
         });
     }
 
-    changeCity($select, dir): void {
+    private changeCity($select, dir): void {
         const $selectedOption = $select.find('option:selected');
         if ($selectedOption[dir]().is('option')) {
             $selectedOption[dir]().prop('selected', 'selected');
@@ -66,20 +68,20 @@ export default class PrayerTimesModule extends Module {
         }
     }
 
-    showPrayers(coordinations, callback) {
-        const data = {prayers: this.getPrayers(coordinations), location: coordinations.join(',')};
+    public render(coordination, callback): void {
+        const data = { prayers: this.getPrayers(coordination), location: coordination.join(',') };
         this.templateHelper.render(template, data, this.$el, 'html', function () {
             if (typeof callback === 'function')
                 callback(data);
         });
     }
 
-    getPrayers(coordinations): Prayers {
-        return this.prayTimes.getTimes(new Date(), coordinations, 3.5, 'auto', '24h');
+    private getPrayers(coordination): Prayers {
+        return this.prayTimes.getTimes(new Date(), coordination, 3.5, 'auto', '24h');
     }
 
-    updateValues(coordinations) {
-        const times: Prayers = this.getPrayers(coordinations);
+    private updateValues(coordination) {
+        const times: Prayers = this.getPrayers(coordination);
         for (let timeTitle in times) {
             if (times.hasOwnProperty(timeTitle)) {
                 $('[data-type="' + timeTitle + '"] .time').text(times[timeTitle]);
