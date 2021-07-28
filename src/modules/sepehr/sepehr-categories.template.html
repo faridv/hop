@@ -1,0 +1,22 @@
+<div class="module sepehr">
+    <div class="categories">
+        <ul class="sepehr-categories">
+            {{#each []}}
+            <li data-id="{{id}}">
+                <figure>
+                    <img src="{{#if poster}}{{poster}}{{else}}assets/img/tv_antenna.jpg{{/if}}" alt="{{name}}"/>
+                </figure>
+                <h3>{{name}}</h3>
+            </li>
+            {{/each}}
+<!--            <li data-id="-1">-->
+<!--                <figure>-->
+<!--                    <img src="assets/img/tv_antenna.jpg" alt="همه شبکه‌ها"/>-->
+<!--                </figure>-->
+<!--                <h3>همه شبکه‌ها</h3>-->
+<!--            </li>-->
+        </ul>
+    </div>
+    <div class="channels"></div>
+    <div class="epg"></div>
+</div>

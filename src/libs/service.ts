@@ -1,9 +1,9 @@
-import {httpHelper, ApiHelper} from '../_helpers';
+import { ApiHelper, HttpHelper } from '../_helpers';
 
 export class Service {
 
     protected static _instance: Service;
-    protected http = httpHelper;
+    protected http = HttpHelper;
     protected api = ApiHelper;
 
     constructor() {

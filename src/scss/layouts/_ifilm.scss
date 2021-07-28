@@ -1,0 +1,49 @@
+.layout-ifilm {
+    #menu {
+        position: absolute; bottom: 50px; width: 100%;
+        ul {
+            margin: 0; padding: 0; list-style: none;
+            li {
+                a { text-decoration: none; color: #fff; display: inline-block; }
+                width: 150px; height: 140px; text-align: center; background: #292940; padding: 30px 10px 0; color: #fff;
+                border-radius: 6px 0;
+                box-shadow: 0 0 3pt 2pt transparent;
+                .glyphicon { font-size: 42px; }
+                h3 { font-size: 1rem; }
+
+                &[data-type="vod"] { background: #3A2A75; }
+                &[data-type="news"], &[data-type="news-sections"] { background: #006693; }
+                &[data-type="schedule-carousel"] { background: #00515B; }
+                &[data-type="market"] { background: #01A2CE; }
+                &[data-type="tehran-air"] { background: #6DAC41; }
+                &[data-type="weather"] { background: #D6A328; }
+                &[data-type="quran"] { background: #E17423; }
+                &[data-type="prayer-times"] { background: #92B33B; }
+                &[data-type="games"] { background: #0C7D64; }
+                &[data-type="info"] { background: #0B5F94; }
+                &[data-type="sepehr"] { background: #2B4382; }
+            }
+        }
+        .slick-slide {
+            > div { padding: 10px; }
+        }
+        .slick-current {
+            &.slick-active {
+                li { box-shadow: 0 0 3pt 2pt #fff; }
+            }
+        }
+        .slick-arrow { display: none !important; }
+
+        &.out { display: none; }
+    }
+    #content {
+        background: transparent;
+        width: 100%; height: 100%; position: absolute; top: 0; left: 0;
+        transition: 0.5s all; margin-top: 0; opacity: 1; visibility: visible;
+        &:empty { margin-top: 100px; opacity: 0; visibility: hidden; }
+        &.fullscreen { padding: 0; width: 100%; height: 100%; }
+        &.half { width: 45%; left: 25%; height: 45%; }
+    }
+    .module { background: rgba(255, 255, 255, 0.8); padding: $grid-gutter-width * 2; }
+    .slick-list { overflow: hidden; }
+}

@@ -17,12 +17,14 @@ module.exports = {
         compress: false,
         port: 3000,
         hot: true,
-        inline: true
+        watchContentBase: true,
+        inline: true,
     },
     devtool: isProd ? false : 'source-map',
     // watch: !isProd,
     context: path.resolve('./src'),
-    target: 'es5',
+    // target: isProd ? 'es5' : 'web',
+    target: ['web', 'es5'],
     entry: [
         // app: './main.ts'
         './main.ts',
@@ -42,7 +44,7 @@ module.exports = {
                     },
                 },
             },
-            !isProd
+            /*!isProd
                 ? {
                     test: /\.(js|ts)$/,
                     exclude: [/\/node_modules\//],
@@ -50,7 +52,7 @@ module.exports = {
                         loader: 'istanbul-instrumenter-loader',
                     },
                 }
-                : null,
+                :*/ null,
             {
                 test: /\.html$/,
                 use: {
@@ -69,11 +71,11 @@ module.exports = {
                     {
                         loader: MiniCssExtractPlugin.loader,
                         options: {
-                            publicPath: '/',
+                            publicPath: '',
                             esModule: false,
-                            modules: {
-                                namedExport: false,
-                            },
+                            // modules: {
+                            //     namedExport: false,
+                            // },
                         }
                     },
                     {
@@ -112,7 +114,6 @@ module.exports = {
         filename: '[name].[fullhash].bundle.js',
         path: path.resolve(__dirname, './dist'),
         publicPath: '',
-
     },
     plugins: [
         // moment loads all locales by default ant it takes so much space

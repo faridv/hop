@@ -1,4 +1,4 @@
-import {Service} from '../../libs';
+import { Service } from '../../libs';
 
 export class FaqService extends Service {
 

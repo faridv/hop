@@ -15,25 +15,24 @@
     "log": false,
     "autoStart": false,
     "streamMode": false,
-    "streamUrl": "http://test.livemedia.irib.ir/mdash/irankala-1m.stream/manifest.m3u8",
+    "streamUrl": "http://test.livemedia.irib.ir/mdash/ifilm-1m.stream/manifest.m3u8",
     "exitMethod": "hide",
     "api": {
-        "url": "http://77.36.163.196/",
+        "url": "http://api.hbbtv.ir/ifilm/",
         "services": {
-            "clock": "clock.php",
-            "weather": "weather",
-            "log": "/log.php",
+            "clock": "../clock.php",
+            "weather": "../weather",
+            "log": "../log.php",
             "schedule": "schedule",
-            "program.latest": "programs",
-            "program.list": "programs/type/{programType}",
-            "program.episodes": "programs/{programId}",
-            "news": "items?catid=1",
-            "media": "media",
-            "market.labels": "market/labels",
-            "market.data": "market/data",
-            "quran": "quran",
-            "tehran-air": "tehran-air/{type}",
-            "items": "items"
+            "program.latest": "series",
+            "program.episodes": "series/{programId}",
+            "news": "news",
+            "news.details": "news/{newsId}",
+            "market.labels": "../market/labels",
+            "market.data": "../market/data",
+            "quran": "../quran",
+            "tehran-air": "../tehran-air/{type}",
+            "sepehr": "../sepehr"
         },
         "pusher": "http://localhost:8080"
     },
@@ -41,29 +40,34 @@
         {
             "button": {
                 "key": "red,r",
-                "image": "assets/img/redbutton3.png",
+                "image": "assets/img/redbutton_sm.png",
                 "position": "bottom: 40px; right: 40px;"
             },
             "hasHub": true,
             "clock": true,
             "connectionStatus": false,
             "theme": "default",
-            "layout": "uhd",
+            "layout": "ifilm",
             "modules": [
                 {
-                    "title": "درباره شبکه",
-                    "type": "about-channel",
-                    "icon": "tv"
+                    "title": "سپهر",
+                    "type": "sepehr",
+                    "icon": "sepehr"
                 },
                 {
-                    "title": "برنامه‌ها",
-                    "type": "uhd-programs",
+                    "title": "سریال‌ها",
+                    "type": "vod",
                     "icon": "tv1"
                 },
                 {
                     "title": "اخبار",
-                    "type": "news",
+                    "type": "news-sections",
                     "icon": "newspaper"
+                },
+                {
+                    "title": "جدول پخش",
+                    "type": "schedule-carousel",
+                    "icon": "view_day"
                 },
                 {
                     "title": "بازار",
@@ -99,12 +103,257 @@
                     "title": "درباره برنامه",
                     "type": "info",
                     "icon": "info_outline"
-                },
-                {
-                    "title": "سوالات متداول",
-                    "type": "faq",
-                    "icon": "tag"
                 }
+            ]
+        }
+    ],
+    "locations": [
+        {
+            "city": "east-azerbaijan",
+            "title": "آذربایجان شرقی",
+            "coords": [
+                46.29,
+                38.07
+            ]
+        },
+        {
+            "city": "west-azerbaijan",
+            "title": "آذربایجان غربی",
+            "coords": [
+                45.08,
+                37.55
+            ]
+        },
+        {
+            "city": "ardebil",
+            "title": "اردبیل",
+            "coords": [
+                48.3,
+                38.25
+            ]
+        },
+        {
+            "city": "isfahan",
+            "title": "اصفهان",
+            "coords": [
+                51.67,
+                32.65
+            ]
+        },
+        {
+            "city": "alborz",
+            "title": "البرز",
+            "coords": [
+                50.97,
+                35.83
+            ]
+        },
+        {
+            "city": "ilam",
+            "title": "ایلام",
+            "coords": [
+                46.42,
+                63.33
+            ]
+        },
+        {
+            "city": "boushehr",
+            "title": "بوشهر",
+            "coords": [
+                50.84,
+                28.96
+            ]
+        },
+        {
+            "city": "tehran",
+            "title": "تهران",
+            "coords": [
+                51.42,
+                35.7
+            ]
+        },
+        {
+            "city": "chaharmahal-bakhriari",
+            "title": "چهارمحال و بختیاری",
+            "coords": [
+                50.86,
+                32.33
+            ]
+        },
+        {
+            "city": "south-khorasan",
+            "title": "خراسان جنوبی",
+            "coords": [
+                59.22,
+                32.87
+            ]
+        },
+        {
+            "city": "razavi-khorasan",
+            "title": "خراسان رضوی",
+            "coords": [
+                59.62,
+                36.29
+            ]
+        },
+        {
+            "city": "north-khorasan",
+            "title": "خراسان شمالی",
+            "coords": [
+                57.33,
+                37.47
+            ]
+        },
+        {
+            "city": "khuzestan",
+            "title": "خوزستان",
+            "coords": [
+                48.69,
+                31.33
+            ]
+        },
+        {
+            "city": "zanjan",
+            "title": "زنجان",
+            "coords": [
+                48.48,
+                36.67
+            ]
+        },
+        {
+            "city": "semnan",
+            "title": "سمنان",
+            "coords": [
+                53.39,
+                35.58
+            ]
+        },
+        {
+            "city": "sistan-baluchestan",
+            "title": "سیستان و بلوچستان",
+            "coords": [
+                60.86,
+                29.5
+            ]
+        },
+        {
+            "city": "fars",
+            "title": "فارس",
+            "coords": [
+                52.53,
+                29.61
+            ]
+        },
+        {
+            "city": "qazvin",
+            "title": "قزوین",
+            "coords": [
+                50,
+                36.27
+            ]
+        },
+        {
+            "city": "qom",
+            "title": "قم",
+            "coords": [
+                50.88,
+                34.64
+            ]
+        },
+        {
+            "city": "kurdistan",
+            "title": "کردستان",
+            "coords": [
+                47,
+                35.31
+            ]
+        },
+        {
+            "city": "kerman",
+            "title": "کرمان",
+            "coords": [
+                57.07,
+                30.29
+            ]
+        },
+        {
+            "city": "kermanshah",
+            "title": "کرمانشاه",
+            "coords": [
+                47.06,
+                34.31
+            ]
+        },
+        {
+            "city": "kohgilooye-boyerahmad",
+            "title": "کهگیلویه و بویراحمد",
+            "coords": [
+                51.6,
+                30.67
+            ]
+        },
+        {
+            "city": "golestan",
+            "title": "گلستان",
+            "coords": [
+                54.44,
+                36.84
+            ]
+        },
+        {
+            "city": "guilan",
+            "title": "گیلان",
+            "coords": [
+                49.58,
+                37.28
+            ]
+        },
+        {
+            "city": "lorestan",
+            "title": "لرستان",
+            "coords": [
+                48.36,
+                33.49
+            ]
+        },
+        {
+            "city": "mazandaran",
+            "title": "مازندران",
+            "coords": [
+                52.68,
+                36.54
+            ]
+        },
+        {
+            "city": "markazi",
+            "title": "مرکزی",
+            "coords": [
+                49.69,
+                34.09
+            ]
+        },
+        {
+            "city": "hormozgan",
+            "title": "هرمزگان",
+            "coords": [
+                56.28,
+                18.27
+            ]
+        },
+        {
+            "city": "hamedan",
+            "title": "همدان",
+            "coords": [
+                48.51,
+                36.8
+            ]
+        },
+        {
+            "city": "yazd",
+            "title": "یزد",
+            "coords": [
+                54.36,
+                31.89
             ]
         }
     ]

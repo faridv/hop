@@ -1,5 +1,5 @@
-import {Module} from '../../libs';
-import {TehranAirService} from './tehran-air.service';
+import { Module } from '../../libs';
+import { TehranAirService } from './tehran-air.service';
 import template from './tehran-air.template.html';
 
 export default class TehranAirModule extends Module {
@@ -13,7 +13,7 @@ export default class TehranAirModule extends Module {
         return this;
     }
 
-    render(callback?): void {
+    public render(callback?): void {
         const self = this;
         this.templateHelper.loading();
         let templateData: any = {};

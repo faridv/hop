@@ -2,7 +2,11 @@
     <div class="news-body" style="position: absolute; top: 0; right: 0; width: 100%; padding: 20px;">
         <h3>{{data.title}}</h3>
         <figure>
+            {{#if data.image}}
+            <img src="{{data.image}}"/>
+            {{else}}
             <img src="{{data.thumbnail.url}}" alt="{{data.thumbnail.desc}}"/>
+            {{/if}}
         </figure>
         <div class="categories">
             {{#each data.categories}}

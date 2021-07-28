@@ -1,7 +1,7 @@
-import {Program, ProgramEpisode} from './program.model';
-import {ProgramService} from './program.service';
-import {Module} from '../../libs';
-import {DefaultResponse} from '../../_models';
+import { Program, ProgramEpisode } from './program.model';
+import { ProgramService } from './program.service';
+import { Module } from '../../libs';
+import { DefaultResponse } from '../../_models';
 import programTemplate from './program.template.html';
 import episodeTemplate from './program-episodes.template.html';
 
@@ -9,13 +9,13 @@ export default class ProgramModule extends Module {
 
     private data;
     protected events = {
-        'program.play': {'control': 'enter', title: 'پخش ویدیو', icon: 'enter'},
-        'program.back': {'control': 'back,backspace', title: 'بازگشت به برنامه‌ها', icon: 'refresh'},
-        'program.down': {'control': 'down', title: 'قسمت بعدی', icon: 'bottom'},
-        'program.up': {'control': 'up', title: 'قسمت قبلی', icon: 'up'},
-        'program.right': {'control': 'right', title: 'برنامه بعدی', icon: 'right'},
-        'program.left': {'control': 'left', title: 'برنامه قبلی', icon: 'left'},
-        'program.enter': {'control': 'enter', title: 'نمایش قسمت‌ها', icon: 'enter'},
+        'program.play': { control: 'enter', title: 'پخش ویدیو', icon: 'enter' },
+        'program.back': { control: 'back,backspace', title: 'بازگشت به برنامه‌ها', icon: 'refresh' },
+        'program.down': { control: 'down', title: 'قسمت بعدی', icon: 'bottom' },
+        'program.up': { control: 'up', title: 'قسمت قبلی', icon: 'up' },
+        'program.right': { control: 'right', title: 'برنامه بعدی', icon: 'right' },
+        'program.left': { control: 'left', title: 'برنامه قبلی', icon: 'left' },
+        'program.enter': { control: 'enter', title: 'نمایش قسمت‌ها', icon: 'enter' },
     };
 
     constructor(config?, layoutInstance?, moduleType?: string) {
@@ -26,7 +26,7 @@ export default class ProgramModule extends Module {
         return this;
     }
 
-    load(callback?: any) {
+    public load(callback?: any): void {
         const self = this;
         this.templateHelper.loading();
         this.service.getLatest().done((data: DefaultResponse) => {
@@ -39,7 +39,14 @@ export default class ProgramModule extends Module {
         });
     }
 
-    initializeSlider(): void {
+    public render(data: Program[], callback): void {
+        this.templateHelper.render(programTemplate, { items: data }, this.$el, 'html', function () {
+            if (typeof callback === 'function')
+                callback(data);
+        });
+    }
+
+    private initializeSlider(): void {
         const self = this;
         const $el = $("ul.program-items");
         const slidesToShow = 3;
@@ -60,14 +67,7 @@ export default class ProgramModule extends Module {
         this.registerKeyboardInputs($el);
     }
 
-    render(data: Program[], callback): void {
-        this.templateHelper.render(programTemplate, {items: data}, this.$el, 'html', function () {
-            if (typeof callback === 'function')
-                callback(data);
-        });
-    }
-
-    registerKeyboardInputs($carousel): void {
+    private registerKeyboardInputs($carousel): void {
         const self = this;
         this.input.addEvent('right', false, this.events['program.right'], () => {
             // Next News
@@ -85,7 +85,7 @@ export default class ProgramModule extends Module {
         });
     }
 
-    showEpisodes($carousel, $item?): void {
+    private showEpisodes($carousel, $item?): void {
         let id: number;
         let item: Program;
 
@@ -104,17 +104,23 @@ export default class ProgramModule extends Module {
         }
     }
 
-    loadEpisodes(programId: number, currentProgram: Program) {
+    private loadEpisodes(programId: number, currentProgram: Program): void {
         const self = this;
-
         self.removeEpisodeKeyboardEvents(() => {
             self.templateHelper.loading();
-            self.service.getEpisodes(programId).done((data: DefaultResponse) => {
+            self.service.getEpisodes(programId).done((data: DefaultResponse<ProgramEpisode[]>) => {
+                let items = data.data;
+                if (items.length <= 5) {
+                    const requiredItems = 6 - items.length;
+                    for (let i = 0; i < requiredItems; i = i + items.length) {
+                        items = [...items, ...items];
+                    }
+                }
                 const episodeData = {
-                    items: data.data,
+                    items,
                     program: currentProgram
                 };
-                self.renderEpisodes(episodeData, (data: ProgramEpisode[]) => {
+                self.renderEpisodes(episodeData, () => {
                     // End loading
                     self.templateHelper.loading(false);
                     self.removeProgramKeyboardEvents();
@@ -124,7 +130,7 @@ export default class ProgramModule extends Module {
         }, true);
     }
 
-    removeProgramKeyboardEvents(callback?): void {
+    private removeProgramKeyboardEvents(callback?): void {
         this.input.removeEvent('enter', this.events['program.enter']);
         this.input.removeEvent('left', this.events['program.right']);
         this.input.removeEvent('right', this.events['program.left']);
@@ -132,14 +138,14 @@ export default class ProgramModule extends Module {
             callback();
     }
 
-    renderEpisodes(data, callback): void {
-        this.templateHelper.render(episodeTemplate, {items: data}, $('#program-episodes'), 'html', function () {
+    private renderEpisodes(data, callback): void {
+        this.templateHelper.render(episodeTemplate, { items: data }, $('#program-episodes'), 'html', function () {
             if (typeof callback === 'function')
                 callback(data);
         });
     }
 
-    initializeEpisodesSlider(): void {
+    private initializeEpisodesSlider(): void {
         const self = this;
         const $el = $("ul.episode-items");
         const slidesToShow = 5;
@@ -163,9 +169,9 @@ export default class ProgramModule extends Module {
         this.registerEpisodesKeyboardInputs($el);
     }
 
-    registerEpisodesKeyboardInputs($carousel = $("ul.episode-items")): void {
+    private registerEpisodesKeyboardInputs($carousel = $("ul.episode-items")): void {
         const self = this;
-        this.input.removeEvent('back,backspace', {key: 'module.exit'});
+        this.input.removeEvent('back,backspace', { key: 'module.exit' });
         this.input.addEvent('back,backspace', false, this.events['program.back'], () => {
             self.unloadEpisodes();
         });
@@ -184,7 +190,7 @@ export default class ProgramModule extends Module {
         }, 200);
     }
 
-    removeEpisodeKeyboardEvents(callback?, handleReturn: boolean = true): void {
+    private removeEpisodeKeyboardEvents(callback?, handleReturn: boolean = true): void {
         this.input.removeEvent('up', this.events['program.up']);
         this.input.removeEvent('down', this.events['program.down']);
         this.input.removeEvent('enter', this.events['program.play']);
@@ -194,17 +200,17 @@ export default class ProgramModule extends Module {
             callback();
     }
 
-    getMediaUrl($carousel): string {
+    private getMediaUrl($carousel): string {
         const $current = $carousel.find('.slick-current.slick-center li');
         return $current.attr('data-media');
     }
 
-    getPoster($carousel): string {
+    private getPoster($carousel): string {
         const $current = $carousel.find('.slick-current.slick-center li');
         return $current.find('img:first').attr('src');
     }
 
-    unloadEpisodes() {
+    private unloadEpisodes(): void {
         const self = this;
         $('#program-episodes').empty();
         this.removeEpisodeKeyboardEvents(() => {
@@ -217,7 +223,7 @@ export default class ProgramModule extends Module {
         }, 200);
     }
 
-    playVideo($carousel): void {
+    private playVideo($carousel): void {
         if (this.templateHelper.hasClass('player-mode'))
             return;
         const self = this;
@@ -230,8 +236,16 @@ export default class ProgramModule extends Module {
             sources: [{
                 src: self.getMediaUrl($carousel),
                 poster: self.getPoster($carousel),
-                type: 'video/mp4'
-            }]
+                type: self.getMediaUrl($carousel).indexOf('.m3u8') !== -1 ? 'application/x-mpegURL' : 'video/mp4',
+                overrideNative: true
+            }],
+            html5: {
+                vhs: {
+                    overrideNative: true
+                },
+                nativeAudioTracks: false,
+                nativeVideoTracks: false
+            }
         };
         this.playerInstance = new this.playerService('mediaplayer', playerParams);
         this.removeEpisodeKeyboardEvents();

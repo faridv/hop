@@ -1,28 +1,23 @@
-import {ScriptLoaderService} from '../_services/script-loader.service';
 import TemplateHelper from './template.helper';
 import Inputs from '../app/inputs';
-
-declare var videojs: any;
+import videojs from 'video.js';
+import { Event } from '../_models';
 
 export class PlayerService {
 
-    private scriptLoader;
-    private scripts = [
-        "assets/js/vendor/video.min.js"
-    ];
+    private readonly type: string;
+    private readonly options: any;
+    private readonly container: string;
     private input;
     private template;
-    private type: string;
-    private options: any;
-    private container: string;
     private instance: any;
     private playerId: string = 'vod-player';
-    private events = {
-        'player.play': {key: 'player.play', title: 'ادامه پخش', icon: 'play', button: true},
-        'player.pause': {key: 'player.pause', title: 'توقف', icon: 'pause', button: true},
-        'player.ffw': {key: 'player.ffw', title: 'جلو', icon: 'forward', button: true},
-        'player.rewind': {key: 'player.rewind', title: 'عقب', icon: 'backward', button: true},
-        'player.stop': {key: 'player.stop', title: 'بازگشت', icon: 'stop', button: true},
+    private events: Event = {
+        'player.play': { control: 'p,play', title: 'ادامه پخش', icon: 'play', button: true },
+        'player.pause': { control: 'p,pause', title: 'توقف', icon: 'pause', button: true },
+        'player.ffw': { control: 'f,fast_fwd', title: 'جلو', icon: 'forward', button: true },
+        'player.rewind': { control: 'd,rewind', title: 'عقب', icon: 'backward', button: true },
+        'player.stop': { control: 's,stop', title: 'بازگشت', icon: 'stop', button: true },
     };
     private defaultOptions = {
         autoplay: true,
@@ -34,12 +29,12 @@ export class PlayerService {
                 'progressControl',
                 'remainingTimeDisplay'
             ]
-        }
+        },
+        limitRenditionByPlayerDimensions: false,
     };
     public status: string = 'inactive';
 
     constructor(container: string, options: any, type: string = 'videojs') {
-        this.scriptLoader = ScriptLoaderService.instance;
         this.template = TemplateHelper.instance;
         this.input = Inputs.instance;
         this.type = type;
@@ -51,16 +46,7 @@ export class PlayerService {
 
     // load the player script if it's not loaded yet and call render()
     private init() {
-        const self = this;
-        if (this.type === 'videojs' && typeof videojs === 'undefined') {
-            for (let i = 0; i < this.scripts.length; i++) {
-                self.scriptLoader.loadScript('head', this.scripts[i], true).then(() => {
-                    self.prepareRender();
-                });
-            }
-        } else {
-            self.prepareRender();
-        }
+        this.prepareRender();
     }
 
     private prepareRender() {
@@ -84,7 +70,7 @@ export class PlayerService {
 
     public createElement(callback) {
         try {
-            const html = '<video id="' + this.playerId + '" class="video-js" preload="auto" autoplay width="1280" height="720"></video>';
+            const html = '<video id="' + this.playerId + '" class="video-js" preload="none" autoplay width="1280" height="720"></video>';
             $('#' + this.container).html(html);
             this.instance = document.getElementById(this.playerId) as HTMLVideoElement;
         } catch (e) {
@@ -92,7 +78,7 @@ export class PlayerService {
             const video = document.createElement('video');
             video.setAttribute('id', this.playerId);
             video.setAttribute('class', 'video-js');
-            video.setAttribute('preload', 'auto');
+            video.setAttribute('preload', 'none');
             video.setAttribute('autoplay', 'true');
             video.setAttribute('width', '1280');
             video.setAttribute('height', '720');
@@ -107,11 +93,15 @@ export class PlayerService {
     public render() {
         const self = this;
         const $player = $('#' + this.playerId);
-        this.template.loading();
+        if (typeof this.options.liveui !== 'undefined' || !this.options.liveui) {
+            this.template.loading();
+        }
         this.status = 'loading';
         $player.on('loadedmetadata', () => {
             this.status = 'preparing';
-            self.template.loading(false);
+            if (typeof self.options.liveui !== 'undefined' || !self.options.liveui) {
+                self.template.loading(false);
+            }
             self.play(true);
             self.template.addClass('player-mode');
             self.disableBroadcast();
@@ -126,6 +116,7 @@ export class PlayerService {
         this.input.removeEvent('d,rewind', this.events['player.rewind']);
         this.input.removeEvent('p,play', this.events['player.play']);
         this.input.removeEvent('s,stop', this.events['player.stop']);
+        this.template.loading(false);
         if (this.type === 'videojs') {
             videojs(document.getElementById(this.playerId)).dispose();
         }
@@ -136,7 +127,11 @@ export class PlayerService {
 
         if (typeof this.options.unloadMethod === 'function') {
             setTimeout(() => {
-                this.options.unloadMethod();
+                try {
+                    this.options.unloadMethod();
+                } catch (e) {
+                    // ignore
+                }
             }, 200);
         }
     }
@@ -144,8 +139,11 @@ export class PlayerService {
     public reInitBroadcast() {
         const $tv = this.getBroadcastVideo();
         if ($('#tv-stream').length && typeof videojs('tv-stream') !== 'undefined') {
-            videojs('tv-stream').muted = false;
-            videojs('tv-stream').muted(false);
+            try {
+                videojs('tv-stream').muted(false);
+            } catch (e) {
+                // ignore
+            }
         }
         try {
             $tv.muted = false;
@@ -172,7 +170,6 @@ export class PlayerService {
     public disableBroadcast() {
         const $tv = this.getBroadcastVideo();
         if ($('#tv-stream').length && typeof videojs('tv-stream') !== 'undefined') {
-            videojs('tv-stream').muted = false;
             videojs('tv-stream').muted(true);
         }
         try {
@@ -199,11 +196,10 @@ export class PlayerService {
         this.setPlaybackSpeed(1);
         this.status = 'playing';
         if (initial) {
-            if (videojs(this.playerId).isPaused)
-                self.play();
-            else {
-                if (self.instance.paused)
+            if (!videojs(this.playerId).paused) {
+                if (self.instance.paused) {
                     self.instance.play();
+                }
             }
         } else {
             if (self.type === 'videojs') {
@@ -235,7 +231,6 @@ export class PlayerService {
 
         setTimeout(() => {
             self.input.removeEvent('p,pause', self.events['player.pause']);
-            // const playParams = {key: 'player.play', title: 'ادامه پخش', icon: 'play', button: true};
             self.input.addEvent('p,play', false, self.events['player.play'], () => {
                 self.play();
             });
@@ -252,9 +247,7 @@ export class PlayerService {
         setTimeout(() => {
             self.input.removeEvent('p,play', self.events['player.play']);
             self.input.removeEvent('p,pause', self.events['player.pause']);
-            // self.input.removeEvent('p,play', {key: 'player.play'});
-            // self.input.removeEvent('p,pause', {key: 'player.pause'});
-            const playParams = {key: 'player.play', title: 'ادامه پخش', icon: 'play', button: true};
+            const playParams = { key: 'player.play', title: 'ادامه پخش', icon: 'play', button: true };
             self.input.addEvent('p,play', false, self.events['player.play'], () => {
                 self.play();
             });
@@ -268,28 +261,32 @@ export class PlayerService {
         const self = this;
         const player = this.type === 'videojs' ? videojs(this.playerId) : this.instance[0];
         this.instance.userActive(true);
-        const rewindInterval = setInterval(() => {
-            let currentTime = player.currentTime();
-            if (currentTime <= 3) {
-                player.currentTime(0);
-                player.pause();
-                clearInterval(rewindInterval);
-            }
-            try {
-                player.currentTime(currentTime - 1);
-            } catch (e) {
+        try {
+            const rewindInterval = setInterval(() => {
+                let currentTime = player.currentTime();
+                if (currentTime <= 3) {
+                    player.currentTime(0);
+                    player.pause();
+                    clearInterval(rewindInterval);
+                }
+                try {
+                    player.currentTime(currentTime - 1);
+                } catch (e) {
 
-            }
-        }, 333);
-        setTimeout(() => {
-            // self.input.removeEvent('p,pause', {key: 'player.pause'});
-            self.input.removeEvent('p,pause', self.events['player.pause']);
-            const playParams = {key: 'player.play', title: 'ادامه پخش', icon: self.events['player.play'], button: true};
-            self.input.addEvent('p,play', false, playParams, () => {
-                clearInterval(rewindInterval);
-                self.play();
-            });
-        }, 200);
+                }
+            }, 333);
+            setTimeout(() => {
+                self.input.removeEvent('p,play', self.events['player.play']);
+                self.input.removeEvent('p,pause', self.events['player.pause']);
+                const playParams = { key: 'player.play', title: 'ادامه پخش', icon: self.events['player.play'], button: true };
+                self.input.addEvent('p,play', false, playParams, () => {
+                    clearInterval(rewindInterval);
+                    self.play();
+                });
+            }, 200);
+        } catch (e) {
+            console.error(e);
+        }
     }
 
     private setPlaybackSpeed(rate = 1) {

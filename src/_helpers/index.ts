@@ -1,3 +1,5 @@
+import TranslationHelper from './translation.helper';
+
 export * from './api.helper';
 export * from './clock.helper';
 export * from './config.helper';
@@ -6,3 +8,4 @@ export * from './http.helper';
 export * from './log.helper';
 export * from './player.helper';
 export * from './template.helper';
+export { TranslationHelper };

@@ -1,4 +1,4 @@
-import {Service} from '../../libs/service';
+import { Service } from '../../libs';
 
 export class WeatherService extends Service {
 
@@ -6,8 +6,8 @@ export class WeatherService extends Service {
         super();
     }
 
-    getCity(coordinates) {
-        return this.http.get(this.api.get('weather'), {lon: coordinates.split(',')[1], lat: coordinates.split(',')[0]});
+    public getCity(coordinates): JQuery.jqXHR {
+        return this.http.get(this.api.get('weather'), { lon: coordinates.split(',')[1], lat: coordinates.split(',')[0] });
     }
 
 }

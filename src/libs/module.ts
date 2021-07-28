@@ -2,8 +2,9 @@ import Inputs from '../app/inputs';
 import TemplateHelper from '../_helpers/template.helper';
 import Layouts from '../app/layouts';
 import Store from '../_utilities/storage.utility';
-import {PlayerService} from '../_helpers/player.helper';
+import { PlayerService } from '../_helpers';
 import * as $ from 'jquery';
+import { IConfig } from '../_models/config.model';
 
 interface IModule {
 }
@@ -23,7 +24,7 @@ export abstract class Module implements IModule {
     protected playerInstance;
     protected moduleType: string;
 
-    constructor(config, layoutInstance, moduleType?: string) {
+    constructor(config: IConfig, layoutInstance, moduleType?: string) {
         this.config = config;
         this.layoutInstance = layoutInstance;
         this.templateHelper = TemplateHelper.instance;
@@ -56,7 +57,7 @@ export abstract class Module implements IModule {
 
     public destroyEvents(instance: any): boolean {
         for (let item in this.events) {
-            instance.input.removeEvent(this.events[item]['control'], {key: item});
+            instance.input.removeEvent(this.events[item]['control'], { key: item });
         }
         return true;
     }

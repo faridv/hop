@@ -1,12 +1,12 @@
-import {Service} from "../../libs";
+import { Service } from "../../libs";
 
 export class QuranService extends Service {
 
-    getSurahList() {
+    public getSurahList(): JQuery.jqXHR {
         return this.http.get(this.api.get('quran', 'surah'));
     }
 
-    getSurah(surahId: number) {
+    public getSurah(surahId: number): JQuery.jqXHR {
         return this.http.get(this.api.get('quran', 'surah/' + surahId));
     }
 
