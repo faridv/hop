@@ -6,7 +6,7 @@
     body.layout-screen & { box-shadow: none !important; }
     #header {
         width: 100%;
-        position: fixed; height: 100px; top: 0; left: 0;
+        position: absolute; height: 100px; top: 0; left: 0;
         color: #fff; text-shadow: 0 0 4px #333; font-size: 16px;
     }
     #time {
