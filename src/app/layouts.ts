@@ -10,7 +10,7 @@ import IKTVLayout from './layouts/iktv.layout';
 import PollLayout from './layouts/poll.layout';
 import UHDLayout from './layouts/uhd.layout';
 import IFilmLayout from './layouts/ifilm.layout';
-import { IConfig } from '../_helpers';
+import { IConfig } from '../_models/config.model';
 
 export default class Layouts {
 
