@@ -78,8 +78,14 @@ export default class PrayerTimesModule extends Module {
         });
     }
 
+    private isDST(d): boolean {
+        let jan = new Date(d.getFullYear(), 0, 1).getTimezoneOffset();
+        let jul = new Date(d.getFullYear(), 6, 1).getTimezoneOffset();
+        return Math.max(jan, jul) !== d.getTimezoneOffset();
+    }
+
     private getPrayers(coordination): Prayers {
-        return this.prayTimes.getTimes(new Date(), coordination, 3.5, 'auto', '24h');
+        return this.prayTimes.getTimes(new Date(), coordination, 3.5, this.isDST(new Date()), '24h');
     }
 
     private updateValues(coordination) {
