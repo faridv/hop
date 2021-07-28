@@ -128,16 +128,7 @@ export default class SepehrModule extends Module {
         if (!$el.is(':visible'))
             $el.show(1);
         $el.on('afterChange', () => {
-            self.input.removeEvent('blue,b', self.events['sepehr-live.enter']);
-            self.input.removeEvent('green,g', self.events['sepehr-epg.enter']);
-            setTimeout(() => {
-                self.input.addEvent('blue,b', false, self.events['sepehr-live.enter'], () => {
-                    self.playChannelStream($el);
-                });
-                self.input.addEvent('green,g', false, self.events['sepehr-epg.enter'], () => {
-                    self.loadEpgByChannelId($el);
-                });
-            }, 100);
+            self.reRegisterColorButtons($el);
         });
         $el.slick({
             slidesToShow: 5,
@@ -148,6 +139,20 @@ export default class SepehrModule extends Module {
         });
         $el.slick('slickGoTo', 0, true);
         this.registerChannelsKeyboardInputs($el);
+    }
+
+    private reRegisterColorButtons($el = $(".channels ul")) {
+        const self = this;
+        self.input.removeEvent('blue,b', self.events['sepehr-live.enter']);
+        self.input.removeEvent('green,g', self.events['sepehr-epg.enter']);
+        setTimeout(() => {
+            self.input.addEvent('blue,b', false, self.events['sepehr-live.enter'], () => {
+                self.playChannelStream($el);
+            });
+            self.input.addEvent('green,g', false, self.events['sepehr-epg.enter'], () => {
+                self.loadEpgByChannelId($el);
+            });
+        }, 100);
     }
 
     private renderChannels(data: SepehrChannel[], callback?: (() => any)): void {
@@ -168,7 +173,7 @@ export default class SepehrModule extends Module {
         setTimeout(() => {
             $channels.empty();
             self.registerCategoriesKeyboardInputs($("ul.sepehr-categories"));
-        }, 500);
+        }, 100);
     }
 
     private registerChannelsKeyboardInputs($carousel?): void {
@@ -179,7 +184,7 @@ export default class SepehrModule extends Module {
             self.input.addEvent('back,backspace', false, this.events['sepehr-channels.back'], () => {
                 self.hideChannels();
             });
-        }, 200);
+        }, 50);
         this.input.addEvent('up', false, this.events['sepehr-channels.prev'], () => {
             $carousel.slick('slickPrev');
         });
@@ -198,12 +203,11 @@ export default class SepehrModule extends Module {
         if (!backFromVideo) {
             setTimeout(() => {
                 self.layoutInstance.prepareUnloadModule();
-            }, 500);
+            }, 100);
         }
     }
 
     // Live Stream
-
     private playChannelStream($carousel): void {
         const self = this;
         if (this.templateHelper.hasClass('player-mode'))
@@ -212,6 +216,7 @@ export default class SepehrModule extends Module {
         const playerParams = {
             unloadMethod: () => {
                 self.registerChannelsKeyboardInputs();
+                self.reRegisterColorButtons();
                 self.playerInstance.unload();
             },
             liveui: true,
@@ -261,7 +266,7 @@ export default class SepehrModule extends Module {
         $el.on('init', () => {
             setTimeout(() => {
                 self.goToCurrentEpgItem($el);
-            }, 100);
+            }, 50);
         });
         $el.slick({
             slidesToShow: slidesToShow,
@@ -281,7 +286,7 @@ export default class SepehrModule extends Module {
         } catch (e) {
             setTimeout(() => {
                 self.goToCurrentEpgItem($carousel);
-            }, 200);
+            }, 50);
             return;
         }
     }
