@@ -1,16 +1,16 @@
-export class SurahList {
+export interface SurahList {
     id: number;
     title: string;
     verses: number;
     type: string;
 }
 
-export class Ayah {
+export interface Ayah {
     number: number;
     text: string;
 }
 
-export class QuranEdition {
+export interface QuranEdition {
     identifier: string;
     language: string;
     name: string;
@@ -19,7 +19,7 @@ export class QuranEdition {
     type: string;
 }
 
-export class Surah {
+export interface Surah {
     number: number;
     name: string;
     relevationType: string;

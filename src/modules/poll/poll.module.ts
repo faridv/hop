@@ -1,18 +1,17 @@
-import {Module} from '../../libs';
-import {io} from 'socket.io-client'
-import {ConfigHelper} from '../../_helpers';
+import { Module } from '../../libs';
+import { io } from 'socket.io-client'
+import { ConfigHelper } from '../../_helpers';
 import pollTemplate from './poll.template.html';
-import itemTemplate from './poll-item.template.html';
 
 export default class PollModule extends Module {
 
     private socket: any;
     private pusherPath = ConfigHelper.get('api').pusher;
     protected events = {
-        'poll.1': {control: '1', title: '1'},
-        'poll.2': {control: '2', title: '2'},
-        'poll.3': {control: '3', title: '3'},
-        'poll.4': {control: '4', title: '4'},
+        'poll.1': { control: '1', title: '1' },
+        'poll.2': { control: '2', title: '2' },
+        'poll.3': { control: '3', title: '3' },
+        'poll.4': { control: '4', title: '4' },
     };
 
     constructor(config?, layoutInstance?, moduleType?: string) {
@@ -24,7 +23,7 @@ export default class PollModule extends Module {
         return this;
     }
 
-    load(): void {
+    public load(): void {
         const self = this;
         this.templateHelper.loading();
         self.render({}, () => {
@@ -33,8 +32,8 @@ export default class PollModule extends Module {
         });
     }
 
-    render(data: any = {}, callback?): void {
-        this.templateHelper.render(pollTemplate, {items: data}, this.$el, 'html', function () {
+    public render(data: any = {}, callback?): void {
+        this.templateHelper.render(pollTemplate, { items: data }, this.$el, 'html', function () {
             if (typeof callback === 'function')
                 callback(data);
         });
@@ -69,7 +68,7 @@ export default class PollModule extends Module {
         }
     }
 
-    registerKeyboardInputs() {
+    public registerKeyboardInputs() {
         const self = this;
 
         this.input.addEvent('1', false, this.events['poll.1'], () => {

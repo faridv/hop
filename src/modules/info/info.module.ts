@@ -1,6 +1,6 @@
-import {Module} from '../../libs';
+import { Module } from '../../libs';
 import template from './info.template.html';
-import { IConfig } from '../../_helpers';
+import { IConfig } from '../../_models/config.model';
 
 export default class InfoModule extends Module {
 
@@ -10,7 +10,7 @@ export default class InfoModule extends Module {
         return this;
     }
 
-    render(callback?): void {
+    public render(callback?): void {
         this.templateHelper.render(template, {}, this.$el, 'html', function () {
             if (typeof callback === 'function')
                 callback();

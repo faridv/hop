@@ -23,7 +23,7 @@ export default class ScheduleCarouselModule extends Module {
         return this;
     }
 
-    load(date, callback?: any) {
+    public load(date, callback?: any): void {
         const self = this;
         this.templateHelper.loading();
         this.service.getDate(date.format('YYYY-MM-DD')).done((data: any) => {
@@ -37,7 +37,7 @@ export default class ScheduleCarouselModule extends Module {
         });
     }
 
-    initializeSlider(): void {
+    private initializeSlider(): void {
         const self = this;
         const $el = $("ul.schedule-items");
         const slidesToShow = 5;
@@ -70,7 +70,7 @@ export default class ScheduleCarouselModule extends Module {
         this.registerKeyboardInputs($el);
     }
 
-    goToCurrent($carousel): void {
+    private goToCurrent($carousel): void {
         const self = this;
         console.log(this);
         try {
@@ -84,7 +84,7 @@ export default class ScheduleCarouselModule extends Module {
         }
     }
 
-    findCurrent(list: Schedule[]): Schedule[] {
+    private findCurrent(list: Schedule[]): Schedule[] {
         const rightNow = moment();
         let currentIndex: number = 9999;
         list.map(item => item.isCurrent = false);
@@ -100,7 +100,7 @@ export default class ScheduleCarouselModule extends Module {
         return list;
     }
 
-    render(items: Schedule[], callback): void {
+    public render(items: Schedule[], callback): void {
         const self = this;
         items = self.findCurrent(items);
         this.templateHelper.render(template, { items: items }, this.$el, 'html', function () {
@@ -109,7 +109,7 @@ export default class ScheduleCarouselModule extends Module {
         });
     }
 
-    registerKeyboardInputs($carousel = $("ul.schedule-items")): void {
+    private registerKeyboardInputs($carousel = $("ul.schedule-items")): void {
         this.input.addEvent('up', false, this.events['schedule.prev'], () => {
             // Prev Program
             $carousel.slick('slickPrev');
@@ -120,7 +120,7 @@ export default class ScheduleCarouselModule extends Module {
         });
     }
 
-    getMediaUrl($element): void {
+    private getMediaUrl($element): void {
         const self = this;
         const id = $element.data('id');
         this.templateHelper.loading();
@@ -132,7 +132,7 @@ export default class ScheduleCarouselModule extends Module {
         });
     }
 
-    initPlayback(poster: string, src: string) {
+    private initPlayback(poster: string, src: string) {
         const self = this;
         const playerParams = {
             unloadMethod: () => {
@@ -150,7 +150,7 @@ export default class ScheduleCarouselModule extends Module {
         this.destroy();
     }
 
-    playVideo($carousel): void {
+    private playVideo($carousel): void {
         if (this.templateHelper.hasClass('player-mode'))
             return;
         const $current = $carousel.find('.slick-current.slick-center li');

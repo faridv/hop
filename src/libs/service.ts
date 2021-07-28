@@ -1,4 +1,4 @@
-import {HttpHelper, ApiHelper} from '../_helpers';
+import { ApiHelper, HttpHelper } from '../_helpers';
 
 export class Service {
 

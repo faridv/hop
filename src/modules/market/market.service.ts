@@ -1,12 +1,12 @@
-import {Service} from '../../libs/service';
+import { Service } from '../../libs';
 
 export class MarketService extends Service {
 
-    getLabels(parentId: number = 1) {
+    public getLabels(parentId: number = 1): JQuery.jqXHR {
         return this.http.get(this.api.get('market.labels', <string><any>parentId));
     }
 
-    getData(parentId: number) {
+    public getData(parentId: number): JQuery.jqXHR {
         return this.http.get(this.api.get('market.data', <string><any>parentId));
     }
 

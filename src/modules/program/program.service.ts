@@ -1,16 +1,16 @@
-import {Service} from '../../libs/service';
+import { Service } from '../../libs/service';
 
 export class ProgramService extends Service {
 
-    getLatest() {
+    public getLatest(): JQuery.jqXHR {
         return this.http.get(this.api.get('program.latest'));
     }
 
-    getList(programType: number) {
+    public getList(programType: number): JQuery.jqXHR {
         return this.http.get(this.api.get('program.list').replace(/{programType}/, programType.toString()));
     }
 
-    getEpisodes(programId: number) {
+    public getEpisodes(programId: number): JQuery.jqXHR {
         return this.http.get(this.api.get('program.episodes').replace(/{programId}/, programId.toString()));
     }
 
