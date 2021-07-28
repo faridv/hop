@@ -23,7 +23,8 @@ module.exports = {
     devtool: isProd ? false : 'source-map',
     // watch: !isProd,
     context: path.resolve('./src'),
-    target: isProd ? 'es5' : 'web',
+    // target: isProd ? 'es5' : 'web',
+    target: ['web', 'es5'],
     entry: [
         // app: './main.ts'
         './main.ts',
@@ -72,9 +73,9 @@ module.exports = {
                         options: {
                             publicPath: '',
                             esModule: false,
-                            modules: {
-                                namedExport: false,
-                            },
+                            // modules: {
+                            //     namedExport: false,
+                            // },
                         }
                     },
                     {
