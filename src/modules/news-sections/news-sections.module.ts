@@ -7,7 +7,8 @@ import newsTemplate from './../news/news.template.html';
 import detailsTemplate from './../news/news-details.template.html';
 import * as Handlebars from 'handlebars';
 import * as translations from './translations.json';
-import { IConfig, TranslationHelper } from '../../_helpers';
+import { IConfig } from '../../_models/config.model';
+import { TranslationHelper } from '../../_helpers';
 
 export default class NewsSectionsModule extends Module {
 

@@ -2,8 +2,9 @@ import Inputs from '../app/inputs';
 import TemplateHelper from '../_helpers/template.helper';
 import Layouts from '../app/layouts';
 import Store from '../_utilities/storage.utility';
-import { IConfig, PlayerService } from '../_helpers';
+import { PlayerService } from '../_helpers';
 import * as $ from 'jquery';
+import { IConfig } from '../_models/config.model';
 
 interface IModule {
 }

@@ -1,6 +1,6 @@
-import {Module} from '../../libs';
+import { Module } from '../../libs';
 import template from './under-construction.template.html';
-import { IConfig } from '../../_helpers';
+import { IConfig } from '../../_models/config.model';
 
 export default class UnderConstructionModule extends Module {
 

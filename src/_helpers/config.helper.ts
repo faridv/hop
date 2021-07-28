@@ -1,28 +1,5 @@
 import Store from "../_utilities/storage.utility";
-
-export interface IConfig {
-    // version: string;
-    title: string;
-    container: string;
-    locale: string;
-    timezone: string;
-    delay: number;
-    timeout: number;
-    transitionSpeed: number;
-    clockUpdateInterval: number;
-    theme: string;
-    mediaPlayer: string;
-    hd: boolean;
-    resolution: string;
-    verbose: boolean;
-    log: boolean;
-    autoStart: boolean;
-    streamMode: boolean;
-    streamUrl: string;
-    exitMethod: string;
-    api: object;
-    applications: {}[];
-}
+import { IConfig } from '../_models/config.model';
 
 export class ConfigHelper {
 
@@ -51,7 +28,7 @@ export class ConfigHelper {
     };
 
     public static prepare(config): IConfig {
-        return {...ConfigHelper.defaultConfig, ...config};
+        return { ...ConfigHelper.defaultConfig, ...config };
     }
 
     public static get(field: string = '', fallbackValue: any = null): any {
