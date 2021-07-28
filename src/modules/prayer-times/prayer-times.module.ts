@@ -18,6 +18,7 @@ export default class PrayerTimesModule extends Module {
 
     constructor(config?: IConfig, layoutInstance?, moduleType?: string) {
         super(config, layoutInstance, moduleType);
+        moment.locale('fa');
         this.prayTimes = new PrayerTimes();
         this.prayTimes.setMethod('Tehran');
         this.events = this.prepareControls();
