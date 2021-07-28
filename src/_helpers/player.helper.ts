@@ -261,28 +261,32 @@ export class PlayerService {
         const self = this;
         const player = this.type === 'videojs' ? videojs(this.playerId) : this.instance[0];
         this.instance.userActive(true);
-        const rewindInterval = setInterval(() => {
-            let currentTime = player.currentTime();
-            if (currentTime <= 3) {
-                player.currentTime(0);
-                player.pause();
-                clearInterval(rewindInterval);
-            }
-            try {
-                player.currentTime(currentTime - 1);
-            } catch (e) {
+        try {
+            const rewindInterval = setInterval(() => {
+                let currentTime = player.currentTime();
+                if (currentTime <= 3) {
+                    player.currentTime(0);
+                    player.pause();
+                    clearInterval(rewindInterval);
+                }
+                try {
+                    player.currentTime(currentTime - 1);
+                } catch (e) {
 
-            }
-        }, 333);
-        setTimeout(() => {
-            self.input.removeEvent('p,play', self.events['player.play']);
-            self.input.removeEvent('p,pause', self.events['player.pause']);
-            const playParams = { key: 'player.play', title: 'ادامه پخش', icon: self.events['player.play'], button: true };
-            self.input.addEvent('p,play', false, playParams, () => {
-                clearInterval(rewindInterval);
-                self.play();
-            });
-        }, 200);
+                }
+            }, 333);
+            setTimeout(() => {
+                self.input.removeEvent('p,play', self.events['player.play']);
+                self.input.removeEvent('p,pause', self.events['player.pause']);
+                const playParams = { key: 'player.play', title: 'ادامه پخش', icon: self.events['player.play'], button: true };
+                self.input.addEvent('p,play', false, playParams, () => {
+                    clearInterval(rewindInterval);
+                    self.play();
+                });
+            }, 200);
+        } catch (e) {
+            console.error(e);
+        }
     }
 
     private setPlaybackSpeed(rate = 1) {
