@@ -1,15 +1,16 @@
-import {ApiHelper} from './api.helper';
-import {HttpHelper} from './http.helper';
+import { ApiHelper } from './api.helper';
+import { HttpHelper } from './http.helper';
 import * as moment from 'moment-jalaali';
+import { IConfig } from '../_models/config.model';
 import jqXHR = JQuery.jqXHR;
 
 declare let window: any;
 
 export default class ClockHelper {
 
-    config;
-    clockTimer: number;
-    $el;
+    private config: IConfig;
+    private clockTimer: number;
+    private $el: JQuery;
 
     constructor(config, $container) {
         this.config = config;
@@ -23,22 +24,23 @@ export default class ClockHelper {
         }, config.clockUpdateInterval);
     }
 
-    initClock(): void {
+    private initClock(): void {
         const self = this;
         this.getClock().done((data: any) => {
             self.processDate(data.clock);
         });
     }
 
-    getClock(): jqXHR {
-        return HttpHelper.get(ApiHelper.get('clock'), {tz: this.config.timezone});
+    private getClock(): jqXHR {
+        return HttpHelper.get(ApiHelper.get('clock'), { tz: this.config.timezone });
     }
 
-    render(formattedClock): void {
+    private render(formattedClock): void {
         this.$el.text(formattedClock);
     }
 
-    processDate(dateTime: string): void {
+    private processDate(dateTime: string): void {
+        window.SERVER_TIME = dateTime;
         moment.locale(this.config.locale);
         // to fix response latency
         const serverDate = (moment(dateTime).isValid()) ? moment(dateTime).add(1, 'seconds') : moment();
@@ -46,7 +48,7 @@ export default class ClockHelper {
         this.updateTime(serverDate);
     }
 
-    updateTime(formattedClock): void {
+    private updateTime(formattedClock): void {
         const self = this;
         clearInterval(this.clockTimer);
         window.clearInterval(window.clockTimerInterval);

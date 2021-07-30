@@ -89,7 +89,8 @@ export default class PrayerTimesModule extends Module {
     }
 
     private getPrayers(coordination): Prayers {
-        return this.prayTimes.getTimes(new Date(), coordination, 3.5, this.isDST(), '24h');
+        const today = typeof window['SERVER_TIME'] !== 'undefined' ? new Date(window['SERVER_TIME']) : new Date();
+        return this.prayTimes.getTimes(today, coordination, 3.5, this.isDST(), '24h');
     }
 
     private updateValues(coordination) {
