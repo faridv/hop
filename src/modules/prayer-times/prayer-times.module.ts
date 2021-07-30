@@ -80,14 +80,16 @@ export default class PrayerTimesModule extends Module {
         });
     }
 
-    private isDST(d): boolean {
-        let jan = new Date(d.getFullYear(), 0, 1).getTimezoneOffset();
-        let jul = new Date(d.getFullYear(), 6, 1).getTimezoneOffset();
-        return Math.max(jan, jul) !== d.getTimezoneOffset();
+    private isDST(): boolean {
+        const dst = this.config.dst;
+        const today = new Date();
+        const dstStart = new Date(today.getFullYear(), dst.start.split('-')[0], dst.start.split('-')[0]);
+        const dstEnd = new Date(today.getFullYear(), dst.end.split('-')[0], dst.end.split('-')[0]);
+        return today.getTime() > dstStart.getTime() && today.getTime() < dstEnd.getTime();
     }
 
     private getPrayers(coordination): Prayers {
-        return this.prayTimes.getTimes(new Date(), coordination, 3.5, moment().isDST(), '24h');
+        return this.prayTimes.getTimes(new Date(), coordination, 3.5, this.isDST(), '24h');
     }
 
     private updateValues(coordination) {
