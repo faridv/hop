@@ -15,26 +15,24 @@
     "log": false,
     "autoStart": false,
     "streamMode": false,
-    "streamUrl": "http://test.livemedia.irib.ir/mdash/irankala-1m.stream/manifest.m3u8",
+    "streamUrl": "http://test.livemedia.irib.ir/mdash/ifilm-1m.stream/manifest.m3u8",
     "exitMethod": "hide",
     "api": {
-        "url": "http://api.hbbtv.ir/",
+        "url": "http://api.hbbtv.ir/ifilm/",
         "services": {
-            "clock": "clock.php",
-            "weather": "weather",
-            "log": "/log.php",
+            "clock": "../clock.php",
+            "weather": "../weather",
+            "log": "../log.php",
             "schedule": "schedule",
-            "program.latest": "programs",
-            "program.list": "programs/type/{programType}",
-            "program.episodes": "programs/{programId}",
-            "news": "items?catid=1",
-            "media": "media",
-            "market.labels": "market/labels",
-            "market.data": "market/data",
-            "quran": "quran",
-            "tehran-air": "tehran-air/{type}",
-            "items": "items",
-            "sepehr": "sepehr"
+            "program.latest": "series",
+            "program.episodes": "series/{programId}",
+            "news": "news",
+            "news.details": "news/{newsId}",
+            "market.labels": "../market/labels",
+            "market.data": "../market/data",
+            "quran": "../quran",
+            "tehran-air": "../tehran-air/{type}",
+            "sepehr": "../sepehr"
         },
         "pusher": "http://localhost:8080"
     },
@@ -42,34 +40,34 @@
         {
             "button": {
                 "key": "red,r",
-                "image": "assets/img/redbutton3.png",
+                "image": "assets/img/redbutton_sm.png",
                 "position": "bottom: 40px; right: 40px;"
             },
             "hasHub": true,
             "clock": true,
             "connectionStatus": false,
             "theme": "default",
-            "layout": "uhd",
+            "layout": "ifilm",
             "modules": [
                 {
-                    "title": "sepehr",
+                    "title": "سپهر",
                     "type": "sepehr",
-                    "icon": "square"
+                    "icon": "sepehr"
                 },
                 {
-                    "title": "درباره شبکه",
-                    "type": "about-channel",
-                    "icon": "tv"
-                },
-                {
-                    "title": "برنامه‌ها",
-                    "type": "uhd-programs",
+                    "title": "سریال‌ها",
+                    "type": "vod",
                     "icon": "tv1"
                 },
                 {
                     "title": "اخبار",
-                    "type": "news",
+                    "type": "news-sections",
                     "icon": "newspaper"
+                },
+                {
+                    "title": "جدول پخش",
+                    "type": "schedule-carousel",
+                    "icon": "view_day"
                 },
                 {
                     "title": "بازار",
@@ -105,11 +103,6 @@
                     "title": "درباره برنامه",
                     "type": "info",
                     "icon": "info_outline"
-                },
-                {
-                    "title": "سوالات متداول",
-                    "type": "faq",
-                    "icon": "tag"
                 }
             ]
         }

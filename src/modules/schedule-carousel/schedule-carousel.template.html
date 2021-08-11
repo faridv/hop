@@ -4,9 +4,11 @@
         <ul class="schedule-items">
             {{#each items}}
             <li data-id="{{mediaId}}" class="{{#if isCurrent}}current{{/if}} {{#if hasVideo}}video{{/if}}" data-media="">
+                {{#if thumbnail}}
                 <figure>
                     <img data-lazy="{{thumbnail}}" alt="{{programTitle}}" />
                 </figure>
+                {{/if}}
                 <div class="desc">
                     <h4>{{programTitle}}</h4>
                     <h3>

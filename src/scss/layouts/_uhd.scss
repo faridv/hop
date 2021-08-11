@@ -25,6 +25,12 @@
                     &:after { border-bottom-color: #CC0000; }
                 }
 
+                &[data-type="schedule-carousel"] {
+                    background: #FFA000;
+                    &:before { border-top-color: #FFA000; }
+                    &:after { border-bottom-color: #FFA000; }
+                }
+
                 &[data-type="prayer-times"] {
                     background: #FF8800;
                     &:before { border-top-color: #FF8800; }
