@@ -24,7 +24,8 @@ export class ConfigHelper {
         streamUrl: "",
         exitMethod: "hide",
         api: {},
-        applications: []
+        applications: [],
+        locations: [],
     };
 
     public static prepare(config): IConfig {

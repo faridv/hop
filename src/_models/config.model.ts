@@ -18,6 +18,41 @@ export interface IConfig {
     streamMode: boolean;
     streamUrl: string;
     exitMethod: string;
-    api: object;
-    applications: {}[];
+    api: IApi;
+    applications: IApplication[];
+    locations: ILocation[];
+}
+
+export interface IApplication {
+    button: IButton;
+    hasHub: boolean;
+    clock: boolean;
+    connectionStatus: boolean;
+    theme: string;
+    layout: string;
+    modules: IModule[];
+}
+
+export interface IModule {
+    title: string;
+    type: string;
+    icons: string;
+}
+
+export interface IButton {
+    key: string;
+    image: string;
+    position: string;
+}
+
+export interface ILocation {
+    city: string;
+    title: string;
+    coords: number[];
+}
+
+export interface IApi {
+    url?: string;
+    services?: { [key: string]: string }[];
+    pusher?: string;
 }
