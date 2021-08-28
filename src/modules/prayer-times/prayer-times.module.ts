@@ -1,15 +1,15 @@
-import * as moment from 'moment-jalaali';
-import * as PrayerTimes from 'prayer-times';
 import * as $ from 'jquery';
-import { Prayers } from "./prayers.model";
+import { IslamicPrayer } from "./prayers.model";
 import { Module } from '../../libs';
 import template from './prayer-times.template.html';
-import { IConfig } from '../../_models/config.model';
+import { IConfig, ILocation } from '../../_models/config.model';
+import { PrayerTimesService } from './prayer-times.service';
 
 export default class PrayerTimesModule extends Module {
 
-    private prayTimes;
-    readonly coordination;
+    public prayTimes: { [key: string]: IslamicPrayer };
+    protected readonly coordination;
+    private locations: ILocation[];
 
     protected events = {
         'location.prev': { 'control': 'up', key: 'location.prev', title: 'شهر قبلی', icon: 'up', button: true },
@@ -18,24 +18,26 @@ export default class PrayerTimesModule extends Module {
 
     constructor(config?: IConfig, layoutInstance?, moduleType?: string) {
         super(config, layoutInstance, moduleType);
-        moment.locale('fa');
-        this.prayTimes = new PrayerTimes();
-        this.prayTimes.setMethod('Tehran');
+
+        this.service = PrayerTimesService.instance;
         this.events = this.prepareControls();
-
-        const self = this;
-
-        this.coordination = this.store.get('location') && typeof this.store.get('location').coordination !== 'undefined'
-            ? this.store.get('location').coordination
-            : [35.7, 51.42]; // Tehran
-        this.render(this.coordination, () => {
-            self.registerEvents();
-        });
+        this.locations = this.config.locations;
+        this.load();
 
         return this;
     }
 
-    private registerEvents() {
+    public load(): void {
+        const locationList: string[] = [];
+        this.locations.forEach(location => locationList.push(location.coords.join(',')));
+        this.service.getTimes(locationList.join(';'))
+            .done((response: { [key: string]: IslamicPrayer }) => {
+                this.prayTimes = response;
+                this.render();
+            });
+    }
+
+    private registerEvents(): void {
         const self = this;
         const $locationSelect = $('#location-select');
         this.registerKeyboardInputs($locationSelect);
@@ -51,7 +53,7 @@ export default class PrayerTimesModule extends Module {
         $locationSelect.focus();
     }
 
-    private registerKeyboardInputs($select) {
+    private registerKeyboardInputs($select): void {
         const self = this;
 
         this.input.addEvent('up', false, this.events['location.prev'], () => {
@@ -72,29 +74,36 @@ export default class PrayerTimesModule extends Module {
         }
     }
 
-    public render(coordination, callback): void {
-        const data = { prayers: this.getPrayers(coordination), location: coordination.join(',') };
-        this.templateHelper.render(template, data, this.$el, 'html', function () {
-            if (typeof callback === 'function')
-                callback(data);
+    public render(defaultCity = this.getDefaultLocation()): void {
+        const data = {
+            prayers: this.getTimesByCoords(),
+            location: this.getCityByCoords(),
+        };
+        this.templateHelper.render(template, data, this.$el, 'html', () => {
+            this.registerEvents();
         });
     }
 
-    private isDST(): boolean {
-        const dst = this.config.dst;
-        const today = new Date();
-        const dstStart = new Date(today.getFullYear(), dst.start.split('-')[0], dst.start.split('-')[0]);
-        const dstEnd = new Date(today.getFullYear(), dst.end.split('-')[0], dst.end.split('-')[0]);
-        return today.getTime() > dstStart.getTime() && today.getTime() < dstEnd.getTime();
+    private getDefaultLocation(): string {
+        return this.store.get('location') && typeof this.store.get('location').coordination !== 'undefined'
+            ? this.store.get('location').coordination.join(',')
+            : '51.42,35.7'; // Tehran
     }
 
-    private getPrayers(coordination): Prayers {
-        const today = typeof window['SERVER_TIME'] !== 'undefined' ? new Date(window['SERVER_TIME']) : new Date();
-        return this.prayTimes.getTimes(today, coordination, 3.5, this.isDST(), '24h');
+    private getCityByCoords(coords: string = this.getDefaultLocation()): any {
+        return this.locations.find(location => {
+            if (location.coords.join(',') === coords) {
+                return location;
+            }
+        })?.coords.join(',');
+    }
+
+    private getTimesByCoords(coords: string = this.getDefaultLocation()): IslamicPrayer {
+        return this.prayTimes[Object.keys(this.prayTimes).find(key => key === coords)];
     }
 
     private updateValues(coordination) {
-        const times: Prayers = this.getPrayers(coordination);
+        const times: IslamicPrayer = this.getTimesByCoords(coordination.join(','));
         for (let timeTitle in times) {
             if (times.hasOwnProperty(timeTitle)) {
                 $('[data-type="' + timeTitle + '"] .time').text(times[timeTitle]);
