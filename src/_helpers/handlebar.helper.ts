@@ -149,7 +149,7 @@ export function addHandlebarsHelpers(context): void {
         const locations = ConfigHelper.get('locations');
         let output = '';
         locations.forEach((location: { city: string; title: string; coords: number[] }) => {
-            output += `<option value="${location.coords[1]},${location.coords[0]}">${location.title}</option>`;
+            output += `<option value="${location.coords[0]},${location.coords[1]}">${location.title}</option>`;
         });
         return output
     });
