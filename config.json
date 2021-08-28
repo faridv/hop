@@ -27,14 +27,15 @@
             "program.latest": "programs",
             "program.list": "programs/type/{programType}",
             "program.episodes": "programs/{programId}",
-            "news": "items?catid=1",
+            "news": "uhd?catid=1",
             "media": "media",
             "market.labels": "market/labels",
             "market.data": "market/data",
             "quran": "quran",
             "tehran-air": "tehran-air/{type}",
-            "items": "items",
-            "sepehr": "sepehr"
+            "items": "uhd",
+            "sepehr": "sepehr",
+            "islamic-prayers": "../islamic-prayers"
         },
         "pusher": "http://localhost:8080"
     },
@@ -95,6 +96,11 @@
                     "title": "اوقات شرعی",
                     "type": "prayer-times",
                     "icon": "sunrise"
+                },
+                {
+                    "title": "سپهر",
+                    "type": "sepehr",
+                    "icon": "sepehr"
                 },
                 {
                     "title": "بازی‌ها",

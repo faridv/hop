@@ -32,7 +32,8 @@
             "market.data": "../market/data",
             "quran": "../quran",
             "tehran-air": "../tehran-air/{type}",
-            "sepehr": "../sepehr"
+            "sepehr": "../sepehr",
+            "islamic-prayers": "../islamic-prayers"
         },
         "pusher": "http://localhost:8080"
     },
@@ -50,9 +51,9 @@
             "layout": "ifilm",
             "modules": [
                 {
-                    "title": "سپهر",
-                    "type": "sepehr",
-                    "icon": "sepehr"
+                    "title": "اخبار",
+                    "type": "news-sections",
+                    "icon": "newspaper"
                 },
                 {
                     "title": "سریال‌ها",
@@ -60,14 +61,14 @@
                     "icon": "tv1"
                 },
                 {
-                    "title": "اخبار",
-                    "type": "news-sections",
-                    "icon": "newspaper"
-                },
-                {
                     "title": "جدول پخش",
                     "type": "schedule-carousel",
                     "icon": "view_day"
+                },
+                {
+                    "title": "سپهر",
+                    "type": "sepehr",
+                    "icon": "sepehr"
                 },
                 {
                     "title": "بازار",
