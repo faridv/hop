@@ -55,6 +55,7 @@ export default class ClockHelper {
         window.clockTimerInterval = this.clockTimer = <any>setInterval(() => {
             formattedClock.add(1, 'seconds');
             self.render(formattedClock.format('HH:mm:ss'));
+            window.SERVER_TIME = formattedClock.locale('en').format('YYYY-MM-DD HH:mm:ss');
         }, 1000);
     }
 }
