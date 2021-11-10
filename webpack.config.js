@@ -12,13 +12,18 @@ const buildHash = (+new Date() / 1000).toFixed(0);
 
 module.exports = {
     devServer: {
-        contentBase: path.join(__dirname, 'dist/'),
+        static: path.join(__dirname, 'dist/'),
         historyApiFallback: true,
         compress: false,
         port: 3000,
         hot: true,
-        watchContentBase: true,
-        inline: true,
+        // watchContentBase: true,
+        // inline: true,
+        watchFiles: [
+            './src/**/*.*'
+        ],
+        liveReload: true,
+
     },
     devtool: isProd ? false : 'source-map',
     // watch: !isProd,
