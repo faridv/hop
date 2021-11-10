@@ -43,6 +43,12 @@
                     &:after { border-bottom-color: #9933CC; }
                 }
 
+                &[data-type="uhd-events"] {
+                    background: #33b5cc;
+                    &:before { border-top-color: #33b5cc; }
+                    &:after { border-bottom-color: #33b5cc; }
+                }
+
                 &[data-type="news"] {
                     background: #0d47a1;
                     &:before { border-top-color: #0d47a1; }

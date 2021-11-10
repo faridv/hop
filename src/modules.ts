@@ -24,6 +24,7 @@ export const modules = {
     'stream': StreamModule,
     'info': InfoModule,
     'news': NewsModule,
+    'uhd-events': NewsModule,
     'vod': ProgramModule,
     'market': MarketModule,
     'quran': QuranModule,

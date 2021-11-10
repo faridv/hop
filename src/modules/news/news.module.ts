@@ -37,6 +37,11 @@ export default class NewsModule extends Module {
 
         if (typeof this.moduleType !== 'undefined' && this.moduleType) {
             switch (this.moduleType) {
+                case 'uhd-events':
+                    service = 'getItemsByCategory';
+                    this.pageTitle = 'رویدادها';
+                    id = '2';
+                    break;
                 case 'uhd-programs':
                     service = 'getItemsByCategory';
                     this.pageTitle = 'برنامه‌ها';
