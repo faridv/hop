@@ -45,4 +45,7 @@
         &.fullscreen { padding: 0; width: 100%; height: 100%; }
         &.half { width: 45%; left: 25%; height: 45%; }
     }
+    #app {
+        #time { color: #fff; text-shadow: 0 0 4px #333; font-size: 16px; top: auto !important; bottom: 10px !important; }
+    }
 }

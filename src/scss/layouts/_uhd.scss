@@ -37,6 +37,12 @@
                     &:after { border-bottom-color: #FF8800; }
                 }
 
+                &[data-type="sepehr"] {
+                    background: #2B4382;
+                    &:before { border-top-color: #2B4382; }
+                    &:after { border-bottom-color: #2B4382; }
+                }
+
                 &[data-type="games"] {
                     background: #9933CC;
                     &:before { border-top-color: #9933CC; }
@@ -44,15 +50,15 @@
                 }
 
                 &[data-type="uhd-events"] {
-                    background: #33b5cc;
-                    &:before { border-top-color: #33b5cc; }
-                    &:after { border-bottom-color: #33b5cc; }
+                    background: #2db34e;
+                    &:before { border-top-color: #2db34e; }
+                    &:after { border-bottom-color: #2db34e; }
                 }
 
                 &[data-type="news"] {
-                    background: #0d47a1;
-                    &:before { border-top-color: #0d47a1; }
-                    &:after { border-bottom-color: #0d47a1; }
+                    background: #6d309f;
+                    &:before { border-top-color: #6d309f; }
+                    &:after { border-bottom-color: #6d309f; }
                 }
 
                 &[data-type="uhd-programs"] {
@@ -74,15 +80,15 @@
                 }
 
                 &[data-type="info"] {
-                    background: #292940;
-                    &:before { border-top-color: #292940; }
-                    &:after { border-bottom-color: #292940; }
+                    background: #3d7262;
+                    &:before { border-top-color: #3d7262; }
+                    &:after { border-bottom-color: #3d7262; }
                 }
 
                 &[data-type="about-channel"] {
-                    background: #303F9F;
-                    &:before { border-top-color: #303F9F; }
-                    &:after { border-bottom-color: #303F9F; }
+                    background: #0d47a1;
+                    &:before { border-top-color: #0d47a1; }
+                    &:after { border-bottom-color: #0d47a1; }
                 }
 
                 &[data-type="faq"] {
@@ -139,7 +145,7 @@
 
     #app {
         #connection-status { top: 70px !important; }
-        #time { top: 70px !important; }
+        #time { color: #fff; text-shadow: 0 0 4px #333; font-size: 16px; top: auto !important; bottom: 10px !important; }
     }
 
     #qr-holder {
