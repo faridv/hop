@@ -1,10 +1,10 @@
 {
-    "title": "HOP: IRIB UHD HbbTV Application",
+    "title": "HOP: IRIB Tamasha HbbTV Application",
     "container": "#app",
     "locale": "fa",
     "timezone": "Asia/Tehran",
-    "delay": 500,
-    "timeout": 60000,
+    "delay": 1,
+    "timeout": 5000,
     "transitionSpeed": 0,
     "clockUpdateInterval": 600000,
     "theme": "default",
@@ -15,26 +15,24 @@
     "log": false,
     "autoStart": false,
     "streamMode": false,
-    "streamUrl": "http://test.livemedia.irib.ir/mdash/irankala-1m.stream/manifest.m3u8",
+    "streamUrl": "http://test.livemedia.irib.ir/mdash/ifilm-1m.stream/manifest.m3u8",
     "exitMethod": "hide",
     "api": {
-        "url": "http://api.hbbtv.ir/",
+        "url": "http://api.hbbtv.ir/ifilm/",
         "services": {
-            "clock": "clock.php",
-            "weather": "weather",
-            "log": "/log.php",
-            "schedule": "uhd/epg",
-            "program.latest": "programs",
-            "program.list": "programs/type/{programType}",
-            "program.episodes": "programs/{programId}",
-            "news": "uhd?catid=1",
-            "media": "media",
-            "market.labels": "market/labels",
-            "market.data": "market/data",
-            "quran": "quran",
-            "tehran-air": "tehran-air/{type}",
-            "items": "uhd",
-            "sepehr": "sepehr",
+            "clock": "../clock.php",
+            "weather": "../weather",
+            "log": "../log.php",
+            "schedule": "schedule",
+            "program.latest": "series",
+            "program.episodes": "series/{programId}",
+            "news": "news",
+            "news.details": "news/{newsId}",
+            "market.labels": "../market/labels",
+            "market.data": "../market/data",
+            "quran": "../quran",
+            "tehran-air": "../tehran-air/{type}",
+            "sepehr": "../sepehr",
             "islamic-prayers": "../islamic-prayers"
         },
         "pusher": "http://localhost:8080"
@@ -50,37 +48,17 @@
             "clock": true,
             "connectionStatus": false,
             "theme": "default",
-            "layout": "uhd",
+            "layout": "carousel",
             "modules": [
-                {
-                    "title": "جدول پخش",
-                    "type": "schedule-carousel",
-                    "icon": "view_day"
-                },
-                {
-                    "title": "درباره شبکه",
-                    "type": "about-channel",
-                    "icon": "tv"
-                },
-                {
-                    "title": "برنامه‌ها",
-                    "type": "uhd-programs",
-                    "icon": "tv1"
-                },
-                {
-                    "title": "اخبار",
-                    "type": "news",
-                    "icon": "newspaper"
-                },
                 {
                     "title": "بازار",
                     "type": "market",
                     "icon": "line-graph"
                 },
                 {
-                    "title": "کیفیت هوای تهران",
-                    "type": "tehran-air",
-                    "icon": "dust"
+                    "title": "تلویزیون تعاملی سپهر",
+                    "type": "sepehr",
+                    "icon": "sepehr"
                 },
                 {
                     "title": "آب و هوا",
@@ -88,24 +66,14 @@
                     "icon": "sun"
                 },
                 {
-                    "title": "قرآن کریم",
-                    "type": "quran",
-                    "icon": "book"
-                },
-                {
                     "title": "اوقات شرعی",
                     "type": "prayer-times",
                     "icon": "sunrise"
                 },
                 {
-                    "title": "سپهر",
-                    "type": "sepehr",
-                    "icon": "sepehr"
-                },
-                {
-                    "title": "بازی‌ها",
-                    "type": "games",
-                    "icon": "gamepad"
+                    "title": "کیفیت هوای تهران",
+                    "type": "tehran-air",
+                    "icon": "dust"
                 },
                 {
                     "title": "درباره برنامه",
@@ -113,9 +81,14 @@
                     "icon": "info_outline"
                 },
                 {
-                    "title": "سوالات متداول",
-                    "type": "faq",
-                    "icon": "tag"
+                    "title": "قرآن کریم",
+                    "type": "quran",
+                    "icon": "book"
+                },
+                {
+                    "title": "بازی‌ها",
+                    "type": "games",
+                    "icon": "gamepad"
                 }
             ]
         }

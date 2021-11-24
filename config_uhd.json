@@ -1,5 +1,5 @@
 {
-    "title": "HOP: IKTV HbbTV Application",
+    "title": "HOP: IRIB UHD HbbTV Application",
     "container": "#app",
     "locale": "fa",
     "timezone": "Asia/Tehran",
@@ -12,7 +12,7 @@
     "hd": true,
     "resolution": "720",
     "verbose": false,
-    "log": true,
+    "log": false,
     "autoStart": false,
     "streamMode": false,
     "streamUrl": "http://test.livemedia.irib.ir/mdash/irankala-1m.stream/manifest.m3u8",
@@ -23,17 +23,18 @@
             "clock": "clock.php",
             "weather": "weather",
             "log": "/log.php",
-            "schedule": "schedule",
+            "schedule": "uhd/epg",
             "program.latest": "programs",
             "program.list": "programs/type/{programType}",
             "program.episodes": "programs/{programId}",
-            "news": "news",
+            "news": "uhd?catid=1",
             "media": "media",
             "market.labels": "market/labels",
             "market.data": "market/data",
             "quran": "quran",
             "tehran-air": "tehran-air/{type}",
-			"sepehr": "../sepehr",
+            "items": "uhd",
+            "sepehr": "sepehr",
             "islamic-prayers": "../islamic-prayers"
         },
         "pusher": "http://localhost:8080"
@@ -42,24 +43,19 @@
         {
             "button": {
                 "key": "red,r",
-                "image": "assets/img/redbutton.png",
-                "position": "bottom: 120px; right: 60px;"
+                "image": "assets/img/redbutton3.png",
+                "position": "bottom: 40px; right: 40px;"
             },
             "hasHub": true,
             "clock": true,
-            "connectionStatus": true,
+            "connectionStatus": false,
             "theme": "default",
-            "layout": "iktv",
+            "layout": "uhd",
             "modules": [
                 {
-                    "title": "اخبار",
-                    "type": "news",
-                    "icon": "newspaper"
-                },
-                {
-                    "title": "برنامه‌ها",
-                    "type": "vod",
-                    "icon": "tv"
+                    "title": "رویدادها",
+                    "type": "uhd-events",
+                    "icon": "movie_filter"
                 },
                 {
                     "title": "جدول پخش",
@@ -67,30 +63,29 @@
                     "icon": "view_day"
                 },
                 {
-                    "title": "بازار",
-                    "type": "market",
-                    "icon": "line-graph"
+                    "title": "برنامه‌ها",
+                    "type": "uhd-programs",
+                    "icon": "tv1"
                 },
                 {
-                    "title": "آموزش کسب و کار",
-                    "type": "news-teaching",
-                    "icon": "stats"
+                    "title": "درباره شبکه",
+                    "type": "about-channel",
+                    "icon": "tv"
                 },
                 {
-                    "title": "ایران‌گردی",
-                    "type": "tourism",
-                    "icon": "iran"
+                    "title": "اخبار",
+                    "type": "news",
+                    "icon": "newspaper"
                 },
                 {
-                    "title": "دیمن کالا",
-                    "type": "url",
-                    "icon": "basket",
-                    "url": "http://www.irankalatv.ir/"
+                    "title": "سوالات متداول",
+                    "type": "faq",
+                    "icon": "tag"
                 },
                 {
-                    "title": "بانکداری تلویزیونی",
-                    "type": "under-construction",
-                    "icon": "credit-card"
+                    "title": "درباره برنامه",
+                    "type": "info",
+                    "icon": "info_outline"
                 },
                 {
                     "title": "کیفیت هوای تهران",
@@ -113,14 +108,19 @@
                     "icon": "sunrise"
                 },
                 {
+                    "title": "بازار",
+                    "type": "market",
+                    "icon": "line-graph"
+                },
+                {
                     "title": "بازی‌ها",
                     "type": "games",
                     "icon": "gamepad"
                 },
                 {
-                    "title": "درباره برنامه",
-                    "type": "info",
-                    "icon": "info_outline"
+                    "title": "تلویزیون تعاملی سپهر",
+                    "type": "sepehr",
+                    "icon": "sepehr"
                 }
             ]
         }

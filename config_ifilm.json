@@ -1,10 +1,10 @@
 {
-    "title": "HOP: IRIB UHD HbbTV Application",
+    "title": "HOP: IRIB iFilm HbbTV Application",
     "container": "#app",
     "locale": "fa",
     "timezone": "Asia/Tehran",
-    "delay": 500,
-    "timeout": 60000,
+    "delay": 1,
+    "timeout": 10000,
     "transitionSpeed": 0,
     "clockUpdateInterval": 600000,
     "theme": "default",
@@ -41,7 +41,7 @@
         {
             "button": {
                 "key": "red,r",
-                "image": "assets/img/redbutton_sm.png",
+                "image": "assets/img/redbutton3.png",
                 "position": "bottom: 40px; right: 40px;"
             },
             "hasHub": true,
