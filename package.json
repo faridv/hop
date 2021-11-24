@@ -5,13 +5,13 @@
     "scripts": {
         "start": "npm run server:dev",
         "server": "npm run server:dev",
-        "server:dev": "webpack serve --mode development --env development --config ./webpack.config.js --hot --progress",
+        "server:dev": "rimraf -- dist && webpack serve --mode development --env development --config ./webpack.config.js --hot --progress",
         "server:prod": "cross-env NODE_ENV=production webpack serve  --mode production --config ./webpack.config.js --port 3000 --host 127.0.0.1 --hot --progress  --open --content-base dist/",
         "build": "npm run build:prod",
         "build:dev": "webpack --mode development --config ./webpack.config.js --progress --color",
         "build:prod": "cross-env NODE_ENV=production webpack --mode production --config ./webpack.config.js  --progress  --color --bail",
         "cypress": "cypress open",
-        "clean": "npm cache clear && rimraf -- dist",
+        "clean": "npm cache verify && rimraf -- dist",
         "test": "karma start",
         "refresh": "rm -rf ./node_modules ./package-lock.json && npm install"
     },

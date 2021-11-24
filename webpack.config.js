@@ -17,13 +17,15 @@ module.exports = {
         compress: false,
         port: 3000,
         hot: true,
-        // watchContentBase: true,
-        // inline: true,
-        watchFiles: [
-            './src/**/*.*'
-        ],
+        bonjour: true,
+        watchFiles: ['./src/**/*.*'],
         liveReload: true,
-
+        devMiddleware: {
+            index: true,
+            publicPath: '/',
+            serverSideRender: true,
+            writeToDisk: true,
+        }
     },
     devtool: isProd ? false : 'source-map',
     // watch: !isProd,
