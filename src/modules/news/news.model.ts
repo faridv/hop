@@ -7,6 +7,9 @@ export interface News {
     categories?: any;
     thumbnail: NewsMedia[];
     media?: string;
+    category?: string;
+    // whether show in fullscreen
+    cover?: boolean;
 }
 
 export interface NewsMedia {

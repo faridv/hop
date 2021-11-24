@@ -71,7 +71,6 @@ export default class NewsModule extends Module {
         });
     }
 
-
     public render(data: News[], callback): void {
         const template = this.layoutInstance.layout === 'uhd' ? uhdNewsTemplate : newsTemplate;
         this.templateHelper.render(template, { items: data, pageTitle: this.pageTitle }, this.$el, 'html', () => {
@@ -129,9 +128,19 @@ export default class NewsModule extends Module {
             && $item.attr('data-id'))
             ? ~~$item.attr('data-id')
             : ~~$carousel.find('.slick-current.slick-center li').attr('data-id');
-        const item = this.data.find(news => news.id === id);
+        const item = this.data.find(news => news.id === id) as News;
         // Load item details
-        const template = this.layoutInstance.layout === 'uhd' ? uhdDetailsTemplate : detailsTemplate;
+        let template;
+        if (this.layoutInstance.layout === 'uhd') {
+            template = uhdDetailsTemplate;
+            item.category = null;
+            if (this.moduleType === 'uhd-events') {
+                item.cover = true;
+                console.log(item);
+            }
+        } else {
+            template = detailsTemplate;
+        }
         this.templateHelper.render(template, { data: item }, $('#news-details'), 'html', () => {
             self.showDetails(!!item.media);
         });
