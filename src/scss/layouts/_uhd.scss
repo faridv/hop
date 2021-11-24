@@ -2,6 +2,7 @@
     transform: none !important;
     #menu {
         position: absolute; bottom: 50px; width: 100%;
+        height: auto; overflow: hidden; padding: 10px 0;
         ul {
             margin: 0; padding: 0; list-style: none;
             li {
@@ -139,6 +140,16 @@
                 margin-top: -17px;
                 img { display: block; width: 100%; height: auto; }
             }
+        }
+        &.news {
+            #news-details {
+                figure {
+                    width: 50%;
+                    img { max-height: 100%; }
+                }
+                .news-text { line-height: 1.75; }
+            }
+            .badge { display: none; }
         }
     }
     .slick-list { overflow: hidden; }
