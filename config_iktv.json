@@ -18,7 +18,7 @@
     "streamUrl": "http://test.livemedia.irib.ir/mdash/irankala-1m.stream/manifest.m3u8",
     "exitMethod": "hide",
     "api": {
-        "url": "http://api.hbbtv.ir/",
+        "url": "https://api.hbbtv.ir/",
         "services": {
             "clock": "clock.php",
             "weather": "weather",

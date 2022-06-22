@@ -18,7 +18,7 @@
     "streamUrl": "http://test.livemedia.irib.ir/mdash/ifilm-1m.stream/manifest.m3u8",
     "exitMethod": "hide",
     "api": {
-        "url": "http://api.hbbtv.ir/ifilm/",
+        "url": "https://api.hbbtv.ir/ifilm/",
         "services": {
             "clock": "../clock.php",
             "weather": "../weather",
@@ -50,11 +50,6 @@
             "theme": "default",
             "layout": "carousel",
             "modules": [
-                {
-                    "title": "بازار",
-                    "type": "market",
-                    "icon": "line-graph"
-                },
                 {
                     "title": "تلویزیون تعاملی سپهر",
                     "type": "sepehr",

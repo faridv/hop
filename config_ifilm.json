@@ -18,7 +18,7 @@
     "streamUrl": "http://test.livemedia.irib.ir/mdash/ifilm-1m.stream/manifest.m3u8",
     "exitMethod": "hide",
     "api": {
-        "url": "http://api.hbbtv.ir/ifilm/",
+        "url": "https://api.hbbtv.ir/ifilm/",
         "services": {
             "clock": "../clock.php",
             "weather": "../weather",
@@ -69,11 +69,6 @@
                     "title": "سپهر",
                     "type": "sepehr",
                     "icon": "sepehr"
-                },
-                {
-                    "title": "بازار",
-                    "type": "market",
-                    "icon": "line-graph"
                 },
                 {
                     "title": "کیفیت هوای تهران",
