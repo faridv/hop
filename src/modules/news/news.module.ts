@@ -81,7 +81,7 @@ export default class NewsModule extends Module {
 
     private initializeSlider(): void {
         const self = this;
-        const $el = $("ul.news-items");
+        const $el: JQuery<HTMLElement> = $("ul.news-items");
         const slidesToShow = 3;
         if (!$el.is(':visible'))
             $el.show(1);
@@ -117,26 +117,25 @@ export default class NewsModule extends Module {
             self.loadDetails($carousel);
         });
         $(document).on('click', "ul.news-items li", (e) => {
-            self.loadDetails($carousel, $(this));
+            self.loadDetails($carousel, $(this) as unknown as JQuery<HTMLElement>);
         });
     }
 
-    private loadDetails($carousel, $item?): void {
+    private loadDetails($carousel: JQuery<HTMLElement>, $item?: JQuery<HTMLElement>): void {
         const self = this;
         const id = (typeof $item !== 'undefined'
             && typeof $item.attr('data-id') !== 'undefined'
             && $item.attr('data-id'))
-            ? ~~$item.attr('data-id')
-            : ~~$carousel.find('.slick-current.slick-center li').attr('data-id');
+            ? parseInt($item.attr('data-id').toString(), 10)
+            : parseInt($carousel.find('.slick-current.slick-center li').attr('data-id').toString(), 10);
         const item = this.data.find(news => news.id === id) as News;
         // Load item details
-        let template;
+        let template: string | undefined;
         if (this.layoutInstance.layout === 'uhd') {
             template = uhdDetailsTemplate;
             item.category = null;
             if (this.moduleType === 'uhd-events') {
                 item.cover = true;
-                console.log(item);
             }
         } else {
             template = detailsTemplate;

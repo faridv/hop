@@ -12,7 +12,7 @@ export default class TemplateHelper {
         this.addHelpers();
     }
 
-    private zeroFill(num, size = 2): string {
+    private zeroFill(num: number, size: number = 2): string {
         let output = num.toString();
         while (output.length < size)
             output = "0" + output;
@@ -41,7 +41,7 @@ export default class TemplateHelper {
         this[method]('loading', '#app');
     }
 
-    public render(template: any, data: any, $container: any, mode: string = 'html', callback?: (() => any)): void {
+    public render(template: any, data: any, $container: any, mode: string = 'html', callback?: () => any): void {
         const self = this;
         if (typeof template === 'string') {
             this.generateOutput(template, data, $container, mode, callback);
@@ -59,8 +59,6 @@ export default class TemplateHelper {
     private generateOutput(template: string, data: any, $container: any, mode: string = 'html', callback?: any) {
         const HandlebarsTemplate = Handlebars.compile(template);
         const output = HandlebarsTemplate(data);
-        // const output = new Handlebars.SafeString(Handlebars.escapeExpression(HandlebarsTemplate(data)));
-        // console.warn(output);
         if (!($container instanceof $)) {
             $container = $($container[0]);
         }
@@ -81,7 +79,7 @@ export default class TemplateHelper {
     /*
     * Helper methods
     */
-    public getElement(element: any = 'body'): JQuery {
+    public getElement(element: any = 'body'): JQuery<any> {
         return (typeof element === 'string') ? $(element) : element;
     }
 
@@ -116,7 +114,7 @@ export default class TemplateHelper {
         $(element).removeClass().addClass(newClassList.join(" "));
     }
 
-    public isOverflown($element) {
+    public isOverflown($element: JQuery<HTMLElement>): boolean {
         const element = $element[0];
         return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
     }
