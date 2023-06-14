@@ -198,7 +198,7 @@ export class NgComponentTemplateVisitor {
     }
 
     private visitClassDeclaration(node: ts.ClassDeclaration) {
-        if (!node.decorators || !node.decorators.length) {
+        if (!node.decorators || !(node.decorators as any).length) {
             return;
         }
 

@@ -27,7 +27,7 @@
             "program.latest": "programs",
             "program.list": "programs/type/{programType}",
             "program.episodes": "programs/{programId}",
-            "news": "uhd?catid=1",
+            "news": "uhd?catid=1&full=true",
             "media": "media",
             "market.labels": "market/labels",
             "market.data": "market/data",
