@@ -1,7 +1,7 @@
 language: node_js
 
 os: linux
-dist: xenial
+dist: jammy
 
 git:
   depth: 25
