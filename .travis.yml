@@ -16,7 +16,7 @@ addons:
 before_script:
   - export DISPLAY=:99.0
 install:
-  - npm set progress=false
+#  - npm set progress=false
   - npm install
 
 cache:
