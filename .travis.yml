@@ -3,7 +3,7 @@ git:
   depth: 25
 node_js:
   # Node 10.3+ includes npm@6 which has good "npm ci" command
-  - 16.5
+  - 18
 
 sudo: required
 services:
@@ -25,9 +25,6 @@ cache:
   directories:
     - ~/.npm
     - ~/.cache
-  override:
-    - npm ci
-#    - npm run cy:verify
 
 script:
 #  - npm run test

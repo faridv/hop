@@ -33,5 +33,5 @@ Test are being done using both Karma+Jasmine and Cypress. Currently I've added C
 This application is being cross-browser tested using BrowserStack.
 
 <a href="https://www.browserstack.com" target="_blank" title="BrowserStack">
-	<img width="200" src="http://faridv.ir/misc/browserstack_logo.svg" />
+	<img width="200" src="https://d2ogrdw2mh0rsl.cloudfront.net/production/images/static/header/header-logo.svg" />
 </a>
