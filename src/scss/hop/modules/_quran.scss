@@ -30,9 +30,9 @@
 .module.quran {
     height: 100%; background: rgba(0, 0, 0, 0.8); max-height: 100%; overflow: hidden; display: flex; flex-direction: column; padding: 40px;
     > header { color: #fff; }
-    > div { margin-bottom: 30px; overflow: hidden; }
+    > div { margin-bottom: 30px; overflow: hidden; width: 100%; height: 100%; }
     ul {
-        margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; max-height: 100%; overflow: hidden;
+        margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; max-height: 100%; overflow: scroll; padding-left: 20px; box-sizing: content-box; overflow-x: hidden; width: 100%;
         li {
             max-width: 25%; padding: $grid-gutter-width / 4; flex: 0 0 25%;
             &:nth-child(4n+1) { clear: right; }

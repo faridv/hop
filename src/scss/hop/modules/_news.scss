@@ -61,4 +61,20 @@
         p { font-size: 0.8rem; }
     }
 
+    .news-details {
+        &.cover {
+            position: relative;
+            .news-body { height: 100%; }
+            figure {
+                margin: 0; position: absolute; top: 0; left: 0; width: 100% !important; height: 100%; float: none; z-index: 10;
+                img {
+
+                }
+            }
+            h3 { position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%); color: #fff; text-shadow: 0 0 3px #333; z-index: 15; }
+            .news-text { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); color: #fff; text-shadow: 0 0 3px #333; z-index: 15; }
+            .categories { display: none; }
+        }
+    }
+
 }

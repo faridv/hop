@@ -6,7 +6,8 @@
                 "useBuiltIns": "usage",
                 "modules": false,
                 "corejs": "3",
-                "targets": "ie 8"
+                "targets": "ie 8",
+                "loose": true
             }
         ]
     ],

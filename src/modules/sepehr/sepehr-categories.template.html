@@ -4,7 +4,7 @@
             {{#each []}}
             <li data-id="{{id}}">
                 <figure>
-                    <img src="{{#if poster}}{{poster}}{{else}}assets/img/tv_antenna.jpg{{/if}}" alt="{{name}}"/>
+                    <img src="{{#if poster}}{{poster}}{{else}}assets/img/ott.jpg{{/if}}" onerror="this.onerror=null;this.src='assets/img/ott.jpg'" alt="{{name}}"/>
                 </figure>
                 <h3>{{name}}</h3>
             </li>

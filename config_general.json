@@ -1,10 +1,10 @@
 {
-    "title": "HOP: IKTV HbbTV Application",
+    "title": "HOP: IRIB Tamasha HbbTV Application",
     "container": "#app",
     "locale": "fa",
     "timezone": "Asia/Tehran",
     "delay": 1,
-    "timeout": 10000,
+    "timeout": 5000,
     "transitionSpeed": 0,
     "clockUpdateInterval": 600000,
     "theme": "default",
@@ -12,28 +12,27 @@
     "hd": true,
     "resolution": "720",
     "verbose": false,
-    "log": true,
+    "log": false,
     "autoStart": false,
     "streamMode": false,
-    "streamUrl": "http://test.livemedia.irib.ir/mdash/irankala-1m.stream/manifest.m3u8",
+    "streamUrl": "http://test.livemedia.irib.ir/mdash/ifilm-1m.stream/manifest.m3u8",
     "exitMethod": "hide",
     "api": {
-        "url": "https://api.hbbtv.ir/",
+        "url": "https://api.hbbtv.ir/ifilm/",
         "services": {
-            "clock": "clock.php",
-            "weather": "weather",
-            "log": "/log.php",
+            "clock": "../clock.php",
+            "weather": "../weather",
+            "log": "../log.php",
             "schedule": "schedule",
-            "program.latest": "programs",
-            "program.list": "programs/type/{programType}",
-            "program.episodes": "programs/{programId}",
+            "program.latest": "series",
+            "program.episodes": "series/{programId}",
             "news": "news",
-            "media": "media",
-            "market.labels": "market/labels",
-            "market.data": "market/data",
-            "quran": "quran",
-            "tehran-air": "tehran-air/{type}",
-			"sepehr": "../sepehr",
+            "news.details": "news/{newsId}",
+            "market.labels": "../market/labels",
+            "market.data": "../market/data",
+            "quran": "../quran",
+            "tehran-air": "../tehran-air/{type}",
+            "sepehr": "../sepehr",
             "islamic-prayers": "../islamic-prayers"
         },
         "pusher": "http://localhost:8080"
@@ -42,60 +41,19 @@
         {
             "button": {
                 "key": "red,r",
-                "image": "assets/img/redbutton.png",
-                "position": "bottom: 120px; right: 60px;"
+                "image": "assets/img/redbutton3.png",
+                "position": "bottom: 40px; right: 40px;"
             },
             "hasHub": true,
             "clock": true,
-            "connectionStatus": true,
+            "connectionStatus": false,
             "theme": "default",
-            "layout": "iktv",
+            "layout": "carousel",
             "modules": [
                 {
-                    "title": "اخبار",
-                    "type": "news",
-                    "icon": "newspaper"
-                },
-                {
-                    "title": "برنامه‌ها",
-                    "type": "vod",
-                    "icon": "tv"
-                },
-                {
-                    "title": "جدول پخش",
-                    "type": "schedule-carousel",
-                    "icon": "view_day"
-                },
-                {
-                    "title": "بازار",
-                    "type": "market",
-                    "icon": "line-graph"
-                },
-                {
-                    "title": "آموزش کسب و کار",
-                    "type": "news-teaching",
-                    "icon": "stats"
-                },
-                {
-                    "title": "ایران‌گردی",
-                    "type": "tourism",
-                    "icon": "iran"
-                },
-                {
-                    "title": "دیمن کالا",
-                    "type": "url",
-                    "icon": "basket",
-                    "url": "http://www.irankalatv.ir/"
-                },
-                {
-                    "title": "بانکداری تلویزیونی",
-                    "type": "under-construction",
-                    "icon": "credit-card"
-                },
-                {
-                    "title": "کیفیت هوای تهران",
-                    "type": "tehran-air",
-                    "icon": "dust"
+                    "title": "تلویزیون تعاملی سپهر",
+                    "type": "sepehr",
+                    "icon": "sepehr"
                 },
                 {
                     "title": "آب و هوا",
@@ -103,24 +61,29 @@
                     "icon": "sun"
                 },
                 {
-                    "title": "قرآن کریم",
-                    "type": "quran",
-                    "icon": "book"
-                },
-                {
                     "title": "اوقات شرعی",
                     "type": "prayer-times",
                     "icon": "sunrise"
                 },
                 {
-                    "title": "بازی‌ها",
-                    "type": "games",
-                    "icon": "gamepad"
+                    "title": "کیفیت هوای تهران",
+                    "type": "tehran-air",
+                    "icon": "dust"
                 },
                 {
                     "title": "درباره برنامه",
                     "type": "info",
                     "icon": "info_outline"
+                },
+                {
+                    "title": "قرآن کریم",
+                    "type": "quran",
+                    "icon": "book"
+                },
+                {
+                    "title": "بازی‌ها",
+                    "type": "games",
+                    "icon": "gamepad"
                 }
             ]
         }

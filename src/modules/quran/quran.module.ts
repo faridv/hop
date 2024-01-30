@@ -52,22 +52,24 @@ export default class QuranModule extends Module {
 
     private initializeSurahListSlider(): void {
         const $el = $("#surah-list");
+        $el.find('li:first').addClass('active');
         this.registerKeyboardInputs($el);
     }
 
     private navigateSurahList(index: number, $el = $("#surah-list")): void {
-        const $current = $('li.active');
+        const $current = $el.find('li.active:first');
         const $next = $el.find('li').eq($current.index() + index);
         $current.removeClass('active');
         if ($next.length) {
             $next.addClass('active');
             const distance = $next.offset().top - $el.offset().top + $el.scrollTop();
-            if (~~$el.scrollTop() !== ~~distance)
-                $el.animate({ 'scrollTop': ~~distance });
+            if ($el.scrollTop() !== distance) {
+                $el.animate({ 'scrollTop': distance }, 150);
+            }
         } else {
             const $first = $el.find('li').eq(0);
             $first.addClass('active');
-            $el.animate({ 'scrollTop': 0 });
+            $el.animate({ 'scrollTop': 0 }, 150);
         }
     }
 

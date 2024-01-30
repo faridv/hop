@@ -11,6 +11,7 @@ export default class ScheduleCarouselModule extends Module {
         'schedule.next': { 'control': 'down', title: 'برنامه بعدی', icon: 'bottom' },
         'schedule.enter': { 'control': 'enter', title: 'پخش ویدیو', icon: 'enter' },
     };
+    protected now = null;
 
     constructor(config?, layoutInstance?, moduleType?: string) {
         super(config, layoutInstance, moduleType);
@@ -18,7 +19,8 @@ export default class ScheduleCarouselModule extends Module {
         moment.locale('en');
         this.service = ScheduleService.instance;
         this.events = this.prepareControls();
-        this.load(moment());
+        this.now = typeof window['SERVER_TIME'] !== 'undefined' ? moment(window['SERVER_TIME'], 'YYYY-MM-DD HH:mm:ss') : moment();
+        this.load(this.now);
 
         return this;
     }
@@ -72,7 +74,6 @@ export default class ScheduleCarouselModule extends Module {
 
     private goToCurrent($carousel): void {
         const self = this;
-        console.log(this);
         try {
             const $current = $carousel.find('li.current').parents('.slick-slide:first');
             $carousel.slick('slickGoTo', $current.attr('data-slick-index'), true);
@@ -85,12 +86,11 @@ export default class ScheduleCarouselModule extends Module {
     }
 
     private findCurrent(list: Schedule[]): Schedule[] {
-        const rightNow = moment();
         let currentIndex: number = 9999;
         list.map(item => item.isCurrent = false);
         for (let index in list) {
             const currentItemTime = moment(list[index].start, 'YYYY-MM-DD HH:mm:ss');
-            if (rightNow.isAfter(currentItemTime)) {
+            if (this.now.isAfter(currentItemTime)) {
                 currentIndex = parseInt(index);
             }
         }

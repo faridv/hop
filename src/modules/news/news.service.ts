@@ -18,4 +18,8 @@ export class NewsService extends Service {
         return this.http.get(this.api.get('news', itemId.toString()));
     }
 
+    public getFeatured() {
+        return this.http.get(this.api.get('items', 'featured'));
+    }
+
 }

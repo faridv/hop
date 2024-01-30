@@ -12,7 +12,7 @@ interface IModule {
 export abstract class Module implements IModule {
 
     protected service;
-    protected config;
+    protected config: IConfig;
     protected template;
     protected store;
     protected templateHelper: TemplateHelper;
