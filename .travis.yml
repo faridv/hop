@@ -1,33 +1,38 @@
 language: node_js
+
+os: linux
+dist: jammy
+
 git:
   depth: 25
-node_js:
-  # Node 10.3+ includes npm@6 which has good "npm ci" command
-  - 18
 
-sudo: required
-services:
-  - xvfb
-addons:
-  chrome: stable
-  apt:
-    packages:
-      - libgconf-2-4
+node_js:
+  - 20.9.0
+#before_install:
+#  - npm install -g npm@latest
+
+#services:
+#  - xvfb
+#addons:
+#  chrome: stable
+#  apt:
+#    packages:
+#      - libgconf-2-4
 before_script:
   - export DISPLAY=:99.0
 install:
-  - npm set progress=false
+  - npm config set progress true
   - npm install
 
-cache:
+#cache:
   # cache both npm modules and Cypress binary
-  npm: true
-  directories:
-    - ~/.npm
-    - ~/.cache
+#  npm: true
+#  directories:
+#    - ~/.npm
+#    - ~/.cache
 
 script:
-#  - npm run test
+  #  - npm run test
   - npm run build
 
 #defaults: &defaults

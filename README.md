@@ -4,7 +4,6 @@
 [![Build Status](https://travis-ci.org/faridv/hop.svg?branch=master)](https://travis-ci.org/faridv/hop)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/7d4955cc21e2453388e1fef337a24056)](https://app.codacy.com/app/faridv/hop?utm_source=github.com&utm_medium=referral&utm_content=faridv/hop&utm_campaign=Badge_Grade_Dashboard)
 [![Maintainability](https://api.codeclimate.com/v1/badges/03df719cdd9acbb1322f/maintainability)](https://codeclimate.com/github/faridv/hop/maintainability)
-[![Dependencies](https://david-dm.org/faridv/hop/status.svg)](https://david-dm.org/faridv/hop)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/faridv/hop/raw/master/LICENSE)
 
 ### Important note
