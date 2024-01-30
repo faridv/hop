@@ -7,9 +7,9 @@ git:
   depth: 25
 
 node_js:
-  - 18.16.0
-before_install:
-  - npm install -g npm@latest
+  - 20.19.0
+#before_install:
+#  - npm install -g npm@latest
 
 #services:
 #  - xvfb
