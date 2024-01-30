@@ -2,10 +2,10 @@ language: node_js
 git:
   depth: 25
 node_js:
-  # Node 10.3+ includes npm@6 which has good "npm ci" command
-  - 18
-
-sudo: required
+  - 20
+os: linux
+dist: xenial
+#sudo: required
 services:
   - xvfb
 addons:
@@ -16,7 +16,7 @@ addons:
 before_script:
   - export DISPLAY=:99.0
 install:
-#  - npm set progress=false
+  - npm set progress=true
   - npm install
 
 cache:
