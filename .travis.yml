@@ -8,15 +8,15 @@ dist: xenial
 #sudo: required
 services:
   - xvfb
-addons:
-  chrome: stable
-  apt:
-    packages:
-      - libgconf-2-4
+#addons:
+#  chrome: stable
+#  apt:
+#    packages:
+#      - libgconf-2-4
 before_script:
   - export DISPLAY=:99.0
 install:
-  - npm set progress=true
+  - npm config set progress true
   - npm install
 
 cache:
