@@ -1,13 +1,18 @@
 language: node_js
-git:
-  depth: 25
-node_js:
-  - 18.16.0
+
 os: linux
 dist: xenial
-#sudo: required
-services:
-  - xvfb
+
+git:
+  depth: 25
+
+node_js:
+  - 18.16.0
+before_install:
+  - npm install -g npm@latest
+
+#services:
+#  - xvfb
 #addons:
 #  chrome: stable
 #  apt:
@@ -19,15 +24,15 @@ install:
   - npm config set progress true
   - npm install
 
-cache:
+#cache:
   # cache both npm modules and Cypress binary
-  npm: true
-  directories:
-    - ~/.npm
-    - ~/.cache
+#  npm: true
+#  directories:
+#    - ~/.npm
+#    - ~/.cache
 
 script:
-#  - npm run test
+  #  - npm run test
   - npm run build
 
 #defaults: &defaults
