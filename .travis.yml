@@ -2,7 +2,7 @@ language: node_js
 git:
   depth: 25
 node_js:
-  - 20
+  - 18.16.0
 os: linux
 dist: xenial
 #sudo: required
