@@ -1,36 +1,46 @@
-<h1 align="center">HbbTV Open Platform</h1>
-<h3 align="center">A TypeScript platform for creating fast and optimized HbbTV apps</h3>
+# Getting Started with Create React App
 
-[![Build Status](https://travis-ci.org/faridv/hop.svg?branch=master)](https://travis-ci.org/faridv/hop)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/7d4955cc21e2453388e1fef337a24056)](https://app.codacy.com/app/faridv/hop?utm_source=github.com&utm_medium=referral&utm_content=faridv/hop&utm_campaign=Badge_Grade_Dashboard)
-[![Maintainability](https://api.codeclimate.com/v1/badges/03df719cdd9acbb1322f/maintainability)](https://codeclimate.com/github/faridv/hop/maintainability)
-[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/faridv/hop/raw/master/LICENSE)
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-### Important note
-Currently, HOP is highly under development and some features might change in future releases. Make sure that your code won't break after update.
+## Available Scripts
 
-## HOP-CLI
-I have created another project called [hop-cli](https://github.com/faridv/hop-cli). which will help you create, develop and run you HOP-based application in no time. By using [hop-cli](https://github.com/faridv/hop-cli) you won't need documentations on installing and running of HOP.
+In the project directory, you can run:
 
-## Roadmap
-You can check out the project [roadmap](https://github.com/faridv/hop/wiki/Roadmap). We happily welcome any suggestions or requests.
+### `npm start`
 
-## Contribution
-Please refer to [contribution documentation](https://github.com/faridv/hop/blob/master/.github/CONTRIBUTING.md) if you want to provide a fix or create a pull request.
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-## To install
-clone the repo and simply run `npm install`.
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
-## To run
-For development, run `npm run start` and then open `localhost:3000`. You can use [FireFox add-on](https://addons.mozilla.org/en-US/firefox/addon/hybridtvviewer/) or any other tools to preview and debug your application.
-For production, run `npm run build:prod` and copy the contents of `dist` folder to your web server.
+### `npm test`
 
-## Tests
-Test are being done using both Karma+Jasmine and Cypress. Currently I've added Cypress as a dependency in `package.json` thus installing the application might take a while, since Cypress will download and install its binaries. You can remove Cypress from dependencies if it takes to long to install the application.
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### Browser Tests
-This application is being cross-browser tested using BrowserStack.
+### `npm run build`
 
-<a href="https://www.browserstack.com" target="_blank" title="BrowserStack">
-	<img width="200" src="https://d2ogrdw2mh0rsl.cloudfront.net/production/images/static/header/header-logo.svg" />
-</a>
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//HbbTV//1.2.1//EN" "http://www.hbbtv.org/dtd/HbbTV-1.2.1.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fa" lang="fa">
+<head>
+  <title>HOP: The HbbTV Open Platform</title>
+
+  <meta charset="utf-8"/>
+  <meta http-equiv="Content-Type" content="Content-Type: application/vnd.hbbtv.xhtml+xml; charset=UTF-8"/>
+  <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT"/>
+  <meta http-equiv="pragma" content="no-cache"/>
+  <meta http-equiv="cache-control" content="no-cache, must-revalidate"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="HbbTV Open Platform built to run on HbbTV-ready TV sets"/>
+  <meta name="theme-color" content="#000000"/>
+
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" type="image/x-icon"/>
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png"/>
+  <!--
+    manifest.json provides metadata used when your web app is installed on a
+    user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+  -->
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json"/>
+</head>
+<body>
+<noscript>You need to enable JavaScript to run this app.</noscript>
+<div id="hop"></div>
+<object id="appmgr" type="application/oipfApplicationManager" style="position: absolute; left: 0; top: 0; width: 0; height: 0;"></object>
+<object id="oipfcfg" type="application/oipfConfiguration" style="position: absolute; left: 0; top: 0; width: 0; height: 0;"></object>
+<div id="broadcast">
+  <object id="broadcastvideo" type="video/broadcast" style="width: 100%; height: 100%; position: absolute; left: 0; top: 0;"></object>
+</div>
+<div id="app"></div>
+<div id="developer"></div>
+</body>
+</html>
