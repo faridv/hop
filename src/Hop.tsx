@@ -1,11 +1,18 @@
 import React from 'react';
+import { AppManagerProvider } from './contexts/app-manager';
+import { KeyboardEventsProvider } from './contexts/keyboard-events';
+import MainRouting from './routers';
 
 function HOP() {
   return (
-    <h1 className="text-3xl font-bold underline text-red-600">
-      Simple React Typescript Tailwind Sample
-    </h1>
-  );  
+    <React.StrictMode>
+      <AppManagerProvider>
+        <KeyboardEventsProvider>
+          <MainRouting />
+        </KeyboardEventsProvider>
+      </AppManagerProvider>
+    </React.StrictMode>
+  );
 }
 
 export default HOP;
