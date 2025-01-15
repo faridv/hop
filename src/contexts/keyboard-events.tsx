@@ -1,4 +1,6 @@
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { HbbtvKeyEvents, specialKeyMap } from '../utils/keys-map';
+
 
 type EventHandler = (event: KeyboardEvent) => void;
 
@@ -9,7 +11,7 @@ interface EventHandlerDetails {
 }
 
 interface EventsRegistry {
-  [key: string]: EventHandlerDetails[];
+  [key: number]: EventHandlerDetails[];
 }
 
 const KeyboardEventsContext = createContext<{
@@ -33,14 +35,25 @@ export const KeyboardEventsProvider: React.FC<{ children: React.ReactNode }> = (
     eventsRegistryRef.current = eventsRegistry;
   }, [eventsRegistry]);
 
-  const registerEvent = useCallback(
-    (key: string, handler: EventHandler, componentId: string, times: number = -1) => {
+  const registerEvent = useCallback((
+      key: string,
+      handler: EventHandler,
+      componentId: string,
+      times: number = -1
+    ) => {
+      const keyCode = specialKeyMap[key] || HbbtvKeyEvents[key] || key.toUpperCase().charCodeAt(0);
+      if (isNaN(keyCode)) {
+        return;
+      }
+
+
       setEventsRegistry(prevRegistry => {
-        const existingHandlers = prevRegistry[key] || [];
-        return {
+        const existingHandlers = prevRegistry[keyCode] || [];
+        const updatedRegistry = {
           ...prevRegistry,
-          [key]: [...existingHandlers, { handler, componentId, handleCount: times }]
+          [keyCode]: [...existingHandlers, { handler, componentId, handleCount: times }]
         };
+        return updatedRegistry;
       });
     },
     []
@@ -48,12 +61,14 @@ export const KeyboardEventsProvider: React.FC<{ children: React.ReactNode }> = (
 
   const unregisterComponentEvents = useCallback(
     (componentId: string) => {
-      setEventsRegistry(prevRegistry => {
+      setEventsRegistry((prevRegistry: EventsRegistry) => {
         const updatedRegistry = { ...prevRegistry };
-        Object.keys(updatedRegistry).forEach(key => {
-          updatedRegistry[key] = updatedRegistry[key].filter(eh => eh.componentId !== componentId);
-          if (updatedRegistry[key].length === 0) {
-            delete updatedRegistry[key];
+        Object.keys(updatedRegistry).forEach((key: string) => {
+          const keyNumber = Number(key);
+          updatedRegistry[keyNumber] = updatedRegistry[keyNumber]
+            .filter((eventHandler: EventHandlerDetails) => eventHandler.componentId !== componentId);
+          if (updatedRegistry[keyNumber].length === 0) {
+            delete updatedRegistry[keyNumber];
           }
         });
         return updatedRegistry;
@@ -66,7 +81,8 @@ export const KeyboardEventsProvider: React.FC<{ children: React.ReactNode }> = (
 
   useEffect(() => {
     handleKeyDownRef.current = debounce((event: KeyboardEvent) => {
-      const handlers = eventsRegistryRef.current[event.key];
+      const keyCode = event.keyCode;
+      const handlers = eventsRegistryRef.current[keyCode];
       if (handlers && handlers.length > 0) {
         const handlerDetails = handlers[0];
         handlerDetails.handler(event);
@@ -78,16 +94,16 @@ export const KeyboardEventsProvider: React.FC<{ children: React.ReactNode }> = (
           };
           setEventsRegistry((prevRegistry: EventsRegistry) => {
             const updatedRegistry = { ...prevRegistry };
-            const handlerIndex = updatedRegistry[event.key].findIndex(
+            const handlerIndex = updatedRegistry[keyCode].findIndex(
               (h) => h.componentId === handlerDetails.componentId
             );
             if (handlerIndex !== -1) {
-              updatedRegistry[event.key][handlerIndex] = updatedHandler;
+              updatedRegistry[keyCode][handlerIndex] = updatedHandler;
               if (updatedHandler.handleCount === 0) {
-                updatedRegistry[event.key].splice(handlerIndex, 1);
+                updatedRegistry[keyCode].splice(handlerIndex, 1);
               }
-              if (updatedRegistry[event.key].length === 0) {
-                delete updatedRegistry[event.key];
+              if (updatedRegistry[keyCode].length === 0) {
+                delete updatedRegistry[keyCode];
               }
             }
             return updatedRegistry;
@@ -136,7 +152,15 @@ export const useKeyboardEvents = (componentId: string) => {
     key: string,
     handler: EventHandler,
     times?: number) => {
-    registerEvent(key, handler, componentId, times);
+    if (key.indexOf(',') !== -1) {
+      const keys = key.split(',');
+      keys.forEach((k: string) => {
+        registerEvent(k, handler, componentId, times);
+      });
+      return;
+    } else {
+      registerEvent(key, handler, componentId, times);
+    }
   }, [registerEvent, componentId]);
 
   useEffect(() => {

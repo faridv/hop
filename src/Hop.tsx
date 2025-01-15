@@ -4,6 +4,7 @@ import { KeyboardEventsProvider } from './contexts/keyboard-events';
 import MainRouting from './routers';
 
 function HOP() {
+
   return (
     <React.StrictMode>
       <AppManagerProvider>

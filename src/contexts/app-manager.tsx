@@ -1,15 +1,17 @@
 import React, { useEffect } from 'react';
-import 'hbbtv-typings';
 
-const AppManagerContext = React.createContext<{
+
+export interface AppManager {
   buttonVisible: boolean;
   toggleButton: (value?: boolean) => void;
-  setKeys: (mask: string) => void;
-} | null>(null);
+  setKeys: (mask: number) => void;
+}
+
+const AppManagerContext = React.createContext<AppManager | null>(null);
 
 export const AppManagerProvider = ({ children }: { children: React.ReactNode }) => {
 
-  const [buttonVisible, setButtonVisible] = React.useState(false);
+  const [buttonVisible, setButtonVisible] = React.useState<boolean>(false);
 
   useEffect(() => {
     initializeApplication();
@@ -47,47 +49,43 @@ export const AppManagerProvider = ({ children }: { children: React.ReactNode }) 
     }
   }
 
-  const setKeys = (mask: string): void => {
-
-    // let elemcfg: OIPF.ConfigurationObject | null = null;
+  const setKeys = (mask: number): void => {
 
     try {
       const elemcfg = document.getElementById('oipfcfg') as unknown as OIPF.ApplicationPrivateData;
-      // for HbbTV 0.5:
       (elemcfg!.keyset as any).value = mask;
     } catch (e) {
-      /* In newer versions of HbbTV keyset.value is read-only, therefore this method throws an exception */
       // ignore
     }
     try {
       const elemcfg = document.getElementById('oipfcfg') as unknown as OIPF.ApplicationPrivateData;
-      elemcfg!.keyset.setValue(Number(mask));
+      elemcfg!.keyset.setValue(mask);
     } catch (e) {
-      /* In newer versions of HbbTV keyset.setValue only works on privateData of application, therefore this method throws an exception */
       // ignore
     }
-    // for HbbTV 1.0:
     try {
       const app = (document.getElementById("appmgr") as unknown as OIPF.ApplicationManagerObject).getOwnerApplication(document);
-      app!.privateData.keyset.setValue(Number(mask));
+      app!.privateData.keyset.setValue(mask);
     } catch (e) {
 
     }
   }
 
-
   return <AppManagerContext.Provider
-    value={{ buttonVisible, toggleButton, setKeys }}
+    value={{
+      buttonVisible,
+      toggleButton,
+      setKeys,
+    }}
   >
     {children}
   </AppManagerContext.Provider>;
 }
 
-export const useAppManager = () => {
-  const context = React.useContext(AppManagerContext);
+export const useAppManager = (): AppManager => {
+  const context: AppManager | null = React.useContext(AppManagerContext);
   if (context === null) {
     throw new Error("useAppManager must be used within a AppManagerProvider");
   }
-  const { buttonVisible, toggleButton, setKeys } = context;
-  return { buttonVisible, toggleButton, setKeys };
+  return context;
 }
