@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
-import { Application, ApplicationManagerObject, ApplicationPrivateData, ConfigurationObject, VideoBroadcastObject } from '../types/hbbtv-typings';
-
+import 'hbbtv-typings';
 
 const AppManagerContext = React.createContext<{
   buttonVisible: boolean;
@@ -26,15 +25,10 @@ export const AppManagerProvider = ({ children }: { children: React.ReactNode }) 
 
   const initializeApplication = (): void => {
     try {
-      const app = (document.getElementById("appmgr") as ApplicationManagerObject).getOwnerApplication(document);
-      const broadcastVideo = document.getElementById("broadcastvideo") as VideoBroadcastObject;
+      const app = (document.getElementById("appmgr") as OIPF.ApplicationManagerObject).getOwnerApplication(document);
+      const broadcastVideo = document.getElementById("broadcastvideo") as OIPF.VideoBroadcastObject;
       try {
-        app.show();
-      } catch (e) {
-        // ignore
-      }
-      try {
-        app.activate();
+        app!.show();
       } catch (e) {
         // ignore
       }
@@ -55,10 +49,10 @@ export const AppManagerProvider = ({ children }: { children: React.ReactNode }) 
 
   const setKeys = (mask: string): void => {
 
-    let elemcfg: ConfigurationObject | null = null;
+    // let elemcfg: OIPF.ConfigurationObject | null = null;
 
     try {
-      elemcfg = document.getElementById('oipfcfg') as unknown as ApplicationPrivateData;
+      const elemcfg = document.getElementById('oipfcfg') as unknown as OIPF.ApplicationPrivateData;
       // for HbbTV 0.5:
       (elemcfg!.keyset as any).value = mask;
     } catch (e) {
@@ -66,16 +60,16 @@ export const AppManagerProvider = ({ children }: { children: React.ReactNode }) 
       // ignore
     }
     try {
-      elemcfg = document.getElementById('oipfcfg') as ConfigurationObject;
-      elemcfg!.keyset.setValue(mask);
+      const elemcfg = document.getElementById('oipfcfg') as unknown as OIPF.ApplicationPrivateData;
+      elemcfg!.keyset.setValue(Number(mask));
     } catch (e) {
       /* In newer versions of HbbTV keyset.setValue only works on privateData of application, therefore this method throws an exception */
       // ignore
     }
     // for HbbTV 1.0:
     try {
-      const app = (document.getElementById("appmgr") as unknown as ApplicationManagerObject).getOwnerApplication(document);
-      app.privateData.keyset.setValue(mask);
+      const app = (document.getElementById("appmgr") as unknown as OIPF.ApplicationManagerObject).getOwnerApplication(document);
+      app!.privateData.keyset.setValue(Number(mask));
     } catch (e) {
 
     }
