@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM, { Root } from 'react-dom/client';
-import './styles/index.css';
+import './index.css';
 import HOP from './Hop';
 import reportWebVitals from './reportWebVitals';
 

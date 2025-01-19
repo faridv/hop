@@ -1,17 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 
 export interface AppManager {
   buttonVisible: boolean;
   toggleButton: (value?: boolean) => void;
   setKeys: (mask: number) => void;
+  destroy: () => void;
+  appManager: OIPF.ApplicationManagerObject | null;
 }
 
 const AppManagerContext = React.createContext<AppManager | null>(null);
 
 export const AppManagerProvider = ({ children }: { children: React.ReactNode }) => {
 
-  const [buttonVisible, setButtonVisible] = React.useState<boolean>(false);
+  const [buttonVisible, setButtonVisible] = useState<boolean>(false);
+
+  const [appManager, setAppManager] = useState<OIPF.ApplicationManagerObject | null>(null);
 
   useEffect(() => {
     initializeApplication();
@@ -28,6 +32,7 @@ export const AppManagerProvider = ({ children }: { children: React.ReactNode }) 
   const initializeApplication = (): void => {
     try {
       const app = (document.getElementById("appmgr") as OIPF.ApplicationManagerObject).getOwnerApplication(document);
+      setAppManager(app!);
       const broadcastVideo = document.getElementById("broadcastvideo") as OIPF.VideoBroadcastObject;
       try {
         app!.show();
@@ -71,11 +76,34 @@ export const AppManagerProvider = ({ children }: { children: React.ReactNode }) 
     }
   }
 
+  const destroy = (force: boolean = false): void => {
+    if (force) {
+      try {
+        setKeys(0x1 + 0x2 + 0x4 + 0x8);
+        (appManager as OIPF.Application).destroyApplication();
+      } catch (e) {
+        // could not force destroy the app
+      }
+    }
+    try {
+      appManager.hide();
+    } catch (e) {
+      // hide it by css
+      try {
+        document.getElementById('app').style.display = 'none';
+
+      } catch (e) {
+      }
+    }
+  }
+
   return <AppManagerContext.Provider
     value={{
       buttonVisible,
+      appManager,
       toggleButton,
       setKeys,
+      destroy,
     }}
   >
     {children}

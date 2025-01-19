@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE html PUBLIC "-//HbbTV//1.2.1//EN" "http://www.hbbtv.org/dtd/HbbTV-1.2.1.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fa" lang="fa">
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xml:lang="%REACT_APP_LANG%"
+    lang="%REACT_APP_LANG%"
+    dir="%REACT_APP_DIRECTION%"
+>
 <head>
-  <title>HOP: The HbbTV Open Platform</title>
+  <title>%REACT_APP_TITLE%</title>
 
   <meta charset="utf-8"/>
   <meta http-equiv="Content-Type" content="Content-Type: application/vnd.hbbtv.xhtml+xml; charset=UTF-8"/>
@@ -11,7 +16,7 @@
   <meta http-equiv="cache-control" content="no-cache, must-revalidate"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name="description" content="HbbTV Open Platform built to run on HbbTV-ready TV sets"/>
-  <meta name="theme-color" content="#000000"/>
+  <meta name="theme-color" content="%REACT_APP_THEME_COLOR%"/>
 
   <link rel="icon" href="%PUBLIC_URL%/favicon.ico" type="image/x-icon"/>
   <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png"/>
@@ -20,6 +25,9 @@
     user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
   -->
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json"/>
+  <link rel="stylesheet" href="%PUBLIC_URL%/font/scheherazade/scheherazade.css"/>
+  <link rel="stylesheet" href="%PUBLIC_URL%/font/vazirmatn/vazirmatn.css"/>
+  <link rel="stylesheet" href="%PUBLIC_URL%/font/icons/icons.css"/>
   <script src="/console.js"></script>
 </head>
 <body>
