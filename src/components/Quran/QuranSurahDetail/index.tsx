@@ -3,6 +3,7 @@ import { AyahContainerStyled, SurahStyled } from './style';
 import { useFocusable, FocusContext } from '../../../libs/spacial-navigation';
 import QuranAyah from '../QuranAyah';
 import { useCallback } from 'react';
+import React from 'react';
 
 function QuranSurahDetail({ items }: { items: SurahDetail[] }) {
 

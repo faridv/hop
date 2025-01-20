@@ -2,6 +2,7 @@ import { NewsScrollWrapperStyled, NewsStyled } from '../../pages/News/style';
 import NewsListItem from './NewsListItem';
 import { FocusContext, useFocusable } from '../../libs/spacial-navigation';
 import React, { useCallback } from 'react';
+import { News } from '../../types/news.model';
 
 function NewsList({ type, items }: any) {
 
@@ -21,7 +22,7 @@ function NewsList({ type, items }: any) {
     <FocusContext.Provider value={focusKey}>
       <NewsStyled>
         <NewsScrollWrapperStyled ref={ref}>
-          {items.map((item, index) => (
+          {items.map((item: News, index: number) => (
             <NewsListItem
               itemType={type}
               index={index}

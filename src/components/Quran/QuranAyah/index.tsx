@@ -1,8 +1,17 @@
 import { AyahContainerStyled } from './style';
 import { RefObject } from 'react';
 import { useFocusable } from '../../../libs/spacial-navigation';
+import React from 'react';
 
-function QuranAyah({ text, translation, number, index, onFocus }) {
+interface QuranAyahProps {
+  text: string;
+  translation: string;
+  number: number;
+  index: number;
+  onFocus: ({y}: {y: number}) => void;
+}
+
+function QuranAyah({ text, translation, number, index, onFocus }: QuranAyahProps) {
 
   const { ref, focused }: { ref: RefObject<any>; focused: boolean; } = useFocusable({
     onFocus: onFocus,
@@ -10,7 +19,7 @@ function QuranAyah({ text, translation, number, index, onFocus }) {
 
 
   return (
-    <AyahContainerStyled ref={ref} index={index} focused={focused}>
+    <AyahContainerStyled ref={ref} focused={focused}>
       <div
         className='ayah'
       >

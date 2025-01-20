@@ -1,9 +1,20 @@
-import { FocusContext, useFocusable } from '../../libs/spacial-navigation';
+import React from 'react';
+import { useFocusable } from '../../libs/spacial-navigation';
 import { LocationStyled } from './style';
 
-function LocationItem({ province, selectedCityCoords, changeCity }) {
+interface LocationItemProps {
+  province: {
+    title: string;
+    city: string;
+    coords: number[];
+  };
+  selectedCityCoords: string;
+  changeCity: (coords: string, city: string) => void;
+}
 
-  const { ref, focused }: FocusContext = useFocusable({
+function LocationItem({ province, selectedCityCoords, changeCity }: LocationItemProps) {
+
+  const { ref, focused } = useFocusable({
     onEnterPress: () => changeCity(province.coords.join(','), province.city),
   });
 

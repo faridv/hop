@@ -3,6 +3,7 @@ import { RefObject } from 'react';
 import { QuranSurahListItemInnerStyled, QuranSurahListItemStyled } from './style';
 import { useFocusable } from '../../../libs/spacial-navigation';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
+import React from 'react';
 
 interface QuranSurahListItemProps {
   item: Surah;
@@ -24,7 +25,7 @@ function QuranSurahListItem({ item, onFocus, index }: QuranSurahListItemProps) {
   }
 
   return (
-    <QuranSurahListItemStyled ref={ref} index={index}>
+    <QuranSurahListItemStyled ref={ref}>
       <QuranSurahListItemInnerStyled focused={focused}>
         <div className="desc">
           <h3 className="font-qurani"><span>{item.id}.</span> {item.title}</h3>

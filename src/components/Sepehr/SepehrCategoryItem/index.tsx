@@ -13,6 +13,7 @@ interface AssetProps {
     props: object,
     details: FocusDetails
   ) => void;
+  item:  { id: string; [key: string]: any }
 }
 
 function SepehrCategoryItem({
@@ -32,7 +33,6 @@ function SepehrCategoryItem({
   return (
     <SepehrItemWrapperStyled ref={ref}>
       <SepehrItemInnerStyled
-        index={index}
         focused={focused}
       >
         <SepehrItemImageWrapper>

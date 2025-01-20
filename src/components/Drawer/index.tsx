@@ -1,7 +1,7 @@
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Menu from '../Menu';
 import { FocusContext, useFocusable } from '../../libs/spacial-navigation';
-import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 const DrawerStyled = styled.div<{ hasFocusChild?: boolean; }>`
@@ -46,7 +46,7 @@ function Drawer({ focusKey: focusKeyParam }: { focusKey: string }) {
 
   return (
     <FocusContext.Provider value={focusKey}>
-      <DrawerStyled id="sidebar" ref={ref} hasFocusedChild={hasFocusedChild}>
+      <DrawerStyled id="sidebar" ref={ref} hasFocusChild={hasFocusedChild}>
         <Menu/>
       </DrawerStyled>
     </FocusContext.Provider>

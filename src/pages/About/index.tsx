@@ -6,12 +6,16 @@ import { AxiosResponse } from 'axios';
 import NewsItemDetail from '../../components/News/NewsItemDetail';
 import Loading from '../../components/Loading';
 
-function About({ type }) {
+interface AboutProps {
+  type: string;
+}
+
+function About({ type }: AboutProps) {
 
   const [content, setContent] = useState<News[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const convertTypeToId = (type): number => {
+  const convertTypeToId = (type: any): number => {
     switch (type) {
       case 'about':
         return 4;

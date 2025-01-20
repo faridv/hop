@@ -3,7 +3,17 @@ import { FocusContext, useFocusable } from '../../libs/spacial-navigation';
 import React, { useCallback } from 'react';
 import SepehrCategory from './SepehrCategory';
 
-function SepehrMainPage({ categories, channels }) {
+interface Category {
+  id: string;
+  name: string;
+}
+
+interface SepehrMainPageProps {
+  categories: Category[];
+  channels: { [key: string]: any[] };
+}
+
+function SepehrMainPage({ categories, channels }: SepehrMainPageProps) {
 
   const { ref, focusKey } = useFocusable();
 

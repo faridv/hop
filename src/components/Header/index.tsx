@@ -1,57 +1,72 @@
-import styled from 'styled-components';
-import Clock from '../Clock';
-import { ButtonIcon } from '../../icons/Button';
+import React from "react";
+import styled from "styled-components";
+import Clock from "../Clock";
+import { ButtonIcon } from "../../icons/Button";
 
 const HeaderStyled = styled.header`
-    background: rgba(255, 255, 255, .175);
-    height: 80px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
+  background: rgba(255, 255, 255, 0.175);
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
 
-    h1 {
-        margin: 0;
+  & > * {
+    flex: 1 0 33.33333%;
+  }
+
+  h1 {
+    margin: 0;
+  }
+  img {
+    display: block;
+    width: 80px;
+    height: 80px;
+  }
+  ul {
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    justify-content: flex-end;
+    li {
+      display: flex;
+      align-items: center;
+      margin-right: 2rem;
+      font-size: 0.825rem;
+      svg {
+        margin-left: 0.5rem;
+        font-size: 1rem;
+      }
     }
-    img {
-        display: block;
-        width: 80px;
-        height: 80px;
+    .yellow {
+      svg {
+        color: yellow;
+      }
     }
-    ul {
-        display: flex;
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        color: #fff;
-        li {
-            display: flex;
-            align-items: center;
-            margin-right: 2rem;
-            font-size: .825rem;
-            svg { margin-left: 0.5rem; font-size: 1rem; }
-        }
-        .yellow {
-            svg { color: yellow; }
-        }
-        .red {
-            svg { color: red; }
-        }
+    .red {
+      svg {
+        color: red;
+      }
     }
-`
+  }
+`;
 
 function Header() {
   return (
     <HeaderStyled>
-      <img src='/logo.png' alt='logo'/>
-        <Clock />
+      <div className="logo">
+        <img src="/logo.png" alt="logo" />
+      </div>
+      <Clock />
       <ul>
-        <li className='yellow'>
+        <li className="yellow">
           <ButtonIcon />
           راهنما
         </li>
-        <li className='red'>
-          <ButtonIcon/>
+        <li className="red">
+          <ButtonIcon />
           خروج
         </li>
       </ul>

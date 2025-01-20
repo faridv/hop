@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ScheduleItemStyled = styled.li<{focused: boolean}>`
+export const ScheduleItemStyled = styled.li`
     figure {
         float: right;
         width: 160px;
@@ -54,7 +54,7 @@ export const ScheduleItemStyled = styled.li<{focused: boolean}>`
     }
 `;
 
-export const ScheduleItemInnerStyled = styled.div`
+export const ScheduleItemInnerStyled = styled.div<{focused: boolean}>`
     outline: ${({ focused }) => (focused ? '6px solid #fff' : '0 none')};
     background: ${({ focused }) => focused ? '#666' : 'rgba(255, 255, 255, .1)'};
     box-sizing: border-box;

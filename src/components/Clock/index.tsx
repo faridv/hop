@@ -5,6 +5,7 @@ import { fetchServerTime } from '../../libs/server-time';
 const ClockStyled = styled.div`
     font-size: 24px;
     color: white;
+    text-align: center;
 `;
 
 const Clock: React.FC = () => {

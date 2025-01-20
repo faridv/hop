@@ -3,6 +3,7 @@ import { extractTime, sec2time } from '../../../utils/helpers';
 import { ScheduleItemInnerStyled, ScheduleItemStyled } from './style';
 import { RefObject, useEffect } from 'react';
 import { useFocusable } from '../../../libs/spacial-navigation';
+import React from 'react';
 
 interface ScheduleListItemProps {
   item: ISchedule;
@@ -20,10 +21,10 @@ export function ScheduleItem({ item, onFocus, index }: ScheduleListItemProps) {
     if (item.isCurrent) {
       focusSelf();
     }
-  }, []);
+  }, [item.isCurrent, focusSelf]);
 
   return (
-    <ScheduleItemStyled ref={ref} index={index} className={item.isCurrent ? 'current' : ''}>
+    <ScheduleItemStyled ref={ref} className={item.isCurrent ? 'current' : ''}>
       <ScheduleItemInnerStyled focused={focused}>
         <figure>
           <img src={item.thumbnail} alt={item.episodeTitle}/>

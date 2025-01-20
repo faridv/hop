@@ -1,25 +1,38 @@
-import { useCallback, useRef } from 'react';
-import { FocusContext, useFocusable } from '../../../libs/spacial-navigation';
-import { SepehrRowScrollingContent, SepehrRowScrollWrapper, SepehrRowTitle, SepehrRowWrapper } from './style';
-import SepehrCategoryItem from '../SepehrCategoryItem';
+import { useCallback, useRef } from "react";
+import { FocusContext, useFocusable } from "../../../libs/spacial-navigation";
+import {
+  SepehrRowScrollingContent,
+  SepehrRowScrollWrapper,
+  SepehrRowTitle,
+  SepehrRowWrapper,
+} from "./style";
+import SepehrCategoryItem from "../SepehrCategoryItem";
+import React from "react";
 
+interface SepehrCategoryProps {
+  title: string;
+  onFocus: () => void;
+  items: { id: string; [key: string]: any }[];
+  index: number;
+}
 
 function SepehrCategory({
-                          title: rowTitle,
-                          onFocus,
-                          items,
-                        }) {
+  title: rowTitle,
+  onFocus,
+  index,
+  items,
+}: SepehrCategoryProps) {
   const { ref, focusKey } = useFocusable({
-    onFocus
+    onFocus,
   });
 
   const scrollingRef = useRef(null);
 
   const onAssetFocus = useCallback(
     ({ x }: { x: number }) => {
-      scrollingRef.current.scrollTo({
+      (scrollingRef!.current! as any).scrollTo({
         left: x,
-        behavior: 'smooth'
+        behavior: "smooth",
       });
     },
     [scrollingRef]

@@ -1,7 +1,33 @@
 import React from 'react';
 import { WeatherDataStyled, WeatherForecastStyled, WeatherWeatherStyled } from './style';
 
-function WeatherData({ data }) {
+interface WeatherDataProps {
+  data: {
+    weather: {
+      icon: string;
+      description: string;
+      temperature: {
+        current: number;
+      };
+      wind: {
+        speed: number;
+      };
+      humidity: number;
+      visibility: number | null;
+      pressure: number;
+    };
+    forecast: {
+      temperature: {
+        max: number;
+      };
+      icon: string;
+      description: string;
+      fdate: string;
+    }[];
+  };
+}
+
+function WeatherData({ data }: WeatherDataProps) {
 
   return (
     <WeatherDataStyled>

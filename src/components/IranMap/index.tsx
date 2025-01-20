@@ -1,5 +1,7 @@
 // Map from: https://github.com/nastoohir/iran-map-svg/blob/master/iran.svg
 
+import React from "react";
+
 function IranMap({ selectedProvince }: { selectedProvince: string }) {
   return (
     <svg id="iran" viewBox="0 0 1200 1000">

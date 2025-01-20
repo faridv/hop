@@ -3,6 +3,7 @@ import { QuranSurahListStyled } from './style';
 import { FocusContext, useFocusable } from '../../libs/spacial-navigation';
 import { useCallback } from 'react';
 import { Surah } from '../../types/quran-surah.model';
+import React from 'react';
 
 function QuranSurahList({ items }: { items: Surah[] }) {
 

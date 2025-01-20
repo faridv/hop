@@ -1,3 +1,4 @@
+import React from 'react';
 import { LoadingContainerStyled, LoadingStyled } from './style';
 
 function Loading() {
