@@ -21,7 +21,7 @@ function QuranSurahListItem({ item, onFocus, index }: QuranSurahListItemProps) {
   });
 
   const open = (): void => {
-    navigate(`/app/quran/${item.id}`);
+    navigate(`${process.env.PUBLIC_URL}/app/quran/${item.id}`);
   }
 
   return (

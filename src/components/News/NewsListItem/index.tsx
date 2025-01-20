@@ -21,7 +21,7 @@ function NewsListItem({ item, onFocus, index, itemType }: NewsListItemProps) {
     onEnterPress: (): void | Promise<void> => open(),
   });
 
-  const open = () => navigate(`/app/${itemType}/${item.id}`);
+  const open = () => navigate(`${process.env.PUBLIC_URL}/app/${itemType}/${item.id}`);
 
   return (
     <NewsItemStyled onClick={open} ref={ref}>
