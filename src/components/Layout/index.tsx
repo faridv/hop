@@ -16,6 +16,8 @@ function Layout(/*{ children }: { children: React.ReactNode }*/) {
 
   useEffect(() => {
     register("back,backspace", () => {
+      // TODO: only go back if previous url is in the scope of the /app
+
       navigate(-1);
     });
     register("red,r", () => {
@@ -23,7 +25,6 @@ function Layout(/*{ children }: { children: React.ReactNode }*/) {
     });
     register("yellow,y", () => {
       setShowInfo((prevShowInfo) => !prevShowInfo);
-      console.log('yellow pressed',showInfo, !showInfo);
     });
   }, [register, navigate, destroy, showInfo]);
 

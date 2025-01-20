@@ -31,7 +31,7 @@ export const loadEvents = async (): Promise<AxiosResponse<ApiResponse<News[]>>> 
   * 2: FAQ
   * 4: Programs
  */
-export const loadUhdItemsByCatId = async (id: number, full: boolean): Promise<AxiosResponse<ApiResponse<News[]>>> => {
+export const loadUhdItemsByCatId = async (id: number, full: boolean = true): Promise<AxiosResponse<ApiResponse<News[]>>> => {
   return await axios.get(`${process.env.REACT_APP_API_BASE}/uhd?catid=${id}&full=${full}`);
 };
 
