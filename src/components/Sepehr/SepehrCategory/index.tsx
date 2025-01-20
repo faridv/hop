@@ -1,5 +1,5 @@
 import { useCallback, useRef } from "react";
-import { FocusContext, useFocusable } from "../../../libs/spacial-navigation";
+import { FocusContext, useFocusable } from "@noriginmedia/norigin-spatial-navigation";
 import {
   SepehrRowScrollingContent,
   SepehrRowScrollWrapper,
@@ -11,7 +11,7 @@ import React from "react";
 
 interface SepehrCategoryProps {
   title: string;
-  onFocus: () => void;
+  onFocus: ({ y }: { y: number }) => void;
   items: { id: string; [key: string]: any }[];
   index: number;
 }

@@ -1,7 +1,7 @@
 import { Surah } from '../../../types/quran-surah.model';
 import { RefObject } from 'react';
 import { QuranSurahListItemInnerStyled, QuranSurahListItemStyled } from './style';
-import { useFocusable } from '../../../libs/spacial-navigation';
+import { useFocusable } from '@noriginmedia/norigin-spatial-navigation';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import React from 'react';
 

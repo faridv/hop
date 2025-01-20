@@ -301,7 +301,7 @@ export class WeatherCodesHelper {
     let output: string = '';
     WeatherCodesHelper.codes.forEach((item) => {
       if (item.id === code) {
-        output = item[description];
+        output = String(item[description as keyof typeof item]);
       }
     });
     return output;

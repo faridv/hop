@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { ISchedule } from '../../types/schedule.model';
 import ScheduleItem from './ScheduleItem';
 import { ScheduleMainStyled } from './style';
-import { FocusContext, useFocusable } from '../../libs/spacial-navigation';
+import { FocusContext, useFocusable } from '@noriginmedia/norigin-spatial-navigation';
 
 function ScheduleMain({ items }: { items: ISchedule[] }) {
 

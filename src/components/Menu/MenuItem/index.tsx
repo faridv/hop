@@ -1,7 +1,7 @@
 import { NavLink, NavLinkRenderProps, useNavigate } from 'react-router-dom';
 import React, { RefObject } from 'react';
 import { MenuItemStyled } from './style';
-import { useFocusable } from '../../../libs/spacial-navigation';
+import { useFocusable } from '@noriginmedia/norigin-spatial-navigation';
 
 
 interface MenuItemProps {

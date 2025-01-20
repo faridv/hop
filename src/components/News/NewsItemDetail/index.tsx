@@ -1,6 +1,7 @@
 import { News } from '../../../types/news.model';
 import { useEffect, useState } from 'react';
 import { NewsItemDetailStyled } from './style';
+import React from 'react';
 
 function NewsItemDetail({ item, hideImage }: { item: News[], hideImage: boolean }) {
 

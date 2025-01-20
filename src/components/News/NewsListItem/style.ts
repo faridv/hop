@@ -41,7 +41,7 @@ export const NewsItemStyled = styled.div`
     }
 `;
 
-export const NewsItemInnerStyled = styled.div`
+export const NewsItemInnerStyled = styled.div<{focused: boolean}>`
     outline: ${({ focused }) => (focused ? '6px solid #fff' : '0 none')};
     box-sizing: border-box;
 `;

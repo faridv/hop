@@ -1,6 +1,6 @@
 import { NewsScrollWrapperStyled, NewsStyled } from '../../pages/News/style';
 import NewsListItem from './NewsListItem';
-import { FocusContext, useFocusable } from '../../libs/spacial-navigation';
+import { FocusContext, useFocusable } from '@noriginmedia/norigin-spatial-navigation';
 import React, { useCallback } from 'react';
 import { News } from '../../types/news.model';
 

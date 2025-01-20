@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { getQuranSurahList } from '../../utils/api';
 import { ApiResponse } from '../../types/response.model';
 import { AxiosResponse } from 'axios';

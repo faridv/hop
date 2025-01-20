@@ -9,7 +9,7 @@ import QuranSurahDetail from '../../components/Quran/QuranSurahDetail';
 
 function QuranSurah() {
 
-  const { id }: { id: string } = useParams<{ id: string }>();
+  const { id } = useParams<{ id: string }>();
 
   const [data, setData] = useState<SurahDetail[]>([]);
 

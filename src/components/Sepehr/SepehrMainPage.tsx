@@ -1,5 +1,5 @@
 import { SepehrCategoriesContainerStyled, SepehrStyled } from '../../pages/Sepehr/style';
-import { FocusContext, useFocusable } from '../../libs/spacial-navigation';
+import { FocusContext, useFocusable } from '@noriginmedia/norigin-spatial-navigation';
 import React, { useCallback } from 'react';
 import SepehrCategory from './SepehrCategory';
 

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Menu from '../Menu';
-import { FocusContext, useFocusable } from '../../libs/spacial-navigation';
+import { FocusContext, useFocusable } from '@noriginmedia/norigin-spatial-navigation';
 import { useLocation } from 'react-router-dom';
 
 const DrawerStyled = styled.div<{ hasFocusChild?: boolean; }>`

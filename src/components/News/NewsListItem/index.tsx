@@ -1,8 +1,9 @@
 import { NewsItemInnerStyled, NewsItemStyled } from './style';
-import { useFocusable } from '../../../libs/spacial-navigation';
+import { useFocusable } from '@noriginmedia/norigin-spatial-navigation';
 import { RefObject } from 'react';
 import { News } from '../../../types/news.model';
 import { useNavigate } from 'react-router-dom';
+import React from 'react';
 
 interface NewsListItemProps {
   item: News;
@@ -23,7 +24,7 @@ function NewsListItem({ item, onFocus, index, itemType }: NewsListItemProps) {
   const open = () => navigate(`/app/${itemType}/${item.id}`);
 
   return (
-    <NewsItemStyled onClick={open} index={index} ref={ref}>
+    <NewsItemStyled onClick={open} ref={ref}>
       <NewsItemInnerStyled focused={focused}>
         <figure>
           <img src={`https://api.hbbtv.ir${item.img}`} alt={item.title}/>

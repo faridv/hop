@@ -1,6 +1,6 @@
 import { Ayah, SurahDetail } from '../../../types/quran-surah.model';
 import { AyahContainerStyled, SurahStyled } from './style';
-import { useFocusable, FocusContext } from '../../../libs/spacial-navigation';
+import { useFocusable, FocusContext } from '@noriginmedia/norigin-spatial-navigation';
 import QuranAyah from '../QuranAyah';
 import { useCallback } from 'react';
 import React from 'react';

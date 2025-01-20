@@ -39,7 +39,7 @@ export const loadUhdItem = async (id: number): Promise<AxiosResponse<ApiResponse
   return await axios.get(`${process.env.REACT_APP_API_BASE}/uhd/${id}`);
 };
 
-export const loadUhdSchedule = async (date): Promise<AxiosResponse<ApiResponse<ISchedule[]>>> => {
+export const loadUhdSchedule = async (date: string): Promise<AxiosResponse<ApiResponse<ISchedule[]>>> => {
   return await axios.get(`${process.env.REACT_APP_API_BASE}/sepehr/epg/196462/date/${date}`);
 };
 

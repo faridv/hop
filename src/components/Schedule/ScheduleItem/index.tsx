@@ -2,7 +2,7 @@ import { ISchedule } from '../../../types/schedule.model';
 import { extractTime, sec2time } from '../../../utils/helpers';
 import { ScheduleItemInnerStyled, ScheduleItemStyled } from './style';
 import { RefObject, useEffect } from 'react';
-import { useFocusable } from '../../../libs/spacial-navigation';
+import { useFocusable } from '@noriginmedia/norigin-spatial-navigation';
 import React from 'react';
 
 interface ScheduleListItemProps {

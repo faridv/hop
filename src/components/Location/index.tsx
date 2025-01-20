@@ -1,5 +1,5 @@
 import React from 'react';
-import { useFocusable } from '../../libs/spacial-navigation';
+import { useFocusable } from '@noriginmedia/norigin-spatial-navigation';
 import { LocationStyled } from './style';
 
 interface LocationItemProps {

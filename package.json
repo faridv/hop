@@ -3,8 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@arrow-navigation/core": "^2.2.0",
-    "@arrow-navigation/react": "^2.2.0",
     "@noriginmedia/norigin-spatial-navigation": "^2.2.3",
     "axios": "^1.7.9",
     "cra-template-typescript": "1.2.0",

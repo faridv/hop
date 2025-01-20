@@ -1,6 +1,6 @@
 import { AyahContainerStyled } from './style';
 import { RefObject } from 'react';
-import { useFocusable } from '../../../libs/spacial-navigation';
+import { useFocusable } from '@noriginmedia/norigin-spatial-navigation';
 import React from 'react';
 
 interface QuranAyahProps {

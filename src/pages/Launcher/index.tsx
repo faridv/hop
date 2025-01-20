@@ -3,7 +3,7 @@ import { useKeyboardEvents } from '../../contexts/keyboard-events';
 import { useAppManager } from '../../contexts/app-manager';
 import SunStatus from '../../components/sun-status';
 
-import { FocusContext } from '../../libs/spacial-navigation';
+import { FocusContext } from '@noriginmedia/norigin-spatial-navigation';
 // import { init } from '@noriginmedia/norigin-spatial-navigation';
 // import { initArrowNavigation } from '@arrow-navigation/core';
 // import { FocusableElement, FocusableGroup } from '@arrow-navigation/react';

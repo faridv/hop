@@ -1,29 +1,28 @@
 import React from "react";
-import { FocusableComponentLayout, FocusDetails, KeyPressDetails, useFocusable } from '../../../libs/spacial-navigation';
-import { SepehrItemImageWrapper, SepehrItemInnerStyled, SepehrItemTitle, SepehrItemWrapperStyled } from './style';
+import {
+  FocusableComponentLayout,
+  FocusDetails,
+  useFocusable,
+} from "@noriginmedia/norigin-spatial-navigation";
+import {
+  SepehrItemImageWrapper,
+  SepehrItemInnerStyled,
+  SepehrItemTitle,
+  SepehrItemWrapperStyled,
+} from "./style";
 
 interface AssetProps {
   index: number;
-  isShuffleSize: boolean;
-  title: string;
-  color: string;
-  onEnterPress: (props: object, details: KeyPressDetails) => void;
   onFocus: (
     layout: FocusableComponentLayout,
     props: object,
     details: FocusDetails
   ) => void;
-  item:  { id: string; [key: string]: any }
+  item: { id: string; [key: string]: any };
 }
 
-function SepehrCategoryItem({
-                              item,
-                              onEnterPress,
-                              onFocus,
-                              index
-                            }: AssetProps) {
+function SepehrCategoryItem({ item, onFocus, index }: AssetProps) {
   const { ref, focused } = useFocusable({
-    onEnterPress,
     onFocus,
     // extraProps: {
     //   title,
@@ -32,13 +31,9 @@ function SepehrCategoryItem({
 
   return (
     <SepehrItemWrapperStyled ref={ref}>
-      <SepehrItemInnerStyled
-        focused={focused}
-      >
+      <SepehrItemInnerStyled focused={focused}>
         <SepehrItemImageWrapper>
-          <img
-            src={item.preview}
-            alt={item.name}/>
+          <img src={item.preview} alt={item.name} />
         </SepehrItemImageWrapper>
         <SepehrItemTitle>{item.name}</SepehrItemTitle>
       </SepehrItemInnerStyled>

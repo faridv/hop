@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Header from "../Header";
 import Drawer from "../Drawer";
 import { Outlet, useNavigate } from "react-router-dom";
-import { init } from "../../libs/spacial-navigation";
+import { init } from "@noriginmedia/norigin-spatial-navigation";
 import { LayoutStyled } from "./style";
 import { useKeyboardEvents } from "../../contexts/keyboard-events";
 import { useAppManager } from "../../contexts/app-manager";

@@ -26,8 +26,8 @@ function About({ type }: AboutProps) {
     }
   }
 
-  const loadContent = useCallback((id) => {
-    loadUhdItem(Number(id))
+  const loadContent = useCallback((id: number) => {
+    loadUhdItem(id)
       .then((response: AxiosResponse<ApiResponse<News[]>>) => {
         setContent(response.data.data);
         setIsLoading(false);

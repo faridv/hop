@@ -9,7 +9,7 @@ import { PrayerTimesStyles } from "../../pages/PrayerTimes/style";
 import IranMap from "../IranMap";
 import Loading from "../Loading";
 import LocationItem from "../Location";
-import { FocusContext, useFocusable } from "../../libs/spacial-navigation";
+import { FocusContext, useFocusable } from "@noriginmedia/norigin-spatial-navigation";
 
 interface PrayerTime {
   fajr: string;

@@ -46,7 +46,7 @@ const SunStatus = () => {
   const currentAngle = startAngle + dayProgress * (endAngle - startAngle);
 
   // Convert polar coordinates to Cartesian for the arc
-  const polarToCartesian = (angle, radius) => ({
+  const polarToCartesian = (angle: number, radius: number) => ({
     x: centerX + radius * Math.cos(angle),
     y: centerY + radius * Math.sin(angle),
   });
