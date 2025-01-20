@@ -28,7 +28,8 @@ export const loadEvents = async (): Promise<AxiosResponse<ApiResponse<News[]>>> 
 /*!
   * Categories:
   * 1: News
-  * 2: FAQ
+  * 2: Featured Items
+  * 3: FAQ
   * 4: Programs
  */
 export const loadUhdItemsByCatId = async (id: number, full: boolean = true): Promise<AxiosResponse<ApiResponse<News[]>>> => {
