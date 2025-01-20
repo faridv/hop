@@ -19,7 +19,7 @@ export const InfoStyled = styled.div`
   }
 
   &.hidden {
-    display: block;
+    display: none;
     opacity: 0;
     transition: opacity 0.5s ease-in-out;
   }

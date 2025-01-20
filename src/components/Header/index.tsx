@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import Clock from "../Clock";
 import { ButtonIcon } from "../../icons/Button";
+import Clock from "../Clock";
 
 const HeaderStyled = styled.header`
   background: rgba(255, 255, 255, 0.175);
