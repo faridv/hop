@@ -14,6 +14,7 @@ export function Splash({ toggleButton, buttonVisible }: {
   const [fadeIn, setFadeIn] = useState(false);
 
   const start = useCallback(() => {
+    console.log(`${process.env.PUBLIC_URL}/app`);
     navigate(`${process.env.PUBLIC_URL}/app`);
   }, [navigate]);
 

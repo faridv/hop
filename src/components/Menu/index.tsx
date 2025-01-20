@@ -16,7 +16,11 @@ function Menu() {
     <MenuStyled>
       <ul>
         {menuItems.map((item, index) => (
-          <MenuItem key={`menu-${index}`} route={item.route}>{item.icon} {item.title}</MenuItem>
+          <MenuItem
+            key={`menu-${index}`}
+            route={`${process.env.PUBLIC_URL}/app/${item.route}`}>
+            {item.icon} {item.title}
+          </MenuItem>
         ))}
       </ul>
     </MenuStyled>

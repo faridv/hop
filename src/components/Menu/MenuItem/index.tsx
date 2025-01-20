@@ -16,7 +16,7 @@ function MenuItem(props: MenuItemProps) {
   const navigate = useNavigate();
   const { ref, focused }: { ref: RefObject<any>, focused: boolean } = useFocusable({
     onEnterPress: (): void => {
-      navigate(`/app/${props.route}`);
+      navigate(`${props.route}`);
     },
   });
 
@@ -24,7 +24,7 @@ function MenuItem(props: MenuItemProps) {
   return (
     <MenuItemStyled ref={ref} focused={focused}>
       <NavLink
-        to={`/app/${props.route}`}
+        to={`${props.route}`}
         className={(isActive: NavLinkRenderProps) => isActive.isActive ? 'active' : ''}
       >
         {props.children as any}

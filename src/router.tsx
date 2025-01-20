@@ -17,7 +17,7 @@ function MainRouting() {
           path={'*'}
           element={<Splash toggleButton={toggleButton} buttonVisible={buttonVisible} />}
         />
-        <Route path={`app/*`} element={<PageRouter/>}/>
+        <Route path={`${process.env.PUBLIC_URL}/app/*`} element={<PageRouter/>}/>
       </Routes>
     </BrowserRouter>
   )
