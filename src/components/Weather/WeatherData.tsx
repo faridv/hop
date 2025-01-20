@@ -81,7 +81,7 @@ function WeatherData({ data }: WeatherDataProps) {
       <WeatherForecastStyled>
         <ul>
           {data.forecast.map((forecast, index) => (
-            <li>
+            <li key={index}>
               <div className='forecast-header'>
                 <div className='temperature ltr'>{forecast.temperature.max}°</div>
                 <div className='weather-icon'>
