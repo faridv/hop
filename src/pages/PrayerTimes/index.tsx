@@ -37,7 +37,6 @@ function PrayerTimes() {
   };
 
   const loadData = useCallback((coordination: any[]) => {
-    console.log('coordination', coordination);
     loadPrayerTimes(coordination.join(";")).then((response) => {
       setPrayersData(response.data);
     });
