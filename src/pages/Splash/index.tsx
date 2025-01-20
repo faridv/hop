@@ -14,7 +14,7 @@ export function Splash({ toggleButton, buttonVisible }: {
   const [fadeIn, setFadeIn] = useState(false);
 
   const start = useCallback(() => {
-    navigate('/app');
+    navigate('app');
   }, [navigate]);
 
   useEffect(() => {
