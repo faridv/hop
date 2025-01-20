@@ -32,7 +32,7 @@ function SepehrMainPage({ categories, channels }: SepehrMainPageProps) {
       <SepehrStyled>
         <div className="powered-by">
           <span>قدرت گرفته از </span>
-          <img src='/sepehr-logo.png' alt='sepehr-logo'/>
+          <img src={`${process.env.PUBLIC_URL}/sepehr-logo.png`} alt='sepehr-logo'/>
         </div>
         <SepehrCategoriesContainerStyled ref={ref}>
           {categories.map((category, index) => (
