@@ -1,13 +1,17 @@
 import QuranSurahListItemStyled from './QuranSurahListItem';
 import { QuranSurahListStyled } from './style';
 import { FocusContext, useFocusable } from '@noriginmedia/norigin-spatial-navigation';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { Surah } from '../../types/quran-surah.model';
 import React from 'react';
 
 function QuranSurahList({ items }: { items: Surah[] }) {
 
-  const { ref, focusKey } = useFocusable();
+  const { ref, focusKey, focusSelf } = useFocusable();
+
+  useEffect(() => {
+    focusSelf();
+  }, [focusSelf]);
 
   const onItemFocused = useCallback(
     ({ y }: { y: number }) => {

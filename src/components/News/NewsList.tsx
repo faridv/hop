@@ -1,12 +1,16 @@
 import { NewsScrollWrapperStyled, NewsStyled } from '../../pages/News/style';
 import NewsListItem from './NewsListItem';
 import { FocusContext, useFocusable } from '@noriginmedia/norigin-spatial-navigation';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { News } from '../../types/news.model';
 
 function NewsList({ type, items }: any) {
 
-  const { ref, focusKey } = useFocusable();
+  const { ref, focusKey, focusSelf } = useFocusable();
+
+  useEffect(() => {
+      focusSelf();
+    }, [focusSelf]);
 
   const onItemFocused = useCallback(
     ({ y }: { y: number }) => {
