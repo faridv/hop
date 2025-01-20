@@ -37,7 +37,7 @@ export function Splash({ toggleButton, buttonVisible }: {
     <StyledSplash>
       {buttonVisible && (
         <StyledInitializer className={`app-initializer ${fadeIn ? 'fade-in' : ''} ${fadeOut ? 'fade-out' : ''}`} style={{ bottom: '40px', right: '40px' }}>
-          <img src="/redbutton3.png" alt="red,r" onClick={start}/>
+          <img src={`${process.env.PUBLIC_URL}/redbutton3.png`} alt="red,r" onClick={start}/>
         </StyledInitializer>
       )}
     </StyledSplash>
