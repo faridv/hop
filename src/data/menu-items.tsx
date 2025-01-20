@@ -1,76 +1,76 @@
-import { HomeIcon } from '../icons/Home';
-import { ScheduleIcon } from '../icons/Schedule';
-import { InfoCardIcon } from '../icons/InfoCard';
-import { NewspaperIcon } from '../icons/Newspaper';
-import { TVInfoIcon } from '../icons/TVInfo';
-import { QuestionIcon } from '../icons/Question';
-import { SunriseIcon } from '../icons/Sunrise';
-import { WeatherIcon } from '../icons/Weather';
-import { BookIcon } from '../icons/Book';
-import { GameIcon } from '../icons/Game';
-import { TVPlayIcon } from '../icons/TVPlay';
-import React from 'react';
-import { AntennaIcon } from '../icons/Antenna';
+import { HomeIcon } from "../icons/Home";
+import { ScheduleIcon } from "../icons/Schedule";
+import { InfoCardIcon } from "../icons/InfoCard";
+import { NewspaperIcon } from "../icons/Newspaper";
+import { TVInfoIcon } from "../icons/TVInfo";
+import { QuestionIcon } from "../icons/Question";
+import { SunriseIcon } from "../icons/Sunrise";
+import { WeatherIcon } from "../icons/Weather";
+import { BookIcon } from "../icons/Book";
+import { GameIcon } from "../icons/Game";
+import { TVPlayIcon } from "../icons/TVPlay";
+import React from "react";
+import { AntennaIcon } from "../icons/Antenna";
 
 export const menuItems = [
   {
-    title: 'رویدادها',
-    route: 'events',
-    icon: <HomeIcon/>,
+    title: "رویدادها",
+    route: "events",
+    icon: <HomeIcon />,
   },
   {
-    title: 'جدول پخش',
-    route: 'schedule',
-    icon: <ScheduleIcon/>,
+    title: "جدول پخش",
+    route: "schedule",
+    icon: <ScheduleIcon />,
   },
   {
-    title: 'معرفی برنامه‌ها',
-    route: 'programs',
-    icon: <InfoCardIcon/>,
+    title: "معرفی برنامه‌ها",
+    route: "programs",
+    icon: <InfoCardIcon />,
   },
   {
-    title: 'اخبار',
-    route: 'news',
-    icon: <NewspaperIcon/>,
+    title: "اخبار",
+    route: "news",
+    icon: <NewspaperIcon />,
   },
   {
-    title: 'درباره شبکه فراتر',
-    route: 'about',
-    icon: <TVInfoIcon/>,
+    title: "اوقات شرعی",
+    route: "prayers",
+    icon: <SunriseIcon />,
   },
   {
-    title: 'راهنمای دریافت',
-    route: 'frequencies',
-    icon: <AntennaIcon/>,
+    title: "آب و هوا",
+    route: "weather",
+    icon: <WeatherIcon />,
   },
   {
-    title: 'سوالات متداول',
-    route: 'faq',
-    icon: <QuestionIcon/>,
+    title: "قرآن کریم",
+    route: "quran",
+    icon: <BookIcon />,
   },
   {
-    title: 'اوقات شرعی',
-    route: 'prayers',
-    icon: <SunriseIcon/>,
+    title: "تلویزیون تعاملی",
+    route: "sepehr",
+    icon: <TVPlayIcon />,
   },
   {
-    title: 'آب و هوا',
-    route: 'weather',
-    icon: <WeatherIcon/>,
+    title: "درباره شبکه فراتر",
+    route: "about",
+    icon: <TVInfoIcon />,
   },
   {
-    title: 'قرآن کریم',
-    route: 'quran',
-    icon: <BookIcon/>,
+    title: "راهنمای دریافت",
+    route: "frequencies",
+    icon: <AntennaIcon />,
   },
   {
-    title: 'بازی',
-    route: 'games',
-    icon: <GameIcon/>,
+    title: "سوالات متداول",
+    route: "faq",
+    icon: <QuestionIcon />,
   },
   {
-    title: 'تلویزیون تعاملی',
-    route: 'sepehr',
-    icon: <TVPlayIcon/>,
+    title: "بازی",
+    route: "games",
+    icon: <GameIcon />,
   },
 ];

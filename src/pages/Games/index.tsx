@@ -1,10 +1,11 @@
 import React from "react";
+import { GamesStyled } from "./style";
 
 function Games() {
   return (
-    <div>
-      <h1>Games</h1>
-    </div>
+    <GamesStyled>
+      <h1>به زودی...</h1>
+    </GamesStyled>
   );
 }
 
