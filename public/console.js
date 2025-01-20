@@ -121,6 +121,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   consoleContainer = document.createElement('div'); // Initialize consoleContainer here
+  consoleContainer.style.direction = 'ltr';
   consoleContainer.style.position = 'fixed';
   consoleContainer.style.bottom = '0';
   consoleContainer.style.left = '0';
