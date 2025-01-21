@@ -1,11 +1,14 @@
 import styled from 'styled-components';
 
+const backgrounds: string[] = [
+  `url(${process.env.PUBLIC_URL}/bg-overlay.png)`,
+  `url(${process.env.PUBLIC_URL}/bg.jpg)`,
+];
+
 export const LayoutStyled = styled.div`
     height: 100%;
     width: 100%;
-    background: url('/path/to/bg-overlay.png'),
-    linear-gradient(0deg, rgba(0, 0, 0, .1), rgba(0, 0, 0, .1)),
-    url('/path/to/bg.jpg');
+    background: ${backgrounds[0]}, linear-gradient(0deg, rgba(0, 0, 0, .1), rgba(0, 0, 0, .1)), ${backgrounds[1]};
     background-size: auto, auto, 100% auto;
     background-position: center, center, top center;
     background-repeat: repeat, no-repeat, no-repeat;
