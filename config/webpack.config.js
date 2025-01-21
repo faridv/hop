@@ -575,11 +575,11 @@ module.exports = function (webpackEnv) {
             ? {
                 minify: {
                   removeComments: true,
-                  collapseWhitespace: true,
+                  collapseWhitespace: false,
                   removeRedundantAttributes: true,
-                  useShortDoctype: true,
-                  removeEmptyAttributes: true,
-                  removeStyleLinkTypeAttributes: true,
+                  useShortDoctype: false,
+                  removeEmptyAttributes: false,
+                  removeStyleLinkTypeAttributes: false,
                   keepClosingSlash: true,
                   minifyJS: true,
                   minifyCSS: true,
