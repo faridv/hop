@@ -431,7 +431,12 @@ module.exports = function (webpackEnv) {
                     '@babel/preset-typescript',
                     { allowDeclareFields: true },
                   ],
-                  '@babel/preset-react',
+                  [
+                    "@babel/preset-react", 
+                    {
+                      runtime: "automatic",
+                    },
+                  ],
                   [
                     '@babel/preset-env',
                     {
