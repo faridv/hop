@@ -15,10 +15,14 @@ function QuranSurahList({ items }: { items: Surah[] }) {
 
   const onItemFocused = useCallback(
     ({ y }: { y: number }) => {
-      ref.current.scrollTo({
-        top: y > 150 ? y - 150 : 0,
-        behavior: 'smooth'
-      });
+      try {
+        ref.current.scrollTo({
+          top: y > 150 ? y - 150 : 0,
+          behavior: "smooth",
+        });
+      } catch (e) {
+        console.log(e);
+      }
     },
     [ref]
   );

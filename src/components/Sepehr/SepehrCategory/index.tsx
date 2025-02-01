@@ -30,10 +30,14 @@ function SepehrCategory({
 
   const onAssetFocus = useCallback(
     ({ x }: { x: number }) => {
-      (scrollingRef!.current! as any).scrollTo({
-        left: x,
-        behavior: "smooth",
-      });
+      try {
+        (scrollingRef!.current! as any).scrollTo({
+          left: x,
+          behavior: "smooth",
+        });
+      } catch (e) {
+        console.log(e);
+      }
     },
     [scrollingRef]
   );

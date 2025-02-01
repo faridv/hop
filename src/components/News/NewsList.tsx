@@ -14,12 +14,17 @@ function NewsList({ type, items }: any) {
 
   const onItemFocused = useCallback(
     ({ y }: { y: number }) => {
-      ref.current.scrollTo({
-        top: y,
-        behavior: 'smooth'
-      });
+      try {
+        ref.current.scrollTo({
+          top: y,
+          behavior: 'smooth'
+        });
+      } catch (e) {
+        console.log('failed');
+        // ignore for now
+      }
     },
-    [ref]
+    [ref.current]
   );
 
   return (

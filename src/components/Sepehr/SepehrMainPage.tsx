@@ -19,10 +19,14 @@ function SepehrMainPage({ categories, channels }: SepehrMainPageProps) {
 
   const onItemFocused = useCallback(
     ({ y }: { y: number }) => {
-      ref.current.scrollTo({
-        top: y,
-        behavior: 'smooth'
-      });
+      try {
+        ref.current.scrollTo({
+          top: y,
+          behavior: 'smooth'
+        });
+      } catch (e) {
+        console.log(e);
+      }
     },
     [ref]
   );

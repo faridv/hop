@@ -11,10 +11,14 @@ function QuranSurahDetail({ items }: { items: SurahDetail[] }) {
 
   const onItemFocused = useCallback(
     ({ y }: { y: number }) => {
-      ref.current.scrollTo({
-        top: y > 50 ? y - 50 : 0,
-        behavior: 'smooth'
-      });
+      try {
+        ref.current.scrollTo({
+          top: y > 50 ? y - 50 : 0,
+          behavior: 'smooth'
+        });
+      } catch (e) {
+        console.log(e);
+      }
     },
     [ref]
   );
