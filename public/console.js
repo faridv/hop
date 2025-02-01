@@ -149,7 +149,7 @@ if (typeof window.addEventListener === 'function') {
       var KeyEvent = typeof window['KeyEvent'] !== 'undefined' ? window['KeyEvent'] : {};
       window.addEventListener('keydown', function (event) {
         var key = event.key || event.keyCode;
-        if (key === '0' || key === (KeyEvent.VK_0 || 48)) {  // 48 is keyCode for '0'
+        if (key === '0' || key === (KeyEvent.VK_BLUE || 406)) {  // 48 is keyCode for '0'
           keyPressCount++;
           if (keyPressCount === 4) {
             consoleVisible = !consoleVisible;
