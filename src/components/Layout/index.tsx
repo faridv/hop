@@ -10,9 +10,14 @@ import Info from "../Info";
 
 function Layout(/*{ children }: { children: React.ReactNode }*/) {
   const [showInfo, setShowInfo] = useState<boolean>(false);
+  const [appVisible, setAppVisible] = useState<boolean>(true);
   const { register } = useKeyboardEvents("layout");
   const { destroy } = useAppManager();
   const navigate = useNavigate();
+
+  const toggleAppVisibility = () => {
+    setAppVisible((prevAppVisible) => !prevAppVisible);
+  };
 
   useEffect(() => {
     register("back,backspace", () => {
@@ -21,7 +26,7 @@ function Layout(/*{ children }: { children: React.ReactNode }*/) {
       navigate(-1);
     });
     register("red,r", () => {
-      destroy();
+      toggleAppVisibility();
     });
     register("yellow,y", () => {
       setShowInfo((prevShowInfo) => !prevShowInfo);
@@ -36,7 +41,7 @@ function Layout(/*{ children }: { children: React.ReactNode }*/) {
   });
 
   return (
-    <LayoutStyled>
+    <LayoutStyled appVisible={appVisible}>
       <Header />
       <Drawer focusKey="MENU" />
       <div id="content">

@@ -5,7 +5,8 @@ const backgrounds: string[] = [
   `url(${process.env.PUBLIC_URL}/bg.jpg)`,
 ];
 
-export const LayoutStyled = styled.div`
+export const LayoutStyled = styled.div<{ appVisible: boolean }>`
+    display: ${(props) => (props.appVisible ? 'block' : 'none')};
     position: relative;
     z-index: 999;
     height: 100%;
