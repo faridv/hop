@@ -6,6 +6,8 @@ const backgrounds: string[] = [
 ];
 
 export const LayoutStyled = styled.div`
+    position: relative;
+    z-index: 999;
     height: 100%;
     width: 100%;
     background: ${backgrounds[0]}, linear-gradient(0deg, rgba(0, 0, 0, .1), rgba(0, 0, 0, .1)), ${backgrounds[1]};
