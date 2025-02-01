@@ -22,5 +22,5 @@ function MainRouting() {
     </BrowserRouter>
   )
 }
- 
+
 export default MainRouting;
