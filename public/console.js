@@ -1,3 +1,5 @@
+'use strict';
+
 var keyPressCount = 0;
 var consoleVisible = false;
 var logBuffer = [];
@@ -47,7 +49,11 @@ var logMessage = function (type, message, style) {
   }
 
   if (typeof message === 'object') {
-    message = safeStringify(message);
+    try {
+      message = safeStringify(message);
+    } catch (e) {
+      message = String(message);
+    }
   }
 
   if (style) {
@@ -109,50 +115,70 @@ console.info = function (message) {
   bufferLogMessage('INFO', message, style);
 };
 
-window.addEventListener('error', function (event) {
-  bufferLogMessage('EXCEPTION', event.message);
-});
+if (typeof window.addEventListener === 'function') {
+  window.addEventListener('error', function (event) {
+    bufferLogMessage('EXCEPTION', event.message);
+  });
 
-document.addEventListener('DOMContentLoaded', function () {
-  var developerDiv = document.getElementById('developer');
-  if (!developerDiv) {
-    console.error('Developer div not found');
-    return;
-  }
+  document.addEventListener('DOMContentLoaded', function () {
+    var developerDiv = document.getElementById('developer');
+    if (!developerDiv) {
+      console.error('Developer div not found');
+      return;
+    }
 
-  consoleContainer = document.createElement('div'); // Initialize consoleContainer here
-  consoleContainer.style.direction = 'ltr';
-  consoleContainer.style.position = 'fixed';
-  consoleContainer.style.bottom = '0';
-  consoleContainer.style.left = '0';
-  consoleContainer.style.width = '100%';
-  consoleContainer.style.height = '200px';
-  consoleContainer.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
-  consoleContainer.style.color = 'white';
-  consoleContainer.style.overflowY = 'scroll';
-  consoleContainer.style.display = 'none';
-  consoleContainer.style.zIndex = '10000';
-  consoleContainer.style.fontFamily = 'monospace';
-  consoleContainer.style.padding = '10px';
-  consoleContainer.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.5)';
-  consoleContainer.style.borderTop = '2px solid #444';
-  developerDiv.appendChild(consoleContainer);
+    consoleContainer = document.createElement('div'); // Initialize consoleContainer here
+    consoleContainer.style.direction = 'ltr';
+    consoleContainer.style.position = 'fixed';
+    consoleContainer.style.bottom = '0';
+    consoleContainer.style.left = '0';
+    consoleContainer.style.width = '100%';
+    consoleContainer.style.height = '200px';
+    consoleContainer.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
+    consoleContainer.style.color = 'white';
+    consoleContainer.style.overflowY = 'scroll';
+    consoleContainer.style.display = 'none';
+    consoleContainer.style.zIndex = '10000';
+    consoleContainer.style.fontFamily = 'monospace';
+    consoleContainer.style.padding = '10px';
+    consoleContainer.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.5)';
+    consoleContainer.style.borderTop = '2px solid #444';
+    developerDiv.appendChild(consoleContainer);
 
-  window.addEventListener('keydown', function (event) {
-    if (event.key === '0') {
-      keyPressCount++;
-      if (keyPressCount === 4) {
-        consoleVisible = !consoleVisible;
-        consoleContainer.style.display = consoleVisible ? 'block' : 'none';
-        if (consoleVisible) {
-          logBuffer.forEach(function (log) {
-            logMessage(log.type, log.message, log.style);
-          });
+    if (typeof window.addEventListener === 'function') { 
+      window.addEventListener('keydown', function (event) {
+        var key = event.key || event.keyCode;
+        if (key === '0' || key === 48) {  // 48 is keyCode for '0'
+          keyPressCount++;
+          if (keyPressCount === 4) {
+            consoleVisible = !consoleVisible;
+            consoleContainer.style.display = consoleVisible ? 'block' : 'none';
+            if (consoleVisible) {
+              for (var i = 0; i < logBuffer.length; i++) {
+                var log = logBuffer[i];
+                logMessage(log.type, log.message, log.style);
+              }
+            }
+            keyPressCount = 0;
+          }
+        } else {
+          keyPressCount = 0;
         }
-        keyPressCount = 0;
-      }
-    } else {
-      keyPressCount = 0;
+      });
     }
   });
-});
+} else {
+  // Fallback for older browsers
+  if (window.attachEvent) {
+    window.attachEvent('onerror', function (event) {
+      bufferLogMessage('EXCEPTION', event.message);
+    });
+    
+    document.attachEvent('onreadystatechange', function () {
+      if (document.readyState === 'complete') {
+        // Initialize console here
+        // Similar code as above but using attachEvent
+      }
+    });
+  }
+}
