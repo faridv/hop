@@ -417,10 +417,11 @@ module.exports = function (webpackEnv) {
               include: [
                 paths.appSrc,
                 path.resolve(__dirname, '../node_modules/axios'), // Explicitly include axios
+                path.resolve(__dirname, '../node_modules/react'), // Explicitly include react
                 path.resolve(__dirname, '../node_modules/react-dom'), // Explicitly include react-dom
                 path.resolve(__dirname, '../node_modules/react-router'), // Explicitly include react-router
-                path.resolve(__dirname, '../node_modules/react-router-dom'), // Explicitly include react-router
-                path.resolve(__dirname, '../node_modules/turbo-stream'), // Explicitly include react-router
+                path.resolve(__dirname, '../node_modules/react-router-dom'), // Explicitly include react-router-dom
+                path.resolve(__dirname, '../node_modules/turbo-stream'), // Explicitly include turbo-stream
               ],
               loader: require.resolve('babel-loader'),
               options: {
