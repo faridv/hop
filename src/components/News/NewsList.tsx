@@ -9,11 +9,11 @@ function NewsList({ type, items }: any) {
   const { ref, focusKey, focusSelf } = useFocusable();
 
   useEffect(() => {
-      focusSelf();
-    }, [focusSelf]);
+    focusSelf();
+  }, [focusSelf]);
 
-  const onItemFocused = useCallback(
-    ({ y }: { y: number }) => {
+  const onItemFocused = useCallback(({ y }: { y: number }) => {
+    if (ref.current) {
       try {
         ref.current.scrollTo({
           top: y,
@@ -23,9 +23,10 @@ function NewsList({ type, items }: any) {
         console.log('failed');
         // ignore for now
       }
-    },
-    [ref.current]
-  );
+    } else {
+      console.log('ref is not assigned yet');
+    }
+  }, []);
 
   return (
     <FocusContext.Provider value={focusKey}>
