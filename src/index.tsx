@@ -1,11 +1,11 @@
-import 'core-js/stable/symbol';
-import './polyfill';
 import React from 'react';
 import ReactDOM, { Root } from 'react-dom/client';
 import './index.css';
 import HOP from './Hop';
+import smoothscroll from 'smoothscroll-polyfill';
 // import reportWebVitals from './reportWebVitals';
 
+smoothscroll.polyfill();
 
 const rootElement: HTMLElement = document.getElementById('hop') as HTMLElement;
 const root: Root = ReactDOM.createRoot(rootElement);

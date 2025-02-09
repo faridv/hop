@@ -15,17 +15,20 @@ function NewsList({ type, items }: any) {
   const onItemFocused = useCallback(({ y }: { y: number }) => {
     if (ref.current) {
       try {
+        console.log(ref);
         ref.current.scrollTo({
           top: y,
           behavior: 'smooth'
         });
       } catch (e) {
         console.log('failed');
+        console.log(e);
         // ignore for now
       }
     } else {
       console.log('ref is not assigned yet');
     }
+    // eslint-disable-next-line
   }, []);
 
   return (

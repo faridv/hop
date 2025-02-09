@@ -413,6 +413,10 @@ module.exports = function (webpackEnv) {
             // Process application JS with Babel.
             // The preset includes JSX, Flow, TypeScript, and some ESnext features.
             {
+              test: /\.m?js/,
+              resolve: { fullySpecified: false },
+            },
+            {
               test: /\.(js|mjs|cjs|jsx|ts|tsx)$/,
               include: [
                 paths.appSrc,
@@ -441,53 +445,19 @@ module.exports = function (webpackEnv) {
                     '@babel/preset-env',
                     {
                       targets: { ie: '9' },
-                      useBuiltIns: false,
-                      forceAllTransforms: true,
+                      useBuiltIns: isEnvDevelopment ? 'usage' : false,
+                      forceAllTransforms: isEnvProduction,
                       modules: 'commonjs',
                       debug: true,
+                      corejs: isEnvDevelopment ? 3 : false,
                     },
                   ],
                 ],
                 plugins: [
+                  // ["@mrhenry/core-web", { corejs: isEnvDevelopment ? 3 : false }],
                   [
                     '@babel/plugin-transform-typescript',
-                    {
-                      loose: false,
-                    }
-                  ],
-                  [
-                    '@babel/plugin-transform-runtime',
-                    {
-                      regenerator: true,
-                      corejs: false,
-                      loose: false,
-                      helpers: false,
-                    },
-                  ],
-                  [
-                    '@babel/plugin-transform-class-properties',
-                    {
-                      loose: false,
-                    }
-                  ],
-                  [
-                    '@babel/plugin-transform-object-assign',
-                    {
-                      loose: false,
-                    }
-                  ],
-                  [
-                    '@babel/plugin-transform-private-property-in-object',
-                    {
-                      loose: false,
-                    }
-                  ],
-                  [
-                    '@babel/plugin-transform-private-methods',
-                    {
-                      loose: false,
-                    }
-                  ],
+                  ]
                 ],
               },
             },
